@@ -46,7 +46,7 @@ const SignUp = () => {
   const [nickName, setNickName] = useState('');
   const [nickNameCheck, setNickNameCheck] = useState(false);
   const [phonNumber, setPhonNumber] = useState('');
-  const [adminCord,setAdminCord] = useState('');
+  const [adminCord, setAdminCord] = useState('');
   const [visible, setVisible] = useState(false);
 
   const dispatch = useDispatch();
@@ -260,7 +260,7 @@ const SignUp = () => {
   //   [password, passwordCheck]
   // );
 
-  const handlePhonNumber = useCallback((event) =>{
+  const handlePhonNumber = useCallback((event) => {
     const regex = /^[0-9\b -]{0,13}$/;
     if (regex.test(event.target.value)) {
       setPhonNumber(event.target.value);
@@ -280,8 +280,8 @@ const SignUp = () => {
     }
   }, [phonNumber]);
 
-  const handleAdminCord = useCallback((event) =>{
-    setAdminCord(event.target.value)
+  const handleAdminCord = useCallback((event) => {
+    setAdminCord(event.target.value);
   });
 
   const signUpAccount = useCallback(
@@ -303,12 +303,11 @@ const SignUp = () => {
           passwordRef.current.style.innerText = '';
           passwordCheckRef.current.focus();
           passwordCheckSpanRef.current.innerText = '입력한 비밀번호와 다릅니다';
-        } else if (nickNameCheck === false){
+        } else if (nickNameCheck === false) {
           nickNameRef.current.focus();
           nickNameSpanRef.current.style.color = '#f2153e';
           nickNameSpanRef.current.innerText = '중복되는 이메일입니다';
-        }
-         else {
+        } else {
           console.log(newUser);
           dispatch(addUserThunk(newUser));
           alert('회원가입 완료');
@@ -475,34 +474,38 @@ const SignUp = () => {
               <SignUpAlertSpan ref={phonNumberSpanRef}></SignUpAlertSpan>
             </SignUpDataGroup>
 
-            {visible===true ?
-            (<SignUpDataGroup>
-              <SignUpDataSpan>관리자 코드</SignUpDataSpan>
-              <SignUpDataInputGroup>
-                <SignUpDataInputIcon ref={adminInputRef}></SignUpDataInputIcon>
-                <Input
-                  type={'text'}
-                  value={adminCord}
-                  _onChange={handleAdminCord}
-                  style={{
-                    width: '100%',
-                    height: '40px',
-                    pd_left: '10px',
-                    pd_right: '30px',
-                  }}
-                />
-              </SignUpDataInputGroup>
-              <SignUpAlertSpan ref={adminCordSpanRef}></SignUpAlertSpan>
-            </SignUpDataGroup>)
-            :''}
+            {visible === true ? (
+              <SignUpDataGroup>
+                <SignUpDataSpan>관리자 코드</SignUpDataSpan>
+                <SignUpDataInputGroup>
+                  <SignUpDataInputIcon
+                    ref={adminInputRef}
+                  ></SignUpDataInputIcon>
+                  <Input
+                    type={'text'}
+                    value={adminCord}
+                    _onChange={handleAdminCord}
+                    style={{
+                      width: '100%',
+                      height: '40px',
+                      pd_left: '10px',
+                      pd_right: '30px',
+                    }}
+                  />
+                </SignUpDataInputGroup>
+                <SignUpAlertSpan ref={adminCordSpanRef}></SignUpAlertSpan>
+              </SignUpDataGroup>
+            ) : (
+              ''
+            )}
 
             <SignUpDataAgreement>
               <SignUpDataAgreementSpan>
-              <button
+                <button
                   type={'checkbox'}
                   style={{ width: '14px', height: '15px' }}
-                  onClick={()=>{
-                    setVisible(!visible)                  
+                  onClick={() => {
+                    setVisible(!visible);
                   }}
                 />
                 관리자로 가입하기
