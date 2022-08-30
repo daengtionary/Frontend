@@ -30,7 +30,7 @@ import {
 
 const SignIn = () => {
   // const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-  // const REDIRECT_URI = 'http://watchao-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/kakao/callback';
+  // const REDIRECT_URI = 'http://localhost:3000/kakao/callback';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -114,7 +114,7 @@ const SignIn = () => {
                 type={'button'}
                 text={'카카오 로그인'}
                 // _onClick={() => {
-                  // window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+                //   window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
                 // }}
                 style={{
                   width: '100%',
@@ -129,7 +129,6 @@ const SignIn = () => {
           </SignInLoginButtonGroup>
         </SignInLoginContainer>
         <SignInSignUpContainer>
-          {/* <SignInSignUpTitle>회원가입</SignInSignUpTitle> */}
           <SignInSignUpNotice>
             <SignInSignUpNoticeSpan>
               회원가입을 하시면, 주문 조회와 개인정보 관리 및 위시리스트 확인 등
@@ -165,12 +164,6 @@ export const SignInSignUpContainer = styled.div`
   height: 166px;
 `;
 
-export const SignInSignUpTitle = styled.span`
-  font-family: AppleSDGothicNeoEB;
-  width: 100%;
-  font-size: 17px;
-  text-align: left;
-`;
 export const SignInSignUpNotice = styled.div`
   box-sizing: border-box;
   margin-top: 25px;
@@ -180,7 +173,6 @@ export const SignInSignUpNotice = styled.div`
 `;
 
 export const SignInSignUpNoticeSpan = styled.span`
-  font-family: AppleSDGothicNeoL;
   font-size: 14px;
   line-height: 25px;
 `;

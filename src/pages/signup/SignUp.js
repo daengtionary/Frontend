@@ -3,7 +3,11 @@ import { useRef, useState, useCallback, useEffect, Fragment } from 'react';
 
 // Redux import
 import { useDispatch } from 'react-redux/es/exports';
-import { emailDupCheckThunk, addUserThunk } from '../../redux/modules/user';
+import {
+  emailDupCheckThunk,
+  addUserThunk,
+  nickNameDupCheckThunk,
+} from '../../redux/modules/user';
 
 // Package import
 import { useNavigate } from 'react-router-dom';
@@ -14,8 +18,6 @@ import { debounce } from 'lodash';
 // Component & Element import
 import Button from '../../elements/button/Button';
 import Input from '../../elements/input/Input';
-
-
 
 // Style import
 import {
@@ -38,11 +40,14 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [emailCheck, setEmailCheck] = useState(false);
   const [password, setPassword] = useState('');
-  const [passwordView, setPasswordView] = useState(false);
+  // const [passwordView, setPasswordView] = useState(false);
   const [passwordCheck, setPasswordCheck] = useState('');
-  const [passwordCheckView, setPasswordCheckView] = useState(false);
-  const [name, setName] = useState('');
-  const [phonNumber, setPhonNumber] =useState('');
+  // const [passwordCheckView, setPasswordCheckView] = useState(false);
+  const [nickName, setNickName] = useState('');
+  const [nickNameCheck, setNickNameCheck] = useState(false);
+  const [phonNumber, setPhonNumber] = useState('');
+  const [adminCord,setAdminCord] = useState('');
+  const [visible, setVisible] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -56,10 +61,14 @@ const SignUp = () => {
   const passwordCheckRef = useRef();
   const passwordCheckSpanRef = useRef();
   const passwordCheckIconRef = useRef();
-  const nameSpanRef = useRef();
-  const nameIconRef = useRef();
+  const nickNameRef = useRef();
+  const nickNameSpanRef = useRef();
+  const nickNameIconRef = useRef();
   const phonNumberIconRef = useRef();
   const phonNumberSpanRef = useRef();
+
+  const adminInputRef = useRef();
+  const adminCordSpanRef = useRef();
 
   const strengthBarRef = useRef();
 
@@ -70,10 +79,12 @@ const SignUp = () => {
   const emailRegExp =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
+  const nickNameRegExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
+
   const newUser = {
     email,
     password,
-    name,
+    nickName,
     phonNumber,
     admin: false,
     adminToken: '',
@@ -87,11 +98,11 @@ const SignUp = () => {
     if (passwordCheck !== '')
       passwordCheckIconRef.current.style.display = 'block';
     else passwordCheckIconRef.current.style.display = 'none';
-    if (name !== '') nameIconRef.current.style.display = 'block';
-    else nameIconRef.current.style.display = 'none';
-    if (phonNumber !== '') phonNumberIconRef.current.style.display ='block';
+    if (nickName !== '') nickNameIconRef.current.style.display = 'block';
+    else nickNameIconRef.current.style.display = 'none';
+    if (phonNumber !== '') phonNumberIconRef.current.style.display = 'block';
     else phonNumberIconRef.current.style.display = 'none';
-  }, [email, password, passwordCheck, name, phonNumber]);
+  }, [email, password, passwordCheck, nickName, phonNumber]);
 
   useEffect(() => {
     if (password === '' && passwordCheck === '') {
@@ -141,6 +152,30 @@ const SignUp = () => {
     [email]
   );
 
+  const checkLoginNickName = useCallback(
+    debounce((nickName) => {
+      if (nickNameRegExp.test(nickName) === false) {
+        nickNameSpanRef.current.innerText = '닉네임 형식에 맞지 않습니다';
+        nickNameSpanRef.current.style.color = '#f2153e';
+        setNickNameCheck(false);
+      } else {
+        dispatch(nickNameDupCheckThunk({ nickName })).then((res) => {
+          console.log(res.payload);
+          if (res.payload) {
+            nickNameSpanRef.current.innerText = '사용가능한 닉네임입니다';
+            nickNameSpanRef.current.style.color = '#0fe05f';
+            setNickName(true);
+          } else {
+            nickNameSpanRef.current.innerText = '중복되는 닉네임입니다';
+            nickNameSpanRef.current.style.color = '#f2153e';
+            setNickName(false);
+          }
+        });
+      }
+    }, 500),
+    [email]
+  );
+
   useEffect(() => {
     if (email !== '') {
       checkLoginId(email);
@@ -150,87 +185,104 @@ const SignUp = () => {
     }
   }, [email]);
 
-  const deleteText = useCallback(
-    (state) => {
-      switch (state) {
-        case 'email': {
-          setEmail('');
-          break;
-        }
-        case 'password': {
-          setPassword('');
-          break;
-        }
-        case 'passwordCheck': {
-          setPasswordCheck('');
-          break;
-        }
-        case 'name': {
-          setName('');
-          break;
-        }
-        default:
-          break;
-      }
-    },
-    [email, password, passwordCheck, name]
-  );
-
-  const viewPassword = useCallback(
-    (state) => {
-      switch (state) {
-        case 'password': {
-          if (password === '') {
-            break;
-          } else {
-            const type = passwordRef.current.type;
-            if (type === 'password') {
-              passwordRef.current.type = 'text';
-              setPasswordView(true);
-            } else {
-              passwordRef.current.type = 'password';
-              setPasswordView(false);
-            }
-            break;
-          }
-        }
-        case 'passwordCheck': {
-          if (passwordCheck === '') {
-            break;
-          } else {
-            const type = passwordCheckRef.current.type;
-            if (type === 'password') {
-              passwordCheckRef.current.type = 'text';
-              setPasswordCheckView(true);
-            } else {
-              passwordCheckRef.current.type = 'password';
-              setPasswordCheckView(false);
-            }
-            break;
-          }
-        }
-        default:
-          break;
-      }
-    },
-    [password, passwordCheck]
-  );
-  
-  const handlePhonNumber = (e) =>{
-    const regex = /^[0-9\b -]{0,13}$/;
-    if (regex.test(e.target.value)) {
-      setPhonNumber(e.target.value);
+  useEffect(() => {
+    if (nickName !== '') {
+      checkLoginNickName(nickName);
+    } else {
+      nickNameSpanRef.current.innerText = '';
+      nickNameSpanRef.current.style.color = '';
     }
-  }
+  }, [nickName]);
+
+  // const deleteText = useCallback(
+  //   (state) => {
+  //     switch (state) {
+  //       case 'email': {
+  //         setEmail('');
+  //         break;
+  //       }
+  //       case 'password': {
+  //         setPassword('');
+  //         break;
+  //       }
+  //       case 'passwordCheck': {
+  //         setPasswordCheck('');
+  //         break;
+  //       }
+  //       case 'nickName': {
+  //         setNickName('');
+  //         break;
+  //       }
+  //       default:
+  //         break;
+  //     }
+  //   },
+  //   [email, password, passwordCheck, nickName]
+  // );
+
+  // const viewPassword = useCallback(
+  //   (state) => {
+  //     switch (state) {
+  //       case 'password': {
+  //         if (password === '') {
+  //           break;
+  //         } else {
+  //           const type = passwordRef.current.type;
+  //           if (type === 'password') {
+  //             passwordRef.current.type = 'text';
+  //             setPasswordView(true);
+  //           } else {
+  //             passwordRef.current.type = 'password';
+  //             setPasswordView(false);
+  //           }
+  //           break;
+  //         }
+  //       }
+  //       case 'passwordCheck': {
+  //         if (passwordCheck === '') {
+  //           break;
+  //         } else {
+  //           const type = passwordCheckRef.current.type;
+  //           if (type === 'password') {
+  //             passwordCheckRef.current.type = 'text';
+  //             setPasswordCheckView(true);
+  //           } else {
+  //             passwordCheckRef.current.type = 'password';
+  //             setPasswordCheckView(false);
+  //           }
+  //           break;
+  //         }
+  //       }
+  //       default:
+  //         break;
+  //     }
+  //   },
+  //   [password, passwordCheck]
+  // );
+
+  const handlePhonNumber = useCallback((event) =>{
+    const regex = /^[0-9\b -]{0,13}$/;
+    if (regex.test(event.target.value)) {
+      setPhonNumber(event.target.value);
+    }
+  });
 
   useEffect(() => {
     if (phonNumber.length === 10) {
       setPhonNumber(phonNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
     }
     if (phonNumber.length === 13) {
-      setPhonNumber(phonNumber.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
+      setPhonNumber(
+        phonNumber
+          .replace(/-/g, '')
+          .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+      );
     }
   }, [phonNumber]);
+
+  const handleAdminCord = useCallback((event) =>{
+    setAdminCord(event.target.value)
+  });
 
   const signUpAccount = useCallback(
     (event) => {
@@ -251,7 +303,12 @@ const SignUp = () => {
           passwordRef.current.style.innerText = '';
           passwordCheckRef.current.focus();
           passwordCheckSpanRef.current.innerText = '입력한 비밀번호와 다릅니다';
-        } else {
+        } else if (nickNameCheck === false){
+          nickNameRef.current.focus();
+          nickNameSpanRef.current.style.color = '#f2153e';
+          nickNameSpanRef.current.innerText = '중복되는 이메일입니다';
+        }
+         else {
           console.log(newUser);
           dispatch(addUserThunk(newUser));
           alert('회원가입 완료');
@@ -259,13 +316,12 @@ const SignUp = () => {
         }
       }
     },
-    [email, password, passwordCheck, name, phonNumber] 
+    [email, password, passwordCheck, nickName, phonNumber]
   );
 
   return (
     <Fragment>
- 
-      <SignUpBox 
+      <SignUpBox
       // mg_bottom= {isSmallScreen ? '140px' : '200px'}
       >
         <SignUpBoxContainer>
@@ -374,16 +430,16 @@ const SignUp = () => {
             <SignUpDataGroup>
               <SignUpDataSpan>닉네임</SignUpDataSpan>
               <SignUpDataInputGroup>
-                <SignUpDataInputIcon ref={nameIconRef}>
+                <SignUpDataInputIcon ref={nickNameIconRef}>
                   {/* <TiDeleteOutline
                     className="icon-cancel"
-                    onClick={() => deleteText('name')}
+                    onClick={() => deleteText('nickName')}
                   /> */}
                 </SignUpDataInputIcon>
                 <Input
                   type={'text'}
-                  value={name}
-                  _onChange={(e) => setName(e.target.value)}
+                  value={nickName}
+                  _onChange={(e) => setNickName(e.target.value)}
                   style={{
                     width: '100%',
                     height: '40px',
@@ -392,7 +448,7 @@ const SignUp = () => {
                   }}
                 />
               </SignUpDataInputGroup>
-              <SignUpAlertSpan ref={nameSpanRef}></SignUpAlertSpan>
+              <SignUpAlertSpan ref={nickNameSpanRef}></SignUpAlertSpan>
             </SignUpDataGroup>
 
             <SignUpDataGroup>
@@ -401,7 +457,7 @@ const SignUp = () => {
                 <SignUpDataInputIcon ref={phonNumberIconRef}>
                   {/* <TiDeleteOutline
                     className="icon-cancel"
-                    onClick={() => deleteText('name')}
+                    onClick={() => deleteText('nickName')}
                   /> */}
                 </SignUpDataInputIcon>
                 <Input
@@ -419,6 +475,39 @@ const SignUp = () => {
               <SignUpAlertSpan ref={phonNumberSpanRef}></SignUpAlertSpan>
             </SignUpDataGroup>
 
+            {visible===true ?
+            (<SignUpDataGroup>
+              <SignUpDataSpan>관리자 코드</SignUpDataSpan>
+              <SignUpDataInputGroup>
+                <SignUpDataInputIcon ref={adminInputRef}></SignUpDataInputIcon>
+                <Input
+                  type={'text'}
+                  value={adminCord}
+                  _onChange={handleAdminCord}
+                  style={{
+                    width: '100%',
+                    height: '40px',
+                    pd_left: '10px',
+                    pd_right: '30px',
+                  }}
+                />
+              </SignUpDataInputGroup>
+              <SignUpAlertSpan ref={adminCordSpanRef}></SignUpAlertSpan>
+            </SignUpDataGroup>)
+            :''}
+
+            <SignUpDataAgreement>
+              <SignUpDataAgreementSpan>
+              <button
+                  type={'checkbox'}
+                  style={{ width: '14px', height: '15px' }}
+                  onClick={()=>{
+                    setVisible(!visible)                  
+                  }}
+                />
+                관리자로 가입하기
+              </SignUpDataAgreementSpan>
+            </SignUpDataAgreement>
 
             <SignUpDataAgreementGroup>
               <SignUpDataAgreement>
