@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux/es/exports';
 import { signUserThunk } from '../../redux/modules/user';
 
 // Package import
-// import { AiFillMessage } from 'react-icons/ai';
+import { AiFillMessage } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 // import { useMediaQuery } from 'react-responsive';
 
@@ -29,8 +29,8 @@ import {
 } from './SignIn.styled';
 
 const SignIn = () => {
-  // const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-  // const REDIRECT_URI = 'http://localhost:3000/kakao/callback';
+  const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const REDIRECT_URI = 'http://localhost:3000/kakao/callback';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -109,13 +109,13 @@ const SignIn = () => {
               }}
             />
             <SignInLoginButtonKakao>
-              {/* <AiFillMessage className="icon" /> */}
+              <AiFillMessage className="icon" />
               <Button
                 type={'button'}
                 text={'카카오 로그인'}
-                // _onClick={() => {
-                //   window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-                // }}
+                _onClick={() => {
+                  window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+                }}
                 style={{
                   width: '100%',
                   height: '40px',

@@ -13,7 +13,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 // import { useMediaQuery } from 'react-responsive';
 import { debounce } from 'lodash';
-// import PasswordStrengthBar from 'react-password-strength-bar';
+import { TiDeleteOutline } from 'react-icons/ti';
+import { BiShow, BiHide } from 'react-icons/bi';
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 // Component & Element import
 import Button from '../../elements/button/Button';
@@ -38,14 +40,13 @@ import {
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
-  const [emailCheck, setEmailCheck] = useState(false);
+  const [emailCheck, setEmailCheck] = useState(true);
   const [password, setPassword] = useState('');
-  // const [passwordView, setPasswordView] = useState(false);
+  const [passwordView, setPasswordView] = useState(false);
   const [passwordCheck, setPasswordCheck] = useState('');
-  // const [passwordCheckView, setPasswordCheckView] = useState(false);
-  const [nickName, setNickName] = useState('');
-  const [nickNameCheck, setNickNameCheck] = useState(false);
-  const [phonNumber, setPhonNumber] = useState('');
+  const [passwordCheckView, setPasswordCheckView] = useState(false);
+  const [nick, setNick] = useState('');
+  const [nickCheck, setNickCheck] = useState(true);
   const [adminCord, setAdminCord] = useState('');
   const [visible, setVisible] = useState(false);
 
@@ -64,8 +65,6 @@ const SignUp = () => {
   const nickNameRef = useRef();
   const nickNameSpanRef = useRef();
   const nickNameIconRef = useRef();
-  const phonNumberIconRef = useRef();
-  const phonNumberSpanRef = useRef();
 
   const adminInputRef = useRef();
   const adminCordSpanRef = useRef();
@@ -82,12 +81,11 @@ const SignUp = () => {
   const nickNameRegExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
 
   const newUser = {
-    email,
-    password,
-    nickName,
-    phonNumber,
-    admin: false,
-    adminToken: '',
+    email:email,
+    password:password,
+    nick:nick,
+    role : '',
+    adminCord:'',
   };
 
   useEffect(() => {
@@ -98,11 +96,9 @@ const SignUp = () => {
     if (passwordCheck !== '')
       passwordCheckIconRef.current.style.display = 'block';
     else passwordCheckIconRef.current.style.display = 'none';
-    if (nickName !== '') nickNameIconRef.current.style.display = 'block';
+    if (nick !== '') nickNameIconRef.current.style.display = 'block';
     else nickNameIconRef.current.style.display = 'none';
-    if (phonNumber !== '') phonNumberIconRef.current.style.display = 'block';
-    else phonNumberIconRef.current.style.display = 'none';
-  }, [email, password, passwordCheck, nickName, phonNumber]);
+  }, [email, password, passwordCheck, nick]);
 
   useEffect(() => {
     if (password === '' && passwordCheck === '') {
@@ -157,23 +153,23 @@ const SignUp = () => {
       if (nickNameRegExp.test(nickName) === false) {
         nickNameSpanRef.current.innerText = '닉네임 형식에 맞지 않습니다';
         nickNameSpanRef.current.style.color = '#f2153e';
-        setNickNameCheck(false);
+        setNickCheck(false);
       } else {
         dispatch(nickNameDupCheckThunk({ nickName })).then((res) => {
           console.log(res.payload);
           if (res.payload) {
             nickNameSpanRef.current.innerText = '사용가능한 닉네임입니다';
             nickNameSpanRef.current.style.color = '#0fe05f';
-            setNickName(true);
+            setNickCheck(true);
           } else {
             nickNameSpanRef.current.innerText = '중복되는 닉네임입니다';
             nickNameSpanRef.current.style.color = '#f2153e';
-            setNickName(false);
+            setNickCheck(false);
           }
         });
       }
     }, 500),
-    [email]
+    [nick]
   );
 
   useEffect(() => {
@@ -186,136 +182,121 @@ const SignUp = () => {
   }, [email]);
 
   useEffect(() => {
-    if (nickName !== '') {
-      checkLoginNickName(nickName);
+    if (nick !== '') {
+      checkLoginNickName(nick);
     } else {
       nickNameSpanRef.current.innerText = '';
       nickNameSpanRef.current.style.color = '';
     }
-  }, [nickName]);
+  }, [nick]);
 
-  // const deleteText = useCallback(
-  //   (state) => {
-  //     switch (state) {
-  //       case 'email': {
-  //         setEmail('');
-  //         break;
-  //       }
-  //       case 'password': {
-  //         setPassword('');
-  //         break;
-  //       }
-  //       case 'passwordCheck': {
-  //         setPasswordCheck('');
-  //         break;
-  //       }
-  //       case 'nickName': {
-  //         setNickName('');
-  //         break;
-  //       }
-  //       default:
-  //         break;
-  //     }
-  //   },
-  //   [email, password, passwordCheck, nickName]
-  // );
+  const deleteText = useCallback(
+    (state) => {
+      switch (state) {
+        case 'email': {
+          setEmail('');
+          break;
+        }
+        case 'password': {
+          setPassword('');
+          break;
+        }
+        case 'passwordCheck': {
+          setPasswordCheck('');
+          break;
+        }
+        case 'nickName': {
+          setNick('');
+          break;
+        }
+        default:
+          break;
+      }
+    },
+    [email, password, passwordCheck, nick]
+  );
 
-  // const viewPassword = useCallback(
-  //   (state) => {
-  //     switch (state) {
-  //       case 'password': {
-  //         if (password === '') {
-  //           break;
-  //         } else {
-  //           const type = passwordRef.current.type;
-  //           if (type === 'password') {
-  //             passwordRef.current.type = 'text';
-  //             setPasswordView(true);
-  //           } else {
-  //             passwordRef.current.type = 'password';
-  //             setPasswordView(false);
-  //           }
-  //           break;
-  //         }
-  //       }
-  //       case 'passwordCheck': {
-  //         if (passwordCheck === '') {
-  //           break;
-  //         } else {
-  //           const type = passwordCheckRef.current.type;
-  //           if (type === 'password') {
-  //             passwordCheckRef.current.type = 'text';
-  //             setPasswordCheckView(true);
-  //           } else {
-  //             passwordCheckRef.current.type = 'password';
-  //             setPasswordCheckView(false);
-  //           }
-  //           break;
-  //         }
-  //       }
-  //       default:
-  //         break;
-  //     }
-  //   },
-  //   [password, passwordCheck]
-  // );
+  const viewPassword = useCallback(
+    (state) => {
+      switch (state) {
+        case 'password': {
+          if (password === '') {
+            break;
+          } else {
+            const type = passwordRef.current.type;
+            if (type === 'password') {
+              passwordRef.current.type = 'text';
+              setPasswordView(true);
+            } else {
+              passwordRef.current.type = 'password';
+              setPasswordView(false);
+            }
+            break;
+          }
+        }
+        case 'passwordCheck': {
+          if (passwordCheck === '') {
+            break;
+          } else {
+            const type = passwordCheckRef.current.type;
+            if (type === 'password') {
+              passwordCheckRef.current.type = 'text';
+              setPasswordCheckView(true);
+            } else {
+              passwordCheckRef.current.type = 'password';
+              setPasswordCheckView(false);
+            }
+            break;
+          }
+        }
+        default:
+          break;
+      }
+    },
+    [password, passwordCheck]
+  );
 
-  const handlePhonNumber = useCallback((event) => {
-    const regex = /^[0-9\b -]{0,13}$/;
-    if (regex.test(event.target.value)) {
-      setPhonNumber(event.target.value);
-    }
-  });
-
-  useEffect(() => {
-    if (phonNumber.length === 10) {
-      setPhonNumber(phonNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
-    }
-    if (phonNumber.length === 13) {
-      setPhonNumber(
-        phonNumber
-          .replace(/-/g, '')
-          .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
-      );
-    }
-  }, [phonNumber]);
 
   const handleAdminCord = useCallback((event) => {
     setAdminCord(event.target.value);
-  });
+  },[]);
 
   const signUpAccount = useCallback(
     (event) => {
       event.preventDefault();
+
+  console.log(strengthBarRef.current.state)
 
       if (emailCheck === false) {
         emailRef.current.focus();
         emailSpanRef.current.style.color = '#f2153e';
         emailSpanRef.current.innerText = '중복되는 이메일입니다';
       } else {
-        if (strengthBarRef.current.state.score <= 2) {
+        if (strengthBarRef.current.state <= 2) {
           passwordRef.current.focus();
           passwordSpanRef.current.style.color = '#f2153e';
           passwordSpanRef.current.innerText =
-            '취약한 비밀번호입니다(6자 이상, 숫자, 특수문자 혼합)';
+            '취약한 비밀번호입니다(8자 이상, 영문자, 숫자, 특수문자 혼합)';
           passwordCheckSpanRef.current.style.innerText = '';
         } else if (password !== passwordCheck) {
           passwordRef.current.style.innerText = '';
           passwordCheckRef.current.focus();
           passwordCheckSpanRef.current.innerText = '입력한 비밀번호와 다릅니다';
-        } else if (nickNameCheck === false) {
-          nickNameRef.current.focus();
-          nickNameSpanRef.current.style.color = '#f2153e';
-          nickNameSpanRef.current.innerText = '중복되는 이메일입니다';
         } else {
-          console.log(newUser);
-          dispatch(addUserThunk(newUser));
-          alert('회원가입 완료');
-          navigate('/signin');
+          if (nickCheck === false) {
+            nickNameRef.current.focus();
+            nickNameSpanRef.current.style.color = '#f2153e';
+            nickNameSpanRef.current.innerText = '중복되는 닉네임입니다';
+          } else {
+            console.log(newUser);
+            dispatch(addUserThunk(newUser));
+            alert('회원가입 완료');
+            navigate('/signin');
+          }
         }
       }
     },
-    [email, password, passwordCheck, nickName, phonNumber]
+    [email, password, passwordCheck, nick]
   );
 
   return (
@@ -330,10 +311,10 @@ const SignUp = () => {
               <SignUpDataSpan>이메일 주소</SignUpDataSpan>
               <SignUpDataInputGroup>
                 <SignUpDataInputIcon ref={emailIconRef}>
-                  {/* <TiDeleteOutline
+                  <TiDeleteOutline
                     className="icon-cancel"
                     onClick={() => deleteText('email')}
-                  /> */}
+                  />
                 </SignUpDataInputIcon>
                 <Input
                   type={'text'}
@@ -354,12 +335,12 @@ const SignUp = () => {
               <SignUpDataSpan>비밀번호</SignUpDataSpan>
               <SignUpDataInputGroup>
                 <SignUpDataInputIcon ref={passwordIconRef}>
-                  {/* <TiDeleteOutline
+                  <TiDeleteOutline
                     className="icon-password-cancel"
                     onClick={() => deleteText('password')}
-                  /> */}
+                  />
                 </SignUpDataInputIcon>
-                {/* {passwordView ? (
+                {passwordView ? (
                   <BiShow
                     className="icon-hidden"
                     onClick={() => viewPassword('password')}
@@ -369,7 +350,7 @@ const SignUp = () => {
                     className="icon-hidden"
                     onClick={() => viewPassword('password')}
                   ></BiHide>
-                )} */}
+                )}
                 <Input
                   type={'password'}
                   value={password}
@@ -384,22 +365,22 @@ const SignUp = () => {
                 />
               </SignUpDataInputGroup>
               <SignUpAlertSpan ref={passwordSpanRef}></SignUpAlertSpan>
-              {/* <PasswordStrengthBar
+              <PasswordStrengthBar
                 password={password}
                 style={{ display: 'none' }}
                 ref={strengthBarRef}
-              /> */}
+              />
             </SignUpDataGroup>
             <SignUpDataGroup>
               <SignUpDataSpan>비밀번호 확인</SignUpDataSpan>
               <SignUpDataInputGroup>
                 <SignUpDataInputIcon ref={passwordCheckIconRef}>
-                  {/* <TiDeleteOutline
+                  <TiDeleteOutline
                     className="icon-password-cancel"
                     onClick={() => deleteText('passwordCheck')}
-                  /> */}
+                  />
                 </SignUpDataInputIcon>
-                {/* {passwordCheckView ? (
+                {passwordCheckView ? (
                   <BiShow
                     className="icon-hidden"
                     onClick={() => viewPassword('passwordCheck')}
@@ -409,7 +390,7 @@ const SignUp = () => {
                     className="icon-hidden"
                     onClick={() => viewPassword('passwordCheck')}
                   ></BiHide>
-                )} */}
+                )}
                 <Input
                   type={'password'}
                   value={passwordCheck}
@@ -430,15 +411,15 @@ const SignUp = () => {
               <SignUpDataSpan>닉네임</SignUpDataSpan>
               <SignUpDataInputGroup>
                 <SignUpDataInputIcon ref={nickNameIconRef}>
-                  {/* <TiDeleteOutline
+                  <TiDeleteOutline
                     className="icon-cancel"
                     onClick={() => deleteText('nickName')}
-                  /> */}
+                  />
                 </SignUpDataInputIcon>
                 <Input
                   type={'text'}
-                  value={nickName}
-                  _onChange={(e) => setNickName(e.target.value)}
+                  value={nick}
+                  _onChange={(e) => setNick(e.target.value)}
                   style={{
                     width: '100%',
                     height: '40px',
@@ -450,29 +431,6 @@ const SignUp = () => {
               <SignUpAlertSpan ref={nickNameSpanRef}></SignUpAlertSpan>
             </SignUpDataGroup>
 
-            <SignUpDataGroup>
-              <SignUpDataSpan>핸드폰 번호</SignUpDataSpan>
-              <SignUpDataInputGroup>
-                <SignUpDataInputIcon ref={phonNumberIconRef}>
-                  {/* <TiDeleteOutline
-                    className="icon-cancel"
-                    onClick={() => deleteText('nickName')}
-                  /> */}
-                </SignUpDataInputIcon>
-                <Input
-                  type={'text'}
-                  value={phonNumber}
-                  _onChange={handlePhonNumber}
-                  style={{
-                    width: '100%',
-                    height: '40px',
-                    pd_left: '10px',
-                    pd_right: '30px',
-                  }}
-                />
-              </SignUpDataInputGroup>
-              <SignUpAlertSpan ref={phonNumberSpanRef}></SignUpAlertSpan>
-            </SignUpDataGroup>
 
             {visible === true ? (
               <SignUpDataGroup>

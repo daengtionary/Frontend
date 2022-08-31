@@ -29,7 +29,9 @@ export const addUserThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     const resData = await api
       .post(`/member/signup`, payload)
+      console.log(payload)
       .then((res) => res.data);
+      console.log(resData)
     return thunkAPI.fulfillWithValue(resData);
   }
 );
