@@ -1,6 +1,6 @@
 /* global kakao */
 import React, { useEffect } from "react";
-import { MapContainer, MapWrap, ModalBackground } from "./Map.styled";
+import { MapContainer, MapWrap, ModalBackground } from "./map.styled";
 const { kakao } = window;
 
 const Map = ({ modalHandler }) => {
