@@ -1,21 +1,14 @@
 // Style
 import { StyledInput } from "./Input.styled";
 
-const Input = ({
-  type,
-  value,
-  _onChange,
-  _minLength,
-  _maxLength,
-  _ref,
-  style,
-  placeholder,
-}) => {
+
+const Input = ({ type, value, _onChange, _minLength, _maxLength, _ref, style, placeholder }) => {
   return (
     <StyledInput
       placeholder={placeholder}
       type={type}
       value={value}
+      placeholder={placeholder}
       onChange={_onChange}
       minLength={_minLength}
       maxLength={_maxLength}
