@@ -47,8 +47,9 @@ const SignUp = () => {
   const [passwordCheckView, setPasswordCheckView] = useState(false);
   const [nick, setNick] = useState('');
   const [nickCheck, setNickCheck] = useState(true);
-  const [adminCord, setAdminCord] = useState('');
+  const [adminCode, setAdminCode] = useState('');
   const [visible, setVisible] = useState(false);
+  const [role, setRole] = useState('USER');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -67,7 +68,7 @@ const SignUp = () => {
   const nickNameIconRef = useRef();
 
   const adminInputRef = useRef();
-  const adminCordSpanRef = useRef();
+  const adminCodeSpanRef = useRef();
 
   const strengthBarRef = useRef();
 
@@ -84,8 +85,8 @@ const SignUp = () => {
     email:email,
     password:password,
     nick:nick,
-    role : '',
-    adminCord:'',
+    role:role,
+    adminCode:adminCode,
   };
 
   useEffect(() => {
@@ -102,10 +103,11 @@ const SignUp = () => {
 
   useEffect(() => {
     if (password === '' && passwordCheck === '') {
-      passwordSpanRef.current.innerText = '';
+      passwordSpanRef.current.innerText = '8자 이상, 영문자, 숫자, 특수문자 혼합하여 입력해주세요:)';
+      passwordSpanRef.current.style.color = '#6633CC';
     } else if (password === '') {
-      passwordCheckSpanRef.current.style.color = '';
-      passwordCheckSpanRef.current.innerText = '';
+      passwordCheckSpanRef.current.style.color = '8자 이상, 영문자, 숫자, 특수문자 혼합하여 입력해주세요:)';
+      passwordCheckSpanRef.current.innerText = '#6633CC';
       passwordSpanRef.current.style.color = '#f2153e';
       passwordSpanRef.current.innerText = '비밀번호를 입력해주세요';
     } else if (passwordCheck === '') {
@@ -121,7 +123,7 @@ const SignUp = () => {
         passwordCheckSpanRef.current.innerText = '비밀번호가 일치합니다';
         passwordCheckSpanRef.current.style.color = '#0fe05f';
       }
-    }
+    } 
   }, [password, passwordCheck]);
 
   const checkLoginId = useCallback(
@@ -131,7 +133,7 @@ const SignUp = () => {
         emailSpanRef.current.style.color = '#f2153e';
         setEmailCheck(false);
       } else {
-        dispatch(emailDupCheckThunk({ email })).then((res) => {
+        dispatch(emailDupCheckThunk(email)).then((res) => {
           console.log(res.payload);
           if (res.payload) {
             emailSpanRef.current.innerText = '사용가능한 이메일입니다';
@@ -149,13 +151,13 @@ const SignUp = () => {
   );
 
   const checkLoginNickName = useCallback(
-    debounce((nickName) => {
-      if (nickNameRegExp.test(nickName) === false) {
+    debounce((nick) => {
+      if (nickNameRegExp.test(nick) === false) {
         nickNameSpanRef.current.innerText = '닉네임 형식에 맞지 않습니다';
         nickNameSpanRef.current.style.color = '#f2153e';
         setNickCheck(false);
       } else {
-        dispatch(nickNameDupCheckThunk({ nickName })).then((res) => {
+        dispatch(nickNameDupCheckThunk( nick )).then((res) => {
           console.log(res.payload);
           if (res.payload) {
             nickNameSpanRef.current.innerText = '사용가능한 닉네임입니다';
@@ -257,15 +259,24 @@ const SignUp = () => {
   );
 
 
-  const handleAdminCord = useCallback((event) => {
-    setAdminCord(event.target.value);
-  },[]);
+  const handleAdminCode = useCallback((event) => {
+    setAdminCode(event.target.value);
+  },[adminCode]);
+
+  const adminInputHandler = () =>{
+    setVisible(!visible);
+    if (visible===true){
+      setRole("USER");
+    }else{
+      setRole("ADMIN");
+    }
+  }
+
 
   const signUpAccount = useCallback(
     (event) => {
       event.preventDefault();
 
-  console.log(strengthBarRef.current.state)
 
       if (emailCheck === false) {
         emailRef.current.focus();
@@ -284,13 +295,12 @@ const SignUp = () => {
           passwordCheckSpanRef.current.innerText = '입력한 비밀번호와 다릅니다';
         } else {
           if (nickCheck === false) {
-            nickNameRef.current.focus();
             nickNameSpanRef.current.style.color = '#f2153e';
             nickNameSpanRef.current.innerText = '중복되는 닉네임입니다';
           } else {
             console.log(newUser);
             dispatch(addUserThunk(newUser));
-            alert('회원가입 완료');
+            alert(nick +"님 가입을 축하합니다");
             navigate('/signin');
           }
         }
@@ -432,7 +442,7 @@ const SignUp = () => {
             </SignUpDataGroup>
 
 
-            {visible === true ? (
+            {visible ? (
               <SignUpDataGroup>
                 <SignUpDataSpan>관리자 코드</SignUpDataSpan>
                 <SignUpDataInputGroup>
@@ -441,8 +451,8 @@ const SignUp = () => {
                   ></SignUpDataInputIcon>
                   <Input
                     type={'text'}
-                    value={adminCord}
-                    _onChange={handleAdminCord}
+                    value={adminCode}
+                    _onChange={handleAdminCode}
                     style={{
                       width: '100%',
                       height: '40px',
@@ -451,7 +461,7 @@ const SignUp = () => {
                     }}
                   />
                 </SignUpDataInputGroup>
-                <SignUpAlertSpan ref={adminCordSpanRef}></SignUpAlertSpan>
+                <SignUpAlertSpan ref={adminCodeSpanRef}></SignUpAlertSpan>
               </SignUpDataGroup>
             ) : (
               ''
@@ -462,9 +472,7 @@ const SignUp = () => {
                 <button
                   type={'checkbox'}
                   style={{ width: '14px', height: '15px' }}
-                  onClick={() => {
-                    setVisible(!visible);
-                  }}
+                  onClick={adminInputHandler}
                 />
                 관리자로 가입하기
               </SignUpDataAgreementSpan>

@@ -6,7 +6,7 @@ export const emailDupCheckThunk = createAsyncThunk(
   'user/emailDupCheck',
   async (payload, thunkAPI) => {
     const resData = await api
-      .get(`check/email?email` ,payload)
+      .get(`check/email?email=${payload}` )
       .then((res) => res.data.success)
       .catch((error) => console.err(error));
     return thunkAPI.fulfillWithValue(resData);
@@ -17,7 +17,7 @@ export const nickNameDupCheckThunk = createAsyncThunk(
   'user/nicknameDupCheck',
   async (payload, thunkAPI) => {
     const resData = await api
-      .get(`/check/nick?nick`, payload)
+      .get(`/check/nick?nick=${payload}`)
       .then((res) => res.data.success)
       .catch((error) => console.err(error));
     return thunkAPI.fulfillWithValue(resData);
