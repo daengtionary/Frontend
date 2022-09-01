@@ -1,9 +1,19 @@
 // Style
-import { StyledInput } from './Input.styled';
+import { StyledInput } from "./Input.styled";
 
-const Input = ({ type, value, _onChange, _minLength, _maxLength, _ref, style }) => {
+const Input = ({
+  type,
+  value,
+  _onChange,
+  _minLength,
+  _maxLength,
+  _ref,
+  style,
+  placeholder,
+}) => {
   return (
     <StyledInput
+      placeholder={placeholder}
       type={type}
       value={value}
       onChange={_onChange}
@@ -25,6 +35,7 @@ const Input = ({ type, value, _onChange, _minLength, _maxLength, _ref, style }) 
       mg_right={style?.mg_right}
       bd_radius={style?.bd_radius}
       bd_color={style?.bd_color}
+      bd_bottom={style?.bd_bottom}
       required
     />
   );
