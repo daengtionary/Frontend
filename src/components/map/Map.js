@@ -1,13 +1,14 @@
 /* global kakao */
 import React, { useEffect } from "react";
-import { MapContainer, MapWrap, ModalBackground } from "./Map.styled";
+import { BsXLg } from "react-icons/bs";
+import { MapContainer, MapWrap, ModalBackground, CloseBtm, MapTitle, MapAddress } from "./Map.styled";
 const { kakao } = window;
 
 const Map = ({ modalHandler }) => {
   const lat = 37.483582263644934;
   const lon = 126.99202327334409;
 
-  const businessName = "여기에 상호명";
+  const businessName = "여기에 업체명";
   const businessAddress = "여기에 주소";
 
   useEffect(() => {
@@ -73,8 +74,12 @@ const Map = ({ modalHandler }) => {
   return (
     <ModalBackground>
       <MapContainer>
-        <button onClick={modalHandler}>X</button>
+        <CloseBtm>
+          <button onClick={modalHandler}><BsXLg/></button>
+        </CloseBtm>
         <MapWrap id="map"></MapWrap>
+        <MapAddress>여기에 업체 주소</MapAddress>
+        <MapTitle>여기에 업체명</MapTitle>
       </MapContainer>
     </ModalBackground>
   );
