@@ -18,8 +18,9 @@ export const nickNameDupCheckThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     const resData = await api
       .get(`/check/nick?nick=${payload}`)
-      .then((res) => res.data.success)
-      .catch((error) => console.err(error));
+      .then((res) => res.data)
+      .catch((error) =>error.response.data);
+
     return thunkAPI.fulfillWithValue(resData);
   }
 );
@@ -32,6 +33,8 @@ export const addUserThunk = createAsyncThunk(
       console.log(payload)
       .then((res) => res.data);
       console.log(resData)
+      .catch((error) => console.err(error));
+      console.log(console.err)
     return thunkAPI.fulfillWithValue(resData);
   }
 );

@@ -106,7 +106,7 @@ const SignUp = () => {
         '8자리 이상, 영문자, 숫자, 특수문자를 혼합하여주세요:)';
       passwordSpanRef.current.style.color = '#c0c0c0';
     } else if (password === '') {
-      passwordCheckSpanRef.current.style.color =
+      passwordCheckSpanRef.current.style.color = '';
       passwordCheckSpanRef.current.innerText = '';
       passwordSpanRef.current.style.color = '#f2153e';
       passwordSpanRef.current.innerText = '비밀번호를 입력해주세요';
@@ -158,13 +158,13 @@ const SignUp = () => {
         setNickCheck(false);
       } else {
         dispatch(nickNameDupCheckThunk(nick)).then((res) => {
-          console.log(res.payload);
-          if (res.payload) {
-            nickNameSpanRef.current.innerText = '사용가능한 닉네임입니다';
+          // console.log((res.payload.status===200))
+          if (res.payload.success) {
+            nickNameSpanRef.current.innerText = res.payload.message;
             nickNameSpanRef.current.style.color = '#0fe05f';
             setNickCheck(true);
-          } else {
-            nickNameSpanRef.current.innerText = '중복되는 닉네임입니다';
+          } else if (res.payload.status === 400) {
+            nickNameSpanRef.current.innerText = res.payload.message;
             nickNameSpanRef.current.style.color = '#f2153e';
             setNickCheck(false);
           }
@@ -261,23 +261,22 @@ const SignUp = () => {
   const handleAdminCode = useCallback(
     (event) => {
       setAdminCode(event.target.value);
+      console.log(adminCode);
     },
     [adminCode]
   );
 
-  const adminInputHandler = () => {
+  const adminInputHandler = useCallback(() => {
     setVisible(!visible);
-    if (visible === true) {
-      setRole('USER');
-    } else {
-      setRole('ADMIN');
-    }
-  };
+  }, [visible]);
+
+  useEffect(() => {
+    visible === true ? setRole('ADMIN') : setRole('USER');
+  }, [visible]);
 
   const signUpAccount = useCallback(
     (event) => {
       event.preventDefault();
-
       if (emailCheck === false) {
         emailRef.current.focus();
         emailSpanRef.current.style.color = '#f2153e';
@@ -365,7 +364,7 @@ const SignUp = () => {
                 )}
                 <Input
                   placeholder={'비밀번호'}
-                  type={'text'}
+                  type={'password'}
                   value={password}
                   _onChange={(e) => setPassword(e.target.value)}
                   style={{
@@ -407,7 +406,7 @@ const SignUp = () => {
                 )}
                 <Input
                   placeholder={'비밀번호 확인'}
-                  type={'text'}
+                  type={'password'}
                   value={passwordCheck}
                   _onChange={(e) => setPasswordCheck(e.target.value)}
                   style={{
@@ -451,85 +450,35 @@ const SignUp = () => {
             </SignUpDataGroup>
 
             {visible ? (
-              <SignUpDataGroup>
-                <SignUpDataInputGroup>
-                  <SignUpDataInputIcon
-                    ref={adminInputRef}
-                  ></SignUpDataInputIcon>
-                  <Input
-                    placeholder={'관리자 코드'}
-                    type={'text'}
-                    value={adminCode}
-                    _onChange={handleAdminCode}
-                    style={{
-                      width: '300px',
-                      height: '40px',
-                      pd_left: '10px',
-                      pd_right: '16px',
-                      bd: '0px',
-                      bd_bottom: 'gray',
-                    }}
-                  />
-                </SignUpDataInputGroup>
-                <SignUpAlertSpan ref={adminCodeSpanRef}></SignUpAlertSpan>
-              </SignUpDataGroup>
+              <>
+                <SignUpDataGroup>
+                  <SignUpDataInputGroup>
+                    <SignUpDataInputIcon
+                      ref={adminInputRef}
+                    ></SignUpDataInputIcon>
+                    <Input
+                      placeholder={'관리자 코드'}
+                      type={'text'}
+                      value={adminCode}
+                      _onChange={handleAdminCode}
+                      style={{
+                        width: '300px',
+                        height: '40px',
+                        pd_left: '10px',
+                        pd_right: '16px',
+                        bd: '0px',
+                        bd_bottom: 'gray',
+                      }}
+                    />
+                  </SignUpDataInputGroup>
+                  <SignUpAlertSpan ref={adminCodeSpanRef}></SignUpAlertSpan>
+                </SignUpDataGroup>
+                <span onClick={adminInputHandler}>일반유저로 가입하기</span>
+              </>
             ) : (
-              ''
+              <span onClick={adminInputHandler}>관리자로 가입하기</span>
             )}
-            <span
-              // type={'checkbox'}
-              onClick={adminInputHandler}
-            >
-              관리자로 가입하기
-            </span>
 
-            {/*<SignUpDataAgreementGroup>
-              <SignUpDataAgreement>
-                <Input
-                  type={'checkbox'}
-                  style={{ width: '14px', height: '15px' }}
-                />
-                <SignUpDataAgreementSpan>
-                  [필수] 만 14세 이상입니다
-                </SignUpDataAgreementSpan>
-              </SignUpDataAgreement>
-              <SignUpDataAgreement>
-                <Input
-                  type={'checkbox'}
-                  style={{ width: '14px', height: '15px' }}
-                />
-                <SignUpDataAgreementSpan>
-                  [필수] 이용약관 동의
-                </SignUpDataAgreementSpan>
-              </SignUpDataAgreement>
-              <SignUpDataAgreement>
-                <Input
-                  type={'checkbox'}
-                  style={{ width: '14px', height: '15px' }}
-                />
-                <SignUpDataAgreementSpan>
-                  [필수] 개인정보 수집 및 이용 동의
-                </SignUpDataAgreementSpan>
-              </SignUpDataAgreement>
-              <SignUpDataAgreement>
-                <input
-                  type="checkbox"
-                  style={{ width: '14px', height: '15px', margin: '0px' }}
-                />
-                <SignUpDataAgreementSpan>
-                  [선택] 마케팅 목적 개인정보 수집 및 이용 동의
-                </SignUpDataAgreementSpan>
-              </SignUpDataAgreement>
-              <SignUpDataAgreement>
-                <input
-                  type="checkbox"
-                  style={{ width: '14px', height: '15px', margin: '0px' }}
-                />
-                <SignUpDataAgreementSpan>
-                  [선택] 마케팅 정보 수신 및 활용 동의
-                </SignUpDataAgreementSpan>
-              </SignUpDataAgreement>
-            </SignUpDataAgreementGroup> */}
             <SignUpButtonGroup>
               <Button
                 type={'button'}

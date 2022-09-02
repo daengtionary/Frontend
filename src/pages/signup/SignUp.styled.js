@@ -53,7 +53,7 @@ export const SignUpDataInputGroup = styled.div`
 
   .icon-hidden {
     position: absolute;
-    font-size: 22px;
+    font-size: 20px;
     right: 11px;
     top: 50%;
     transform: translateY(-11px);
@@ -65,7 +65,7 @@ export const SignUpDataInputGroup = styled.div`
 export const SignUpDataInputIcon = styled.div`
   .icon-cancel {
     position: absolute;
-    font-size: 22px;
+    font-size: 20px;
     right: 8px;
     top: 50%;
     transform: translateY(-11px);
@@ -75,7 +75,7 @@ export const SignUpDataInputIcon = styled.div`
   }
   .icon-password-cancel {
     position: absolute;
-    font-size: 22px;
+    font-size: 20px;
     right: 35px;
     top: 50%;
     transform: translateY(-11px);
@@ -101,25 +101,6 @@ export const SignUpDataSelect = styled.select`
   }
 `;
 
-
-// export const SignUpDataAgreementGroup = styled.div`
-//   box-sizing: border-box;
-//   width: 100%;
-//   margin-top: 14px;
-//   margin-bottom: 44px;
-// `;
-// export const SignUpDataAgreement = styled.div`
-//   display: flex;
-//   align-items: center;
-//   margin-bottom: 5px;
-//   height: 20px;
-//   text-align: left;
-// `;
-// export const SignUpDataAgreementSpan = styled.span`
-//   margin-left: 10px;
-//   font-size: 14px;
-//   margin-top: 3px;
-// `;
 export const SignUpButtonGroup = styled.div`
   width: 100%;
   display: flex;
