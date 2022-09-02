@@ -5,6 +5,7 @@ import { StyledInput } from "./Input.styled";
 const Input = ({ type, value, _onChange, _minLength, _maxLength, _ref, style, placeholder }) => {
   return (
     <StyledInput
+      placeholder={placeholder}
       type={type}
       value={value}
       onChange={_onChange}
@@ -25,7 +26,7 @@ const Input = ({ type, value, _onChange, _minLength, _maxLength, _ref, style, pl
       mg_left={style?.mg_left}
       mg_right={style?.mg_right}
       bd_radius={style?.bd_radius}
-      bd_color={style?.bd_color}
+      bd={style?.bd}
       bd_bottom={style?.bd_bottom}
       required
     />

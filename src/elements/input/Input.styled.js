@@ -15,7 +15,7 @@ export const StyledInput = styled.input`
   margin-left: ${(props) => (props.mg_left ? props.mg_left : "0px")};
   margin-right: ${(props) => (props.mg_right ? props.mg_right : "0px")};
   border-radius: ${(props) => (props.bd_radius ? props.bd_radius : "0px")};
-  border: 0.1px solid ${(props) => (props.bd_color ? props.bd_color : "black")};
+  border: ${(props) => (props.bd ? props.bd : "0.1px solid black")};
   border-bottom: 1px solid
     ${(props) => (props.bd_bottom ? props.bd_bottom : "black")};
   outline: none;

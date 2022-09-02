@@ -75,6 +75,19 @@ export const kakaoAuthThunk = createAsyncThunk(
   }
 );
 
+export const signOutThunk = createAsyncThunk(
+  'user/signOut',
+  async (payload, thunkAPI) =>{
+    const resData = await api
+      .post(`member/logout`, payload)
+      console.log(payload)
+      .then((res) =>{
+        console.log(res)
+      })
+    return thunkAPI.fulfillWithValue(resData.data.success);
+  }
+);
+
 const initialState = {
   is_login: false,
 };
