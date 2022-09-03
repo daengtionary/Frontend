@@ -7,7 +7,7 @@ export const SignUpBox = styled.div`
   flex-direction: column;
   width: 100%;
   height: auto;
-  margin-top: 150px;
+  margin-top: 170px;
   margin-bottom: ${(props) => props.mg_bottom};
 `;
 export const SignUpBoxContainer = styled.div`
@@ -26,6 +26,7 @@ export const SignUpTitle = styled.span`
   height: auto;
   margin-bottom: 15px;
   margin-top: 15px;
+  position: relative;
 `;
 export const SignUpForm = styled.form`
   box-sizing: border-box;
@@ -110,3 +111,16 @@ export const SignUpButtonGroup = styled.div`
   gap: calc(10px);
   margin-bottom: 20px;
 `;
+
+export const GoToSignIn = styled.span`
+  font-size: 18px;
+  height: 21px;
+  position: absolute;
+  left: 40px;
+  bottom: 0px;
+  color: gray;
+  :hover{
+    color: black;
+    cursor: pointer;
+  }
+`

@@ -1,8 +1,5 @@
 // React
 import { useEffect, Fragment } from "react";
-import {
-  signOutThunk
-} from '../../redux/modules/user';
 
 
 
@@ -33,11 +30,8 @@ const Header = () => {
   const is_login =  useSelector((state)=> state.user.is_login)
   
   const signOut = () => {
-    dispatch(signOutThunk(sessionStorage.getItem('refresh-token')))
     dispatch(headerAction({ is_login: false }));
-    window.sessionStorage.removeItem('authorization');
-    window.sessionStorage.removeItem('refresh-token');
-    
+    window.sessionStorage.removeItem('authorization');  
     alert('로그아웃 되었습니다')
     navigate('/');
   };

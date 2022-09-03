@@ -6,7 +6,7 @@ export const emailDupCheckThunk = createAsyncThunk(
   'user/emailDupCheck',
   async (payload, thunkAPI) => {
     const resData = await api
-      .get(`check/email?email=${payload}` )
+      .get(`/member/checkemail?${payload}` )
       .then((res) => res.data.success)
       .catch((error) => console.err(error));
     return thunkAPI.fulfillWithValue(resData);
@@ -17,7 +17,7 @@ export const nickNameDupCheckThunk = createAsyncThunk(
   'user/nicknameDupCheck',
   async (payload, thunkAPI) => {
     const resData = await api
-      .get(`/check/nick?nick=${payload}`)
+      .get(`/member/checknick?nick=${payload}`)
       .then((res) => res.data)
       .catch((error) =>error.response.data);
 
@@ -63,8 +63,9 @@ export const kakaoAuthThunk = createAsyncThunk(
   'user/kakaoLogin',
   async (payload, thunkAPI) => {
     const resData = await api
-      .get(`member/kakao?code=${payload.code}`)
+      .get(`/member/kakao?code=${payload.code}`)
       .then((res) => res);
+      console.log(resData)
     window.sessionStorage.setItem(
       'authorization',
       resData.headers['authorization'].split(' ')[1]
@@ -73,23 +74,10 @@ export const kakaoAuthThunk = createAsyncThunk(
       'refresh-token',
       resData.headers['refresh-token']
     );
-
-    return thunkAPI.fulfillWithValue(resData.data.success);
+    return thunkAPI.fulfillWithValue(resData.data);
   }
 );
 
-export const signOutThunk = createAsyncThunk(
-  'user/signOut',
-  async (payload, thunkAPI) =>{
-    const resData = await api
-      .post(`member/logout`, payload)
-      console.log(payload)
-      .then((res) =>{
-        console.log(res)
-      })
-    return thunkAPI.fulfillWithValue(resData.data.success);
-  }
-);
 
 const initialState = {
   is_login: false,

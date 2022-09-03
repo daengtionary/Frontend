@@ -32,10 +32,8 @@ import {
   SignUpDataInputGroup,
   SignUpDataInputIcon,
   SignUpAlertSpan,
-  // SignUpDataAgreementGroup,
-  // SignUpDataAgreement,
-  // SignUpDataAgreementSpan,
   SignUpButtonGroup,
+  GoToSignIn
 } from './SignUp.styled';
 
 const SignUp = () => {
@@ -134,7 +132,7 @@ const SignUp = () => {
         setEmailCheck(false);
       } else {
         dispatch(emailDupCheckThunk(email)).then((res) => {
-          console.log(res.payload);
+          console.log(res);
           if (res.payload) {
             emailSpanRef.current.innerText = '사용가능한 이메일입니다';
             emailSpanRef.current.style.color = '#0fe05f';
@@ -158,9 +156,9 @@ const SignUp = () => {
         setNickCheck(false);
       } else {
         dispatch(nickNameDupCheckThunk(nick)).then((res) => {
-          // console.log((res.payload.status===200))
+          console.log((res.payload))
           if (res.payload.success) {
-            nickNameSpanRef.current.innerText = res.payload.message;
+            nickNameSpanRef.current.innerText = res.payload.massage;
             nickNameSpanRef.current.style.color = '#0fe05f';
             setNickCheck(true);
           } else if (res.payload.status === 400) {
@@ -261,7 +259,6 @@ const SignUp = () => {
   const handleAdminCode = useCallback(
     (event) => {
       setAdminCode(event.target.value);
-      console.log(adminCode);
     },
     [adminCode]
   );
@@ -316,7 +313,7 @@ const SignUp = () => {
       >
         <SignUpBoxContainer>
           <SignUpForm onSubmit={(event) => signUpAccount(event)}>
-            <SignUpTitle>회원가입</SignUpTitle>
+            <SignUpTitle><GoToSignIn onClick={()=>{navigate('/signin')}}>{'<'}{' '}</GoToSignIn>회원가입</SignUpTitle>
             <SignUpDataGroup>
               <SignUpDataInputGroup>
                 <SignUpDataInputIcon ref={emailIconRef}>
@@ -480,17 +477,6 @@ const SignUp = () => {
             )}
 
             <SignUpButtonGroup>
-              <Button
-                type={'button'}
-                text={'취소'}
-                _onClick={() => navigate('/signin')}
-                style={{
-                  width: '320px',
-                  height: '38px',
-                  bg_color: 'transparent',
-                  color: '#525252',
-                }}
-              ></Button>
               <Button
                 type={'submit'}
                 text={'계정생성'}
