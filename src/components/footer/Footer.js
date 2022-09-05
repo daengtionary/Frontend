@@ -1,5 +1,12 @@
 import React from "react";
-import { FooterContainer, FooterBox, ListBox, Logo, ListWrap, Ulist } from "./Footer.styled";
+import {
+  FooterContainer,
+  FooterBox,
+  ListBox,
+  Logo,
+  ListWrap,
+  Ulist,
+} from "./Footer.styled";
 
 const Footer = () => {
   return (
