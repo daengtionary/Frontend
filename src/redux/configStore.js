@@ -5,4 +5,6 @@ import main from "./modules/mainPage";
 
 const rootReducer = combineReducers({ user, detail, main });
 
+const store = configureStore({ reducer: rootReducer });
+
 export default store;

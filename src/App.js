@@ -14,18 +14,18 @@ import Service from './pages/service/Service';
 import Kakao from './shared/kakao';
 
 function App() {
-	return (
-		<Routes>
-			<Route path={'/'} element={<Main />} />
-			<Route path={'/signin'} element={<SignIn />} />
-			<Route path={'/signup'} element={<SignUp />} />
-			<Route path={'/animalhospital'} element={<AnimalHospital />} />
-			<Route path={'/mypage'} element={<MyPage />} />
-			<Route path={'/service'} element={<Service />} />
-			<Route path={'/detail/:id'} element={<Detail />} />
-			<Route path={'/kakao/callback'} element={<Kakao />} />
-		</Routes>
-	);
+  return (
+      <Routes>
+        <Route path={'/'} element={<Main />} />
+        <Route path={'/signin'} element={<SignIn />} />
+        <Route path={'/signup'} element={<SignUp />} />
+        <Route path={'/animalhospital'} element={<AnimalHospital />} />
+        <Route path={'/mypage'} element={<MyPage />} />
+        <Route path={'/service'} element={<Service />} />
+        <Route path={'/detail/:id'} element={<Detail />} />
+        <Route path={'/kakao/callback'} element={<Kakao />} />
+      </Routes>
+  );
 }
 
 export default App;
