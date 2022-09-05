@@ -4,10 +4,13 @@ import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import Card from "../../components/card/Card";
 import Comment from "../../components/comment/Comment";
 import Button from "../../elements/button/Button";
+import Header from "../../components/header/Header"
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
+
+
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
 const Main = () => {
@@ -31,13 +34,7 @@ const Main = () => {
   return (
     <MainWrap>
       <>
-        <br />
-        <br />
-        <br />
-        헤더 자리
-        <br />
-        <br />
-        <br />
+        <Header/>
       </>
       <StyledSwiper
         className="swiper-container"

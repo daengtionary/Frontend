@@ -6,34 +6,48 @@ export const SignInBox = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: auto;
+  height: 100%;
   margin: 140px 0;
 `;
 
 // SignIn
+export const SignInLoginBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 400px;
+  height: 350px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 0px 3px lightgray;
+`;
+
 export const SignInLoginContainer = styled.form`
   box-sizing: border-box;
-  width: 440px;
-  height: 320px;
+  width: 400px;
+  height: 280px;
   margin-bottom: ${(props) => props.mg_bottom};
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 export const SignInLoginTitle = styled.span`
-  font-family: AppleSDGothicNeoEB;
-  width: 100%;
-  font-size: 17px;
-  text-align: left;
+  width: 300px;
+  font-size: 20px;
+  text-align: center;
   margin-bottom: 28px;
 `;
 export const SignInLoginDataGroup = styled.div`
   box-sizing: border-box;
-  width: 100%;
+  width: 300px;
   height: auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 28px;
   margin-bottom: 35px;
+  margin-top: 28px;
+
+  
 `;
 export const SignInLoginEmail = styled.div`
   box-sizing: border-box;
@@ -44,12 +58,7 @@ export const SignInLoginEmail = styled.div`
   align-items: center;
   gap: 9px;
 `;
-export const SignInLoginEmailSpan = styled.span`
-  font-family: AppleSDGothicNeoL;
-  width: 100%;
-  font-size: 14px;
-  text-align: left;
-`;
+
 export const SignInLoginPassword = styled.div`
   box-sizing: border-box;
   width: 100%;
@@ -59,15 +68,10 @@ export const SignInLoginPassword = styled.div`
   align-items: center;
   gap: 9px;
 `;
-export const SignInLoginPasswordSpan = styled.span`
-  font-family: AppleSDGothicNeoL;
-  width: 100%;
-  font-size: 14px;
-  text-align: left;
-`;
+
 export const SignInLoginButtonGroup = styled.div`
   box-sizing: border-box;
-  width: 100%;
+  width: 310px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -78,12 +82,5 @@ export const SignInLoginButtonKakao = styled.div`
   position: relative;
   width: 100%;
   height: 40px;
-  .icon {
-    position: absolute;
-    z-index: 99999;
-    font-size: 20px;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-10px);
-  }
+
 `;

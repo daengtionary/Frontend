@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
+import Header from "../../components/header/Header";
 
 const MyPage = () => {
   const ProfileInputList = ["이메일", "기본정보", "휴대전화"];
@@ -14,13 +15,7 @@ const MyPage = () => {
   const [checked, setChecked] = useState(false);
   return (
     <MyPageWrap>
-      <>
-        <br />
-        <br />
-        헤더 자리
-        <br />
-        <br />
-      </>
+      <Header/>
       {/* <MyPageMenuWrap>
         <div>마이페이지</div>
         <div>찜목록</div>
