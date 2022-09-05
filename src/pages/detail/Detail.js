@@ -23,7 +23,8 @@ const Detail = () => {
     setMapModal(!mapModal);
   };
 
-  const data = useSelector((state) => console.log(state.detail));
+  let data = useSelector((state) => state.detail.detail);
+  console.log(data)
 
   let {id} = useParams();
   console.log(id);
@@ -42,35 +43,34 @@ const Detail = () => {
         pagination={{ clickable: true }}
         autoplay={{ delay: 9000, disableOnInteraction: false }}
         loop={true}
-        centeredSlides={true}
+        centeredSlides={false}
       >
-        <SwiperSlide>
-          <MainBanner background={"#0000ff50"}></MainBanner>
-        </SwiperSlide>
-        <SwiperSlide>
-          <MainBanner background={"#00ff0050"}></MainBanner>
-        </SwiperSlide>
-        <SwiperSlide>
-          <MainBanner></MainBanner>
-        </SwiperSlide>
-      </StyledSwiper>
+        {data.imgUrls && data.imgUrls.map((el, i)=>{
+          return (
+            <SwiperSlide key={i}>
+              <img src={el} alt=''/>
+            </SwiperSlide>
+          )
+        })}
 
+      </StyledSwiper>
+      
       <BusinessTitle>
-        <span>여기에 업체명</span>
+        <span>{data.title}</span>
       </BusinessTitle>
       <MapAddress>
         <span onClick={modalHandler}>
           <GrMapLocation size={24} />
         </span>
-        <span>서울특별시 어쩌구 저쩌동</span>
+        <span>{data.address}</span>
       </MapAddress>
       <BusinessDescription>
-        <p>여기에 상세 설명</p>
+        <p>{data.content}</p>
       </BusinessDescription>
       {/* <div>여기에 예약 현황?</div>       */}
       <ReviewWrap>후기 글들</ReviewWrap>
 
-      {mapModal && <Map modalHandler={modalHandler} />}
+      {mapModal && <Map modalHandler={modalHandler} title={data.title} address={data.address}/>}
 
       <Footer />
     </DetailContainer>

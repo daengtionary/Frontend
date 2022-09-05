@@ -3,12 +3,12 @@ import { BsXLg } from "react-icons/bs";
 import { MapContainer, MapWrap, ModalBackground, CloseBtm, MapTitle, MapAddress } from "./Map.styled";
 const { kakao } = window;
 
-const Map = ({ modalHandler }) => {
+const Map = ({ modalHandler, title, address }) => {
   const lat = 37.5023088;
   const lon = 127.044437;
 
-  const businessName = "여기에 업체명";
-  const businessAddress = "서울특별시 서초구 방배로 19길 67";
+  const businessName = title;
+  const businessAddress = address;
 
   useEffect(() => {
     let container = document.getElementById("map");
@@ -84,8 +84,8 @@ const Map = ({ modalHandler }) => {
           </button>
         </CloseBtm>
         <MapWrap id="map"></MapWrap>
-        <MapAddress>여기에 업체 주소</MapAddress>
-        <MapTitle>여기에 업체명</MapTitle>
+        <MapAddress>{address}</MapAddress>
+        <MapTitle>{title}</MapTitle>
       </MapContainer>
     </ModalBackground>
   );

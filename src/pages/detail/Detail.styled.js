@@ -14,7 +14,7 @@ export const MainBanner = styled.div`
 `;
 
 export const StyledSwiper = styled(Swiper)`
-  background: #ff000050;
+  /* background: #ff000050; */
   display: flex;
   align-items: center;
   justify-content: center;
