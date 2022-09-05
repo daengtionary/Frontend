@@ -1,3 +1,4 @@
+/* global kakao */
 import React, { useEffect } from "react";
 import { BsXLg } from "react-icons/bs";
 import { MapContainer, MapWrap, ModalBackground, CloseBtm, MapTitle, MapAddress } from "./Map.styled";

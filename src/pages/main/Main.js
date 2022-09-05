@@ -9,11 +9,19 @@ import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { mainList } from "../../redux/modules/mainPage";
+import { useEffect } from "react";
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
 const Main = () => {
+  const dispatch = useDispatch();
+  const dataList = useSelector((state) => state.mainPage.mainList);
+  console.log(dataList);
+  // const category = ["hospital", "shop"];
+  useEffect(() => {
+    dispatch(mainList());
+  }, []);
   const mainButtonList = ["병원", "호텔", "쇼핑", "장터", "커뮤니티"];
   const mainCardList = ["인기 병원", "인기 숙소", "인기 장터", "인기 게시물"];
   const mainHotButtonList = ["#동물병원", "#애견호텔", "#중고장터"];
@@ -109,9 +117,15 @@ const Main = () => {
         ))}
       </MainHotButtonbWrap>
       <MainCardWrap>
-        {mainCardList.map((cardList, i) => (
-          <Card key={i} text={cardList} />
-        ))}
+        {dataList &&
+          dataList.map((data, i) => (
+            <Card
+              key={i}
+              text={data.title}
+              data={data}
+              category={data.category}
+            />
+          ))}
       </MainCardWrap>
       <div>댕과사전 이용후기</div>
       <MainCommentWrap>
