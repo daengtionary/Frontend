@@ -1,29 +1,31 @@
 // React import
-import { useState, useCallback, Fragment } from 'react';
+import { useState, useCallback, useRef, Fragment } from 'react';
 
 // Redux import
 import { useDispatch } from 'react-redux/es/exports';
 import { signUserThunk } from '../../redux/modules/user';
 
 // Package import
-import { AiFillMessage } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 // import { useMediaQuery } from 'react-responsive';
 
 // Component & Element import
 import Button from '../../elements/button/Button';
 import Input from '../../elements/input/Input';
+import Header from '../../components/header/Header';
+
+// React Icon
+// import { BiShow, BiHide } from 'react-icons/bi';
 
 import styled from 'styled-components';
 import {
   SignInBox,
+  SignInLoginBox,
   SignInLoginContainer,
   SignInLoginTitle,
   SignInLoginDataGroup,
   SignInLoginEmail,
-  SignInLoginEmailSpan,
   SignInLoginPassword,
-  SignInLoginPasswordSpan,
   SignInLoginButtonGroup,
   SignInLoginButtonKakao,
 } from './SignIn.styled';
@@ -34,6 +36,8 @@ const SignIn = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordView, setPasswordView] = useState(false);
+  const passwordRef = useRef();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -67,90 +71,122 @@ const SignIn = () => {
     [email, password]
   );
 
+  const viewPassword = useCallback(
+    (state) => {
+      switch (state) {
+        case 'password': {
+          if (password === '') {
+            break;
+          } else {
+            const type = passwordRef.current.type;
+            if (type === 'password') {
+              passwordRef.current.type = 'text';
+              setPasswordView(true);
+            } else {
+              passwordRef.current.type = 'password';
+              setPasswordView(false);
+            }
+            break;
+          }
+        }
+        default:
+          break;
+      }
+    },
+    [password]
+  );
+
   return (
     <Fragment>
+      <Header />
       <SignInBox>
-        <SignInLoginContainer
-          onSubmit={(event) => signInAccount(event)}
-          // mg_bottom={isSmallScreen ? '54px' : '74px'}
-        >
-          <SignInLoginTitle>로그인</SignInLoginTitle>
-          <SignInLoginDataGroup>
-            <SignInLoginEmail>
-              <SignInLoginEmailSpan>이메일</SignInLoginEmailSpan>
-              <Input
-                type={'text'}
-                value={email}
-                _onChange={(e) => setEmail(e.target.value)}
-                style={{ width: '100%', height: '40px', pd_left: '10px' }}
-              />
-            </SignInLoginEmail>
-            <SignInLoginPassword>
-              <SignInLoginPasswordSpan>비밀번호</SignInLoginPasswordSpan>
-              <Input
-                type={'password'}
-                value={password}
-                _onChange={(e) => setPassword(e.target.value)}
-                style={{ width: '100%', height: '40px', pd_left: '10px' }}
-              />
-            </SignInLoginPassword>
-          </SignInLoginDataGroup>
-          <SignInLoginButtonGroup>
-            <Button
-              type={'submit'}
-              text={'로그인'}
-              style={{
-                width: '100%',
-                height: '40px',
-                bg_color: '#000',
-                color: '#fff',
-                bd_color: '#000',
-                ft_size: '13px',
-              }}
-            />
-            <SignInLoginButtonKakao>
-              <AiFillMessage className="icon" />
+        <SignInLoginTitle>로그인</SignInLoginTitle>
+        <SignInLoginBox>
+          <SignInLoginContainer
+            onSubmit={(event) => signInAccount(event)}
+            // mg_bottom={isSmallScreen ? '54px' : '74px'}
+          >
+            <SignInLoginDataGroup>
+              <SignInLoginEmail>
+                <Input
+                  type={'text'}
+                  value={email}
+                  _onChange={(e) => setEmail(e.target.value)}
+                  style={{
+                    width: '100%',
+                    height: '40px',
+                    pd_left: '10px',
+                    bd: '0px',
+                    bd_bottom: 'gray',
+                  }}
+                  placeholder={'아이디를 입력하세요'}
+                />
+              </SignInLoginEmail>
+              <SignInLoginPassword>
+                <Input
+                  type={'password'}
+                  value={password}
+                  _onChange={(e) => setPassword(e.target.value)}
+                  style={{
+                    width: '100%',
+                    height: '40px',
+                    pd_left: '10px',
+                    bd: '0px',
+                    bd_bottom: 'gray',
+                  }}
+                  placeholder={'비밀번호를 입력하세요'}
+                />
+              </SignInLoginPassword>
+            </SignInLoginDataGroup>
+            <SignInLoginButtonGroup>
               <Button
-                type={'button'}
-                text={'카카오 로그인'}
-                _onClick={() => {
-                  window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-                }}
+                type={'submit'}
+                text={'로그인'}
                 style={{
                   width: '100%',
                   height: '40px',
-                  bg_color: 'rgb(247,225,76)',
-                  color: '#515151',
-                  bd_color: 'rgb(247,225,76)',
+                  bg_color: '#000',
+                  color: '#fff',
+                  bd_color: '#000',
                   ft_size: '13px',
+                  bd_radius: '7px',
                 }}
               />
-            </SignInLoginButtonKakao>
-          </SignInLoginButtonGroup>
-        </SignInLoginContainer>
-        <SignInSignUpContainer>
-          <SignInSignUpNotice>
-            <SignInSignUpNoticeSpan>
-              회원가입을 하시면, 주문 조회와 개인정보 관리 및 위시리스트 확인 등
-              다양한 혜택을 누리실 수 있습니다.
-            </SignInSignUpNoticeSpan>
-          </SignInSignUpNotice>
-          <SignInSignUpButtonGroup>
-            <Button
-              type={'button'}
-              _onClick={() => navigate('/signup')}
-              text={'신규가입'}
-              style={{
-                width: '100%',
-                height: '40px',
-                bg_color: '#000',
-                color: '#fff',
-                bd_color: '#000',
-                ft_size: '13px',
-              }}
-            />
-          </SignInSignUpButtonGroup>
-        </SignInSignUpContainer>
+              <SignInLoginButtonKakao>
+                <Button
+                  type={'button'}
+                  text={'카카오로 시작하기'}
+                  _onClick={() => {
+                    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+                  }}
+                  style={{
+                    width: '100%',
+                    height: '40px',
+                    bg_color: 'rgb(247,225,76)',
+                    color: '#515151',
+                    bd_color: 'rgb(247,225,76)',
+                    ft_size: '13px',
+                    bd_radius: '7px',
+                  }}
+                />
+              </SignInLoginButtonKakao>
+            </SignInLoginButtonGroup>
+          </SignInLoginContainer>
+          <SignInSignUpContainer>
+            <SignInSignUpNotice>
+              <SignInSignUpNoticeSpan>
+                아직 회원이 아니신가요?
+                <SignInSignUpSpan
+                  onClick={() => {
+                    navigate('/signup');
+                  }}
+                >
+                  &nbsp;회원가입 {'>'}{' '}
+                </SignInSignUpSpan>
+              </SignInSignUpNoticeSpan>
+            </SignInSignUpNotice>
+          </SignInSignUpContainer>
+        </SignInLoginBox>
       </SignInBox>
     </Fragment>
   );
@@ -160,8 +196,14 @@ export default SignIn;
 // SignUp
 export const SignInSignUpContainer = styled.div`
   box-sizing: border-box;
-  width: 440px;
+  width: 300px;
+  text-align: center;
   height: 166px;
+`;
+
+export const SignInSignUpSpan = styled.span`
+  font-weight: 700;
+  font-size: 14px;
 `;
 
 export const SignInSignUpNotice = styled.div`
@@ -169,16 +211,9 @@ export const SignInSignUpNotice = styled.div`
   margin-top: 25px;
   width: 100%;
   height: auto;
-  margin-bottom: 31px;
 `;
 
 export const SignInSignUpNoticeSpan = styled.span`
   font-size: 14px;
   line-height: 25px;
-`;
-
-export const SignInSignUpButtonGroup = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  height: auto;
 `;

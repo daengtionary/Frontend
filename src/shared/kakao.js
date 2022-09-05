@@ -13,10 +13,10 @@ const Kakao = () => {
 
   useEffect(() => {
     const fetchCode = (code) => {
-      dispatch(kakaoAuthThunk({ code })).then((res) => {
-        if (res.payload) {
+      dispatch(kakaoAuthThunk({ code })).then((resData) => {
+        if (resData.payload.state === 200) {
           navigate('/');
-        }
+        } 
       });
     };
     fetchCode(authorization_code);

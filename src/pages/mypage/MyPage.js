@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
+import Header from "../../components/header/Header";
 
 const MyPage = () => {
   // console.log(window.sessionStorage.getItem("nick"));
@@ -59,13 +60,12 @@ const MyPage = () => {
   };
   return (
     <MyPageWrap>
-      <>
-        <br />
-        <br />
-        헤더 자리
-        <br />
-        <br />
-      </>
+      <Header/>
+      {/* <MyPageMenuWrap>
+        <div>마이페이지</div>
+        <div>찜목록</div>
+        <div>내가쓴글</div>
+      </MyPageMenuWrap> */}
       <MyPageProfileWrap>
         <MyPageProfileBox>
           <MyPageProfileTitle>나의 정보</MyPageProfileTitle>

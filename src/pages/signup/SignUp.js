@@ -20,6 +20,7 @@ import PasswordStrengthBar from 'react-password-strength-bar';
 // Component & Element import
 import Button from '../../elements/button/Button';
 import Input from '../../elements/input/Input';
+import Header from '../../components/header/Header';
 
 // Style import
 import {
@@ -28,14 +29,11 @@ import {
   SignUpTitle,
   SignUpForm,
   SignUpDataGroup,
-  SignUpDataSpan,
   SignUpDataInputGroup,
   SignUpDataInputIcon,
   SignUpAlertSpan,
-  SignUpDataAgreementGroup,
-  SignUpDataAgreement,
-  SignUpDataAgreementSpan,
   SignUpButtonGroup,
+  GoToSignIn
 } from './SignUp.styled';
 
 const SignUp = () => {
@@ -63,7 +61,6 @@ const SignUp = () => {
   const passwordCheckRef = useRef();
   const passwordCheckSpanRef = useRef();
   const passwordCheckIconRef = useRef();
-  const nickNameRef = useRef();
   const nickNameSpanRef = useRef();
   const nickNameIconRef = useRef();
 
@@ -82,11 +79,11 @@ const SignUp = () => {
   const nickNameRegExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
 
   const newUser = {
-    email:email,
-    password:password,
-    nick:nick,
-    role:role,
-    adminCode:adminCode,
+    email: email,
+    password: password,
+    nick: nick,
+    role: role,
+    adminCode: adminCode,
   };
 
   useEffect(() => {
@@ -103,11 +100,12 @@ const SignUp = () => {
 
   useEffect(() => {
     if (password === '' && passwordCheck === '') {
-      passwordSpanRef.current.innerText = '8자 이상, 영문자, 숫자, 특수문자 혼합하여 입력해주세요:)';
-      passwordSpanRef.current.style.color = '#6633CC';
+      passwordSpanRef.current.innerText =
+        '8자리 이상, 영문자, 숫자, 특수문자를 혼합하여주세요:)';
+      passwordSpanRef.current.style.color = '#c0c0c0';
     } else if (password === '') {
-      passwordCheckSpanRef.current.style.color = '8자 이상, 영문자, 숫자, 특수문자 혼합하여 입력해주세요:)';
-      passwordCheckSpanRef.current.innerText = '#6633CC';
+      passwordCheckSpanRef.current.style.color = '';
+      passwordCheckSpanRef.current.innerText = '';
       passwordSpanRef.current.style.color = '#f2153e';
       passwordSpanRef.current.innerText = '비밀번호를 입력해주세요';
     } else if (passwordCheck === '') {
@@ -123,7 +121,7 @@ const SignUp = () => {
         passwordCheckSpanRef.current.innerText = '비밀번호가 일치합니다';
         passwordCheckSpanRef.current.style.color = '#0fe05f';
       }
-    } 
+    }
   }, [password, passwordCheck]);
 
   const checkLoginId = useCallback(
@@ -134,7 +132,7 @@ const SignUp = () => {
         setEmailCheck(false);
       } else {
         dispatch(emailDupCheckThunk(email)).then((res) => {
-          console.log(res.payload);
+          console.log(res);
           if (res.payload) {
             emailSpanRef.current.innerText = '사용가능한 이메일입니다';
             emailSpanRef.current.style.color = '#0fe05f';
@@ -157,14 +155,14 @@ const SignUp = () => {
         nickNameSpanRef.current.style.color = '#f2153e';
         setNickCheck(false);
       } else {
-        dispatch(nickNameDupCheckThunk( nick )).then((res) => {
-          console.log(res.payload);
-          if (res.payload) {
-            nickNameSpanRef.current.innerText = '사용가능한 닉네임입니다';
+        dispatch(nickNameDupCheckThunk(nick)).then((res) => {
+          console.log((res.payload))
+          if (res.payload.success) {
+            nickNameSpanRef.current.innerText = res.payload.massage;
             nickNameSpanRef.current.style.color = '#0fe05f';
             setNickCheck(true);
-          } else {
-            nickNameSpanRef.current.innerText = '중복되는 닉네임입니다';
+          } else if (res.payload.status === 400) {
+            nickNameSpanRef.current.innerText = res.payload.message;
             nickNameSpanRef.current.style.color = '#f2153e';
             setNickCheck(false);
           }
@@ -258,26 +256,24 @@ const SignUp = () => {
     [password, passwordCheck]
   );
 
+  const handleAdminCode = useCallback(
+    (event) => {
+      setAdminCode(event.target.value);
+    },
+    [adminCode]
+  );
 
-  const handleAdminCode = useCallback((event) => {
-    setAdminCode(event.target.value);
-  },[adminCode]);
-
-  const adminInputHandler = () =>{
+  const adminInputHandler = useCallback(() => {
     setVisible(!visible);
-    if (visible===true){
-      setRole("USER");
-    }else{
-      setRole("ADMIN");
-    }
-  }
+  }, [visible]);
 
+  useEffect(() => {
+    visible === true ? setRole('ADMIN') : setRole('USER');
+  }, [visible]);
 
   const signUpAccount = useCallback(
     (event) => {
       event.preventDefault();
-
-
       if (emailCheck === false) {
         emailRef.current.focus();
         emailSpanRef.current.style.color = '#f2153e';
@@ -300,7 +296,7 @@ const SignUp = () => {
           } else {
             console.log(newUser);
             dispatch(addUserThunk(newUser));
-            alert(nick +"님 가입을 축하합니다");
+            alert(nick + '님 가입을 축하합니다');
             navigate('/signin');
           }
         }
@@ -311,14 +307,14 @@ const SignUp = () => {
 
   return (
     <Fragment>
+      <Header />
       <SignUpBox
       // mg_bottom= {isSmallScreen ? '140px' : '200px'}
       >
         <SignUpBoxContainer>
-          <SignUpTitle>신규 회원가입</SignUpTitle>
           <SignUpForm onSubmit={(event) => signUpAccount(event)}>
+            <SignUpTitle><GoToSignIn onClick={()=>{navigate('/signin')}}>{'<'}{' '}</GoToSignIn>회원가입</SignUpTitle>
             <SignUpDataGroup>
-              <SignUpDataSpan>이메일 주소</SignUpDataSpan>
               <SignUpDataInputGroup>
                 <SignUpDataInputIcon ref={emailIconRef}>
                   <TiDeleteOutline
@@ -327,14 +323,17 @@ const SignUp = () => {
                   />
                 </SignUpDataInputIcon>
                 <Input
+                  placeholder={'이메일 주소'}
                   type={'text'}
                   value={email}
                   _onChange={(e) => setEmail(e.target.value)}
                   style={{
-                    width: '100%',
+                    width: '300px',
                     height: '40px',
                     pd_left: '10px',
-                    pd_right: '30px',
+                    pd_right: '16px',
+                    bd: '0px',
+                    bd_bottom: 'gray',
                   }}
                   _ref={emailRef}
                 />
@@ -342,7 +341,6 @@ const SignUp = () => {
               <SignUpAlertSpan ref={emailSpanRef}></SignUpAlertSpan>
             </SignUpDataGroup>
             <SignUpDataGroup>
-              <SignUpDataSpan>비밀번호</SignUpDataSpan>
               <SignUpDataInputGroup>
                 <SignUpDataInputIcon ref={passwordIconRef}>
                   <TiDeleteOutline
@@ -362,14 +360,17 @@ const SignUp = () => {
                   ></BiHide>
                 )}
                 <Input
+                  placeholder={'비밀번호'}
                   type={'password'}
                   value={password}
                   _onChange={(e) => setPassword(e.target.value)}
                   style={{
-                    width: '100%',
+                    width: '300px',
                     height: '40px',
                     pd_left: '10px',
-                    pd_right: '30px',
+                    pd_right: '16px',
+                    bd: '0px',
+                    bd_bottom: 'gray',
                   }}
                   _ref={passwordRef}
                 />
@@ -382,7 +383,6 @@ const SignUp = () => {
               />
             </SignUpDataGroup>
             <SignUpDataGroup>
-              <SignUpDataSpan>비밀번호 확인</SignUpDataSpan>
               <SignUpDataInputGroup>
                 <SignUpDataInputIcon ref={passwordCheckIconRef}>
                   <TiDeleteOutline
@@ -402,14 +402,17 @@ const SignUp = () => {
                   ></BiHide>
                 )}
                 <Input
+                  placeholder={'비밀번호 확인'}
                   type={'password'}
                   value={passwordCheck}
                   _onChange={(e) => setPasswordCheck(e.target.value)}
                   style={{
-                    width: '100%',
+                    width: '300px',
                     height: '40px',
                     pd_left: '10px',
-                    pd_right: '30px',
+                    pd_right: '16px',
+                    bd: '0px',
+                    bd_bottom: 'gray',
                   }}
                   _ref={passwordCheckRef}
                 />
@@ -418,7 +421,6 @@ const SignUp = () => {
             </SignUpDataGroup>
 
             <SignUpDataGroup>
-              <SignUpDataSpan>닉네임</SignUpDataSpan>
               <SignUpDataInputGroup>
                 <SignUpDataInputIcon ref={nickNameIconRef}>
                   <TiDeleteOutline
@@ -427,120 +429,63 @@ const SignUp = () => {
                   />
                 </SignUpDataInputIcon>
                 <Input
+                  placeholder={'닉네임'}
                   type={'text'}
                   value={nick}
                   _onChange={(e) => setNick(e.target.value)}
                   style={{
-                    width: '100%',
+                    width: '300px',
                     height: '40px',
                     pd_left: '10px',
-                    pd_right: '30px',
+                    pd_right: '16px',
+                    bd: '0px',
+                    bd_bottom: 'gray',
                   }}
                 />
               </SignUpDataInputGroup>
               <SignUpAlertSpan ref={nickNameSpanRef}></SignUpAlertSpan>
             </SignUpDataGroup>
 
-
             {visible ? (
-              <SignUpDataGroup>
-                <SignUpDataSpan>관리자 코드</SignUpDataSpan>
-                <SignUpDataInputGroup>
-                  <SignUpDataInputIcon
-                    ref={adminInputRef}
-                  ></SignUpDataInputIcon>
-                  <Input
-                    type={'text'}
-                    value={adminCode}
-                    _onChange={handleAdminCode}
-                    style={{
-                      width: '100%',
-                      height: '40px',
-                      pd_left: '10px',
-                      pd_right: '30px',
-                    }}
-                  />
-                </SignUpDataInputGroup>
-                <SignUpAlertSpan ref={adminCodeSpanRef}></SignUpAlertSpan>
-              </SignUpDataGroup>
+              <>
+                <SignUpDataGroup>
+                  <SignUpDataInputGroup>
+                    <SignUpDataInputIcon
+                      ref={adminInputRef}
+                    ></SignUpDataInputIcon>
+                    <Input
+                      placeholder={'관리자 코드'}
+                      type={'text'}
+                      value={adminCode}
+                      _onChange={handleAdminCode}
+                      style={{
+                        width: '300px',
+                        height: '40px',
+                        pd_left: '10px',
+                        pd_right: '16px',
+                        bd: '0px',
+                        bd_bottom: 'gray',
+                      }}
+                    />
+                  </SignUpDataInputGroup>
+                  <SignUpAlertSpan ref={adminCodeSpanRef}></SignUpAlertSpan>
+                </SignUpDataGroup>
+                <span onClick={adminInputHandler}>일반유저로 가입하기</span>
+              </>
             ) : (
-              ''
+              <span onClick={adminInputHandler}>관리자로 가입하기</span>
             )}
 
-            <SignUpDataAgreement>
-              <SignUpDataAgreementSpan>
-                <button
-                  type={'checkbox'}
-                  style={{ width: '14px', height: '15px' }}
-                  onClick={adminInputHandler}
-                />
-                관리자로 가입하기
-              </SignUpDataAgreementSpan>
-            </SignUpDataAgreement>
-
-            <SignUpDataAgreementGroup>
-              <SignUpDataAgreement>
-                <Input
-                  type={'checkbox'}
-                  style={{ width: '14px', height: '15px' }}
-                />
-                <SignUpDataAgreementSpan>
-                  [필수] 만 14세 이상입니다
-                </SignUpDataAgreementSpan>
-              </SignUpDataAgreement>
-              <SignUpDataAgreement>
-                <Input
-                  type={'checkbox'}
-                  style={{ width: '14px', height: '15px' }}
-                />
-                <SignUpDataAgreementSpan>
-                  [필수] 이용약관 동의
-                </SignUpDataAgreementSpan>
-              </SignUpDataAgreement>
-              <SignUpDataAgreement>
-                <Input
-                  type={'checkbox'}
-                  style={{ width: '14px', height: '15px' }}
-                />
-                <SignUpDataAgreementSpan>
-                  [필수] 개인정보 수집 및 이용 동의
-                </SignUpDataAgreementSpan>
-              </SignUpDataAgreement>
-              <SignUpDataAgreement>
-                <input
-                  type="checkbox"
-                  style={{ width: '14px', height: '15px', margin: '0px' }}
-                />
-                <SignUpDataAgreementSpan>
-                  [선택] 마케팅 목적 개인정보 수집 및 이용 동의
-                </SignUpDataAgreementSpan>
-              </SignUpDataAgreement>
-              <SignUpDataAgreement>
-                <input
-                  type="checkbox"
-                  style={{ width: '14px', height: '15px', margin: '0px' }}
-                />
-                <SignUpDataAgreementSpan>
-                  [선택] 마케팅 정보 수신 및 활용 동의
-                </SignUpDataAgreementSpan>
-              </SignUpDataAgreement>
-            </SignUpDataAgreementGroup>
             <SignUpButtonGroup>
-              <Button
-                type={'button'}
-                text={'취소'}
-                _onClick={() => navigate('/')}
-                style={{
-                  width: '213px',
-                  height: '38px',
-                  bg_color: 'transparent',
-                  color: '#525252',
-                }}
-              ></Button>
               <Button
                 type={'submit'}
                 text={'계정생성'}
-                style={{ width: '213px', height: '38px', bg_color: 'black' }}
+                style={{
+                  width: '320px',
+                  height: '38px',
+                  bg_color: 'black',
+                  bd_radius: '7px',
+                }}
               ></Button>
             </SignUpButtonGroup>
           </SignUpForm>
