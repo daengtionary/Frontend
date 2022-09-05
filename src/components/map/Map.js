@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* global kakao */
 import React, { useEffect } from "react";
 import { MapContainer, MapWrap, ModalBackground } from "./Map.styled";
@@ -81,3 +82,6 @@ const Map = ({ modalHandler }) => {
 };
 
 export default Map;
+=======
+
+>>>>>>> 19856241ebb636a7631389defe160b55ccf002a5
