@@ -4,7 +4,7 @@ import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import Card from "../../components/card/Card";
 import Comment from "../../components/comment/Comment";
 import Button from "../../elements/button/Button";
-import Header from "../../components/header/Header"
+import Header from "../../components/header/Header";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
@@ -12,11 +12,12 @@ import "swiper/components/pagination/pagination.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { mainList } from "../../redux/modules/mainPage";
 import { useEffect } from "react";
+import Footer from "../../components/footer/Footer";
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
 const Main = () => {
   const dispatch = useDispatch();
-  const dataList = useSelector((state) => state.mainPage.mainList);
+  const dataList = useSelector((state) => state.main.mainList);
   console.log(dataList);
   // const category = ["hospital", "shop"];
   useEffect(() => {
@@ -41,9 +42,6 @@ const Main = () => {
   ];
   return (
     <MainWrap>
-      <>
-        <Header/>
-      </>
       <StyledSwiper
         className="swiper-container"
         spaceBetween={0}
