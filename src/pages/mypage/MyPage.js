@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { TbCameraPlus } from "react-icons/tb";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
 
 const MyPage = () => {
-  const ProfileInputList = ["이메일", "기본정보", "휴대전화"];
+  // console.log(window.sessionStorage.getItem("nick"));
+  // console.log(window.sessionStorage.getItem("email"));
+  const data = useSelector((state) => state);
+  console.log(data);
   const DogProfileInputList = [
     "강아지 이름",
     "강이지 종류",
@@ -12,6 +17,46 @@ const MyPage = () => {
     "몸무게(kg)",
   ];
   const [checked, setChecked] = useState(false);
+  const [profile, setProfile] = useState({});
+  const [dogProfile, setDogProfile] = useState({});
+  const [myDogImg, setMyDogImg] = useState("");
+  console.log("프로필:", profile, "강아지프로필:", dogProfile);
+  const onChangeProfile = (e) => {
+    const { value, name } = e.target;
+    value
+      ? setProfile({
+          ...profile,
+          [name]: value,
+        })
+      : setProfile({
+          // email: window.sessionStorage.getItem("email"),
+          nick: window.sessionStorage.getItem("nick"),
+        });
+  };
+  const onChangeDogProfile = (e) => {
+    const { value, name } = e.target;
+    setDogProfile({
+      ...dogProfile,
+      [name]: value,
+    });
+  };
+  const dogImgRef = useRef();
+  const onClickDogInput = () => {
+    dogImgRef.current.click();
+  };
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+
+    fileBlob && reader.readAsDataURL(fileBlob);
+
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setMyDogImg(reader.result);
+
+        resolve();
+      };
+    });
+  };
   return (
     <MyPageWrap>
       <>
@@ -21,27 +66,47 @@ const MyPage = () => {
         <br />
         <br />
       </>
-      {/* <MyPageMenuWrap>
-        <div>마이페이지</div>
-        <div>찜목록</div>
-        <div>내가쓴글</div>
-      </MyPageMenuWrap> */}
       <MyPageProfileWrap>
         <MyPageProfileBox>
           <MyPageProfileTitle>나의 정보</MyPageProfileTitle>
-          {ProfileInputList.map((inputList, i) => (
+          <MyPageEmail>
+            {window.sessionStorage.getItem("email") !== "undefined"
+              ? window.sessionStorage.getItem("email")
+              : "이메일"}
+          </MyPageEmail>
+          <Input
+            defaultValue={
+              window.sessionStorage.getItem("nick") !== "undefined"
+                ? window.sessionStorage.getItem("nick")
+                : ""
+            }
+            style={{
+              mg_top: "1.6em",
+              bd_color: "transparent",
+              bd_bottom: "#ccc",
+            }}
+            name={"nick"}
+            placeholder={"닉네임"}
+            _onChange={onChangeProfile}
+            type="text"
+          />
+          {/* {ProfileInputList.map((inputList, i) => (
             <Input
               key={i}
+              name={"닉네임"}
+              defaultValue={inputList}
               style={{
                 mg_top: "1.6em",
                 bd_color: "transparent",
                 bd_bottom: "#ccc",
               }}
               placeholder={inputList}
+              _onChange={onChangeProfile}
+              type="text"
             />
-          ))}
-          <EditButton top={"44%"}>수정 &#62;</EditButton>
-          <EditButton top={"64%"}>수정 &#62;</EditButton>
+          ))} */}
+          {/* <EditButton top={"30%"}>수정 &#62;</EditButton> */}
+          <EditButton top={"55%"}>수정 &#62;</EditButton>
           <Button
             text={"로그아웃"}
             style={{
@@ -58,9 +123,32 @@ const MyPage = () => {
         </MyPageProfileBox>
         <MyPageProfileBox>
           <MyPageProfileTitle>나의 강아지</MyPageProfileTitle>
-          <MyPageDogImg>
-            <MyPageDogImgDot />
-          </MyPageDogImg>
+          <MyPageDogImgBox>
+            {myDogImg ? (
+              <MyPageDogImg alt="미리보기" src={myDogImg} />
+            ) : (
+              <MyPageDogImg background={"#ccc"} />
+            )}
+            <MyPageDogImgDot onClick={onClickDogInput}>
+              <TbCameraPlus
+                style={{
+                  position: "absolute",
+                  top: "2.5px",
+                  right: "2.5px",
+                }}
+                size="11"
+                color="#fff"
+              />
+              <MyPageDogImgInput
+                ref={dogImgRef}
+                onChange={(e) => {
+                  encodeFileToBase64(e.target.files[0]);
+                }}
+                type="file"
+                accept="image/*"
+              />
+            </MyPageDogImgDot>
+          </MyPageDogImgBox>
           {DogProfileInputList.map((inputList, i) => (
             <Input
               key={i}
@@ -70,6 +158,7 @@ const MyPage = () => {
                 bd_bottom: "#ccc",
               }}
               placeholder={inputList}
+              _onChange={onChangeDogProfile}
             />
           ))}
           <SelectDog onClick={() => setChecked(!checked)}>
@@ -112,13 +201,6 @@ const MyPageWrap = styled.div`
   justify-content: center;
   /* position: relative; */
 `;
-// const MyPageMenuWrap = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: flex-end;
-//   justify-content: flex-end;
-//   flex: 1 1;
-// `;
 const MyPageProfileWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -126,7 +208,7 @@ const MyPageProfileWrap = styled.div`
 
   width: 100%;
 
-  margin: 100px auto;
+  margin: 100px 0 0 0;
 `;
 const MyPageProfileBox = styled.div`
   width: 22em;
@@ -143,13 +225,30 @@ const MyPageProfileTitle = styled.div`
   display: inline-block;
   margin-bottom: 1em;
 `;
-const MyPageDogImg = styled.div`
+const MyPageEmail = styled.div`
+  align-self: flex-start;
+  margin-top: 1.6em;
+  border-color: transparent;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  line-height: 50px;
+  font-size: 13px;
+`;
+const MyPageDogImgBox = styled.div`
   width: 5em;
   height: 5em;
+  border: none;
   border-radius: 50%;
-  background: #ccc;
   margin-bottom: 2em;
   position: relative;
+`;
+const MyPageDogImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: ${(props) =>
+    props.background ? props.background : "none"};
 `;
 const MyPageDogImgDot = styled.div`
   position: absolute;
@@ -160,6 +259,9 @@ const MyPageDogImgDot = styled.div`
   height: 1em;
   border-radius: 50%;
   cursor: pointer;
+`;
+const MyPageDogImgInput = styled.input`
+  display: none;
 `;
 const EditButton = styled.div`
   padding: 5px 10px 5px 7px;
@@ -184,7 +286,7 @@ const MyPageNavWrap = styled.div`
   flex-direction: column;
   position: relative;
   /* left: -30%; */
-  top: -74em;
+  top: -63em;
   margin-right: 60em;
   white-space: nowrap;
 `;

@@ -1,18 +1,19 @@
 import styled from "styled-components";
 
-const Card = ({ text }) => {
+const Card = ({ text, data }) => {
   return (
     <CardBox>
-      <CardImgBox>
-        {text}
+      <CardImgBox background={data.mapImgUrl}>
+        {/* {text} */}
         {/* <CardImg>사진</CardImg> */}
       </CardImgBox>
       <CardTextBox>
-        <span>타이틀</span>
+        <span>{data.title}</span>
         <br />
-        <span>설명</span>
+        <span>{data.address}</span>
         <br />
-        <span>금액</span>
+        <span>{data.mapInfo}</span>
+        {/* {console.log(data.mapImgUrl)} */}
       </CardTextBox>
     </CardBox>
   );
@@ -29,7 +30,8 @@ const CardBox = styled.div`
 const CardImgBox = styled.div`
   border-bottom: 30px solid #ccc;
   border-top: 30px solid #ccc;
-  background-color: #999;
+  /* background-color: #999; */
+  background: ${(props) => `url(${props.background}) no-repeat top center`};
   height: 16em;
   width: 18em;
   flex: 3 3;
