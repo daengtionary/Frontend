@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export const FooterContainer = styled.div`
-  position: fixed;
   bottom: 0;
   width: 100vw;
   height: 173px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 50px;
 `;
 
 export const FooterBox = styled.div`
@@ -32,7 +32,6 @@ export const ListWrap = styled.div`
 export const ListBox = styled.div`
   margin: 0;
   padding: 0;
-
 `;
 
 export const Ulist = styled.div`
@@ -45,7 +44,7 @@ export const Ulist = styled.div`
     margin-bottom: 8px;
   }
 
-  li:first-child{
+  li:first-child {
     font-weight: bold;
   }
 `;
