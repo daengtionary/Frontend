@@ -72,7 +72,6 @@ const Detail = () => {
 
       {mapModal && <Map modalHandler={modalHandler} title={data.title} address={data.address}/>}
 
-      <Footer />
     </DetailContainer>
   );
 };

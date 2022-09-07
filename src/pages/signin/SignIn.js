@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 // Component & Element import
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
-import Header from "../../components/header/Header";
 
 // React Icon
 // import { BiShow, BiHide } from 'react-icons/bi';
@@ -54,47 +53,50 @@ const SignIn = () => {
       event.preventDefault();
       if (email === "") {
         alert("계정을 입력해주세요");
-      } else if (emailRegExp.test(email) === false) {
+      }
+      else if (emailRegExp.test(email) === false) {
         alert("이메일 형식에 맞지 않습니다");
-      } else {
+      } 
+      else {
         dispatch(signUserThunk({ email, password })).then((res) => {
-          if (res.payload) {
-            navigate("/");
+          if (res.payload.state===200) {
+            navigate("/")
+            alert(res.payload.message)
           } else {
             alert(
               "로그인 실패하였습니다\n이메일 / 패스워드를 다시 확인해주세요"
-            );
+            )
           }
-        });
+        })
       }
     },
     [email, password]
   );
 
-  const viewPassword = useCallback(
-    (state) => {
-      switch (state) {
-        case "password": {
-          if (password === "") {
-            break;
-          } else {
-            const type = passwordRef.current.type;
-            if (type === "password") {
-              passwordRef.current.type = "text";
-              setPasswordView(true);
-            } else {
-              passwordRef.current.type = "password";
-              setPasswordView(false);
-            }
-            break;
-          }
-        }
-        default:
-          break;
-      }
-    },
-    [password]
-  );
+  // const viewPassword = useCallback(
+  //   (state) => {
+  //     switch (state) {
+  //       case "password": {
+  //         if (password === "") {
+  //           break;
+  //         } else {
+  //           const type = passwordRef.current.type;
+  //           if (type === "password") {
+  //             passwordRef.current.type = "text";
+  //             setPasswordView(true);
+  //           } else {
+  //             passwordRef.current.type = "password";
+  //             setPasswordView(false);
+  //           }
+  //           break;
+  //         }
+  //       }
+  //       default:
+  //         break;
+  //     }
+  //   },
+  //   [password]
+  // );
 
   return (
     <Fragment>
