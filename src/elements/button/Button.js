@@ -1,11 +1,13 @@
 // Style
 import { StyledButton } from "./Button.styled";
 
-const Button = ({ type, text, style, _onClick }) => {
+const Button = ({ type, text, style, _onClick, checked, id }) => {
   return (
     <StyledButton
+      id={id}
       type={type}
       onClick={_onClick}
+      checked={checked}
       width={style?.width}
       height={style?.height}
       ft_size={style?.ft_size}

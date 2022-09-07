@@ -1,26 +1,68 @@
+import jwtDecode from "jwt-decode";
+import { useEffect } from "react";
 import { useRef, useState } from "react";
-import { TbCameraPlus } from "react-icons/tb";
-import { useSelector } from "react-redux";
+import { TbCameraPlus, TbCircleCheck } from "react-icons/tb";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
+import { myDogInfo, myList, myPageInfo } from "../../redux/modules/myPageSlice";
+// import jwt from "jsonwebtoken";
 
 const MyPage = () => {
-  // console.log(window.sessionStorage.getItem("nick"));
+  // // // 토큰 변수 할당
+  // let token = window.sessionStorage.getItem("authorization");
+  // console.log(token);
+  // // // 토큰 decode 하는 부분
+  // let decoded = token && jwtDecode(token);
+  // console.log(decoded);
+
   // console.log(window.sessionStorage.getItem("email"));
-  const data = useSelector((state) => state);
+  // console.log(window.sessionStorage.getItem("nick"));
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.myPage.myPageInfo);
   console.log(data);
+  //버튼에 dispatch 달아서 특정 강아지 정보만 가져오도록하자
+  const dogData = data.dogs;
+  console.log(dogData);
+  const dogList = useSelector((state) => state.myPage.myDogInfo);
+  console.log(dogList);
+
+  // // input에다 넣을 값??
+  // console.log(data && data.dogs[0]);
+  // const dogsdogs = data && Object.values(data.dogs[0]).slice(1, 5);
+  // console.log(dogsdogs);
+  useEffect(() => {
+    dispatch(myPageInfo());
+  }, []);
+
   const DogProfileInputList = [
-    "강아지 이름",
-    "강이지 종류",
-    "성별",
-    "몸무게(kg)",
+    {
+      name: "name",
+      placeholder: "강아지이름",
+      defaultValue: dogList.name,
+    },
+    {
+      name: "breed",
+      placeholder: "강이지종류",
+      defaultValue: dogList.breed,
+    },
+    {
+      name: "gender",
+      placeholder: "성별",
+      defaultValue: dogList.gender,
+    },
+    {
+      name: "weight",
+      placeholder: "몸무게(kg)",
+      defaultValue: dogList.weight + " kg",
+    },
   ];
   const [checked, setChecked] = useState(false);
   const [profile, setProfile] = useState({});
   const [dogProfile, setDogProfile] = useState({});
   const [myDogImg, setMyDogImg] = useState("");
-  console.log("프로필:", profile, "강아지프로필:", dogProfile);
+  // console.log("프로필:", profile, "강아지프로필:", dogProfile);
   const onChangeProfile = (e) => {
     const { value, name } = e.target;
     value
@@ -44,10 +86,12 @@ const MyPage = () => {
   const onClickDogInput = () => {
     dogImgRef.current.click();
   };
-  const encodeFileToBase64 = (fileBlob) => {
-    const reader = new FileReader();
 
-    fileBlob && reader.readAsDataURL(fileBlob);
+  const reader = new FileReader();
+  const onImgHandler = (e) => {
+    const { files } = e.target;
+
+    files[0] && reader.readAsDataURL(files[0]);
 
     return new Promise((resolve) => {
       reader.onload = () => {
@@ -57,32 +101,74 @@ const MyPage = () => {
       };
     });
   };
+  const uploadHandler = (e) => {
+    const file = dogImgRef.current.files[0];
+    console.log(file);
+
+    const formdata = new FormData();
+    formdata.append("image", file);
+    formdata.append(
+      "data",
+      new Blob([JSON.stringify(dogProfile)], { type: "application/json" })
+    );
+    // formdata.append("name", dogProfile.dogname);
+    // formdata.append("breed", dogProfile.dogbreed);
+    // formdata.append("gender", dogProfile.dogsex);
+    // formdata.append("weight", dogProfile.dogweight);
+
+    for (const keyValue of formdata) console.log(keyValue);
+    // formdata전송 테스트
+    dispatch(myList(formdata));
+  };
+  const dogInfoHandler = (e) => {
+    // console.log(e.target.id);
+    const { id } = e.target;
+    dispatch(myDogInfo(id));
+  };
+
+  // const uploadHandler = (e) => {
+  //   const file = dogImgRef.current.files[0];
+  //   console.log(file);
+
+  //   file && reader.readAsDataURL(file);
+  //   reader.onload = () => {
+  //     const base64data = reader.result;
+  //     console.log(base64data);
+
+  //     const formdata = new FormData();
+  //     formdata.append("image", base64data);
+  //     formdata.append("name", dogProfile.dogname);
+  //     formdata.append("breed", dogProfile.dogbreed);
+  //     formdata.append("gender", dogProfile.dogsex);
+  //     formdata.append("weight", dogProfile.dogweight);
+
+  //     for (const keyValue of formdata) console.log(keyValue);
+  //     // formdata전송 테스트
+  //     dispatch(myList(formdata));
+  //   };
+  // };
+  // console.log(dogProfile);
   return (
     <MyPageWrap>
       <MyPageProfileWrap>
         <MyPageProfileBox>
           <MyPageProfileTitle>나의 정보</MyPageProfileTitle>
           <MyPageEmail>
-            {window.sessionStorage.getItem("email") !== "undefined"
-              ? window.sessionStorage.getItem("email")
-              : "이메일"}
+            {data.email === null ? "이메일" : data?.email}
           </MyPageEmail>
           <Input
-            defaultValue={
-              window.sessionStorage.getItem("nick") !== "undefined"
-                ? window.sessionStorage.getItem("nick")
-                : ""
-            }
+            key={data.nick === null ? "" : data?.nick}
+            defaultValue={data.nick === null ? "" : data?.nick}
+            name={"nick"}
+            placeholder={"닉네임"}
+            _onChange={onChangeProfile}
+            type="text"
             style={{
               mg_top: "1.6em",
               bd_color: "transparent",
               bd_bottom: "#ccc",
               bd: "1px solid transparent",
             }}
-            name={"nick"}
-            placeholder={"닉네임"}
-            _onChange={onChangeProfile}
-            type="text"
           />
           {/* {ProfileInputList.map((inputList, i) => (
             <Input
@@ -121,7 +207,7 @@ const MyPage = () => {
             {myDogImg ? (
               <MyPageDogImg alt="미리보기" src={myDogImg} />
             ) : (
-              <MyPageDogImg background={"#ccc"} />
+              <MyPageDogImg src={dogList.image} />
             )}
             <MyPageDogImgDot onClick={onClickDogInput}>
               <TbCameraPlus
@@ -135,34 +221,48 @@ const MyPage = () => {
               />
               <MyPageDogImgInput
                 ref={dogImgRef}
-                onChange={(e) => {
-                  encodeFileToBase64(e.target.files[0]);
-                }}
+                onChange={onImgHandler}
                 type="file"
                 accept="image/*"
               />
             </MyPageDogImgDot>
           </MyPageDogImgBox>
+          {dogData.map((dog, i) => (
+            <Button key={i} id={i} text={dog.name} _onClick={dogInfoHandler} />
+          ))}
           {DogProfileInputList.map((inputList, i) => (
-            <Input
-              key={i}
-              style={{
-                mg_top: "1.6em",
-                bd_color: "transparent",
-                bd_bottom: "#ccc",
-                bd: "1px solid transparent",
-              }}
-              placeholder={inputList}
-              _onChange={onChangeDogProfile}
-            />
+            <div key={i} style={{ width: "100%" }}>
+              <Input
+                // key={i}
+
+                key={inputList.defaultValue}
+                defaultValue={inputList.defaultValue}
+                placeholder={inputList.placeholder}
+                _onChange={onChangeDogProfile}
+                name={inputList.name}
+                style={{
+                  mg_top: "1.6em",
+                  bd_color: "transparent",
+                  bd_bottom: "#ccc",
+                  bd: "1px solid transparent",
+                }}
+              />
+            </div>
           ))}
           <SelectDog onClick={() => setChecked(!checked)}>
             <CheckMark checkColor={checked} checkFontWeight={checked}>
-              ✓&#32;이 아이로 활동하기
+              <TbCircleCheck
+                style={{
+                  marginRight: "2px",
+                }}
+              />
+              이 아이로 활동하기
             </CheckMark>
           </SelectDog>
           <Button
+            // ref={dogImgRef}
             text={"댕프로필 추가하기"}
+            _onClick={uploadHandler}
             style={{
               width: "100%",
               height: "4em",
@@ -298,4 +398,5 @@ const MyPageNavBox = styled.div`
 const CheckMark = styled.span`
   color: ${(props) => (props.checkColor ? "#0066ff" : "#000")};
   font-weight: ${(props) => (props.checkFontWeight ? "700" : "400")};
+  cursor: pointer;
 `;
