@@ -4,28 +4,33 @@ import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import Card from "../../components/card/Card";
 import Comment from "../../components/comment/Comment";
 import Button from "../../elements/button/Button";
-import Header from "../../components/header/Header";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import { useDispatch, useSelector } from "react-redux";
-import { mainList } from "../../redux/modules/mainPage";
+import { mainList } from "../../redux/modules/mainSlice";
 import { useEffect } from "react";
-import Footer from "../../components/footer/Footer";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
 const Main = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const dataList = useSelector((state) => state.main.mainList);
   console.log(dataList);
-  // const category = ["hospital", "shop"];
   useEffect(() => {
-    dispatch(mainList());
+    dispatch(mainList("hospital"));
   }, []);
-  const mainButtonList = ["병원", "호텔", "쇼핑", "장터", "커뮤니티"];
-  const mainCardList = ["인기 병원", "인기 숙소", "인기 장터", "인기 게시물"];
-  const mainHotButtonList = ["#동물병원", "#애견호텔", "#중고장터"];
+  const mainButtonList = [
+    { name: "병원", category: "hospital" },
+    { name: "호텔", category: "hotel" },
+    { name: "쇼핑", category: "shop" },
+    { name: "장터", category: "trade" },
+    { name: "커뮤니티", category: "community" },
+  ];
+  // const mainCardList = ["인기 병원", "인기 숙소", "인기 장터", "인기 게시물"];
   const mainCommentList = [
     {
       text: { star: 5, title: "제목", content: "내용" },
@@ -40,6 +45,22 @@ const Main = () => {
       info: { dog: "포메라니안2", name: "이*주3" },
     },
   ];
+  const [checked, setChecked] = useState([true, false, false, false]);
+  const mainHotButtonList = [
+    { id: 0, text: "#동물병원", category: "hospital" },
+    { id: 1, text: "#애견호텔", category: "shop" },
+    { id: 2, text: "#중고장터", category: "hospital" }, // room community 등으로 교체 해야함
+    { id: 3, text: "#커뮤니티", category: "shop" }, // room community 등으로 교체 해야함
+  ];
+  const onClickHandler = (i) => {
+    const newArr = Array(mainHotButtonList.length).fill(false);
+    newArr[i] = true;
+    setChecked(newArr);
+    dispatch(mainList(mainHotButtonList[i].category));
+  };
+  console.log(checked);
+  // console.log(JSON.stringify(checked));
+
   return (
     <MainWrap>
       <StyledSwiper
@@ -53,21 +74,24 @@ const Main = () => {
         centeredSlides={true}
       >
         <SwiperSlide>
-          <MainBanner background={"#0000ff50"}></MainBanner>
+          <MainBanner background={"#0000ff50"}>배너1</MainBanner>
         </SwiperSlide>
         <SwiperSlide>
-          <MainBanner background={"#00ff0050"}></MainBanner>
+          <MainBanner background={"#00ff0050"}>배너2</MainBanner>
         </SwiperSlide>
         <SwiperSlide>
-          <MainBanner></MainBanner>
+          <MainBanner>배너3</MainBanner>
         </SwiperSlide>
       </StyledSwiper>
       <MainButtonWrap>
         {mainButtonList.map((mainButton, i) => (
-          <MainButtonBox>
+          <MainButtonBox key={i}>
             <Button
               key={i}
               type={"button"}
+              _onClick={() => {
+                navigate("/" + mainButton.category);
+              }}
               style={{
                 width: "10em",
                 height: "10em",
@@ -79,7 +103,7 @@ const Main = () => {
                 bd_color: "transparent",
               }}
             />
-            <div>{mainButton}</div>
+            <div>{mainButton.name}</div>
           </MainButtonBox>
         ))}
       </MainButtonWrap>
@@ -88,8 +112,11 @@ const Main = () => {
         {mainHotButtonList.map((hotButtonList, i) => (
           <Button
             key={i}
+            // id={hotButtonList.id}
             type={"button"}
-            text={hotButtonList}
+            text={hotButtonList.text}
+            checked={checked[i]}
+            _onClick={() => onClickHandler(i)}
             style={{
               width: "auto",
               height: "auto",
@@ -107,7 +134,7 @@ const Main = () => {
               hv_bd_color: "#000",
               f_color: "#000",
               f_bd_color: "#000",
-              ft_weight: "400",
+              ft_weight: "700",
               f_ft_weight: "700",
               hv_ft_weight: "700",
             }}
@@ -115,15 +142,14 @@ const Main = () => {
         ))}
       </MainHotButtonbWrap>
       <MainCardWrap>
-        {dataList &&
-          dataList.map((data, i) => (
-            <Card
-              key={i}
-              text={data.title}
-              data={data}
-              category={data.category}
-            />
-          ))}
+        {dataList.map((data, i) => (
+          <Card
+            key={i}
+            text={data.title}
+            data={data}
+            category={data.category}
+          />
+        ))}
       </MainCardWrap>
       <div>댕과사전 이용후기</div>
       <MainCommentWrap>
