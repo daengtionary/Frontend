@@ -14,38 +14,90 @@ export const MainBanner = styled.div`
 `;
 
 export const StyledSwiper = styled(Swiper)`
-  /* background: #ff000050; */
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 84%;
+  width: 80%;
   height: 36em;
+  border-radius: 10px;
   z-index: 0;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 export const BusinessTitle = styled.div`
-  width: 84vw;
-  margin: 20px 0;
+  width: 80vw;
+  margin: 20px 0 5px 0;
 
   span {
-    font-size: xx-large;
+    font-size: 28px;
   }
 `
 export const MapAddress = styled.div`
-  width: 84vw;
+  width: 80vw;
   display: flex;
   align-items: center;
+  color: gray;
+  padding-bottom: 20px;
+  margin-bottom: 50px;
+  border-bottom: 1px solid #dbdbdb;
+
   span:first-child {
-    margin-right: 20px;
+    margin-right: 5px;
     cursor: pointer;
   }
 
 `
 
+export const BusinessInfo = styled.div`
+  width: 80vw;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+`
+
 export const BusinessDescription = styled.div`
-  width: 84vw;
+  width: 50%;
+  box-sizing: border-box;
+`
+
+export const DescriptionTitle = styled.div`
+`
+
+export const Description = styled.div`
+`
+
+export const Infotmations = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  span:first-child{
+    padding: 15px;
+    border: none;
+    background-color: #f1f1f1;
+    border-radius: 50%;
+    box-sizing: border-box;
+    width: 62px;
+    height: 62px;
+    margin-right: 30px;
+  }
 `
 
 export const ReviewWrap = styled.div`
-  width: 84vw;
+  width: 80vw;
+`
+
+export const StarRating = styled.div`
+  width: 80vw;
+  display: flex;
+  margin-bottom: 10px;
+
+`
+
+export const CalendarWrap = styled.div`
+  width: 50%;
+  box-sizing: border-box;
 `
