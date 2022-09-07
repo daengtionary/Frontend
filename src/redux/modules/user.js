@@ -7,7 +7,9 @@ export const emailDupCheckThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     const resData = await api
       .get(`member/checkemail?email=${payload}`)
+
       .then((res) => res.data)
+
       .catch((error) => console.err(error));
     return thunkAPI.fulfillWithValue(resData);
   }
@@ -28,10 +30,12 @@ export const nickNameDupCheckThunk = createAsyncThunk(
 export const addUserThunk = createAsyncThunk(
   'use/addUser',
   async (payload, thunkAPI) => {
+
     const resData = await api
     .post(`/member/signup`, payload)
     .then((res) => res.data)
     .catch((error) => error);
+
     return thunkAPI.fulfillWithValue(resData);
   }
 );
@@ -39,10 +43,12 @@ export const addUserThunk = createAsyncThunk(
 export const signUserThunk = createAsyncThunk(
   'user/signUser',
   async (payload, thunkAPI) => {
+    console.log(payload);
     const resData = await api
       .post(`member/login`, payload)
       .then((res) => res)
       .catch((err) => console.log(err.response.data));
+
     window.sessionStorage.setItem(
       'authorization',
       resData.headers['authorization'].split(' ')[1]
@@ -62,6 +68,7 @@ export const kakaoAuthThunk = createAsyncThunk(
     const resData = await api
       .get(`/member/kakao?code=${payload.code}`)
       .then((res) => res);
+
     window.sessionStorage.setItem(
       'authorization',
       resData.headers['authorization'].split(' ')[1]
