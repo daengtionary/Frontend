@@ -130,17 +130,20 @@ const SignUp = () => {
         emailSpanRef.current.style.color = '#f2153e';
         setEmailCheck(false);
       } else {
-        dispatch(emailDupCheckThunk(email)).then((res) => {
-          if (res.payload) {
-            emailSpanRef.current.innerText = '사용가능한 이메일입니다';
-            emailSpanRef.current.style.color = '#0fe05f';
+        dispatch(emailDupCheckThunk(email))
+          .unwrap()
+          .then(res => {
+            console.log(res);
             setEmailCheck(true);
-          } else {
+            emailSpanRef.current.innerText = res.message;
+            emailSpanRef.current.style.color = '#0fe05f';
+          })
+          .catch(error => {
+            console.log(error);
+            setEmailCheck(false);
             emailSpanRef.current.innerText = '이미 사용중인 이메일입니다';
             emailSpanRef.current.style.color = '#f2153e';
-            setEmailCheck(false);
-          }
-        });
+          });
       }
     }, 500),
     [email]
@@ -155,19 +158,20 @@ const SignUp = () => {
       } else {
         dispatch(nickNameDupCheckThunk(nick)).then((res) => {
           if (res.payload.state === 200) {
+            setNickCheck(true);
             nickNameSpanRef.current.innerText = res.payload.message;
             nickNameSpanRef.current.style.color = '#0fe05f';
-            setNickCheck(true);
-          } else{
-            nickNameSpanRef.current.innerText = res.payload.message;
-            nickNameSpanRef.current.style.color = '#f2153e';
+          } else {
             setNickCheck(false);
+            nickNameSpanRef.current.innerText = '이미 사용중인 닉네임 입니다.';
+            nickNameSpanRef.current.style.color = '#f2153e';
           }
         });
       }
     }, 500),
     [nick]
   );
+  console.log(nickCheck);
 
   useEffect(() => {
     if (email !== '') {
@@ -308,17 +312,21 @@ const SignUp = () => {
         nickNameSpanRef.current.innerText = '중복되는 닉네임입니다';
       } else {
         console.log(newUser);
-        dispatch(addUserThunk(newUser)).then((res) => {
-          if (res.payload.data.status === 400) {
-            adminInputRef.current.focus();
-            adminCodeSpanRef.current.innerText = res.payload.data.message;
-            adminCodeSpanRef.current.style.color = '#f2153e';
-          } else {
-            dispatch(addUserThunk(newUser))
-            alert(nick + '님 가입을 축하합니다');
+        dispatch(addUserThunk(newUser))
+          .unwrap()
+          .then((res) => {
+            console.log(res);
+            alert(res.message);
             navigate('/signin');
-          }
-        });
+            adminCodeSpanRef.current.innerText = ' ';
+          })
+          .catch((error) => {
+            console.log(error.message);
+            adminInputRef.current.focus();
+            adminCodeSpanRef.current.innerText =
+              '관리자 코드가 일치하지 않습니다.';
+            adminCodeSpanRef.current.style.color = '#f2153e';
+          });
       }
     },
     [email, password, passwordCheck, nick, adminCode]
