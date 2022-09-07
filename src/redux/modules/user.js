@@ -1,20 +1,22 @@
 // Redux import
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { api } from "../../shared/api";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { api } from '../../shared/api';
 
 export const emailDupCheckThunk = createAsyncThunk(
-  "user/emailDupCheck",
+  'user/emailDupCheck',
   async (payload, thunkAPI) => {
     const resData = await api
       .get(`member/checkemail?email=${payload}`)
-      .then((res) => res.data.success)
+
+      .then((res) => res.data)
+
       .catch((error) => console.err(error));
     return thunkAPI.fulfillWithValue(resData);
   }
 );
 
 export const nickNameDupCheckThunk = createAsyncThunk(
-  "user/nicknameDupCheck",
+  'user/nicknameDupCheck',
   async (payload, thunkAPI) => {
     const resData = await api
       .get(`/member/checknick?nick=${payload}`)
@@ -26,53 +28,54 @@ export const nickNameDupCheckThunk = createAsyncThunk(
 );
 
 export const addUserThunk = createAsyncThunk(
-  "use/addUser",
+  'use/addUser',
   async (payload, thunkAPI) => {
-    const resData = await api.post(`/member/signup`, payload);
-    console.log(payload).then((res) => res.data);
-    console.log(resData).catch((error) => console.err(error));
-    console.log(console.err);
+
+    const resData = await api
+    .post(`/member/signup`, payload)
+    .then((res) => res.data)
+    .catch((error) => error);
+
     return thunkAPI.fulfillWithValue(resData);
   }
 );
 
 export const signUserThunk = createAsyncThunk(
-  "user/signUser",
+  'user/signUser',
   async (payload, thunkAPI) => {
     console.log(payload);
     const resData = await api
-      .post(`/member/login`, payload)
+      .post(`member/login`, payload)
       .then((res) => res)
-      .catch((err) => console.error(err));
+      .catch((err) => console.log(err.response.data));
+
     window.sessionStorage.setItem(
-      "authorization",
-      resData.headers["authorization"].split(" ")[1]
+      'authorization',
+      resData.headers['authorization'].split(' ')[1]
     );
     window.sessionStorage.setItem(
-      "refresh-token",
-      resData.headers["refresh-token"]
+      'refresh-token',
+      resData.headers['refresh-token']
     );
-    // window.sessionStorage.setItem("email", resData.data.data["email"]);
-    // window.sessionStorage.setItem("nick", resData.data.data["nick"]);
 
     return thunkAPI.fulfillWithValue(resData.data);
   }
 );
 
 export const kakaoAuthThunk = createAsyncThunk(
-  "user/kakaoLogin",
+  'user/kakaoLogin',
   async (payload, thunkAPI) => {
     const resData = await api
       .get(`/member/kakao?code=${payload.code}`)
       .then((res) => res);
-    console.log(resData);
+
     window.sessionStorage.setItem(
-      "authorization",
-      resData.headers["authorization"].split(" ")[1]
+      'authorization',
+      resData.headers['authorization'].split(' ')[1]
     );
     window.sessionStorage.setItem(
-      "refresh-token",
-      resData.headers["refresh-token"]
+      'refresh-token',
+      resData.headers['refresh-token']
     );
     return thunkAPI.fulfillWithValue(resData.data);
   }
@@ -83,7 +86,7 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState: initialState,
   reducers: {
     headerAction: (state, action) => {
