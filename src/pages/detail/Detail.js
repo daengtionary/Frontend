@@ -15,6 +15,12 @@ import "swiper/components/pagination/pagination.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailThunk } from "../../redux/modules/detailSlice";
 import { useParams } from "react-router-dom";
+
+// DatePicker import
+import DatePicker from "react-date-picker";
+import "./DatePicker.css";
+
+// Calendar import 삭제 예정
 import Calendar from 'react-calendar';
 import './Calendar.css'; // css import
 
@@ -26,7 +32,7 @@ const Detail = () => {
 
   const [calendar, setCalendar] = useState(new Date());
 
-  const starRate = [1,2,3,4,5]
+  const [pickedDate, setPickedDate] = useState(new Date());
 
   const modalHandler = () => {
     setMapModal(!mapModal);
@@ -98,12 +104,12 @@ const Detail = () => {
           </div>
         </BusinessDescription>
 
-        <CalendarWrap>
-        <Calendar onChange={setCalendar} value={calendar} />
+        {/* <CalendarWrap>
+          <Calendar onChange={setCalendar} value={calendar} />
+        </CalendarWrap> */}
 
-
-        </CalendarWrap>
       </BusinessInfo>
+      {/* <DatePicker onChange={setPickedDate} value={pickedDate}/> */}
 
       <ReviewWrap>후기 글들</ReviewWrap>
 
