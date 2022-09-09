@@ -16,10 +16,12 @@ import ChatFloatButton from "./components/chatFloatButton/ChatFloatButton";
 
 // Shared
 import Kakao from "./shared/kakao";
+import ScrollToTop from "./shared/ScrollToTop";
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Header />
       <ChatFloatButton/>
       <Routes>
@@ -28,7 +30,7 @@ function App() {
         <Route exact path={"/hospital"} element={<List />} />
         <Route exact path={"/shop"} element={<List />} />
         <Route exact path={"/trade"} element={<List />} />
-        <Route exact path={"/hotel"} element={<List />} />
+        <Route exact path={"/room"} element={<List />} />
         <Route exact path={"/community"} element={<List />} />
         <Route exact path={"/mypage"} element={<MyPage />} />
         <Route exact path={"/service"} element={<Service />} />

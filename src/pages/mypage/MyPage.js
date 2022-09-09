@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useRef, useState } from "react";
 import { TbCameraPlus, TbCircleCheck } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
@@ -10,12 +11,27 @@ import { myDogInfo, myList, myPageInfo } from "../../redux/modules/myPageSlice";
 // import jwt from "jsonwebtoken";
 
 const MyPage = () => {
-  // // // 토큰 변수 할당
-  // let token = window.sessionStorage.getItem("authorization");
-  // console.log(token);
-  // // // 토큰 decode 하는 부분
-  // let decoded = token && jwtDecode(token);
-  // console.log(decoded);
+  const navigate = useNavigate();
+  // 토큰 변수 할당
+  let token = window.sessionStorage.getItem("authorization");
+  // 토큰 decode 하는 부분
+  let decoded = token && jwtDecode(token);
+  // console.log(decoded.exp + "000");
+  // 토큰 만료시간
+  let exp = token && Number(decoded.exp + "000");
+  let expTime = new Date(exp);
+  console.log(expTime, "만료 시간");
+  let now = new Date();
+  console.log(now, "현재 시간");
+  const checkToken = () => {
+    if (expTime <= now || token === null) {
+      token && window.sessionStorage.removeItem("authorization");
+      alert("로그인이 만료 되었습니다. 다시 로그인해 주세요!");
+      navigate("/signin");
+    } else {
+      dispatch(myPageInfo());
+    }
+  };
 
   // console.log(window.sessionStorage.getItem("email"));
   // console.log(window.sessionStorage.getItem("nick"));
@@ -33,7 +49,7 @@ const MyPage = () => {
   // const dogsdogs = data && Object.values(data.dogs[0]).slice(1, 5);
   // console.log(dogsdogs);
   useEffect(() => {
-    dispatch(myPageInfo());
+    checkToken();
   }, []);
 
   const DogProfileInputList = [
@@ -121,9 +137,10 @@ const MyPage = () => {
     dispatch(myList(formdata));
   };
   const dogInfoHandler = (e) => {
-    // console.log(e.target.id);
     const { id } = e.target;
-    dispatch(myDogInfo(id));
+    if (expTime >= now || token !== null) {
+      dispatch(myDogInfo(id));
+    }
   };
 
   // const uploadHandler = (e) => {

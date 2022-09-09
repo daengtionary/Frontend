@@ -5,11 +5,18 @@ export const getList = createAsyncThunk(
   "listSlice/getList",
   async (payload, thunkAPI) => {
     console.log(JSON.stringify(payload));
+    const params = {
+      address: "",
+      page: "0",
+      size: "10",
+      sort: "popular",
+      direction: "asc",
+    };
     const resData = await api
-      .post(`${payload}?orderby=new&page=0&size=10`)
+      .get(`/${payload}`, { params })
       .then((res) => res)
-      .catch((err) => console.error(err));
-    console.log(resData.data.data.content);
+      .catch((err) => console.log(err));
+    console.log(resData.data.data);
     return thunkAPI.fulfillWithValue(resData.data.data.content);
   }
 );
