@@ -7,7 +7,7 @@ import {
   emailDupCheckThunk,
   addUserThunk,
   nickNameDupCheckThunk,
-} from '../../redux/modules/user';
+} from '../../redux/modules/userSlice';
 
 // Package import
 import { useNavigate } from 'react-router-dom';

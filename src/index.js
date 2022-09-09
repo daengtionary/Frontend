@@ -5,13 +5,17 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from './redux/configStore';
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import theme from './shared/theme';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
+    <ThemeProvider theme={theme}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
+    </ThemeProvider>
   </Provider>
 );

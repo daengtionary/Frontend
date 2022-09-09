@@ -3,7 +3,7 @@ import { useState, useCallback, useRef, Fragment } from "react";
 
 // Redux import
 import { useDispatch } from "react-redux/es/exports";
-import { signUserThunk } from "../../redux/modules/user";
+import { signUserThunk } from "../../redux/modules/userSlice";
 
 // Package import
 import { useNavigate } from "react-router-dom";

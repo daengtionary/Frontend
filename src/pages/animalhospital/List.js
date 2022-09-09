@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import ListPageCard from "../../components/card/ListPageCard";
 import { getList } from "../../redux/modules/listSlice";
+import ChatFloatButton from "../../components/chatFloatButton/ChatFloatButton";
 
 const List = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const List = () => {
       >
         TOP
       </TopBtn>
+      <ChatFloatButton></ChatFloatButton>
     </ListWrap>
   );
 };

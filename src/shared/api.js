@@ -31,3 +31,21 @@ export const api = axios.create({
     "content-type": "application/json;charset=UTF-8",
   },
 });
+
+
+
+export const chatApi = axios.create({
+  baseURL: process.env.REACT_APP_CHAT_URL,
+  headers: {
+    "content-type": "application/json;charset=UTF-8",
+    accept: "application/json,",
+  },
+});
+
+chatApi.interceptors.request.use(function (config) {
+  const token = localStorage.getItem("token");
+  if (token !== undefined) {
+    config.headers.common["Authorization"] = token;
+  }
+  return config;
+});

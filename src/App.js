@@ -11,6 +11,8 @@ import Detail from "./pages/detail/Detail";
 import Service from "./pages/service/Service";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
+import ChatFloatButton from "./components/chatFloatButton/ChatFloatButton";
+// import ChatModal from "./components/chatModal/ChatModal";
 
 // Shared
 import Kakao from "./shared/kakao";
@@ -19,6 +21,7 @@ function App() {
   return (
     <>
       <Header />
+      <ChatFloatButton/>
       <Routes>
         <Route exact path={"/signin"} element={<SignIn />} />
         <Route exact path={"/signup"} element={<SignUp />} />

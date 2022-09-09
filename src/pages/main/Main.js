@@ -4,6 +4,7 @@ import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import Card from "../../components/card/Card";
 import Comment from "../../components/comment/Comment";
 import Button from "../../elements/button/Button";
+import ChatFloatButton from "../../components/chatFloatButton/ChatFloatButton";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
@@ -13,6 +14,7 @@ import { mainList } from "../../redux/modules/mainSlice";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
 const Main = () => {
@@ -157,6 +159,7 @@ const Main = () => {
           <Comment key={i} text={commentList.text} info={commentList.info} />
         ))}
       </MainCommentWrap>
+      <ChatFloatButton/>
     </MainWrap>
   );
 };
