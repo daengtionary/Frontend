@@ -1,19 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { api, api_auth } from "../../shared/api";
+import { api } from "../../shared/api";
 
 export const mainList = createAsyncThunk(
   "mainSlice/mainList",
   async (payload, thunkAPI) => {
-    // var params = new URLSearchParams();
-    // params.append("c", "hospital");
-    // params.append('doc_password', this.doc_password);
     console.log(JSON.stringify(payload));
+    const params = {
+      address: "",
+      page: "0",
+      size: "4",
+      sort: "popular",
+      direction: "asc",
+    };
     const resData = await api
-      .post(`/${payload}?orderby=new&page=1&size=4`)
+      .get(`/${payload}`, { params })
+      // http://localhost:8080/trade?sort=new&page=0&size=10
       .then((res) => res)
-      .catch((err) => console.error(err));
+      .catch((err) => console.log(err));
     // console.log(params.get("c"));
-    console.log(resData.data.data.content);
+    console.log(resData.data.data);
     return thunkAPI.fulfillWithValue(resData.data.data.content);
   }
 );

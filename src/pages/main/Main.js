@@ -20,13 +20,15 @@ const Main = () => {
   const dispatch = useDispatch();
   const dataList = useSelector((state) => state.main.mainList);
   console.log(dataList);
+
   useEffect(() => {
+    // mainHotButtonList.map((btn) => dispatch(mainList(btn.category)));
     dispatch(mainList("hospital"));
   }, []);
+
   const mainButtonList = [
     { name: "병원", category: "hospital" },
-    { name: "호텔", category: "hotel" },
-    { name: "쇼핑", category: "shop" },
+    { name: "호텔", category: "room" },
     { name: "장터", category: "trade" },
     { name: "커뮤니티", category: "community" },
   ];
@@ -48,9 +50,9 @@ const Main = () => {
   const [checked, setChecked] = useState([true, false, false, false]);
   const mainHotButtonList = [
     { id: 0, text: "#동물병원", category: "hospital" },
-    { id: 1, text: "#애견호텔", category: "shop" },
-    { id: 2, text: "#중고장터", category: "hospital" }, // room community 등으로 교체 해야함
-    { id: 3, text: "#커뮤니티", category: "shop" }, // room community 등으로 교체 해야함
+    { id: 1, text: "#애견호텔", category: "room" },
+    { id: 2, text: "#중고장터", category: "trade" }, // room community 등으로 교체 해야함
+    { id: 3, text: "#커뮤니티", category: "community" }, // room community 등으로 교체 해야함
   ];
   const onClickHandler = (i) => {
     const newArr = Array(mainHotButtonList.length).fill(false);
