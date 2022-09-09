@@ -3,7 +3,7 @@ import { useState, useCallback, useRef, Fragment } from "react";
 
 // Redux import
 import { useDispatch } from "react-redux/es/exports";
-import { signUserThunk } from "../../redux/modules/user";
+import { signUserThunk } from "../../redux/modules/userSlice";
 
 // Package import
 import { useNavigate } from "react-router-dom";
@@ -58,18 +58,18 @@ const SignIn = () => {
         alert("이메일 형식에 맞지 않습니다");
       } 
       else {
-        dispatch(signUserThunk({ email, password })).then((res) => {
-          if (res.payload.state===200) {
-            navigate("/")
-            alert(res.payload.message)
-          } else {
-            alert(
-              "로그인 실패하였습니다\n이메일 / 패스워드를 다시 확인해주세요"
-            )
-          }
+        dispatch(signUserThunk({ email, password }))
+        .unwrap()
+        .then(res=>{
+          alert(res.message);
+          navigate('/')
         })
-      }
-    },
+        .catch(error=>{
+          alert("로그인에 실패하였습니다");
+          console.log(error)
+        })
+        }
+      },
     [email, password]
   );
 

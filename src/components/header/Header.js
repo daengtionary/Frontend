@@ -12,7 +12,7 @@ import {
 
 //pakages
 import { useNavigate } from "react-router-dom";
-import { headerAction } from "../../redux/modules/user";
+import { headerAction } from "../../redux/modules/userSlice";
 
 //styledComponent
 import {

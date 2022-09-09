@@ -5,7 +5,8 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import ListPageCard from "../../components/card/ListPageCard";
 import { getList } from "../../redux/modules/listSlice";
-// import { FixedSizeList as List } from "react-window";
+
+
 
 const List = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const List = () => {
 
   return (
     <ListWrap>
+
       {dataList &&
         dataList
           // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -59,40 +61,7 @@ const List = () => {
 
 export default List;
 
-////////////////////////////////////////////////////////
-// const Exam = () => {
-//   const data = ["hello", "world"];
-//   return (
-//     <List
-//       className="List"
-//       // class 이름
-//       height={1000}
-//       // 아이템이 보이는 곳의 크기
-//       itemCount={1000}
-//       // 아이템 개수
-//       itemSize={75}
-//       // 아이템 높이
-//       width={"100vw"}
-//       // 아이템 보이는 곳의 넓이
-//       itemData={data}
-//       // 아이템 데이터 (배열로 줘서 component에서 indexing 해주자)
-//       style={{}}
-//     >
-//       {Column}
-//     </List>
-//   );
-// };
-// const Column = (props) => {
-//   // props의 구조는 { data, style, index, isScrolling }으로 되어있다.
-//   return (
-//     <div>
-//       <ListPageCard data={props.data} />
-//       {console.log(props)}
-//     </div>
-//   );
-// };
-// export default Exam;
-///////////////////////////////////////////////////////////
+
 
 const ListWrap = styled.div`
   display: flex;
