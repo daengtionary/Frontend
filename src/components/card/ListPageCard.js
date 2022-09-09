@@ -68,7 +68,10 @@ const CardImgBox = styled.div`
   padding: 0 1.5em;
 `;
 const CardImg = styled.div`
-  background: ${(props) => `url(${props.background}) center / cover no-repeat`};
+  background: ${(props) =>
+    props.background
+      ? `url(${props.background}) center / cover no-repeat`
+      : " linear-gradient(#ccc, #cccccc50)"};
   height: 100%;
   border-radius: 20px;
 `;
