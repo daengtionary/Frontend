@@ -16,9 +16,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetailThunk } from "../../redux/modules/detailSlice";
 import { useParams } from "react-router-dom";
 
-// DatePicker import
-import DatePicker from "react-date-picker";
-import "./DatePicker.css";
 
 // Calendar import 삭제 예정
 import Calendar from 'react-calendar';
@@ -31,8 +28,6 @@ const Detail = () => {
   const [mapModal, setMapModal] = useState(false);
 
   const [calendar, setCalendar] = useState(new Date());
-
-  const [pickedDate, setPickedDate] = useState(new Date());
 
   const modalHandler = () => {
     setMapModal(!mapModal);
@@ -109,7 +104,6 @@ const Detail = () => {
         </CalendarWrap> */}
 
       </BusinessInfo>
-      {/* <DatePicker onChange={setPickedDate} value={pickedDate}/> */}
 
       <ReviewWrap>후기 글들</ReviewWrap>
 
