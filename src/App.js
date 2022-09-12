@@ -12,6 +12,8 @@ import Service from "./pages/service/Service";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import ChatFloatButton from "./components/chatFloatButton/ChatFloatButton";
+import Community from "./pages/community/Community";
+import CommunityDetail from "./pages/communityDetail/CommunityDetail";
 // import ChatModal from "./components/chatModal/ChatModal";
 
 // Shared
@@ -31,7 +33,8 @@ function App() {
         <Route exact path={"/shop"} element={<List />} />
         <Route exact path={"/trade"} element={<List />} />
         <Route exact path={"/room"} element={<List />} />
-        <Route exact path={"/community"} element={<List />} />
+        <Route exact path={"/community"} element={<Community />} />
+        <Route exact path={"/community/:id"} element={<CommunityDetail />} />
         <Route exact path={"/mypage"} element={<MyPage />} />
         <Route exact path={"/service"} element={<Service />} />
         <Route exact path={"/detail/:id"} element={<Detail />} />
