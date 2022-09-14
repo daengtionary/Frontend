@@ -13,19 +13,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { mainList } from "../../redux/modules/mainSlice";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { reset } from "../../redux/modules/listSlice";
 
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
 const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const { pathname, search } = location;
   const dataList = useSelector((state) => state.main.mainList);
   console.log(dataList);
+  console.log(pathname, search);
 
   useEffect(() => {
     // mainHotButtonList.map((btn) => dispatch(mainList(btn.category)));
-    dispatch(mainList("hospital"));
+    dispatch(mainList("/hospital"));
   }, []);
 
   const mainButtonList = [
@@ -95,11 +99,12 @@ const Main = () => {
               type={"button"}
               _onClick={() => {
                 navigate("/" + mainButton.category);
+                dispatch(reset());
               }}
               style={{
                 width: "10em",
                 height: "10em",
-                bg_color: "#999",
+                bg_color: "#cccccc50",
                 mg_left: "30px",
                 mg_right: "30px",
                 mg_bottom: "14px",
@@ -111,7 +116,7 @@ const Main = () => {
           </MainButtonBox>
         ))}
       </MainButtonWrap>
-      <h2>#HOT TREND</h2>
+      <MenuTitle>#HOT TREND</MenuTitle>
       <MainHotButtonbWrap>
         {mainHotButtonList.map((hotButtonList, i) => (
           <Button
@@ -155,13 +160,13 @@ const Main = () => {
           />
         ))}
       </MainCardWrap>
-      <div>댕과사전 이용후기</div>
+      <MenuTitle margin={"3em 0 2em 0"}>댕과사전 이용후기</MenuTitle>
       <MainCommentWrap>
         {mainCommentList.map((commentList, i) => (
           <Comment key={i} text={commentList.text} info={commentList.info} />
         ))}
       </MainCommentWrap>
-      <ChatFloatButton/>
+      <ChatFloatButton />
     </MainWrap>
   );
 };
@@ -230,5 +235,8 @@ const MainCommentWrap = styled.div`
   flex-direction: row;
   justify-content: center;
   width: 70%;
+`;
+const MenuTitle = styled.h2`
+  margin: ${(props) => props.margin};
 `;
 const MainCommentCard = styled.div``;

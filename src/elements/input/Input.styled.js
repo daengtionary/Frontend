@@ -23,8 +23,8 @@ export const StyledInput = styled.input`
     ::-webkit-input-placeholder {
       color: transparent;
     }
-  };
+  }
   ::-ms-reveal {
     display: none;
-}
+  }
 `;
