@@ -1,24 +1,53 @@
-import React from 'react'
-import { BsPencil, BsTrash, BsChatRightDots } from "react-icons/bs";
-import { CommunityCardWrap, IconWrap, CardContents, RepleCircle, ProfilePhoto, Names, Category, Title, Dog, User } from './CommunityCard.styled';
+import React from "react";
+import {
+  CommunityCardWrap,
+  IconWrap,
+  CardContents,
+  Icons,
+  IconBox,
+  UpdateIcon,
+  DeleteIcon,
+  CommnetIcon,
+  RepleCircle,
+  ProfilePhoto,
+  Names,
+  Category,
+  Title,
+  Dog,
+  User,
+} from "./CommunityCard.styled";
 
-const CommunityCard = ({detailHandler}) => {
-
+const CommunityCard = ({ detailHandler, data }) => {
+  console.log(data);
 
   return (
     <CommunityCardWrap>
-      <IconWrap><BsPencil size={20}/><BsTrash size={20}/><BsChatRightDots size={20}/><RepleCircle>3</RepleCircle></IconWrap>
+      <IconWrap>
+        <IconBox length={"24px"} size={"24px"} url={"/img/pen.png"} hover={"blue"} />
+        <IconBox length={"24px"} size={"34px"} url={"/img/delete.png"} hover={"red"} />
+        <IconBox length={"24px"} size={"24px"} url={"/img/comment.png"} />
+        {/* <UpdateIcon/>
+        <DeleteIcon/>
+      <CommnetIcon/> */}
+        {/* <Icons alt="update_btn" src={`${process.env.PUBLIC_URL}/img/pen.png`}/>
+        <Icons alt="delete_btn " src={`${process.env.PUBLIC_URL}/img/delete.png`}/>
+      <Icons alt="comment_icon " src={`${process.env.PUBLIC_URL}/img/comment.png`}/> */}
+        <RepleCircle>3</RepleCircle>
+      </IconWrap>
+
+
       <CardContents>
-        <ProfilePhoto>프사</ProfilePhoto>
+        <ProfilePhoto url={data.communityImg}>
+        </ProfilePhoto>
         <Names>
-          <Dog>비숑 프리제</Dog>
-          <User>하*로</User>
+          <Dog>견종{data.communityNo}</Dog>
+          <User>{data.nick}</User>
         </Names>
-        <Category>장터</Category>
-        <Title onClick={detailHandler}>여기에 글 제목</Title>
+        <Category>카테고리</Category>
+        <Title onClick={detailHandler}>{data.title}</Title>
       </CardContents>
     </CommunityCardWrap>
-  )
-}
+  );
+};
 
-export default CommunityCard
+export default CommunityCard;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const DetailWrap = styled.div`
-  width: 100%;
+  width: 60%;
 `;
 export const PostContainer = styled.div`
   box-sizing: border-box;
@@ -81,5 +81,6 @@ export const BottomBtn = styled.div`
     border-radius: 10px;
     background-color: #d9d9d9;
     color: #fff;
+    cursor: pointer;
   }
 `;

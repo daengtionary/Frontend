@@ -11,6 +11,7 @@ export const ProfilePhoto = styled.div`
   border-radius: 50%;
   background-color: #ddd;
   width: 57px;
+  min-width: 57px;
   height: 57px;
   display: flex;
   justify-content: center;
@@ -20,6 +21,7 @@ export const ProfilePhoto = styled.div`
 
 export const UserInfo = styled.div`
   margin-right: 20px;
+  min-width: 60px;
 
   div:first-child {
     color: gray;
@@ -32,7 +34,7 @@ export const UserInfo = styled.div`
 
 export const RipleContent = styled.div`
   height: 60px;
-  width: 80%;
+  width: 90%;
   background-color: #d9d9d9;
   box-sizing: border-box;
   padding: 0 10px;

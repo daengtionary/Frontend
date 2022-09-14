@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CommunityPostForm = styled.form`
-  width: 80%;
+  width: 60%;
   height: 50vh;
   border: 1px solid #797979;
   border-radius: 10px;

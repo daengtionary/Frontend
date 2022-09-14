@@ -1,16 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import CommunityDetailRipleCard from "../../components/communityDetialRipleCard/CommunityDetailRipleCard";
 import { CommunityContainer, CommunityWrap, SideBar } from "../community/Community.styled";
 import { DetailWrap, PostContainer, Title, PostInfo, Content, ShowRiples, Riple, WriteRiple, RipleBtn, BottomBtn } from "./CommunityDetail.styled";
 const CommunityDetail = () => {
+
+  const navigate = useNavigate()
+
   return (
     <CommunityContainer>
-      <CommunityWrap>
-        <SideBar>
+      <CommunityWrap id="hahah">
+        {/* <SideBar>
           <ul>
             <li>댕과사전 커뮤니티</li>
           </ul>
-        </SideBar>
+        </SideBar> */}
 
         <DetailWrap>
           <PostContainer>
@@ -26,18 +30,22 @@ const CommunityDetail = () => {
             </Content>
           </PostContainer>
 
-          <ShowRiples>
-            <CommunityDetailRipleCard/>
-
-          </ShowRiples>
-
           <Riple>
             <WriteRiple placeholder="000글자 이내로 작성해주세요"/>
             <RipleBtn>댓글달기</RipleBtn>
           </Riple>
 
+          <ShowRiples>
+            <CommunityDetailRipleCard/>
+            <CommunityDetailRipleCard/>
+            <CommunityDetailRipleCard/>
+            <CommunityDetailRipleCard/>
+            <CommunityDetailRipleCard/>
+          </ShowRiples>
+
+
           <BottomBtn>
-            <button>목록보기</button>
+            <button onClick={()=>{navigate('/community')}}>목록보기</button>
           </BottomBtn>
         </DetailWrap>
       </CommunityWrap>
