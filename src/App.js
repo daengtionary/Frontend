@@ -23,7 +23,7 @@ function App() {
     <>
       <ScrollToTop />
       <Header />
-      <ChatFloatButton/>
+      <ChatFloatButton />
       <Routes>
         <Route exact path={"/signin"} element={<SignIn />} />
         <Route exact path={"/signup"} element={<SignUp />} />

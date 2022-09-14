@@ -6,14 +6,17 @@ export const mainList = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(JSON.stringify(payload));
     const params = {
+      title: "",
+      content: "",
+      nick: "",
       address: "",
-      page: "0",
+      page: 0,
       size: "4",
       sort: "popular",
       direction: "asc",
     };
     const resData = await api
-      .get(`/${payload}`, { params })
+      .get(`${payload}/search`, { params })
       // http://localhost:8080/trade?sort=new&page=0&size=10
       .then((res) => res)
       .catch((err) => console.log(err));
