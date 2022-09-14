@@ -16,12 +16,12 @@ import {
   RoomWrap,
   Header,
   HelpMessage
-} from './ChatModal.styled'
-import { setNotification, getRoomListDB } from "../redux/modules/chat";
-import ChatRoom from "./ChatRoom";
-import ChatRoomList from "./ChatRoomList";
+} from './ChatModal.styled';
+import { setNotification, getRoomListDB } from "../../redux/modules/chatSlice";
+import ChatRoom from "../chatRoom/ChatRoom";
+import ChatRoomList from "../chatRoomList/ChatRoomList"
 
-import { OrangeChatSVG, XSVG } from "../elements/SVG";
+import { OrangeChatSVG, XSVG } from "../../elements/svg/SVG";
 
 // 채팅 모달
 const ChatModal = () => {

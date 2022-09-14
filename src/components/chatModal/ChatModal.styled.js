@@ -67,8 +67,10 @@ export const RoomWrap = styled.div`
   border-left: 1px solid ${({ theme }) => theme.colors.gray};
   position: relative;
   @media screen and (max-width: 768px) {
-    display: ${({ isRoom }) => !isRoom && "none"};
-    width: ${({ isRoom }) => isRoom && "100%"};
+    /* display: ${({ isRoom }) => !isRoom && "none"};
+    width: ${({ isRoom }) => isRoom && "100%"}; */
+    display: none;
+    width: 100%;
   }
 `;
 export const Header = styled.div`

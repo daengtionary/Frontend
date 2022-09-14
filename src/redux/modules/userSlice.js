@@ -54,6 +54,7 @@ export const signUserThunk = createAsyncThunk(
       'refresh-token',
       resData.headers['refresh-token']
     );
+    //로컬에 닉네임 저장
 
     return thunkAPI.fulfillWithValue(resData.data);
   }
@@ -74,12 +75,13 @@ export const kakaoAuthThunk = createAsyncThunk(
       'refresh-token',
       resData.headers['refresh-token']
     );
+    //로컬에 닉네임 저장
     return thunkAPI.fulfillWithValue(resData.data);
   }
 );
 
 const initialState = {
-  is_login: false,
+  user:[]
 };
 
 export const userSlice = createSlice({
@@ -87,15 +89,15 @@ export const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     headerAction: (state, action) => {
-      state.is_login = action.payload.is_login;
+      state.user = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(kakaoAuthThunk.fulfilled, (state, action) => {
-      state.is_login = action.payload;
+      state.user = action.payload;
     });
     builder.addCase(signUserThunk.fulfilled, (state, action) => {
-      state.is_login = action.payload;
+      state.user = action.payload;
     });
   },
 });

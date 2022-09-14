@@ -1,18 +1,13 @@
 // React
-import { useEffect, Fragment } from "react";
+// import { useEffect, Fragment } from "react";
 
 
 
 
-// Redux
-import { 
-  useSelector,
-  useDispatch,
-} from "react-redux";
 
 //pakages
 import { useNavigate } from "react-router-dom";
-import { headerAction } from "../../redux/modules/userSlice";
+// import { headerAction } from "../../redux/modules/userSlice";
 
 //styledComponent
 import {
@@ -25,12 +20,11 @@ import {
 
 const Header = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
-  const is_login =  useSelector((state)=> state.user.is_login)
+
+
   
   const signOut = () => {
-    dispatch(headerAction({ is_login: false }));
     window.sessionStorage.removeItem('authorization');  
     alert('로그아웃 되었습니다')
     navigate('/');
@@ -45,7 +39,7 @@ const Header = () => {
       </HeaderLogoBox>
       <HeaderTextBox>
 
-      {is_login ? (
+      {window.sessionStorage.length >= 2  ? (
         <HeaderLoginText
         onClick={signOut}
         >

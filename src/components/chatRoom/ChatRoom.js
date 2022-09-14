@@ -1,5 +1,5 @@
 import SockJS from "sockjs-client";
-import Stomp from "stompjs";
+import { Stomp } from "@stomp/stompjs";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -15,13 +15,13 @@ import {
   getRoomListDB,
   readMessage,
   updateRoomMessage,
-} from "../redux/modules/chat";
-import { apis } from "../shared/api";
-import ChatList from "./ChatList";
-import LoadingSpinner from "./LoadingSpinner";
+} from "../../redux/modules/chatSlice";
+import { chatApis } from "../../shared/api";
+import ChatList from "../chatList/ChatList";
+import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 
-import { Input } from "../elements/Inputs";
-import { Button } from "../elements/Buttons";
+// import { Input } from "../elements/Inputs";
+// import { Button } from "../elements/Buttons";
 
 // 채팅 모달 > 채팅방
 const ChatRoom = () => {
@@ -32,11 +32,11 @@ const ChatRoom = () => {
   const inputRef = useRef();
   let stompClient = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user);
 
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
-    const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_URL}/wss-stomp`);
+    const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_API_IP}/ws-stomp`);
     stompClient.current = Stomp.over(webSocket);
 
     // STOMPJS console log 지워주는 부분
@@ -44,7 +44,7 @@ const ChatRoom = () => {
 
     stompClient.current.connect(
       {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${sessionStorage.getItem("authorization")}`,
         type: "TALK",
       },
 
@@ -62,7 +62,7 @@ const ChatRoom = () => {
               })
             );
           },
-          { Authorization: `Bearer ${localStorage.getItem("token")}` }
+          { Authorization: `Bearer ${sessionStorage.getItem("authorization")}` }
         );
         setIsLoading(false);
       }
@@ -94,7 +94,7 @@ const ChatRoom = () => {
 
     stompClient.current.send(
       `/pub/chat/message`,
-      { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      { Authorization: `Bearer ${sessionStorage.getItem("authorization")}` },
       JSON.stringify(messageObj)
     );
 
@@ -122,7 +122,7 @@ const ChatRoom = () => {
   const exitRoom = async () => {
     const confirm = window.confirm("채팅방을 나가시겠어요?");
     if (confirm) {
-      await apis.exitRoom(roomId);
+      await chatApis.exitRoom(roomId);
       dispatch(getRoomListDB()).then(() => navigate(-1));
     }
   };

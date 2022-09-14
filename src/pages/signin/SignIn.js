@@ -13,8 +13,6 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
 
-// React Icon
-// import { BiShow, BiHide } from 'react-icons/bi';
 
 import styled from "styled-components";
 import {
@@ -35,15 +33,9 @@ const SignIn = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordView, setPasswordView] = useState(false);
-  const passwordRef = useRef();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const isSmallScreen = useMediaQuery({
-  //   query: '(max-width: 767px)',
-  // });
 
   const emailRegExp =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -61,8 +53,10 @@ const SignIn = () => {
         dispatch(signUserThunk({ email, password }))
         .unwrap()
         .then(res=>{
+
           alert(res.message);
           navigate('/')
+          console.log(res)
         })
         .catch(error=>{
           alert("로그인에 실패하였습니다");
@@ -73,30 +67,6 @@ const SignIn = () => {
     [email, password]
   );
 
-  // const viewPassword = useCallback(
-  //   (state) => {
-  //     switch (state) {
-  //       case "password": {
-  //         if (password === "") {
-  //           break;
-  //         } else {
-  //           const type = passwordRef.current.type;
-  //           if (type === "password") {
-  //             passwordRef.current.type = "text";
-  //             setPasswordView(true);
-  //           } else {
-  //             passwordRef.current.type = "password";
-  //             setPasswordView(false);
-  //           }
-  //           break;
-  //         }
-  //       }
-  //       default:
-  //         break;
-  //     }
-  //   },
-  //   [password]
-  // );
 
   return (
     <Fragment>
@@ -105,7 +75,6 @@ const SignIn = () => {
         <SignInLoginBox>
           <SignInLoginContainer
             onSubmit={(event) => signInAccount(event)}
-            // mg_bottom={isSmallScreen ? '54px' : '74px'}
           >
             <SignInLoginDataGroup>
               <SignInLoginEmail>

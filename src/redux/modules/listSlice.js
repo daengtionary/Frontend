@@ -13,7 +13,7 @@ export const getList = createAsyncThunk(
       direction: "asc",
     };
     const resData = await api
-      .get(`/${payload}`, { params })
+      .get(`${payload}`, { params })
       .then((res) => res)
       .catch((err) => console.log(err));
     console.log(resData.data.data);
