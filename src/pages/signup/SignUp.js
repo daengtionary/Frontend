@@ -45,7 +45,6 @@ const SignUp = () => {
   const [nick, setNick] = useState('');
   const [nickCheck, setNickCheck] = useState(true);
   const [adminCode, setAdminCode] = useState('');
-  // const [visible, setVisible] = useState(false);
   const [role, setRole] = useState('USER');
 
   const dispatch = useDispatch();
@@ -67,10 +66,6 @@ const SignUp = () => {
   const adminCodeSpanRef = useRef();
 
   const strengthBarRef = useRef();
-
-  // const isSmallScreen = useMediaQuery({
-  //   query: '(max-width: 1023px)',
-  // });
 
   const emailRegExp =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -335,7 +330,6 @@ const SignUp = () => {
   return (
     <Fragment>
       <SignUpBox
-      // mg_bottom= {isSmallScreen ? '140px' : '200px'}
       >
         <SignUpBoxContainer>
           <SignUpForm onSubmit={(event) => signUpAccount(event)}>

@@ -6,18 +6,18 @@ import {
   Date,
   Message,
   NotiCount
-} from "styled-components";
+} from "./ChatRoomList.styled"
 import moment from "moment";
 
 // 채팅 > 채팅방 목록
 const ChatRoomList = ({ location, roomId }) => {
   const roomList = useSelector((state) => state.chat.roomList);
-  const userId = useSelector((state) => state.user.user.id);
+  const memberId = useSelector((state) => state.user.user.id);
 
   return (
     <>
       {roomList.map((room, index) => {
-        const isExit = room.type === "STATUS" && +room.senderName === +userId;
+        const isExit = room.type === "STATUS" && +room.senderName === +memberId;
         return (
           <Link
             to={`/chat/${room.roomId}`}

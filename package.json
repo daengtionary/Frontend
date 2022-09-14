@@ -4,14 +4,19 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
+    "@stomp/stompjs": "^6.1.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "axios": "^0.27.2",
     "dotenv": "^16.0.2",
     "file-loader": "^6.2.0",
+    "immer": "^9.0.15",
     "jwt-decode": "^3.1.2",
+
+    "moment": "^2.29.4",
     "lodash": "^4.17.21",
+
     "react": "^18.2.0",
     "react-calendar": "^3.8.0",
     "react-dom": "^18.2.0",
@@ -24,6 +29,7 @@
     "redux": "^4.2.0",
     "redux-actions": "^2.6.5",
     "socket.io-client": "^4.5.2",
+    "sockjs-client": "^1.6.1",
     "styled-components": "^5.3.5",
     "swiper": "6.8.4",
     "web-vitals": "^2.1.0"

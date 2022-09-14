@@ -15,6 +15,7 @@ export const getList = createAsyncThunk(
       direction: "asc",
     };
     const resData = await api
+
       .get(`${pathname}`, { params })
       .then((res) => res)
       .catch((err) => console.log(err));
@@ -65,6 +66,7 @@ export const searchList = createAsyncThunk(
       // .get(
       //   "/hospital/search?title=정서&content&nick&address=인천&direction=asc&page=0&size=10&sort=new"
       // )
+
       .then((res) => res)
       .catch((err) => console.log(err));
     console.log(resData.data.data);

@@ -8,7 +8,7 @@ import {
   NewNoti
 } from "./ChatFloatButton.styled";
 
-import { setNotification } from "../../redux/modules/chatSlice";
+import { setNotification} from "../../redux/modules/chatSlice";
 import { SmileChatSVG} from "../../elements/svg/SVG"
 
 // 우측 하단 채팅 플로팅 버튼
@@ -17,20 +17,23 @@ const ChatFloatButton = () => {
   const location = useLocation();
   const isChatModalOn = useMatch("/chat/*");
   const notification = useSelector((state) => state.chat.notification);
-  const userId = useSelector((state) => state.user.user?.id);
+  const memberId = useSelector((state) => state.user);
+  console.log(memberId)
   const eventSource = useRef();
 
+
   useEffect(() => {
-    if (userId) {
+    if (memberId) {
       // SSE 구독 요청
       eventSource.current = new EventSource(
-        `${process.env.REACT_APP_CHAT_URL}/user/subscribe/${userId}`,
+        `${process.env.REACT_APP_CHAT_API_IP}/member/subscribe/${memberId}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${sessionStorage.getItem("authorization")}` ,
           },
         }
       );
+      
 
       // 서버에서 메시지가 전송될 때 실행되는 함수
       eventSource.current.onmessage = (message) => {
@@ -46,11 +49,11 @@ const ChatFloatButton = () => {
         eventSource.current = null;
       }
     };
-  }, [userId, dispatch]);
+  }, [memberId, dispatch]);
 
   return (
     <>
-      {/* {userId && !isChatModalOn && ( */}
+      {memberId && !isChatModalOn && (
         <FloatWrap>
           <Link to="/chat" state={{ backgroundLocation: location }}>
             <ChatButtonWrap>
@@ -62,7 +65,7 @@ const ChatFloatButton = () => {
             </ChatButtonWrap>
           </Link>
         </FloatWrap>
-      {/* )} */}
+       )}
     </>
   );
 };

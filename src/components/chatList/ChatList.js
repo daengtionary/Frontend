@@ -17,7 +17,7 @@ import {
   cleanUpMessage,
   getMessageListDB,
   getRoomListDB,
-} from "../redux/modules/chat";
+} from "../../redux/modules/chatSlice";
 
 // 채팅 > 채팅방 > 채팅 내역
 const ChatList = () => {
