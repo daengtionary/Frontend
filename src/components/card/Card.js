@@ -1,3 +1,4 @@
+
 import { CardBox, CardImgBox, CardText, CardTextBox } from "./Card.styled";
 
 const Card = ({ text, data }) => {
@@ -20,3 +21,4 @@ const Card = ({ text, data }) => {
 };
 
 export default Card;
+
