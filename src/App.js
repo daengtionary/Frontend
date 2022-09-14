@@ -12,9 +12,13 @@ import Service from "./pages/service/Service";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import ChatFloatButton from "./components/chatFloatButton/ChatFloatButton";
+
 import ChatModal from "./components/chatModal/ChatModal";
 import Trade from "./pages/trade/Trade";
 import TradeDetail from "./pages/tradeDetail/TradeDetail";
+import Community from "./pages/community/Community";
+import CommunityDetail from "./pages/communityDetail/CommunityDetail";
+
 
 // Shared
 import Kakao from "./shared/kakao";
@@ -35,16 +39,19 @@ function App() {
         </Routes>
       )} 
       <Header />
+
       <ChatFloatButton/>
       
       <Routes location={location.state?.backgroundLocation || location}>
+
         <Route exact path={"/signin"} element={<SignIn />} />
         <Route exact path={"/signup"} element={<SignUp />} />
         <Route exact path={"/hospital"} element={<List />} />
         <Route exact path={"/shop"} element={<List />} />
         <Route exact path={"/trade"} element={<Trade />} />
         <Route exact path={"/room"} element={<List />} />
-        <Route exact path={"/community"} element={<List />} />
+        <Route exact path={"/community"} element={<Community />} />
+        <Route exact path={"/community/:id"} element={<CommunityDetail />} />
         <Route exact path={"/mypage"} element={<MyPage />} />
         <Route exact path={"/service"} element={<Service />} />
         <Route exact path={"/detail/:id"} element={<Detail />} />

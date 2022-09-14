@@ -5,6 +5,7 @@ const Input = ({
   type,
   value,
   _onChange,
+  _onKeyPress,
   _minLength,
   _maxLength,
   _ref,
@@ -21,6 +22,7 @@ const Input = ({
       value={value}
       defaultValue={defaultValue}
       onChange={_onChange}
+      onKeyPress={_onKeyPress}
       minLength={_minLength}
       maxLength={_maxLength}
       ref={_ref}

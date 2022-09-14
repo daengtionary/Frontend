@@ -7,7 +7,7 @@ import { BiCar } from "react-icons/bi";
 import { FiClock } from "react-icons/fi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BsStarFill, BsStar } from "react-icons/bs";
-import { StyledSwiper, DetailContainer, BusinessTitle, MapAddress, BusinessDescription, ReviewWrap, StarRating, BusinessInfo, Description, Infotmations, DescriptionTitle, CalendarWrap } from "./Detail.styled";
+import { StyledSwiper, DetailContainer, BusinessTitle, MapAddress, MapMark, BusinessDescription, ReviewWrap, StarRating, StarIcon, BusinessInfo, Description, Infotmations, DescriptionTitle, CalendarWrap } from "./Detail.styled";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
@@ -15,10 +15,6 @@ import "swiper/components/pagination/pagination.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailThunk } from "../../redux/modules/detailSlice";
 import { useParams } from "react-router-dom";
-
-// DatePicker import
-import DatePicker from "react-date-picker";
-import "./DatePicker.css";
 
 // Calendar import 삭제 예정
 import Calendar from 'react-calendar';
@@ -31,8 +27,6 @@ const Detail = () => {
   const [mapModal, setMapModal] = useState(false);
 
   const [calendar, setCalendar] = useState(new Date());
-
-  const [pickedDate, setPickedDate] = useState(new Date());
 
   const modalHandler = () => {
     setMapModal(!mapModal);
@@ -75,6 +69,11 @@ const Detail = () => {
       </BusinessTitle>
       
       <StarRating>
+        <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`}/>
+        <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`}/>
+        <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`}/>
+        <StarIcon alt="halfStar" src={`${process.env.PUBLIC_URL}/img/halfStar.png`}/>
+        <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}/>
       {
         data.star === 0 ? (<div><BsStar/> <BsStar/> <BsStar/> <BsStar/> <BsStar/> 0</div>)  : 
         data.star === 1 ? (<div><BsStarFill/> <BsStar/> <BsStar/> <BsStar/> <BsStar/> 1</div>) :
@@ -88,7 +87,10 @@ const Detail = () => {
       
       <MapAddress>
         <span onClick={modalHandler}>
-          <HiOutlineLocationMarker size={24} />
+          <MapMark alt="mapMark" 
+          src={`${process.env.PUBLIC_URL}/img/mapLocation.png`}
+          />
+          {/* <HiOutlineLocationMarker size={24} /> */}
         </span>
         <span>{data.address}</span>
       </MapAddress>
@@ -109,7 +111,6 @@ const Detail = () => {
         </CalendarWrap> */}
 
       </BusinessInfo>
-      {/* <DatePicker onChange={setPickedDate} value={pickedDate}/> */}
 
       <ReviewWrap>후기 글들</ReviewWrap>
 

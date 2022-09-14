@@ -13,10 +13,12 @@
     "file-loader": "^6.2.0",
     "immer": "^9.0.15",
     "jwt-decode": "^3.1.2",
+
     "moment": "^2.29.4",
+    "lodash": "^4.17.21",
+
     "react": "^18.2.0",
     "react-calendar": "^3.8.0",
-    "react-date-picker": "^8.4.0",
     "react-dom": "^18.2.0",
     "react-icon": "^1.0.0",
     "react-icons": "^4.4.0",
