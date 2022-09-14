@@ -46,10 +46,16 @@ export const MapAddress = styled.div`
   border-bottom: 1px solid #dbdbdb;
 
   span:first-child {
+    display: flex;
+    align-items: center;
     margin-right: 5px;
     cursor: pointer;
   }
 
+`
+export const MapMark = styled.img`
+  width: 24px;
+  height: 24px;
 `
 
 export const BusinessInfo = styled.div`
@@ -95,6 +101,11 @@ export const StarRating = styled.div`
   display: flex;
   margin-bottom: 10px;
 
+`
+
+export const StarIcon = styled.img`
+  width: 20px;
+  height: 20px;
 `
 
 export const CalendarWrap = styled.div`
