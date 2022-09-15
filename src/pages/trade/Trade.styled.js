@@ -4,12 +4,24 @@ export const TradeAll = styled.div `
 width: 100%;
 align-items: center;
 display: flex;
+flex-direction: column;
 justify-content: center;
+`
+
+
+export const TradeTopBox = styled.div`
+display: block;
+position: relative;
+`
+
+export const TopFilterBox = styled.div`
+display: flex;
+position: absolute;
+right: 14%;
 `
 
 export const TradeFullBox = styled.div`
 margin-top:  30px;
-background-color: aliceblue;
 width: 80%;
 `;
 
@@ -18,6 +30,6 @@ margin-top: 30px;
 display: flex;
 flex-direction: row;
 flex-wrap: wrap;
-gap: 40px 70px;
+gap: 60px 90px;
 justify-content: center;
 `;

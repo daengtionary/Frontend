@@ -10,7 +10,7 @@ import {
 import moment from "moment";
 
 // 채팅 > 채팅방 목록
-const ChatRoomList = ({ location, roomId }) => {
+const ChatRoomList = ({ roomId }) => {
   const roomList = useSelector((state) => state.chat.roomList);
   const memberId = useSelector((state) => state.user.user.id);
 
@@ -23,8 +23,7 @@ const ChatRoomList = ({ location, roomId }) => {
             to={`/chat/${room.roomId}`}
             key={`roomList${room.roomId}`}
             state={{
-              backgroundLocation: location.state.backgroundLocation,
-              index: index,
+              index: index
             }}
           >
             <List selected={+room.roomId === +roomId}>
