@@ -462,7 +462,7 @@ const StyledSwiper = styled(Swiper)`
   justify-content: center;
   width: 70%;
   height: 120%;
-  padding: 4em 0;
+  padding: 4em 2em;
 `;
 const StyledSwiperSlide = styled(SwiperSlide)`
   display: flex;
@@ -473,7 +473,7 @@ const DogInfoSlide = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 4em;
+  margin: 0 4.5em;
 `;
 const DogInfoSlideText = styled.div`
   line-height: 50px;
