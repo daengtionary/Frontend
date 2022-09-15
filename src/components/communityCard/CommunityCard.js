@@ -12,6 +12,7 @@ import {
   DeleteIcon,
   CommnetIcon,
   RepleCircle,
+  NullCircle,
   ProfilePhoto,
   Names,
   Category,
@@ -21,24 +22,31 @@ import {
 } from "./CommunityCard.styled";
 
 const CommunityCard = ({ data }) => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-
-
-  console.log(data.nick)
-
+  console.log(data.nick);
 
   return (
     <CommunityCardWrap>
       <IconWrap>
         {/* {"zemi" === data.nick ? ( */}
-        {window.sessionStorage.getItem('nick') === data.nick ? (
+        {window.sessionStorage.getItem("nick") === data.nick ? (
           <>
             <IconBox length={"24px"} size={"24px"} url={"/img/pen.png"} hover={"blue"} />
-            <IconBox onClick={() =>{dispatch(getCommunityDeleteThunk(data.communityNo))}} length={"24px"} size={"34px"} url={"/img/delete.png"} hover={"red"} />
+            <IconBox
+              onClick={() => {
+                dispatch(getCommunityDeleteThunk(data.communityNo));
+              }}
+              length={"24px"}
+              size={"34px"}
+              url={"/img/delete.png"}
+              hover={"red"}
+            />
           </>
-        ) : ("")}
+        ) : (
+          ""
+        )}
 
         <IconBox length={"24px"} size={"24px"} url={"/img/comment.png"} />
         {/* <UpdateIcon/>
@@ -47,19 +55,24 @@ const CommunityCard = ({ data }) => {
         {/* <Icons alt="update_btn" src={`${process.env.PUBLIC_URL}/img/pen.png`}/>
         <Icons alt="delete_btn " src={`${process.env.PUBLIC_URL}/img/delete.png`}/>
       <Icons alt="comment_icon " src={`${process.env.PUBLIC_URL}/img/comment.png`}/> */}
-        <RepleCircle>3</RepleCircle>
+        {data.reviewCount === 0 ? <NullCircle/> : <RepleCircle>{data.reviewCount}</RepleCircle>}
       </IconWrap>
 
-
       <CardContents>
-        <ProfilePhoto url={data.communityImg}/>
+        <ProfilePhoto url={data.communityImg} />
         <Names>
-          <Dog>견종{data.communityNo}</Dog>
+          <Dog>{data.name}</Dog>
           <User>{data.nick}</User>
         </Names>
-        <Category>병원</Category>
+        <Category>{data.category}비어</Category>
         {/* <Title onClick={detailHandler(data.communityNo)}>{data.title}</Title> */}
-        <Title onClick={()=>{navigate(`/community/${data.communityNo}`)}}>{data.title}</Title>
+        <Title
+          onClick={() => {
+            navigate(`/community/${data.communityNo}`);
+          }}
+        >
+          {data.title}
+        </Title>
       </CardContents>
     </CommunityCardWrap>
   );

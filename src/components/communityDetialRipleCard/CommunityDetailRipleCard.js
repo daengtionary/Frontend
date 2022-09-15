@@ -1,20 +1,25 @@
 import React from "react";
 import { RipleCard, ProfilePhoto, UserInfo, RipleContent } from "./CommunityDetailRipleCard.styled";
 
-const CommunityDetailRipleCard = ({data}) => {
-
-  console.log(data)
+const CommunityDetailRipleCard = ({ data }) => {
+  console.log(data);
   return (
-    <RipleCard>
-      <ProfilePhoto>프사</ProfilePhoto>
-      <UserInfo>
-        <div>견종</div>
-        <div>이름</div>
-      </UserInfo>
-      <RipleContent>
-        <p>여기에 댓글 내용들 몇글자 이하로 할지도 정해야함</p>
-      </RipleContent>
-    </RipleCard>
+    <>
+      {data.map((el) => {
+        return (
+          <RipleCard key={el.reviewNo}>
+            <ProfilePhoto url={el.imgUrl}></ProfilePhoto>
+            <UserInfo>
+              <div>견종</div>
+              <div>{el.nick}</div>
+            </UserInfo>
+            <RipleContent>
+              <p>{el.content}</p>
+            </RipleContent>
+          </RipleCard>
+        );
+      })}
+    </>
   );
 };
 

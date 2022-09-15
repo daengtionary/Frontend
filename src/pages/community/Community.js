@@ -62,14 +62,14 @@ const Community = () => {
       // dispatch(myPageInfo());
     }
   };
-
+  
   useEffect(() => {
     dispatch(getCommunityPostListThunk());
   }, [dispatch]);
 
-  useEffect(() => {
-    checkToken();
-  }, []);
+  // useEffect(() => {
+  //   checkToken();
+  // }, []);
 
   return (
     <CommunityContainer>
