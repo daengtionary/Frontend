@@ -23,7 +23,7 @@ export const ChatButtonWrap = styled.div`
   cursor: pointer;
   div {
     text-align: center;
-    padding-top: 9px;
+    padding-top: 12px;
     @media ${({ theme }) => theme.device.mobile} {
       padding-top: 14px;
     }

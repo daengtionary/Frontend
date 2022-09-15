@@ -7,7 +7,7 @@ export const SignUpBox = styled.div`
   flex-direction: column;
   width: 100%;
   height: auto;
-  margin-top: 170px;
+  margin-top: 100px;
   margin-bottom: ${(props) => props.mg_bottom};
 `;
 export const SignUpBoxContainer = styled.div`
@@ -124,3 +124,31 @@ export const GoToSignIn = styled.span`
     cursor: pointer;
   }
 `
+export const AdminCheckBoxGroub = styled.div`
+  box-sizing: border-box;
+  width:  80%;
+  margin-top: 14px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+`
+
+export const SignUpDataAgreementGroup = styled.div`
+  box-sizing: border-box;
+  width:  60%;
+  margin-top: 14px;
+  margin-bottom: 10px;
+`;
+export const SignUpDataAgreement = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  height: 20px;
+  text-align: left;
+`;
+export const SignUpDataAgreementSpan = styled.span`
+  margin-left: 10px;
+  font-size: 14px;
+  margin-top: 3px;
+`;

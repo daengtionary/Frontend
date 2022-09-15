@@ -55,12 +55,11 @@ const ChatFloatButton = () => {
     <>
       {memberId && !isChatModalOn && (
         <FloatWrap>
-          <Link to="/chat" state={{ backgroundLocation: location }}>
+          <Link to="/chat" >
             <ChatButtonWrap>
               <ChatButton>
                 {notification && <NewNoti />}
                 <SmileChatSVG />
-                <span>채팅</span>
               </ChatButton>
             </ChatButtonWrap>
           </Link>
