@@ -1,7 +1,9 @@
 import React from "react";
 import { RipleCard, ProfilePhoto, UserInfo, RipleContent } from "./CommunityDetailRipleCard.styled";
 
-const CommunityDetailRipleCard = () => {
+const CommunityDetailRipleCard = ({data}) => {
+
+  console.log(data)
   return (
     <RipleCard>
       <ProfilePhoto>프사</ProfilePhoto>

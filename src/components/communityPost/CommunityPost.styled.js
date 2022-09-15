@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CommunityPostForm = styled.form`
-  width: 60%;
+  width: 100%;
   height: 50vh;
   border: 1px solid #797979;
   border-radius: 10px;
@@ -21,9 +21,17 @@ export const Title = styled.div`
   height: 10%;
   align-items: center;
 `;
+
+export const ImgFile = styled.div`
+  display: flex;
+  height: 10%;
+  align-items: center;
+`;
+
+
 export const Content = styled.div`
   display: flex;
-  height: 70%;
+  height: 60%;
   align-items: flex-start;
 `;
 
@@ -51,6 +59,13 @@ export const Posts = styled.div`
   align-items: center;
 `;
 
+export const FileInput = styled.input`
+  display: flex;
+  align-items: center;
+  height: 90%;
+  
+`
+
 export const Select = styled.select`
   border: 1px solid #f1f1f1;
   padding: 10px;
@@ -72,10 +87,9 @@ export const TextArea = styled.textarea`
   padding: 10px;
 `
 export const ButtonWrap = styled.div`
-  margin-top: 5vh;
+  margin-top: 2.3vh;
   width: 100%;
   display: flex;
-  gap: 15px;
   justify-content: center;
   
   button {
