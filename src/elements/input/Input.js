@@ -13,6 +13,7 @@ const Input = ({
   placeholder,
   defaultValue,
   name,
+  lineHeight,
 }) => {
   return (
     <StyledInput
@@ -26,6 +27,7 @@ const Input = ({
       minLength={_minLength}
       maxLength={_maxLength}
       ref={_ref}
+      lineHeight={style?.lineHeight}
       width={style?.width}
       height={style?.height}
       ft_size={style?.ft_size}

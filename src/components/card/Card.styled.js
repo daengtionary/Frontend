@@ -12,8 +12,8 @@ export const CardImgBox = styled.div`
   border-top: 30px solid #cccccc90;
   /* background-color: #999; */
   background: ${(props) =>
-    `url(${props.background}) center / contain no-repeat `};
-  height: 16em;
+    `url(${props.background}) center / cover no-repeat `};
+  min-height: 16em;
   width: 18em;
   flex: 3 3;
 `;

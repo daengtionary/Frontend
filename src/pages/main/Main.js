@@ -72,7 +72,6 @@ const Main = () => {
   return (
     <MainWrap>
       <StyledSwiper
-        className="swiper-container"
         spaceBetween={0}
         slidesPerView={1}
         navigation
@@ -186,7 +185,7 @@ const StyledSwiper = styled(Swiper)`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 84%;
+  width: 100%;
   height: 36em;
 `;
 const MainBanner = styled.div`
@@ -226,7 +225,7 @@ const MainCardWrap = styled.div`
   flex-grow: 1; */
 
   width: 70%;
-  height: 24em;
+  height: 30em;
 
   margin: 60px 0;
 `;
