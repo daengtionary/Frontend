@@ -1,9 +1,9 @@
 // Redux import
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { api } from '../../shared/api';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { api } from "../../shared/api";
 
 export const emailDupCheckThunk = createAsyncThunk(
-  'user/emailDupCheck',
+  "user/emailDupCheck",
   async (payload, thunkAPI) => {
     const resData = await api
       .get(`member/checkemail?email=${payload}`)
@@ -14,7 +14,7 @@ export const emailDupCheckThunk = createAsyncThunk(
 );
 
 export const nickNameDupCheckThunk = createAsyncThunk(
-  'user/nicknameDupCheck',
+  "user/nicknameDupCheck",
   async (payload, thunkAPI) => {
     const resData = await api
       .get(`/member/checknick?nick=${payload}`)
@@ -26,20 +26,19 @@ export const nickNameDupCheckThunk = createAsyncThunk(
 );
 
 export const addUserThunk = createAsyncThunk(
-  'use/addUser',
+  "use/addUser",
   async (payload, thunkAPI) => {
-
     const resData = await api
-    .post(`/member/signup`, payload)
-    .then((res) => res)
-    .catch((error) => error);
+      .post(`/member/signup`, payload)
+      .then((res) => res)
+      .catch((error) => error);
 
     return thunkAPI.fulfillWithValue(resData.data);
   }
 );
 
 export const signUserThunk = createAsyncThunk(
-  'user/signUser',
+  "user/signUser",
   async (payload, thunkAPI) => {
     const resData = await api
       .post(`member/login`, payload)
@@ -47,12 +46,12 @@ export const signUserThunk = createAsyncThunk(
       .catch((error) => error);
 
     window.sessionStorage.setItem(
-      'authorization',
-      resData.headers['authorization'].split(' ')[1]
+      "authorization",
+      resData.headers["authorization"].split(" ")[1]
     );
     window.sessionStorage.setItem(
-      'refresh-token',
-      resData.headers['refresh-token']
+      "refresh-token",
+      resData.headers["refresh-token"]
     );
     //로컬에 닉네임 저장
 
@@ -61,19 +60,19 @@ export const signUserThunk = createAsyncThunk(
 );
 
 export const kakaoAuthThunk = createAsyncThunk(
-  'user/kakaoLogin',
+  "user/kakaoLogin",
   async (payload, thunkAPI) => {
     const resData = await api
       .get(`/member/kakao?code=${payload.code}`)
       .then((res) => res);
 
     window.sessionStorage.setItem(
-      'authorization',
-      resData.headers['authorization'].split(' ')[1]
+      "authorization",
+      resData.headers["authorization"].split(" ")[1]
     );
     window.sessionStorage.setItem(
-      'refresh-token',
-      resData.headers['refresh-token']
+      "refresh-token",
+      resData.headers["refresh-token"]
     );
     //로컬에 닉네임 저장
     return thunkAPI.fulfillWithValue(resData.data);
@@ -81,11 +80,11 @@ export const kakaoAuthThunk = createAsyncThunk(
 );
 
 const initialState = {
-  user:[]
+  user: [],
 };
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState: initialState,
   reducers: {
     headerAction: (state, action) => {

@@ -5,17 +5,16 @@ export const getList = createAsyncThunk(
   "listSlice/getList",
   async (payload, thunkAPI) => {
     console.log(JSON.stringify(payload));
-    const { pathname, page, address, size } = payload;
+    const { pathname, page, address, sort, size } = payload;
     console.log(payload);
     const params = {
       address,
       page,
       size,
-      sort: "new",
-      direction: "asc",
+      sort,
+      direction: "dasc",
     };
     const resData = await api
-
       .get(`${pathname}`, { params })
       .then((res) => res)
       .catch((err) => console.log(err));
@@ -49,7 +48,8 @@ export const searchList = createAsyncThunk(
   "listSlice/searchList",
   async (payload, thunkAPI) => {
     console.log(JSON.stringify(payload));
-    const { pathname, page, address, title, content, nick, size } = payload;
+    const { pathname, page, title, address, sort, content, nick, size } =
+      payload;
     console.log(payload);
     const params = {
       title,
@@ -58,8 +58,8 @@ export const searchList = createAsyncThunk(
       address,
       page,
       size,
-      sort: "new",
-      direction: "asc",
+      sort,
+      direction: "dasc",
     };
     const resData = await api
       .get(`${pathname}/search`, { params })
@@ -76,6 +76,7 @@ export const searchList = createAsyncThunk(
 
 const initialState = {
   isLoad: false,
+  isEnd: false,
   getList: [],
   getListFirst: [],
   searchList: [],
@@ -99,6 +100,9 @@ export const listSlice = createSlice({
       state.getList = [...state.getList, ...action.payload];
       console.log(state.getList);
       console.log(action.payload);
+      if ([action.payload].length === 0) {
+        state.isEnd = true;
+      }
     });
     // builder.addCase(getListFirst.fulfilled, (state, action) => {
     //   state.getList = [];
@@ -110,6 +114,9 @@ export const listSlice = createSlice({
       state.getList = [...state.getList, ...action.payload];
       console.log(state.searchList);
       console.log(action.payload);
+      if (action.payload.length < 2) {
+        state.isEnd = true;
+      }
     });
   },
 });

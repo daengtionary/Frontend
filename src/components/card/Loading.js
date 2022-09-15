@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Loading = () => {
   return (
     <Lo>
-      <h1 style={{ fontSize: "10em" }}>로딩 중..</h1>
+      <h1 style={{ fontSize: "7em" }}>로딩 중..</h1>
     </Lo>
   );
 };

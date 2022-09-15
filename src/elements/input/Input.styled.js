@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledInput = styled.input`
   width: ${(props) => (props.width ? props.width : "100%")};
   height: ${(props) => (props.height ? props.height : "50px")};
+  line-height: ${(props) => (props.lineHeight ? props.lineHeight : "")};
   font-size: ${(props) => (props.ft_size ? props.ft_size : "13px")};
   background-color: ${(props) => (props.bg_color ? props.bg_color : "white")};
   color: ${(props) => (props.color ? props.color : "#525252")};

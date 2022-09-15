@@ -25,6 +25,8 @@ const List = () => {
   const searchData = useSelector((state) => state.list.searchList);
   const ready = useSelector((state) => state.list.isLoad);
   console.log(ready);
+  const listEnd = useSelector((state) => state.list.isEnd);
+  console.log(listEnd);
 
   const location = useLocation();
   const { pathname, serch } = location;
@@ -40,9 +42,10 @@ const List = () => {
     setChecked(newArr);
     // dispatch(mainList(filterButton[i]));
   };
-  const [address, setAdress] = useState("");
+  const [filter, setFilter] = useState({ address: "", sort: "new" });
+  const { address, sort } = filter;
   const [size, setSize] = useState(2);
-  console.log(address);
+  console.log(filter);
 
   console.log(pathname, serch);
   console.log(data);
@@ -58,52 +61,60 @@ const List = () => {
   // }, []);
   useLayoutEffect(
     debounce(() => {
-      if (
-        searchText === "" &&
-        address === ""
-        // ||
-        // (searchText === "" && address === "전체")
-      ) {
-        // dispatch(reset());
-        dispatch(
-          searchList({
-            pathname,
-            page,
-            size,
-            address,
-            title: "",
-            content: "",
-            nick: "",
-          })
-        );
-      } else if (searchText !== "" || address !== "") {
-        dispatch(
-          searchList({
-            pathname,
-            page,
-            size,
-            address,
-            title: searchText,
-            content: "",
-            nick: "",
-          })
-        );
-      } else if (page === 0) {
-        // dispatch(reset());
-        dispatch(
-          searchList({
-            pathname,
-            page,
-            size,
-            address,
-            title: "",
-            content: "",
-            nick: "",
-          })
-        );
-      }
-    }, 250),
-    [page, address]
+      // if (
+      //   searchText === "" &&
+      //   filter.address === ""
+      //   // ||
+      //   // (searchText === "" && address === "전체")
+      // ) {
+      // dispatch(reset());
+      dispatch(
+        searchList({
+          pathname,
+          page,
+          size,
+          address,
+          sort,
+          title: searchText,
+          content: "",
+          nick: "",
+        })
+      );
+      // alert("1번 실행");
+      // }
+      // else if (searchText !== "" || filter.address !== "")
+      // else {
+      //   dispatch(
+      //     searchList({
+      //       pathname,
+      //       page,
+      //       size,
+      //       address,
+      //       sort,
+      //       title: searchText,
+      //       content: "",
+      //       nick: "",
+      //     })
+      //   );
+      //   alert("2번 실행");
+      // }
+      // else if (page === 0) {
+      //   // dispatch(reset());
+      //   dispatch(
+      //     searchList({
+      //       pathname,
+      //       page,
+      //       size,
+      //       address,
+      //       sort,
+      //       title: "",
+      //       content: "",
+      //       nick: "",
+      //     })
+      //   );
+      // }
+    }, 300),
+    [page, filter]
   );
   // setTimeout(() => setDataList(data), 10);
 
@@ -132,7 +143,7 @@ const List = () => {
       setIsTopButtonOn(false);
       // return;
     }
-  }, 250);
+  }, 300);
   const [searchText, setSearchText] = useState("");
   const onChangeHandler = (e) => {
     const { value } = e.target;
@@ -140,8 +151,7 @@ const List = () => {
     setSearchText(value);
   };
   const onClickHandler = () => {
-    // alert("검색 완료");
-    setAdress("");
+    // setAddress("");
     setPage(0);
     dispatch(reset());
     dispatch(
@@ -150,22 +160,26 @@ const List = () => {
         page,
         size,
         address,
+        sort,
         title: searchText,
         content: "",
         nick: "",
       })
     );
+    // alert("검색 실행");
   };
   const onKeyPressHandler = (e) => {
     if (e.key === "Enter") {
       onClickHandler();
     }
   };
-  const onFilterHandler = (e) => {
-    const { value } = e.target;
-    setAdress(value);
-    setPage(0);
+  const filterHandler = (e) => {
+    const { name, value } = e.target;
+    console.log(e);
     dispatch(reset());
+    setFilter({ ...filter, [name]: value });
+    console.log(filter);
+    setPage(0);
 
     // dispatch(searchList({ pathname: pathname, page: page, address: value }));
   };
@@ -199,11 +213,11 @@ const List = () => {
             />
           </SerchBox>
           <FilterBox>
-            <Fiter onChange={onFilterHandler} width={"60px"}>
+            <Fiter name="address" onChange={filterHandler} width={"60px"}>
               <option disabled selected value="">
                 지역
               </option>
-              <option value="">전체</option>
+              <option value=" ">전체</option>
               <option value="서울">서울</option>
               <option value="부산">부산</option>
               <option value="인천">인천</option>
@@ -221,12 +235,12 @@ const List = () => {
               <option value="전남">전남</option>
               <option value="제주">제주</option>
             </Fiter>
-            <Fiter>
-              <option disabled selected>
+            <Fiter name="sort" onChange={filterHandler}>
+              {/* <option disabled selected>
                 정렬방식
-              </option>
-              <option value="인기순">인기순</option>
-              <option value="최근순">최근순</option>
+              </option> */}
+              <option value="new">최근순</option>
+              <option value="popular">인기순</option>
             </Fiter>
           </FilterBox>
         </SerchWrap>
@@ -289,6 +303,11 @@ const List = () => {
             <h3>검색 결과가 없습니다.</h3>
           )
         }
+        {!listEnd ? null : data.length !== 0 ? (
+          <h3 style={{ textAlign: "center" }}>
+            데이터가 모두 로딩 되었습니다.
+          </h3>
+        ) : null}
       </ListCardWrap>
       {isTopButtonOn ? (
         <TopBtn onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
@@ -333,7 +352,7 @@ const TopBtn = styled.button`
   }
 `;
 const OptionWrap = styled.div`
-  width: 73%;
+  width: 77em;
 
   /* padding: 0 2em; */
 `;

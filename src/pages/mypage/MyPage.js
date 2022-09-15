@@ -5,9 +5,13 @@ import { TbCameraPlus, TbCircleCheck } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
 import { myDogInfo, myList, myPageInfo } from "../../redux/modules/myPageSlice";
+SwiperCore.use([Pagination, Autoplay, Navigation]);
+
 // import jwt from "jsonwebtoken";
 
 const MyPage = () => {
@@ -78,6 +82,7 @@ const MyPage = () => {
   const [profile, setProfile] = useState({});
   const [dogProfile, setDogProfile] = useState({});
   const [myDogImg, setMyDogImg] = useState("");
+  const [buttonToggle, setButtonToggle] = useState(false);
   // console.log("프로필:", profile, "강아지프로필:", dogProfile);
   const onChangeProfile = (e) => {
     const { value, name } = e.target;
@@ -143,51 +148,56 @@ const MyPage = () => {
     }
   };
 
-  // const uploadHandler = (e) => {
-  //   const file = dogImgRef.current.files[0];
-  //   console.log(file);
-
-  //   file && reader.readAsDataURL(file);
-  //   reader.onload = () => {
-  //     const base64data = reader.result;
-  //     console.log(base64data);
-
-  //     const formdata = new FormData();
-  //     formdata.append("image", base64data);
-  //     formdata.append("name", dogProfile.dogname);
-  //     formdata.append("breed", dogProfile.dogbreed);
-  //     formdata.append("gender", dogProfile.dogsex);
-  //     formdata.append("weight", dogProfile.dogweight);
-
-  //     for (const keyValue of formdata) console.log(keyValue);
-  //     // formdata전송 테스트
-  //     dispatch(myList(formdata));
-  //   };
-  // };
-  // console.log(dogProfile);
   return (
     <MyPageWrap>
       <MyPageProfileWrap>
+        <MyPageProfileTitle width={"55em"}>
+          댕과사전 마이페이지
+        </MyPageProfileTitle>
+        <MyPageNavWrap>
+          <MyPageNavButton color={"#000"} background={"#cccccc80"}>
+            프로필
+          </MyPageNavButton>
+          <MyPageNavButton>찜 목록</MyPageNavButton>
+          {/* <MyPageNavButton>내가 쓴 글</MyPageNavButton> */}
+        </MyPageNavWrap>
         <MyPageProfileBox>
           <MyPageProfileTitle>나의 정보</MyPageProfileTitle>
-          <MyPageEmail>
-            {data.email === null ? "이메일" : data?.email}
-          </MyPageEmail>
-          <Input
-            key={data.nick === null ? "" : data?.nick}
-            defaultValue={data.nick === null ? "" : data?.nick}
-            name={"nick"}
-            placeholder={"닉네임"}
-            _onChange={onChangeProfile}
-            type="text"
-            style={{
-              mg_top: "1.6em",
-              bd_color: "transparent",
-              bd_bottom: "#ccc",
-              bd: "1px solid transparent",
-            }}
-          />
-          {/* {ProfileInputList.map((inputList, i) => (
+          <MyPageProfileContent>
+            {/* <MyPageEmail>
+              {data.email === null ? "이메일" : data?.email}
+            </MyPageEmail> */}
+            <Input
+              value={data.email === null ? "이메일" : data?.email}
+              type="text"
+              style={{
+                mg_top: "1.6em",
+                mg_left: "2em",
+                mg_right: "2em",
+                bd_color: "transparent",
+                bd_bottom: "#ccc",
+                bd: "1px solid transparent",
+                lineHeight: "50px",
+              }}
+            />
+            <Input
+              key={data.nick === null ? "" : data?.nick}
+              defaultValue={data.nick === null ? "" : data?.nick}
+              name={"nick"}
+              placeholder={"닉네임"}
+              _onChange={onChangeProfile}
+              type="text"
+              style={{
+                mg_top: "1.6em",
+                mg_left: "2em",
+                mg_right: "2em",
+                bd_color: "transparent",
+                bd_bottom: "#ccc",
+                bd: "1px solid transparent",
+                lineHeight: "50px",
+              }}
+            />
+            {/* {ProfileInputList.map((inputList, i) => (
             <Input
               key={i}
               name={"닉네임"}
@@ -202,12 +212,15 @@ const MyPage = () => {
               type="text"
             />
           ))} */}
-          {/* <EditButton top={"30%"}>수정 &#62;</EditButton> */}
-          <EditButton top={"55%"}>수정 &#62;</EditButton>
+            {/* <EditButton top={"30%"}>수정 &#62;</EditButton> */}
+            <EditButton top={"46%"} right={"4%"}>
+              수정 &#62;
+            </EditButton>
+          </MyPageProfileContent>
           <Button
             text={"로그아웃"}
             style={{
-              width: "100%",
+              width: "50%",
               height: "4em",
               color: "#000",
               bg_color: "#f5f5f8",
@@ -220,7 +233,7 @@ const MyPage = () => {
         </MyPageProfileBox>
         <MyPageProfileBox>
           <MyPageProfileTitle>나의 강아지</MyPageProfileTitle>
-          <MyPageDogImgBox>
+          {/* <MyPageDogImgBox>
             {myDogImg ? (
               <MyPageDogImg alt="미리보기" src={myDogImg} />
             ) : (
@@ -248,7 +261,7 @@ const MyPage = () => {
             <Button key={i} id={i} text={dog.name} _onClick={dogInfoHandler} />
           ))}
           {DogProfileInputList.map((inputList, i) => (
-            <div key={i} style={{ width: "100%" }}>
+            <div key={i} style={{ width: "50%" }}>
               <Input
                 // key={i}
 
@@ -275,13 +288,36 @@ const MyPage = () => {
               />
               이 아이로 활동하기
             </CheckMark>
-          </SelectDog>
+          </SelectDog> */}
+          <StyledSwiper
+            spaceBetween={0}
+            slidesPerView={1}
+            navigation
+            pagination={{ clickable: true }}
+            // autoplay={{ delay: 3000, disableOnInteraction: false }}
+            loop={true}
+            centeredSlides={true}
+          >
+            {dogData.map((dog, i) => (
+              <SwiperSlide>
+                <DogInfoSlide>
+                  <MyPageDogImgBox>
+                    <MyPageDogImg src={`${dog.image}`} />
+                  </MyPageDogImgBox>
+                  <DogInfoSlideText>{dog.name}</DogInfoSlideText>
+                  <DogInfoSlideText>{dog.breed}</DogInfoSlideText>
+                  <DogInfoSlideText>{dog.gender}</DogInfoSlideText>
+                  <DogInfoSlideText>{dog.weight} kg</DogInfoSlideText>
+                </DogInfoSlide>
+              </SwiperSlide>
+            ))}
+          </StyledSwiper>
           <Button
             // ref={dogImgRef}
             text={"댕프로필 추가하기"}
             _onClick={uploadHandler}
             style={{
-              width: "100%",
+              width: "50%",
               height: "4em",
               color: "#000",
               bg_color: "#f5f5f8",
@@ -293,13 +329,6 @@ const MyPage = () => {
           />
         </MyPageProfileBox>
       </MyPageProfileWrap>
-      <MyPageNavWrap>
-        <MyPageNavBox color={"#fff"} background={"#797979"}>
-          마이 페이지
-        </MyPageNavBox>
-        <MyPageNavBox>찜 목록</MyPageNavBox>
-        <MyPageNavBox>내가 쓴 글</MyPageNavBox>
-      </MyPageNavWrap>
     </MyPageWrap>
   );
 };
@@ -319,12 +348,11 @@ const MyPageProfileWrap = styled.div`
   align-items: center;
 
   width: 100%;
-
-  margin: 100px 0 0 0;
 `;
 const MyPageProfileBox = styled.div`
-  width: 22em;
-  margin-bottom: 5em;
+  width: 44em;
+
+  margin: 3em 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -335,7 +363,15 @@ const MyPageProfileTitle = styled.div`
   font-size: 1.4em;
   font-weight: 700;
   display: inline-block;
-  margin-bottom: 1em;
+  margin: 1em 0;
+  align-self: ${(props) => (props.alignSelf ? props.alignSelf : "center")};
+  width: ${(props) => (props.width ? props.width : "")};
+`;
+const MyPageProfileContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 `;
 const MyPageEmail = styled.div`
   align-self: flex-start;
@@ -383,37 +419,69 @@ const EditButton = styled.div`
   border-radius: 20px;
   position: absolute;
   top: ${(props) => props.top};
-  right: 0;
+  right: ${(props) => props.right};
   cursor: pointer;
 `;
 const SelectDog = styled.div`
-  width: 100%;
+  width: 50%;
   margin-top: 1em;
   font-size: 0.6em;
   text-align: left;
   cursor: pointer;
 `;
 const MyPageNavWrap = styled.div`
+  width: 77em;
   display: flex;
-  flex-direction: column;
-  position: relative;
+  flex-direction: row;
+  /* position: relative; */
   /* left: -30%; */
-  top: -63em;
-  margin-right: 60em;
+  /* top: -63em; */
+  margin-top: 1em;
   white-space: nowrap;
+  border-bottom: 1px solid #ccc;
 `;
-const MyPageNavBox = styled.div`
+const MyPageNavButton = styled.div`
   padding: 11px 110px 11px 10px;
   /* margin-bottom: 5px; */
   font-size: 0.8em;
   color: ${(props) => props.color};
   background: ${(props) => props.background};
   border: none;
-  border-radius: 8px;
+  border-radius: 8px 8px 0 0;
   cursor: pointer;
 `;
 const CheckMark = styled.span`
   color: ${(props) => (props.checkColor ? "#0066ff" : "#000")};
   font-weight: ${(props) => (props.checkFontWeight ? "700" : "400")};
   cursor: pointer;
+`;
+const StyledSwiper = styled(Swiper)`
+  /* background: #ff000050; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+  height: 120%;
+  padding: 4em 0;
+`;
+const StyledSwiperSlide = styled(SwiperSlide)`
+  display: flex;
+  flex-direction: column;
+`;
+const DogInfoSlide = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4em;
+`;
+const DogInfoSlideText = styled.div`
+  line-height: 50px;
+  font-size: 13px;
+  height: 50px;
+  margin: 1.6em 0 0 0;
+  width: 100%;
+  margin-top: 1.6em;
+  border: none;
+  border-bottom: 1px solid #ccc;
 `;

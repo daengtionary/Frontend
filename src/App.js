@@ -19,31 +19,27 @@ import TradeDetail from "./pages/tradeDetail/TradeDetail";
 import Community from "./pages/community/Community";
 import CommunityDetail from "./pages/communityDetail/CommunityDetail";
 
-
 // Shared
 import Kakao from "./shared/kakao";
 import ScrollToTop from "./shared/ScrollToTop";
 
-
 function App() {
-  
   const location = useLocation();
 
   return (
     <>
-    <ScrollToTop />
-    {location.state?.backgroundLocation && (
+      <ScrollToTop />
+      {location.state?.backgroundLocation && (
         <Routes>
           <Route path="chat" element={<ChatModal />} />
           <Route path="chat/:roomId" element={<ChatModal />} />
         </Routes>
-      )} 
+      )}
       <Header />
 
-      <ChatFloatButton/>
-      
-      <Routes location={location.state?.backgroundLocation || location}>
+      <ChatFloatButton />
 
+      <Routes location={location.state?.backgroundLocation || location}>
         <Route exact path={"/signin"} element={<SignIn />} />
         <Route exact path={"/signup"} element={<SignUp />} />
         <Route exact path={"/hospital"} element={<List />} />
