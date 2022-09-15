@@ -84,17 +84,17 @@ const SignUp = () => {
     adminCode: adminCode,
   };
 
-  useEffect(() => {
-    if (email !== '') emailIconRef.current.style.display = 'block';
-    else emailIconRef.current.style.display = 'none';
-    if (password !== '') passwordIconRef.current.style.display = 'block';
-    else passwordIconRef.current.style.display = 'none';
-    if (passwordCheck !== '')
-      passwordCheckIconRef.current.style.display = 'block';
-    else passwordCheckIconRef.current.style.display = 'none';
-    if (nick !== '') nickNameIconRef.current.style.display = 'block';
-    else nickNameIconRef.current.style.display = 'none';
-  }, [email, password, passwordCheck, nick]);
+  // useEffect(() => {
+  //   if (email !== '') emailIconRef.current.style.display = 'block';
+  //   else emailIconRef.current.style.display = 'none';
+  //   if (password !== '') passwordIconRef.current.style.display = 'block';
+  //   else passwordIconRef.current.style.display = 'none';
+  //   if (passwordCheck !== '')
+  //     passwordCheckIconRef.current.style.display = 'block';
+  //   else passwordCheckIconRef.current.style.display = 'none';
+  //   if (nick !== '') nickNameIconRef.current.style.display = 'block';
+  //   else nickNameIconRef.current.style.display = 'none';
+  // }, [email, password, passwordCheck, nick]);
 
   useEffect(() => {
     if (password === '' && passwordCheck === '') {
@@ -132,33 +132,32 @@ const SignUp = () => {
         dispatch(emailDupCheckThunk(email))
           .unwrap()
           .then(res => {
-            console.log(res);
             setEmailCheck(true);
             emailSpanRef.current.innerText = res.message;
             emailSpanRef.current.style.color = '#0fe05f';
           })
           .catch(error => {
-            console.log(error);
             setEmailCheck(false);
             emailSpanRef.current.innerText = '이미 사용중인 이메일입니다';
             emailSpanRef.current.style.color = '#f2153e';
           });
       }
-    }, 500),
+    }),
     [email]
   );
 
   const checkLoginNickName = useCallback(
     debounce((nick) => {
       if (nickNameRegExp.test(nick) === false) {
-        nickNameSpanRef.current.innerText = '닉네임 형식에 맞지 않습니다';
+        nickNameSpanRef.current.innerText = '2자리 이상 8자리 이하로 입력해주세요:)';
         nickNameSpanRef.current.style.color = '#f2153e';
         setNickCheck(false);
       } else {
         dispatch(nickNameDupCheckThunk(nick)).then((res) => {
-          if (res.payload.state === 200) {
+          console.log(res)
+          if (res.payload.data.state === 200) {
             setNickCheck(true);
-            nickNameSpanRef.current.innerText = res.payload.message;
+            nickNameSpanRef.current.innerText = res.payload.data.message;
             nickNameSpanRef.current.style.color = '#0fe05f';
           } else {
             setNickCheck(false);
@@ -167,10 +166,9 @@ const SignUp = () => {
           }
         });
       }
-    }, 500),
+    }),
     [nick]
   );
-  console.log(nickCheck);
 
   useEffect(() => {
     if (email !== '') {
@@ -305,12 +303,7 @@ const SignUp = () => {
         passwordRef.current.style.innerText = '';
         passwordCheckRef.current.focus();
         passwordCheckSpanRef.current.innerText = '입력한 비밀번호와 다릅니다';
-      } else if (nickCheck === false) {
-        console.log(nickCheck);
-        nickNameSpanRef.current.style.color = '#f2153e';
-        nickNameSpanRef.current.innerText = '중복되는 닉네임입니다';
-      } else {
-        console.log(newUser);
+      }  else {
         dispatch(addUserThunk(newUser))
           .unwrap()
           .then((res) => {
