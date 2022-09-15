@@ -30,7 +30,6 @@ function App() {
       <Header />
       <ChatFloatButton/>
       <Routes>
-      <Routes location={location.state?.backgroundLocation || location}>
         <Route exact path={"/signin"} element={<SignIn />} />
         <Route exact path={"/signup"} element={<SignUp />} />
         <Route exact path={"/hospital"} element={<List />} />
