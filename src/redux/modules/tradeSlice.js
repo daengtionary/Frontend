@@ -14,6 +14,7 @@ export const getTrade = createAsyncThunk(
 
 const initialState = {
   getTrade: [],
+  isLoaded: false
 };
 
 export const tradeSlice = createSlice({

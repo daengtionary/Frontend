@@ -24,21 +24,12 @@ import Kakao from "./shared/kakao";
 import ScrollToTop from "./shared/ScrollToTop";
 
 function App() {
-  const location = useLocation();
-
   return (
     <>
-      <ScrollToTop />
-      {location.state?.backgroundLocation && (
-        <Routes>
-          <Route path="chat" element={<ChatModal />} />
-          <Route path="chat/:roomId" element={<ChatModal />} />
-        </Routes>
-      )}
+    <ScrollToTop />
       <Header />
-
-      <ChatFloatButton />
-
+      <ChatFloatButton/>
+      <Routes>
       <Routes location={location.state?.backgroundLocation || location}>
         <Route exact path={"/signin"} element={<SignIn />} />
         <Route exact path={"/signup"} element={<SignUp />} />
@@ -55,6 +46,8 @@ function App() {
         <Route exact path={"/kakao/callback"} element={<Kakao />} />
         <Route exact path={"/"} element={<Main />} />
         <Route path="*" element={<Main />} />
+        <Route path="chat" element={<ChatModal />} />
+        <Route path="chat/:roomId" element={<ChatModal />} />
       </Routes>
       <Footer />
     </>

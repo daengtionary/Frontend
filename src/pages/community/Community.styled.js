@@ -33,7 +33,7 @@ export const SearchBar = styled.div`
 `
 
 export const CommunityContainer = styled.div`
-  /* margin-top: 130px; */
+  margin-top: 60px;
   width: 100%;
   box-sizing: border-box;
   display: flex;
@@ -43,6 +43,7 @@ export const CommunityContainer = styled.div`
 
 export const ContentsLayout = styled.div`
   width: 100%;
+  height: auto;
   display: flex;
   justify-content: center;
   margin-top: ${props => props.marginTop};

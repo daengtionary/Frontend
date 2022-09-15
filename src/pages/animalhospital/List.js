@@ -383,8 +383,8 @@ const ButtonWrap = styled.div`
   align-items: center;
   margin-bottom: 1em;
 `;
-const FilterBox = styled.div``;
-const Fiter = styled.select`
+export const FilterBox = styled.div``;
+export const Fiter = styled.select`
   width: ${(props) => (props.width ? props.width : "")};
   border: none;
   margin-right: 20px;

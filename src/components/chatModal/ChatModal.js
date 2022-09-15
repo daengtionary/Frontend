@@ -32,13 +32,11 @@ const ChatModal = () => {
   const { roomId } = useParams();
 
   const onClickClose = () => {
-    navigate(location.state.backgroundLocation);
+    navigate(-1);
   };
 
   const onClickBack = () => {
-    navigate("/chat", {
-      state: { backgroundLocation: location.state.backgroundLocation },
-    });
+    navigate("/chat");
   };
 
   useEffect(() => {

@@ -1,4 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCommunityDeleteThunk } from "../../redux/modules/communitySlice";
 import {
   CommunityCardWrap,
   IconWrap,
@@ -17,14 +20,26 @@ import {
   User,
 } from "./CommunityCard.styled";
 
-const CommunityCard = ({ detailHandler, data }) => {
-  console.log(data);
+const CommunityCard = ({ data }) => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+
+
+  console.log(data.nick)
+
 
   return (
     <CommunityCardWrap>
       <IconWrap>
-        <IconBox length={"24px"} size={"24px"} url={"/img/pen.png"} hover={"blue"} />
-        <IconBox length={"24px"} size={"34px"} url={"/img/delete.png"} hover={"red"} />
+        {/* {"zemi" === data.nick ? ( */}
+        {window.sessionStorage.getItem('nick') === data.nick ? (
+          <>
+            <IconBox length={"24px"} size={"24px"} url={"/img/pen.png"} hover={"blue"} />
+            <IconBox onClick={() =>{dispatch(getCommunityDeleteThunk(data.communityNo))}} length={"24px"} size={"34px"} url={"/img/delete.png"} hover={"red"} />
+          </>
+        ) : ("")}
+
         <IconBox length={"24px"} size={"24px"} url={"/img/comment.png"} />
         {/* <UpdateIcon/>
         <DeleteIcon/>
@@ -37,14 +52,14 @@ const CommunityCard = ({ detailHandler, data }) => {
 
 
       <CardContents>
-        <ProfilePhoto url={data.communityImg}>
-        </ProfilePhoto>
+        <ProfilePhoto url={data.communityImg}/>
         <Names>
           <Dog>견종{data.communityNo}</Dog>
           <User>{data.nick}</User>
         </Names>
-        <Category>카테고리</Category>
-        <Title onClick={detailHandler}>{data.title}</Title>
+        <Category>병원</Category>
+        {/* <Title onClick={detailHandler(data.communityNo)}>{data.title}</Title> */}
+        <Title onClick={()=>{navigate(`/community/${data.communityNo}`)}}>{data.title}</Title>
       </CardContents>
     </CommunityCardWrap>
   );

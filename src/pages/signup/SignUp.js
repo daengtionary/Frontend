@@ -33,6 +33,10 @@ import {
   SignUpAlertSpan,
   SignUpButtonGroup,
   GoToSignIn,
+  SignUpDataAgreementGroup,
+  SignUpDataAgreement,
+  SignUpDataAgreementSpan,
+  AdminCheckBoxGroub
 } from './SignUp.styled';
 
 const SignUp = () => {
@@ -501,7 +505,7 @@ const SignUp = () => {
             ) : (
               ''
             )}
-
+            <AdminCheckBoxGroub>
             <span>
               <input
                 type={'checkbox'}
@@ -509,7 +513,7 @@ const SignUp = () => {
                 value="BUSINESS"
                 onChange={(e) => checkOnlyOne(e.target)}
               />
-              비즈니스계정으로 가입
+              비즈니스로 가입하기
             </span>
             <span>
               <input
@@ -518,9 +522,35 @@ const SignUp = () => {
                 value="ADMIN"
                 onChange={(e) => checkOnlyOne(e.target)}
               />
-              관리자계정으로 가입
+              관리자로 가입하기
             </span>
-
+            </AdminCheckBoxGroub>
+            <SignUpDataAgreementGroup>
+              <SignUpDataAgreement>
+                <input
+                  type={'checkbox'}
+                />
+                <SignUpDataAgreementSpan>
+                  [필수] 만 14세 이상입니다
+                </SignUpDataAgreementSpan>
+              </SignUpDataAgreement>
+              <SignUpDataAgreement>
+                <input
+                  type={'checkbox'}
+                />
+                <SignUpDataAgreementSpan>
+                  [필수] 이용약관 동의
+                </SignUpDataAgreementSpan>
+              </SignUpDataAgreement>
+              <SignUpDataAgreement>
+                <input
+                  type={'checkbox'}
+                />
+                <SignUpDataAgreementSpan>
+                  [필수] 개인정보 수집 및 이용 동의
+                </SignUpDataAgreementSpan>
+              </SignUpDataAgreement>
+            </SignUpDataAgreementGroup>
             <SignUpButtonGroup>
               <Button
                 type={'submit'}
