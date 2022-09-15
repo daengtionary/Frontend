@@ -68,6 +68,10 @@ export const CommnetIcon = styled.span`
   background-size: 20px;
   background-position: center;
 `;
+export const NullCircle = styled.div`
+  width: 14px;
+  height: 14px;
+`
 
 export const RepleCircle = styled.div`
   border: none;
