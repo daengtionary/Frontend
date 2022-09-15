@@ -114,7 +114,10 @@ export const Category = styled.div`
 `;
 
 export const Title = styled.div`
-  font-size: 16px;
+  font-size: 20px;
+  width: 50%;
+  padding: 10px 0;
+  cursor: pointer;
 `;
 export const Dog = styled.div`
   color: #797979;

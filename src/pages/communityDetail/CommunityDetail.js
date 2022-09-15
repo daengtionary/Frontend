@@ -1,15 +1,42 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import CommunityDetailRipleCard from "../../components/communityDetialRipleCard/CommunityDetailRipleCard";
 import { CommunityContainer, CommunityWrap, SideBar } from "../community/Community.styled";
 import { DetailWrap, PostContainer, Title, PostInfo, Content, ShowRiples, Riple, WriteRiple, RipleBtn, BottomBtn } from "./CommunityDetail.styled";
+import { getCommunityDetailThunk } from "../../redux/modules/communitySlice";
+import { map } from "lodash";
 const CommunityDetail = () => {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch();
+
+  const data = useSelector((state) => state.community.communityDetail);
+  console.log("커뮤니티 디테일:",data)
+
+  let {id} = useParams();
+  console.log(id);
+  
+  const sampleReview = {
+    id : 0,
+    profileImg : "",
+    dogKind: "불독",
+    nikc : "닉넴",
+    content: "댓글내용",
+  }
+
+  useEffect(() => {
+    dispatch(getCommunityDetailThunk(id));
+  }, [dispatch]);
+
+  const OnCommentSubmitHandler = (e) => {
+    alert('댓글 작성?!')
+    e.preventdefault();
+  }
 
   return (
     <CommunityContainer>
-      <CommunityWrap id="hahah">
+      <CommunityWrap>
         {/* <SideBar>
           <ul>
             <li>댕과사전 커뮤니티</li>
@@ -18,34 +45,36 @@ const CommunityDetail = () => {
 
         <DetailWrap>
           <PostContainer>
-            <Title>글 제목</Title>
+            <Title>{data.title}</Title>
             <PostInfo>
-              <div>분류 : 장터</div>
-              <div>작성자 : 아무개</div>
-              <div>견종 : 포메라니안</div>
-              <div>작성일 : 2022-09-10</div>
+              <div>분류 : 카테고리{data.communityNo}</div>
+              <div>작성자 : {data.nick}</div>
+              <div>견종 : 견종{data.communityNo}</div>
+              <div>작성일 : {data.createdAt}</div>
             </PostInfo>
             <Content>
-              <p>여기에 내용들</p>
+              <p>{data.content}</p>
             </Content>
           </PostContainer>
 
-          <Riple>
+          <Riple onSubmit={OnCommentSubmitHandler}>
             <WriteRiple placeholder="000글자 이내로 작성해주세요"/>
-            <RipleBtn>댓글달기</RipleBtn>
+            <RipleBtn type="submit">댓글달기</RipleBtn>
           </Riple>
 
           <ShowRiples>
-            <CommunityDetailRipleCard/>
-            <CommunityDetailRipleCard/>
-            <CommunityDetailRipleCard/>
-            <CommunityDetailRipleCard/>
+            {/* {sampleReview.map((el, index)=>{
+              <CommunityDetailRipleCard key={index} data={el}/>
+            })} */}
+            {/* {data.reviewList.map((el, index)=>{
+              <CommunityDetailRipleCard key={index}/>
+            })} */}
             <CommunityDetailRipleCard/>
           </ShowRiples>
 
 
           <BottomBtn>
-            <button onClick={()=>{navigate('/community')}}>목록보기</button>
+            <button>글 작성</button>
           </BottomBtn>
         </DetailWrap>
       </CommunityWrap>
