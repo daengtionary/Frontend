@@ -29,7 +29,7 @@ import {
 
 const SignIn = () => {
   const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-  const REDIRECT_URI = "http://localhost:3000/kakao/callback";
+  const REDIRECT_URI ="http://fragohahbr.s3-website.ap-northeast-2.amazonaws.com/kakao/callback";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
