@@ -12,10 +12,10 @@ import Service from "./pages/service/Service";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import ChatFloatButton from "./components/chatFloatButton/ChatFloatButton";
-
 import ChatModal from "./components/chatModal/ChatModal";
 import Trade from "./pages/trade/Trade";
 import TradeDetail from "./pages/tradeDetail/TradeDetail";
+import TradePosting from "./pages/tradePosting/TradePosting";
 import Community from "./pages/community/Community";
 import CommunityDetail from "./pages/communityDetail/CommunityDetail";
 
@@ -41,12 +41,13 @@ function App() {
         <Route exact path={"/mypage"} element={<MyPage />} />
         <Route exact path={"/service"} element={<Service />} />
         <Route exact path={"/detail/:id"} element={<Detail />} />
+        <Route exact path={"/tradePosting"} element={<TradePosting/>} />
         <Route exact path={"/tradeDetail/:id"} element={<TradeDetail />} />
         <Route exact path={"/kakao/callback"} element={<Kakao />} />
         <Route exact path={"/"} element={<Main />} />
-        <Route path="*" element={<Main />} />
-        <Route path="chat" element={<ChatModal />} />
-        <Route path="chat/:roomId" element={<ChatModal />} />
+        <Route exact path={"*"} element={<Main />} />
+        <Route exact path={"chat"} element={<ChatModal />} />
+        <Route exact path={"chat/:roomId"} element={<ChatModal />} />
       </Routes>
       <Footer />
     </>

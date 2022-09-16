@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import TradeCard from '../../components/card/TradeCard';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTrade } from '../../redux/modules/tradeSlice';
+import { getTrade, clearTradeItem } from '../../redux/modules/tradeSlice';
 import { useCallback } from 'react';
 
 // 스타일 컴포넌트
@@ -22,8 +22,10 @@ import {
   Fiter
 } from '../animalhospital/List.js'
 
+
 const Trade = () => {
   const [page, setPage] = useState(0);
+  const [tradeSort, setTradeSort] = useState('new')
 
   const dispatch = useDispatch();
   const items = useSelector((state) => state.trade.getTrade);
@@ -49,12 +51,29 @@ const Trade = () => {
       getTrade({
         page: page,
         size: '12',
-        sort: 'new',
+        sort: tradeSort,
         direction: 'asc',
       })
     );
   }, [page]);
   console.log(page)
+
+  const onChangeHandeler = useCallback((e) =>{
+    if( tradeSort !== e.target.value){
+      setTradeSort(e.target.value);
+    dispatch(clearTradeItem);
+    dispatch(getTrade({
+      page: page,
+      size: '12',
+      sort: tradeSort,
+      direction: 'asc',
+    }))}else{
+      alert("현재 선택된 정렬입니다.")
+    }
+  },[page, tradeSort]
+  );
+  console.log(tradeSort)
+
 
   return (
     <TradeAll>
@@ -64,12 +83,12 @@ const Trade = () => {
             <input type="text" placeholder="어떤 물건을 찾으세요?" />
           </SearchBar>
           <TopFilterBox>
-            <Fiter style={{width:"100px"}}>
-              <option select ="true">
+            <Fiter style={{width:"100px"}} onChange={onChangeHandeler}>
+              <option select ="true" defaultValue={"최근순"}>
                 정렬방식
               </option>
-              <option value="인기순">인기순</option>
-              <option value="최근순">최근순</option>
+              <option value="title">이름순</option>
+              <option value="new">최근순</option>
             </Fiter>
           </TopFilterBox>
         </TopLayout>
