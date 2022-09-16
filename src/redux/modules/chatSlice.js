@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { chatApi } from "../../shared/api";
+import { chatApis } from "../../shared/api";
 
 const GET_ROOM_LIST = "GET_ROOM_LIST";
 const GET_MESSAGE_LIST = "GET_MESSAGE_LIST";
@@ -41,7 +41,7 @@ const initialState = {
 // 채팅 페이지에서 채팅 리스트 데이터 받아오기
 export const getRoomListDB = () => {
   return async (dispatch) => {
-    const response = await chatApi.getRoomList();
+    const response = await chatApis.getRoomList();
     dispatch(getRoomList(response.data));
   };
 };
@@ -49,7 +49,7 @@ export const getRoomListDB = () => {
 // 채팅방에서 채팅 내역 받아오기
 export const getMessageListDB = (roomId) => {
   return async (dispatch) => {
-    const response = await chatApi.getMessageList(roomId);
+    const response = await chatApis.getMessageList(roomId);
     dispatch(getMessageList(response.data));
   };
 };

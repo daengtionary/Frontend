@@ -12,12 +12,13 @@ import moment from "moment";
 // 채팅 > 채팅방 목록
 const ChatRoomList = ({ roomId }) => {
   const roomList = useSelector((state) => state.chat.roomList);
-  const memberId = useSelector((state) => state.user.user.id);
+  console.log(roomList)
+  const memberNo = window.localStorage.getItem("memberNo");
 
   return (
     <>
       {roomList.map((room, index) => {
-        // const isExit = room.type === "STATUS" && +room.senderName === +memberId;
+        const isExit = room.type === "STATUS" && +room.senderName === +memberNo;
         return (
           <Link
             to={`/chat/${room.roomId}`}
@@ -28,11 +29,11 @@ const ChatRoomList = ({ roomId }) => {
           >
             <List selected={+room.roomId === +roomId}>
               <span>
-                {/* <Nickname>{room?.nickname}</Nickname> */}
+                <Nickname>{room?.nickname}</Nickname>
                 <Nickname>kim</Nickname>
-                {/* <Date>{!isExit && moment(room.date).format("HH:mm")}</Date> */}
+                <Date>{!isExit && moment(room.date).format("HH:mm")}</Date>
                 {/* <Date>{moment(room.date).format("HH:mm")}</Date> */}
-                <Date>today</Date>
+                {/* <Date>today</Date> */}
               </span>
               <span>
                 <Message>
