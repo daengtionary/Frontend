@@ -17,7 +17,7 @@ const ChatRoomList = ({ roomId }) => {
   return (
     <>
       {roomList.map((room, index) => {
-        const isExit = room.type === "STATUS" && +room.senderName === +memberId;
+        // const isExit = room.type === "STATUS" && +room.senderName === +memberId;
         return (
           <Link
             to={`/chat/${room.roomId}`}
@@ -28,12 +28,16 @@ const ChatRoomList = ({ roomId }) => {
           >
             <List selected={+room.roomId === +roomId}>
               <span>
-                <Nickname>{room?.nickname}</Nickname>
-                <Date>{!isExit && moment(room.date).format("HH:mm")}</Date>
+                {/* <Nickname>{room?.nickname}</Nickname> */}
+                <Nickname>kim</Nickname>
+                {/* <Date>{!isExit && moment(room.date).format("HH:mm")}</Date> */}
+                {/* <Date>{moment(room.date).format("HH:mm")}</Date> */}
+                <Date>today</Date>
               </span>
               <span>
                 <Message>
-                  {isExit ? "채팅 내역이 없습니다." : room?.message}
+                  {/* {isExit ? "채팅 내역이 없습니다." : room?.message} */}
+                  채팅 내역이
                 </Message>
                 {room?.unreadCnt > 0 && +roomId !== +room.roomId && (
                   <NotiCount>{room.unreadCnt}</NotiCount>

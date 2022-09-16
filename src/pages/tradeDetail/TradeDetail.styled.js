@@ -25,6 +25,7 @@ export const ImgBox = styled.div`
 export const ItemDetailImg = styled.img`
   width: 500px;
   height: 500px;
+  border-radius: 10%;
 `;
 
 export const ItemContentBox = styled.div`

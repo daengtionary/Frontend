@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useMatch } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import {
   FloatWrap,
   ChatButtonWrap,
@@ -14,7 +14,6 @@ import { SmileChatSVG } from "../../elements/svg/SVG";
 // 우측 하단 채팅 플로팅 버튼
 const ChatFloatButton = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const isChatModalOn = useMatch("/chat/*");
   const notification = useSelector((state) => state.chat.notification);
   const memberId = useSelector((state) => state.user);

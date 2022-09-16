@@ -53,10 +53,9 @@ const SignIn = () => {
         dispatch(signUserThunk({ email, password }))
         .unwrap()
         .then(res=>{
-
+          console.log(res)
           alert(res.message);
           navigate('/')
-          console.log(res)
         })
         .catch(error=>{
           alert("로그인에 실패하였습니다");
