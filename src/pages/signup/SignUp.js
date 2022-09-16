@@ -36,7 +36,7 @@ import {
   SignUpDataAgreementGroup,
   SignUpDataAgreement,
   SignUpDataAgreementSpan,
-  AdminCheckBoxGroub
+  AdminCheckBoxGroub,
 } from './SignUp.styled';
 
 const SignUp = () => {
@@ -85,18 +85,6 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if (email !== '') emailIconRef.current.style.display = 'block';
-    else emailIconRef.current.style.display = 'none';
-    if (password !== '') passwordIconRef.current.style.display = 'block';
-    else passwordIconRef.current.style.display = 'none';
-    if (passwordCheck !== '')
-      passwordCheckIconRef.current.style.display = 'block';
-    else passwordCheckIconRef.current.style.display = 'none';
-    if (nick !== '') nickNameIconRef.current.style.display = 'block';
-    else nickNameIconRef.current.style.display = 'none';
-  }, [email, password, passwordCheck, nick]);
-
-  useEffect(() => {
     if (password === '' && passwordCheck === '') {
       passwordSpanRef.current.innerText =
         '8자리 이상, 영문자, 숫자, 특수문자를 혼합하여주세요:)';
@@ -131,46 +119,44 @@ const SignUp = () => {
       } else {
         dispatch(emailDupCheckThunk(email))
           .unwrap()
-          .then(res => {
-            console.log(res);
+          .then((res) => {
             setEmailCheck(true);
             emailSpanRef.current.innerText = res.message;
             emailSpanRef.current.style.color = '#0fe05f';
           })
-          .catch(error => {
-            console.log(error);
+          .catch((error) => {
             setEmailCheck(false);
             emailSpanRef.current.innerText = '이미 사용중인 이메일입니다';
             emailSpanRef.current.style.color = '#f2153e';
           });
       }
-    }, 500),
+    }),
     [email]
   );
 
   const checkLoginNickName = useCallback(
     debounce((nick) => {
       if (nickNameRegExp.test(nick) === false) {
-        nickNameSpanRef.current.innerText = '닉네임 형식에 맞지 않습니다';
+        nickNameSpanRef.current.innerText =
+          '2자리 이상 8자리 이하로 입력해주세요:)';
         nickNameSpanRef.current.style.color = '#f2153e';
         setNickCheck(false);
       } else {
         dispatch(nickNameDupCheckThunk(nick)).then((res) => {
-          if (res.payload.state === 200) {
+          console.log(res);
+          if (res.payload.data.state === 200) {
             setNickCheck(true);
-            nickNameSpanRef.current.innerText = res.payload.message;
+            nickNameSpanRef.current.innerText = res.payload.data.message;
             nickNameSpanRef.current.style.color = '#0fe05f';
           } else {
-            setNickCheck(false);
             nickNameSpanRef.current.innerText = '이미 사용중인 닉네임 입니다.';
             nickNameSpanRef.current.style.color = '#f2153e';
           }
         });
       }
-    }, 500),
+    }),
     [nick]
   );
-  console.log(nickCheck);
 
   useEffect(() => {
     if (email !== '') {
@@ -305,12 +291,7 @@ const SignUp = () => {
         passwordRef.current.style.innerText = '';
         passwordCheckRef.current.focus();
         passwordCheckSpanRef.current.innerText = '입력한 비밀번호와 다릅니다';
-      } else if (nickCheck === false) {
-        console.log(nickCheck);
-        nickNameSpanRef.current.style.color = '#f2153e';
-        nickNameSpanRef.current.innerText = '중복되는 닉네임입니다';
       } else {
-        console.log(newUser);
         dispatch(addUserThunk(newUser))
           .unwrap()
           .then((res) => {
@@ -333,8 +314,7 @@ const SignUp = () => {
 
   return (
     <Fragment>
-      <SignUpBox
-      >
+      <SignUpBox>
         <SignUpBoxContainer>
           <SignUpForm onSubmit={(event) => signUpAccount(event)}>
             <SignUpTitle>
@@ -506,46 +486,40 @@ const SignUp = () => {
               ''
             )}
             <AdminCheckBoxGroub>
-            <span>
-              <input
-                type={'checkbox'}
-                name="adminName"
-                value="BUSINESS"
-                onChange={(e) => checkOnlyOne(e.target)}
-              />
-              비즈니스로 가입하기
-            </span>
-            <span>
-              <input
-                type={'checkbox'}
-                name="adminName"
-                value="ADMIN"
-                onChange={(e) => checkOnlyOne(e.target)}
-              />
-              관리자로 가입하기
-            </span>
+              <span>
+                <input
+                  type={'checkbox'}
+                  name="adminName"
+                  value="BUSINESS"
+                  onChange={(e) => checkOnlyOne(e.target)}
+                />
+                비즈니스로 가입하기
+              </span>
+              <span>
+                <input
+                  type={'checkbox'}
+                  name="adminName"
+                  value="ADMIN"
+                  onChange={(e) => checkOnlyOne(e.target)}
+                />
+                관리자로 가입하기
+              </span>
             </AdminCheckBoxGroub>
             <SignUpDataAgreementGroup>
               <SignUpDataAgreement>
-                <input
-                  type={'checkbox'}
-                />
+                <input type={'checkbox'} />
                 <SignUpDataAgreementSpan>
                   [필수] 만 14세 이상입니다
                 </SignUpDataAgreementSpan>
               </SignUpDataAgreement>
               <SignUpDataAgreement>
-                <input
-                  type={'checkbox'}
-                />
+                <input type={'checkbox'} />
                 <SignUpDataAgreementSpan>
                   [필수] 이용약관 동의
                 </SignUpDataAgreementSpan>
               </SignUpDataAgreement>
               <SignUpDataAgreement>
-                <input
-                  type={'checkbox'}
-                />
+                <input type={'checkbox'} />
                 <SignUpDataAgreementSpan>
                   [필수] 개인정보 수집 및 이용 동의
                 </SignUpDataAgreementSpan>

@@ -28,7 +28,7 @@ import {
 
 const SignIn = () => {
   const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-  const REDIRECT_URI = "http://localhost:3000/kakao/callback";
+  const REDIRECT_URI ="http://fragohahbr.s3-website.ap-northeast-2.amazonaws.com/kakao/callback";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,18 +48,18 @@ const SignIn = () => {
         alert("이메일 형식에 맞지 않습니다");
       } else {
         dispatch(signUserThunk({ email, password }))
-          .unwrap()
-          .then((res) => {
-            alert(res.message);
-            navigate("/");
-            console.log(res);
-          })
-          .catch((error) => {
-            alert("로그인에 실패하였습니다");
-            console.log(error);
-          });
-      }
-    },
+        .unwrap()
+        .then(res=>{
+          console.log(res)
+          alert(res.message);
+          navigate('/')
+        })
+        .catch(error=>{
+          alert("로그인에 실패하였습니다");
+          console.log(error)
+        })
+        }
+      },
     [email, password]
   );
 

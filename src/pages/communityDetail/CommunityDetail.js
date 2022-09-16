@@ -69,12 +69,12 @@ const CommunityDetail = () => {
             {/* {data.reviewList.map((el, index)=>{
               <CommunityDetailRipleCard key={index}/>
             })} */}
-            <CommunityDetailRipleCard/>
+            <CommunityDetailRipleCard data={data.reviewList}/>
           </ShowRiples>
 
 
           <BottomBtn>
-            <button>글 작성</button>
+            <button onClick={()=>navigate('/community')}>목록으로</button>
           </BottomBtn>
         </DetailWrap>
       </CommunityWrap>

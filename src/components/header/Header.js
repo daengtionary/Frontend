@@ -25,7 +25,8 @@ const Header = () => {
 
   
   const signOut = () => {
-    window.sessionStorage.removeItem('authorization');  
+    window.sessionStorage.removeItem('authorization');
+    window.localStorage.clear();  
     alert('로그아웃 되었습니다')
     navigate('/');
   };

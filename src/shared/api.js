@@ -44,10 +44,8 @@ export const chatApi = axios.create({
 
 chatApi.interceptors.request.use(function (config) {
   const token =`Bearer ${sessionStorage.getItem("authorization")}`
-  // const token = sessionStorage.getItem("authorization");
   if (token !== undefined) {
     config.headers.common["Authorization"] = token;
-    // { Authorization: `Bearer ${sessionStorage.getItem("authorization")}` }
   }
   return config;
 });

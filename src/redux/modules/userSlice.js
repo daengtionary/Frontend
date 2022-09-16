@@ -44,6 +44,7 @@ export const signUserThunk = createAsyncThunk(
       .post(`member/login`, payload)
       .then((res) => res)
       .catch((error) => error);
+      console.log(resData)
 
     window.sessionStorage.setItem(
       "authorization",
@@ -54,6 +55,22 @@ export const signUserThunk = createAsyncThunk(
       resData.headers["refresh-token"]
     );
     //로컬에 닉네임 저장
+    window.localStorage.setItem(
+      "nick",
+      resData.data.data.nick
+    );
+    window.localStorage.setItem(
+      "email",
+      resData.data.data.email
+    );
+    window.localStorage.setItem(
+      "role",
+      resData.data.data.role
+    );
+    window.localStorage.setItem(
+      "memberNo",
+      resData.data.data.memberNo
+    );
 
     return thunkAPI.fulfillWithValue(resData.data);
   }
@@ -75,6 +92,7 @@ export const kakaoAuthThunk = createAsyncThunk(
       resData.headers["refresh-token"]
     );
     //로컬에 닉네임 저장
+
     return thunkAPI.fulfillWithValue(resData.data);
   }
 );

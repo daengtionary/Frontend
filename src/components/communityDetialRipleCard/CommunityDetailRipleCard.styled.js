@@ -17,6 +17,11 @@ export const ProfilePhoto = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 20px;
+
+  background-image: url(${props => props.url});
+  background-size: 57px;
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 
 export const UserInfo = styled.div`
