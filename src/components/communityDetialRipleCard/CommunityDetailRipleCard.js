@@ -3,9 +3,13 @@ import { RipleCard, ProfilePhoto, UserInfo, RipleContent } from "./CommunityDeta
 
 const CommunityDetailRipleCard = ({ data }) => {
   console.log(data);
+  
+  if (data) {
+
+  }
   return (
     <>
-      {data.map((el) => {
+      {data ? data.map((el) => {
         return (
           <RipleCard key={el.reviewNo}>
             <ProfilePhoto url={el.imgUrl}></ProfilePhoto>
@@ -18,7 +22,7 @@ const CommunityDetailRipleCard = ({ data }) => {
             </RipleContent>
           </RipleCard>
         );
-      })}
+      }) : ''}
     </>
   );
 };

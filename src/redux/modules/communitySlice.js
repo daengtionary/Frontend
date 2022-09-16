@@ -29,10 +29,10 @@ export const getCommunityDetailThunk = createAsyncThunk("GET_COMMUNITY_DETAIL", 
 /** 게시글 둥록 */
 export const getCommunityPostThunk = createAsyncThunk("GET_COMMUNITY_POST", async (payload, thunkAPI) => {
   try {
-    console.log(payload);
-    const resp = await api_auth.post(`/community/${payload}`);
-
-    return (console.log(resp), thunkAPI.fulfillWithValue(resp.data.data))
+    console.log(JSON.stringify(payload))
+    const resp = await api_auth.post('/community/create', payload, {"Content-Type": "application/json"});
+    console.log(resp)
+    // return (thunkAPI.fulfillWithValue(resp.data.data))
   } catch (err) {
     return thunkAPI.rejectWithValue(err.code);
   }

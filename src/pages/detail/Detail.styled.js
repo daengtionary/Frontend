@@ -66,7 +66,7 @@ export const BusinessInfo = styled.div`
 `
 
 export const BusinessDescription = styled.div`
-  width: 50%;
+  width: 100%;
   box-sizing: border-box;
 `
 
@@ -94,6 +94,28 @@ export const Infotmations = styled.div`
 
 export const ReviewWrap = styled.div`
   width: 80vw;
+  margin-top: 60px;
+  
+`
+export const ReviewCard = styled.div`
+ display: flex;
+ align-items: center;
+ padding: 15px 0 50px 0;
+ border-bottom: 1px solid gray;
+ gap: 15px;
+`
+export const ProfileImg = styled.div`
+  background-image: url(${props => props.url});
+  background-color: gray;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+
+`
+export const Nick = styled.div`
+
+`
+export const Star = styled.div`
 `
 
 export const StarRating = styled.div`
@@ -108,7 +130,34 @@ export const StarIcon = styled.img`
   height: 20px;
 `
 
+export const ReservationWrap = styled.div`
+  display: flex;
+  width: 80vw;
+`
+
+export const ResevationTop = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  border-bottom: 1px solid gray;
+`
+
+export const ResevationBottom = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+export const TimeBox = styled.div`
+
+`
+
 export const CalendarWrap = styled.div`
   width: 50%;
   box-sizing: border-box;
+`
+
+export const TimeWrap = styled.div`
+  box-sizing: border-box;
+  width: 50%;
 `
