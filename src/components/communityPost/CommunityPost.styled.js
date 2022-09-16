@@ -76,6 +76,7 @@ export const Input = styled.input`
   border: none;
   padding: 10px;
   width: 100%;
+  
 `
 
 export const TextArea = styled.textarea`
