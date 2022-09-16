@@ -110,11 +110,14 @@ const MyPage = () => {
     setButtonToggle(!buttonToggle);
     nickRef.current.focus();
 
-    if (buttonToggle) {
+    if (buttonToggle && data.nick !== profile.nick) {
       dispatch(editNick(profile.nick));
       dispatch(myPageInfo());
       alert("닉네임이 수정되었습니다 :)");
     }
+  };
+  const onKeyPressEditNick = (e) => {
+    onClickEditNick();
   };
   console.log(buttonToggle);
   console.log(profile);
@@ -164,6 +167,9 @@ const MyPage = () => {
       dispatch(myDogInfo(id));
     }
   };
+  const testFunc = (e) => {
+    alert("test");
+  };
 
   return (
     <MyPageWrap>
@@ -201,6 +207,7 @@ const MyPage = () => {
             {!buttonToggle ? (
               <Input
                 _ref={nickRef}
+                _onKeyDown={onKeyPressEditNick}
                 key={data.nick === null ? "" : data?.nick}
                 value={data.nick === null ? "" : data?.nick}
                 name={"nick"}
@@ -228,7 +235,7 @@ const MyPage = () => {
                 _onChange={onChangeProfile}
                 type="text"
                 style={{
-                  bg_color: "#cccccc50",
+                  bg_color: "#f5f5f8",
                   mg_top: "1.6em",
                   mg_bottom: "1.6em",
                   mg_left: "2em",
@@ -345,7 +352,7 @@ const MyPage = () => {
             centeredSlides={true}
           >
             {dogData.map((dog, i) => (
-              <SwiperSlide>
+              <SwiperSlide key={dog.dogNo}>
                 <DogInfoSlide>
                   <MyPageDogImgBox>
                     <MyPageDogImg src={`${dog.image}`} />
