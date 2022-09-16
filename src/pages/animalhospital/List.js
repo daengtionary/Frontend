@@ -8,6 +8,7 @@ import styled from "styled-components";
 import ListPageCard from "../../components/card/ListPageCard";
 import Loading from "../../components/card/Loading";
 import SkeletonCard from "../../components/card/SkeletonCard";
+import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
 import {
@@ -296,7 +297,7 @@ const List = () => {
           // )
 
           !ready ? (
-            <Loading />
+            <LoadingSpinner />
           ) : data.length !== 0 ? (
             data?.map((data, i) => <ListPageCard key={i} data={data} />)
           ) : (

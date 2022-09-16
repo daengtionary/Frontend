@@ -41,7 +41,7 @@ const CommentTextBox = styled.div`
 `;
 const CommentText = styled.div`
   width: 100%;
-  margin: 0.4em 0;
+  margin: 0.7em 0;
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
 `;

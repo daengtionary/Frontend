@@ -1,10 +1,24 @@
+import {
+  CardBox,
+  CardImgBox,
+  CardText,
+  CardTextBox,
+  RankBadge,
+} from "./Card.styled";
 
-import { CardBox, CardImgBox, CardText, CardTextBox } from "./Card.styled";
-
-const Card = ({ text, data }) => {
+const Card = ({ rank, data }) => {
   return (
     <CardBox>
-      <CardImgBox background={data?.mapImgUrl}>
+      <RankBadge>{rank}위</RankBadge>
+      <CardImgBox
+        background={
+          data && data.tradeImg
+            ? data.tradeImg
+            : data.mapImgUrl
+            ? data.mapImgUrl
+            : data.communityImg
+        }
+      >
         {/* {text} */}
         {/* <CardImg>사진</CardImg> */}
       </CardImgBox>
@@ -12,8 +26,16 @@ const Card = ({ text, data }) => {
         <CardText fontSize={"1.2em"} fontWeight={"700"}>
           {data?.title}
         </CardText>
-        <CardText>{data?.address}</CardText>
-        <CardText>{data?.mapInfo}</CardText>
+        <CardText>
+          {data && data.nick ? "작성자 " + data.nick : data.address}
+        </CardText>
+        <CardText>
+          {data && data.status
+            ? data.status
+            : data.mapInfo
+            ? data.mapInfo + " 운영"
+            : "조회수 " + data.view + " 회"}
+        </CardText>
         {/* {console.log(data.mapImgUrl)} */}
       </CardTextBox>
     </CardBox>
@@ -21,4 +43,3 @@ const Card = ({ text, data }) => {
 };
 
 export default Card;
-

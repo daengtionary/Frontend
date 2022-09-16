@@ -5,7 +5,9 @@ export const getTrade = createAsyncThunk(
   "tradeSlice/getTrade",
   async (payload, thunkAPI) => {
     const resData = await api
-      .get(`/trade?direction=${payload.direction}&page=${payload.page}&size=${payload.size}&sort=${payload.sort}`)
+      .get(
+        `/trade?direction=${payload.direction}&page=${payload.page}&size=${payload.size}&sort=${payload.sort}`
+      )
       .then((res) => res)
       .catch((err) => console.log(err));
     return thunkAPI.fulfillWithValue(resData.data.data.content);
@@ -14,7 +16,7 @@ export const getTrade = createAsyncThunk(
 
 const initialState = {
   getTrade: [],
-  isLoaded: false
+  isLoaded: false,
 };
 
 export const tradeSlice = createSlice({

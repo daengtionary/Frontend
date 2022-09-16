@@ -41,11 +41,24 @@ export const myDogInfo = createAsyncThunk(
     return thunkAPI.fulfillWithValue(resData.data.data.dogs[payload]);
   }
 );
+export const editNick = createAsyncThunk(
+  "myPageSlice/editNick",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    const resData = await api_auth
+      .patch(`/mypage/nick`, { nick: payload })
+      .then((res) => res)
+      .catch((err) => console.log(err));
+    console.log(resData.data);
+    return thunkAPI.fulfillWithValue(resData.data);
+  }
+);
 
 const initialState = {
   myList: {},
   myPageInfo: { dogs: [] },
   myDogInfo: {},
+  editNick: "",
 };
 
 export const myPageSlice = createSlice({
@@ -63,6 +76,10 @@ export const myPageSlice = createSlice({
       })
       .addCase(myDogInfo.fulfilled, (state, action) => {
         state.myDogInfo = action.payload;
+        console.log(action.payload);
+      })
+      .addCase(editNick.fulfilled, (state, action) => {
+        state.editNick = action.payload;
         console.log(action.payload);
       });
   },

@@ -26,9 +26,9 @@ import ScrollToTop from "./shared/ScrollToTop";
 function App() {
   return (
     <>
-    <ScrollToTop />
+      <ScrollToTop />
       <Header />
-      <ChatFloatButton/>
+      <ChatFloatButton />
       <Routes>
         <Route exact path={"/signin"} element={<SignIn />} />
         <Route exact path={"/signup"} element={<SignUp />} />
