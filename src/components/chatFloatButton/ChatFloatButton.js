@@ -16,41 +16,41 @@ const ChatFloatButton = () => {
   const dispatch = useDispatch();
   const isChatModalOn = useMatch("/chat/*");
   const notification = useSelector((state) => state.chat.notification);
-  const memberId = useSelector((state) => state.user);
-  console.log(memberId);
+  const memberNo = window.localStorage.getItem("memberNo")
+  console.log(memberNo);
   const eventSource = useRef();
 
-  useEffect(() => {
-    if (memberId) {
-      // SSE 구독 요청
-      eventSource.current = new EventSource(
-        `${process.env.REACT_APP_CHAT_API_IP}/member/subscribe/${memberId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("authorization")}`,
-          },
-        }
-      );
+  // useEffect(() => {
+  //   if (memberNo) {
+  //     // SSE 구독 요청
+  //     eventSource.current = new EventSource(
+  //       `${process.env.REACT_APP_CHAT_API_IP}/member/subscribe/${memberNo}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${sessionStorage.getItem("authorization")}`,
+  //         },
+  //       }
+  //     );
 
-      // 서버에서 메시지가 전송될 때 실행되는 함수
-      eventSource.current.onmessage = (message) => {
-        if (!message.data.includes("EventStream Created")) {
-          dispatch(setNotification(true));
-        }
-      };
-    }
-    return () => {
-      // 언마운트 시 연결 종료
-      if (eventSource.current) {
-        eventSource.current.close();
-        eventSource.current = null;
-      }
-    };
-  }, [memberId, dispatch]);
+  //     // 서버에서 메시지가 전송될 때 실행되는 함수
+  //     eventSource.current.onmessage = (message) => {
+  //       if (!message.data.includes("EventStream Created")) {
+  //         dispatch(setNotification(true));
+  //       }
+  //     };
+  //   }
+  //   return () => {
+  //     // 언마운트 시 연결 종료
+  //     if (eventSource.current) {
+  //       eventSource.current.close();
+  //       eventSource.current = null;
+  //     }
+  //   };
+  // }, [memberNo, dispatch]);
 
   return (
     <>
-      {memberId && !isChatModalOn && (
+      {memberNo && !isChatModalOn && (
         <FloatWrap>
           <Link to="/chat" >
             <ChatButtonWrap>
