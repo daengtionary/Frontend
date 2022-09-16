@@ -28,48 +28,35 @@ const Community = () => {
   let nick = null;
   nick = "ajjajajaj";
 
-  const modalHandler = () => {
-    if (nick === undefined) {
-      alert("로그인 해 주세요");
-    } else {
-      setPostModal(!postModal);
-    }
-  };
-
   // 토큰 변수 할당
   let token = window.sessionStorage.getItem("authorization");
-  let r_token = window.sessionStorage.getItem("refresh-token");
 
   // 토큰 decode
   let decoded = token && jwtDecode(token);
-  console.log(decoded);
-  let decoded_r = r_token && jwtDecode(r_token);
-  console.log(decoded_r);
 
-  // 토큰 만료시간
-  let exp = token && Number(decoded.exp + "000");
-  let expTime = new Date(exp);
-  console.log("만료 시간:", expTime);
-  let now = new Date();
-  console.log("현재 시간:", now);
+  console.log(decoded)
+  
+  const modalHandler = () => {
+    
+    // 토큰 만료시간
+    let exp = token && Number(decoded.exp + "000");
+    let expTime = new Date(exp);
+    console.log("만료 시간:", expTime);
+    let now = new Date();
+    console.log("현재 시간:", now);
 
-  const checkToken = () => {
+    // 토큰 만료시간 여부 확인
     if (expTime <= now || token === null) {
-      token && window.sessionStorage.removeItem("authorization");
-      alert("로그인이 만료 되었습니다. 다시 로그인해 주세요!");
+      alert("로그인 해 주세요");
       navigate("/signin");
     } else {
-      // dispatch(myPageInfo());
+      setPostModal(!postModal);
     }
   };
   
   useEffect(() => {
     dispatch(getCommunityPostListThunk());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   checkToken();
-  // }, []);
 
   return (
     <CommunityContainer>

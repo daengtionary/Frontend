@@ -21,7 +21,7 @@ const CommunityDetail = () => {
     id : 0,
     profileImg : "",
     dogKind: "불독",
-    nikc : "닉넴",
+    nick : "닉넴",
     content: "댓글내용",
   }
 
@@ -63,12 +63,6 @@ const CommunityDetail = () => {
           </Riple>
 
           <ShowRiples>
-            {/* {sampleReview.map((el, index)=>{
-              <CommunityDetailRipleCard key={index} data={el}/>
-            })} */}
-            {/* {data.reviewList.map((el, index)=>{
-              <CommunityDetailRipleCard key={index}/>
-            })} */}
             <CommunityDetailRipleCard data={data.reviewList}/>
           </ShowRiples>
 

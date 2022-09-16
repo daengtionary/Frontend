@@ -25,12 +25,12 @@ const CommunityCard = ({ data }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(data.nick);
+  console.log(data);
+
 
   return (
     <CommunityCardWrap>
       <IconWrap>
-        {/* {"zemi" === data.nick ? ( */}
         {window.sessionStorage.getItem("nick") === data.nick ? (
           <>
             <IconBox length={"24px"} size={"24px"} url={"/img/pen.png"} hover={"blue"} />
@@ -47,14 +47,7 @@ const CommunityCard = ({ data }) => {
         ) : (
           ""
         )}
-
         <IconBox length={"24px"} size={"24px"} url={"/img/comment.png"} />
-        {/* <UpdateIcon/>
-        <DeleteIcon/>
-      <CommnetIcon/> */}
-        {/* <Icons alt="update_btn" src={`${process.env.PUBLIC_URL}/img/pen.png`}/>
-        <Icons alt="delete_btn " src={`${process.env.PUBLIC_URL}/img/delete.png`}/>
-      <Icons alt="comment_icon " src={`${process.env.PUBLIC_URL}/img/comment.png`}/> */}
         {data.reviewCount === 0 ? <NullCircle/> : <RepleCircle>{data.reviewCount}</RepleCircle>}
       </IconWrap>
 
