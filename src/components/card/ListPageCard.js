@@ -71,10 +71,12 @@ const CardImgBox = styled.div`
 const CardImg = styled.div`
   background: ${(props) =>
     props.background
-      ? `url(${props.background}) center / contain no-repeat`
+      ? `url(${props.background}) center / cover no-repeat`
       : " linear-gradient(#ccc, #cccccc50)"};
+  width: 60%;
   height: 100%;
   border-radius: 20px;
+  margin: 0 auto;
 `;
 const CardTextBox = styled.div`
   display: flex;

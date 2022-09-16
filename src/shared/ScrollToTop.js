@@ -7,7 +7,7 @@ export default function ScrollToTop() {
     if (pathname !== "/") {
       window.scrollTo(0, 0);
     } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     }
   }, [pathname]);
 

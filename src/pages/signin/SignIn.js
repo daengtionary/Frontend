@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
 
-
 import styled from "styled-components";
 import {
   SignInBox,
@@ -45,37 +44,31 @@ const SignIn = () => {
       event.preventDefault();
       if (email === "") {
         alert("계정을 입력해주세요");
-      }
-      else if (emailRegExp.test(email) === false) {
+      } else if (emailRegExp.test(email) === false) {
         alert("이메일 형식에 맞지 않습니다");
-      } 
-      else {
+      } else {
         dispatch(signUserThunk({ email, password }))
-        .unwrap()
-        .then(res=>{
-
-          alert(res.message);
-          navigate('/')
-          console.log(res)
-        })
-        .catch(error=>{
-          alert("로그인에 실패하였습니다");
-          console.log(error)
-        })
-        }
-      },
+          .unwrap()
+          .then((res) => {
+            alert(res.message);
+            navigate("/");
+            console.log(res);
+          })
+          .catch((error) => {
+            alert("로그인에 실패하였습니다");
+            console.log(error);
+          });
+      }
+    },
     [email, password]
   );
-
 
   return (
     <Fragment>
       <SignInBox>
         <SignInLoginTitle>로그인</SignInLoginTitle>
         <SignInLoginBox>
-          <SignInLoginContainer
-            onSubmit={(event) => signInAccount(event)}
-          >
+          <SignInLoginContainer onSubmit={(event) => signInAccount(event)}>
             <SignInLoginDataGroup>
               <SignInLoginEmail>
                 <Input

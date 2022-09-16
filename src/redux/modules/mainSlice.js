@@ -13,7 +13,7 @@ export const mainList = createAsyncThunk(
       page: 0,
       size: "4",
       sort: "popular",
-      direction: "asc",
+      direction: "dasc",
     };
     const resData = await api
       .get(`${payload}/search`, { params })
@@ -25,36 +25,44 @@ export const mainList = createAsyncThunk(
     return thunkAPI.fulfillWithValue(resData.data.data.content);
   }
 );
+export const mainTrade = createAsyncThunk(
+  "mainSlice/mainTrade",
+  async (payload, thunkAPI) => {
+    const resData = await api
+      .get(
+        `/${payload.category}?direction=${payload.direction}&page=${payload.page}&size=${payload.size}&sort=${payload.sort}`
+      )
+      .then((res) => res)
+      .catch((err) => console.log(err));
+    return thunkAPI.fulfillWithValue(resData.data.data.content);
+  }
+);
 
 const initialState = {
   mainList: [],
+  mainTrade: [],
 };
 
 export const mainSlice = createSlice({
   name: "myPage",
   initialState: initialState,
-  reducers: {},
-  // extraReducers: {
-  //   [mainList.fulfilled]: (state, action) => {
-  //     state.mainList = action.payload;
-  //     console.log(action.payload);
-  //   },
-  //   // [myList.fulfilled]: (state, action) => {
-  //   //   state.mainList = action.payload;
-  //   //   console.log(action.payload);
-  //   // },
-  //   // [myPageInfo.fulfilled]: (state, action) => {
-  //   //   state.mainList = action.payload;
-  //   //   console.log(action.payload);
-  //   // },
-  // },
+  reducers: {
+    resetMain: (state) => {
+      state.mainList = [];
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(mainList.fulfilled, (state, action) => {
-      state.mainList = action.payload;
-      console.log(action.payload);
-    });
+    builder
+      .addCase(mainList.fulfilled, (state, action) => {
+        state.mainList = action.payload;
+        console.log(action.payload);
+      })
+      .addCase(mainTrade.fulfilled, (state, action) => {
+        state.mainList = action.payload;
+        console.log(action.payload);
+      });
   },
 });
 
-export const {} = mainSlice.actions;
+export const { resetMain } = mainSlice.actions;
 export default mainSlice.reducer;

@@ -9,7 +9,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
-import { myDogInfo, myList, myPageInfo } from "../../redux/modules/myPageSlice";
+import {
+  editNick,
+  myDogInfo,
+  myList,
+  myPageInfo,
+} from "../../redux/modules/myPageSlice";
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
 // import jwt from "jsonwebtoken";
@@ -52,9 +57,6 @@ const MyPage = () => {
   // console.log(data && data.dogs[0]);
   // const dogsdogs = data && Object.values(data.dogs[0]).slice(1, 5);
   // console.log(dogsdogs);
-  useEffect(() => {
-    checkToken();
-  }, []);
 
   const DogProfileInputList = [
     {
@@ -83,6 +85,14 @@ const MyPage = () => {
   const [dogProfile, setDogProfile] = useState({});
   const [myDogImg, setMyDogImg] = useState("");
   const [buttonToggle, setButtonToggle] = useState(false);
+
+  const dogImgRef = useRef();
+  const nickRef = useRef();
+
+  useEffect(() => {
+    checkToken();
+  }, [buttonToggle]);
+
   // console.log("프로필:", profile, "강아지프로필:", dogProfile);
   const onChangeProfile = (e) => {
     const { value, name } = e.target;
@@ -96,6 +106,18 @@ const MyPage = () => {
           nick: window.sessionStorage.getItem("nick"),
         });
   };
+  const onClickEditNick = () => {
+    setButtonToggle(!buttonToggle);
+    nickRef.current.focus();
+
+    if (buttonToggle) {
+      dispatch(editNick(profile.nick));
+      dispatch(myPageInfo());
+      alert("닉네임이 수정되었습니다 :)");
+    }
+  };
+  console.log(buttonToggle);
+  console.log(profile);
   const onChangeDogProfile = (e) => {
     const { value, name } = e.target;
     setDogProfile({
@@ -103,7 +125,6 @@ const MyPage = () => {
       [name]: value,
     });
   };
-  const dogImgRef = useRef();
   const onClickDogInput = () => {
     dogImgRef.current.click();
   };
@@ -132,10 +153,6 @@ const MyPage = () => {
       "data",
       new Blob([JSON.stringify(dogProfile)], { type: "application/json" })
     );
-    // formdata.append("name", dogProfile.dogname);
-    // formdata.append("breed", dogProfile.dogbreed);
-    // formdata.append("gender", dogProfile.dogsex);
-    // formdata.append("weight", dogProfile.dogweight);
 
     for (const keyValue of formdata) console.log(keyValue);
     // formdata전송 테스트
@@ -172,6 +189,7 @@ const MyPage = () => {
               type="text"
               style={{
                 mg_top: "1.6em",
+                mg_bottom: "1.6em",
                 mg_left: "2em",
                 mg_right: "2em",
                 bd_color: "transparent",
@@ -180,23 +198,49 @@ const MyPage = () => {
                 lineHeight: "50px",
               }}
             />
-            <Input
-              key={data.nick === null ? "" : data?.nick}
-              defaultValue={data.nick === null ? "" : data?.nick}
-              name={"nick"}
-              placeholder={"닉네임"}
-              _onChange={onChangeProfile}
-              type="text"
-              style={{
-                mg_top: "1.6em",
-                mg_left: "2em",
-                mg_right: "2em",
-                bd_color: "transparent",
-                bd_bottom: "#ccc",
-                bd: "1px solid transparent",
-                lineHeight: "50px",
-              }}
-            />
+            {!buttonToggle ? (
+              <Input
+                _ref={nickRef}
+                key={data.nick === null ? "" : data?.nick}
+                value={data.nick === null ? "" : data?.nick}
+                name={"nick"}
+                placeholder={"닉네임"}
+                _onChange={onChangeProfile}
+                type="text"
+                style={{
+                  mg_top: "1.6em",
+                  mg_bottom: "1.6em",
+                  mg_left: "2em",
+                  mg_right: "2em",
+                  bd_color: "transparent",
+                  bd_bottom: "#ccc",
+                  bd: "1px solid transparent",
+                  lineHeight: "50px",
+                }}
+              />
+            ) : (
+              <Input
+                _ref={nickRef}
+                key={data.nick === null ? "" : data?.nick}
+                defaultValue={data.nick === null ? "" : data?.nick}
+                name={"nick"}
+                placeholder={"닉네임"}
+                _onChange={onChangeProfile}
+                type="text"
+                style={{
+                  bg_color: "#cccccc50",
+                  mg_top: "1.6em",
+                  mg_bottom: "1.6em",
+                  mg_left: "2em",
+                  mg_right: "2em",
+                  bd_color: "transparent",
+                  bd_bottom: "#ccc",
+                  bd: "1px solid transparent",
+                  lineHeight: "50px",
+                }}
+              />
+            )}
+
             {/* {ProfileInputList.map((inputList, i) => (
             <Input
               key={i}
@@ -213,9 +257,11 @@ const MyPage = () => {
             />
           ))} */}
             {/* <EditButton top={"30%"}>수정 &#62;</EditButton> */}
-            <EditButton top={"46%"} right={"4%"}>
-              수정 &#62;
-            </EditButton>
+            {!buttonToggle ? (
+              <EditButton onClick={onClickEditNick}>수정 &#62;</EditButton>
+            ) : (
+              <EditButton onClick={onClickEditNick}>완료 &#62;</EditButton>
+            )}
           </MyPageProfileContent>
           <Button
             text={"로그아웃"}
@@ -383,8 +429,8 @@ const MyPageEmail = styled.div`
   font-size: 13px;
 `;
 const MyPageDogImgBox = styled.div`
-  width: 5em;
-  height: 5em;
+  width: 6em;
+  height: 6em;
   border: none;
   border-radius: 50%;
   margin-bottom: 2em;
@@ -418,8 +464,8 @@ const EditButton = styled.div`
   border: 1.5px solid #000;
   border-radius: 20px;
   position: absolute;
-  top: ${(props) => props.top};
-  right: ${(props) => props.right};
+  top: ${(props) => (props.top ? props.top : "42%")};
+  right: ${(props) => (props.right ? props.right : "4%")};
   cursor: pointer;
 `;
 const SelectDog = styled.div`
@@ -462,7 +508,7 @@ const StyledSwiper = styled(Swiper)`
   justify-content: center;
   width: 70%;
   height: 120%;
-  padding: 4em 0;
+  padding: 2em 2em 4em 2em;
 `;
 const StyledSwiperSlide = styled(SwiperSlide)`
   display: flex;
@@ -473,7 +519,7 @@ const DogInfoSlide = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 4em;
+  margin: 0 4.5em;
 `;
 const DogInfoSlideText = styled.div`
   line-height: 50px;

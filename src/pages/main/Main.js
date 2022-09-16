@@ -10,11 +10,12 @@ import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import { useDispatch, useSelector } from "react-redux";
-import { mainList } from "../../redux/modules/mainSlice";
+import { mainList, mainTrade, resetMain } from "../../redux/modules/mainSlice";
+import { reset } from "../../redux/modules/listSlice";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { reset } from "../../redux/modules/listSlice";
+import { clearTradeItem } from "../../redux/modules/tradeSlice";
 
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
@@ -24,7 +25,9 @@ const Main = () => {
   const location = useLocation();
   const { pathname, search } = location;
   const dataList = useSelector((state) => state.main.mainList);
+  const tradeData = useSelector((state) => state.trade.getTrade);
   console.log(dataList);
+  console.log(tradeData);
   console.log(pathname, search);
 
   useEffect(() => {
@@ -64,7 +67,32 @@ const Main = () => {
     const newArr = Array(mainHotButtonList.length).fill(false);
     newArr[i] = true;
     setChecked(newArr);
-    dispatch(mainList(mainHotButtonList[i].category));
+    console.log(i);
+    if (i < 2) {
+      dispatch(clearTradeItem());
+      dispatch(mainList(mainHotButtonList[i].category));
+    } else {
+      dispatch(resetMain());
+
+      dispatch(
+        mainTrade({
+          category: "trade",
+          page: 0,
+          size: "4",
+          sort: "popular",
+          direction: "dasc",
+        })
+      );
+      dispatch(
+        mainTrade({
+          category: "community",
+          page: 0,
+          size: "4",
+          sort: "popular",
+          direction: "dasc",
+        })
+      );
+    }
   };
   console.log(checked);
   // console.log(JSON.stringify(checked));
@@ -150,14 +178,21 @@ const Main = () => {
         ))}
       </MainHotButtonbWrap>
       <MainCardWrap>
-        {dataList.map((data, i) => (
+        {dataList !== []
+          ? dataList.map((data, i) => (
+              <Card key={i} rank={i + 1} data={data} category={data.category} />
+            ))
+          : tradeData.map((data, i) => (
+              <Card key={i} rank={i + 1} data={data} category={data.category} />
+            ))}
+        {/* {dataList.map((data, i) => (
           <Card
             key={i}
             text={data.title}
             data={data}
             category={data.category}
-          />
-        ))}
+          /> 
+        ))} */}
       </MainCardWrap>
       <MenuTitle margin={"3em 0 2em 0"}>댕과사전 이용후기</MenuTitle>
       <MainCommentWrap>
@@ -185,7 +220,7 @@ const StyledSwiper = styled(Swiper)`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
   height: 36em;
 `;
 const MainBanner = styled.div`
