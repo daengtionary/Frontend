@@ -6,11 +6,7 @@ import {
   CommunityCardWrap,
   IconWrap,
   CardContents,
-  Icons,
   IconBox,
-  UpdateIcon,
-  DeleteIcon,
-  CommnetIcon,
   RepleCircle,
   NullCircle,
   ProfilePhoto,
@@ -54,7 +50,7 @@ const CommunityCard = ({ data }) => {
       <CardContents>
         <ProfilePhoto url={data.communityImg} />
         <Names>
-          <Dog>{data.name}</Dog>
+          <Dog>{data.breed}</Dog>
           <User>{data.nick}</User>
         </Names>
         <Category>{data.category}비어</Category>

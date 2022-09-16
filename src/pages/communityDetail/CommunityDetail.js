@@ -49,7 +49,7 @@ const CommunityDetail = () => {
             <PostInfo>
               <div>분류 : 카테고리{data.communityNo}</div>
               <div>작성자 : {data.nick}</div>
-              <div>견종 : 견종{data.communityNo}</div>
+              <div>견종 : {data.breed ? data.breed : "견종정보없음"}</div>
               <div>작성일 : {data.createdAt}</div>
             </PostInfo>
             <Content>
