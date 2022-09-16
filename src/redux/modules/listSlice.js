@@ -114,7 +114,7 @@ export const listSlice = createSlice({
       state.getList = [...state.getList, ...action.payload];
       console.log(state.searchList);
       console.log(action.payload);
-      if (action.payload.length < 2) {
+      if (action.payload.length < 4) {
         state.isEnd = true;
       }
     });

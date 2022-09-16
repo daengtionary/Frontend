@@ -45,7 +45,7 @@ const List = () => {
   };
   const [filter, setFilter] = useState({ address: "", sort: "new" });
   const { address, sort } = filter;
-  const [size, setSize] = useState(2);
+  const [size, setSize] = useState(4);
   console.log(filter);
 
   console.log(pathname, serch);
@@ -114,7 +114,7 @@ const List = () => {
       //     })
       //   );
       // }
-    }, 300),
+    }, 200),
     [page, filter]
   );
   // setTimeout(() => setDataList(data), 10);
@@ -131,7 +131,7 @@ const List = () => {
     // console.log("1", scrollTop);
     // console.log("2", scrollHeight);
     // console.log("3", scrollTop + clientHeight - scrollHeight);
-    if (scrollTop + clientHeight >= scrollHeight - 200) {
+    if (scrollTop + clientHeight >= scrollHeight - 50) {
       console.log("바닥");
       setPage((page) => page + 1);
       // dispatch(resetLoad());
@@ -144,7 +144,7 @@ const List = () => {
       setIsTopButtonOn(false);
       // return;
     }
-  }, 300);
+  }, 200);
   const [searchText, setSearchText] = useState("");
   const onChangeHandler = (e) => {
     const { value } = e.target;
