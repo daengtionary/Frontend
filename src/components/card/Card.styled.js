@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CardBox = styled.div`
+export const StyledCardBox = styled.div`
   margin: 0 5px;
   display: flex;
   flex-direction: column;
@@ -8,7 +8,7 @@ export const CardBox = styled.div`
   /* flex: 1 1 0; */
   position: relative;
 `;
-export const RankBadge = styled.div`
+export const StyledRankBadge = styled.div`
   display: block;
   text-align: center;
   line-height: 2em;
@@ -21,23 +21,24 @@ export const RankBadge = styled.div`
   border: 3px solid #666;
   border-radius: 50%;
 `;
-export const CardImgBox = styled.div`
-  border-bottom: 30px solid #cccccc90;
-  border-top: 30px solid #cccccc90;
-  /* background-color: #999; */
+export const StyledCardImgBox = styled.div`
+  /* border-bottom: 30px solid #cccccc90;
+  border-top: 30px solid #cccccc90; */
+  border-radius: 20px;
   background: ${(props) =>
     `url(${props.background}) center / cover no-repeat `};
   min-height: 16em;
   width: 18em;
   flex: 3 3;
 `;
-// export const CardImg = styled.img``;
-export const CardTextBox = styled.div`
+// export const StyledCardImg = styled.img``;
+export const StyledCardTextBox = styled.div`
   width: 18em;
-  padding: 1em 0;
+  padding: 0.5em 0;
   flex: 1 1;
 `;
-export const CardText = styled.div`
+export const StyledCardText = styled.div`
+  display: inline-block;
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
   margin: 0.4em 0;
@@ -45,4 +46,15 @@ export const CardText = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: ${(props) => (props.color ? props.color : "")};
+  padding: 0 8px;
+  border: ${(props) => (props.border ? props.border : "")};
+  border-radius: ${(props) => (props.borderRadius ? props.borderRadius : "")};
+  height: 1.8em;
+  line-height: 1.8em;
+`;
+export const StyledTitleBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

@@ -32,8 +32,6 @@ export const api = axios.create({
   },
 });
 
-
-
 export const chatApi = axios.create({
   baseURL: `http://${process.env.REACT_APP_CHAT_API_IP}`,
   headers: {
@@ -43,20 +41,18 @@ export const chatApi = axios.create({
 });
 
 chatApi.interceptors.request.use(function (config) {
-  const token =`Bearer ${sessionStorage.getItem("authorization")}`
+  const token = `Bearer ${sessionStorage.getItem("authorization")}`;
   if (token !== undefined) {
     config.headers.common["Authorization"] = token;
   }
   return config;
 });
 
-
 export const chatApis = {
-
   // 채팅
   getRoomList: () => chatApi.get("/chat/rooms"),
   getMessageList: (roomId) => chatApi.get("/chat/room/" + roomId),
-  addRoom: (memberNo) => chatApi.post("/chat/rooms",  {memberNo} ),
+  addRoom: (memberNo) => chatApi.post("/chat/rooms", { memberNo }),
   enterRoom: (roomId) => chatApi.get(`/chat/room/${roomId}`),
   exitRoom: (roomId) => chatApi.get(`chat/room/exit/${roomId}`),
 };

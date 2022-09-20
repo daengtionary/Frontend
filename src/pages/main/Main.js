@@ -10,7 +10,12 @@ import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import { useDispatch, useSelector } from "react-redux";
-import { mainList, mainTrade, resetMain } from "../../redux/modules/mainSlice";
+import {
+  mainCommunity,
+  mainList,
+  mainTrade,
+  resetMain,
+} from "../../redux/modules/mainSlice";
 import { reset } from "../../redux/modules/listSlice";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -25,9 +30,9 @@ const Main = () => {
   const location = useLocation();
   const { pathname, search } = location;
   const dataList = useSelector((state) => state.main.mainList);
-  const tradeData = useSelector((state) => state.trade.getTrade);
+  const data = useSelector((state) => state.main);
   console.log(dataList);
-  console.log(tradeData);
+  console.log(data);
   console.log(pathname, search);
 
   useEffect(() => {
@@ -63,17 +68,24 @@ const Main = () => {
     { id: 2, text: "#중고장터", category: "trade" }, // room community 등으로 교체 해야함
     { id: 3, text: "#커뮤니티", category: "community" }, // room community 등으로 교체 해야함
   ];
+  const [category, setCategory] = useState("hospital");
+  console.log(category);
   const onClickHandler = (i) => {
     const newArr = Array(mainHotButtonList.length).fill(false);
     newArr[i] = true;
     setChecked(newArr);
     console.log(i);
-    if (i < 2) {
+    if (i === 0) {
+      setCategory("hospital");
       dispatch(clearTradeItem());
       dispatch(mainList(mainHotButtonList[i].category));
-    } else {
+    } else if (i === 1) {
+      setCategory("room");
+      dispatch(clearTradeItem());
+      dispatch(mainList(mainHotButtonList[i].category));
+    } else if (i === 2) {
+      setCategory("trade");
       dispatch(resetMain());
-
       dispatch(
         mainTrade({
           category: "trade",
@@ -83,8 +95,11 @@ const Main = () => {
           direction: "dasc",
         })
       );
+    } else {
+      setCategory("community");
+      dispatch(resetMain());
       dispatch(
-        mainTrade({
+        mainCommunity({
           category: "community",
           page: 0,
           size: "4",
@@ -98,7 +113,7 @@ const Main = () => {
   // console.log(JSON.stringify(checked));
 
   return (
-    <MainWrap>
+    <StyledMainWrap>
       <StyledSwiper
         spaceBetween={0}
         slidesPerView={1}
@@ -109,18 +124,18 @@ const Main = () => {
         centeredSlides={true}
       >
         <SwiperSlide>
-          <MainBanner background={"#0000ff50"}>배너1</MainBanner>
+          <StyledMainBanner background={"#0000ff50"}>배너1</StyledMainBanner>
         </SwiperSlide>
         <SwiperSlide>
-          <MainBanner background={"#00ff0050"}>배너2</MainBanner>
+          <StyledMainBanner background={"#00ff0050"}>배너2</StyledMainBanner>
         </SwiperSlide>
         <SwiperSlide>
-          <MainBanner>배너3</MainBanner>
+          <StyledMainBanner>배너3</StyledMainBanner>
         </SwiperSlide>
       </StyledSwiper>
-      <MainButtonWrap>
+      <StyledMainButtonWrap>
         {mainButtonList.map((mainButton, i) => (
-          <MainButtonBox key={i}>
+          <StyledMainButtonBox key={i}>
             <Button
               key={i}
               type={"button"}
@@ -131,7 +146,7 @@ const Main = () => {
               style={{
                 width: "10em",
                 height: "10em",
-                bg_color: "#cccccc50",
+                bg_color: "#FEF8EC",
                 mg_left: "30px",
                 mg_right: "30px",
                 mg_bottom: "14px",
@@ -140,11 +155,11 @@ const Main = () => {
               }}
             />
             <div>{mainButton.name}</div>
-          </MainButtonBox>
+          </StyledMainButtonBox>
         ))}
-      </MainButtonWrap>
-      <MenuTitle>#HOT TREND</MenuTitle>
-      <MainHotButtonbWrap>
+      </StyledMainButtonWrap>
+      <StyledMenuTitle>#HOT TREND</StyledMenuTitle>
+      <StyledMainHotButtonbWrap>
         {mainHotButtonList.map((hotButtonList, i) => (
           <Button
             key={i}
@@ -176,14 +191,50 @@ const Main = () => {
             }}
           />
         ))}
-      </MainHotButtonbWrap>
-      <MainCardWrap>
-        {dataList !== []
+      </StyledMainHotButtonbWrap>
+      <StyledMainCardWrap>
+        {category === "hospital"
+          ? dataList.map(
+              (data, i) => (
+                <Card
+                  key={i}
+                  rank={i + 1}
+                  _onClick={() => navigate(`/detail/${data.mapNo}`)}
+                  // _onClick={() => navigate(`/tradeDetail/${data.tradeNo}`)}
+                  data={data}
+                  category={data.category}
+                />
+              )
+              // console.log(category)
+            )
+          : category === "room"
           ? dataList.map((data, i) => (
-              <Card key={i} rank={i + 1} data={data} category={data.category} />
+              <Card
+                key={i}
+                rank={i + 1}
+                _onClick={() => alert("준비 중 입니다..")}
+                data={data}
+                category={data.category}
+              />
             ))
-          : tradeData.map((data, i) => (
-              <Card key={i} rank={i + 1} data={data} category={data.category} />
+          : category === "trade"
+          ? dataList.map((data, i) => (
+              <Card
+                key={i}
+                rank={i + 1}
+                _onClick={() => navigate(`/tradeDetail/${data.tradeNo}`)}
+                data={data}
+                category={data.category}
+              />
+            ))
+          : dataList.map((data, i) => (
+              <Card
+                key={i}
+                rank={i + 1}
+                _onClick={() => navigate(`/${category}/${data.communityNo}`)}
+                data={data}
+                category={data.category}
+              />
             ))}
         {/* {dataList.map((data, i) => (
           <Card
@@ -193,21 +244,23 @@ const Main = () => {
             category={data.category}
           /> 
         ))} */}
-      </MainCardWrap>
-      <MenuTitle margin={"3em 0 2em 0"}>댕과사전 이용후기</MenuTitle>
-      <MainCommentWrap>
+      </StyledMainCardWrap>
+      <StyledMenuTitle margin={"3em 0 2em 0"}>
+        댕과사전 이용후기
+      </StyledMenuTitle>
+      <StyledMainCommentWrap>
         {mainCommentList.map((commentList, i) => (
           <Comment key={i} text={commentList.text} info={commentList.info} />
         ))}
-      </MainCommentWrap>
+      </StyledMainCommentWrap>
       <ChatFloatButton />
-    </MainWrap>
+    </StyledMainWrap>
   );
 };
 
 export default Main;
 
-const MainWrap = styled.div`
+const StyledMainWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -223,12 +276,12 @@ const StyledSwiper = styled(Swiper)`
   width: 100vw;
   height: 36em;
 `;
-const MainBanner = styled.div`
+const StyledMainBanner = styled.div`
   background: ${(props) => props.background};
   width: 100%;
   height: 36em;
 `;
-const MainButtonWrap = styled.div`
+const StyledMainButtonWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -238,7 +291,7 @@ const MainButtonWrap = styled.div`
 
   margin: 80px 0;
 `;
-const MainButtonBox = styled.div`
+const StyledMainButtonBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -246,13 +299,13 @@ const MainButtonBox = styled.div`
   /* width: 25%; */
   height: auto;
 `;
-const MainHotTrend = styled.div``;
-const MainHotButtonbWrap = styled.div`
+const StyledMainHotTrend = styled.div``;
+const StyledMainHotButtonbWrap = styled.div`
   display: inline-block;
   margin: 10px 0;
   height: 3em;
 `;
-const MainCardWrap = styled.div`
+const StyledMainCardWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -260,17 +313,17 @@ const MainCardWrap = styled.div`
   flex-grow: 1; */
 
   width: 70%;
-  height: 30em;
+  height: 32em;
 
   margin: 60px 0;
 `;
-const MainCommentWrap = styled.div`
+const StyledMainCommentWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: 70%;
 `;
-const MenuTitle = styled.h2`
+const StyledMenuTitle = styled.h2`
   margin: ${(props) => props.margin};
 `;
-const MainCommentCard = styled.div``;
+const StyledMainCommentCard = styled.div``;

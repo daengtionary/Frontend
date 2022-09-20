@@ -41,11 +41,13 @@ export const StyledButton = styled.button`
           outline: none;
           font-weight: ${(props) =>
             props.hv_ft_weight ? props.hv_ft_weight : props.ft_weight};
-          color: ${(props) => (props.hv_color ? props.hv_color : props.color)};
-          border: 0.1px solid
-            ${(props) =>
-              props.hv_bd_color ? props.hv_bd_color : props.bd_color};
-          background-color: #cccccc70;
+          color: #6563ff;
+          border: 2px solid #6563ff;
+          background-color: #fff;
+          &:hover {
+            color: #6563ff;
+            border: 2px solid #6563ff;
+          }
         `}
 `;
 /* &:focus {
