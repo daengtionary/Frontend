@@ -10,12 +10,7 @@ import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  mainCommunity,
-  mainList,
-  mainTrade,
-  resetMain,
-} from "../../redux/modules/mainSlice";
+import { mainCommunity, mainList, mainTrade, resetMain } from "../../redux/modules/mainSlice";
 import { reset } from "../../redux/modules/listSlice";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -77,15 +72,14 @@ const Main = () => {
     console.log(i);
     if (i === 0) {
       setCategory("hospital");
-      dispatch(clearTradeItem());
+      // dispatch(clearTradeItem());
       dispatch(mainList(mainHotButtonList[i].category));
     } else if (i === 1) {
       setCategory("room");
-      dispatch(clearTradeItem());
+      // dispatch(clearTradeItem());
       dispatch(mainList(mainHotButtonList[i].category));
     } else if (i === 2) {
       setCategory("trade");
-      dispatch(resetMain());
       dispatch(
         mainTrade({
           category: "trade",
@@ -97,7 +91,6 @@ const Main = () => {
       );
     } else {
       setCategory("community");
-      dispatch(resetMain());
       dispatch(
         mainCommunity({
           category: "community",
@@ -208,33 +201,13 @@ const Main = () => {
               // console.log(category)
             )
           : category === "room"
-          ? dataList.map((data, i) => (
-              <Card
-                key={i}
-                rank={i + 1}
-                _onClick={() => alert("준비 중 입니다..")}
-                data={data}
-                category={data.category}
-              />
-            ))
+          ? dataList.map((data, i) => <Card key={i} rank={i + 1} _onClick={() => alert("준비 중 입니다..")} data={data} category={data.category} />)
           : category === "trade"
           ? dataList.map((data, i) => (
-              <Card
-                key={i}
-                rank={i + 1}
-                _onClick={() => navigate(`/tradeDetail/${data.tradeNo}`)}
-                data={data}
-                category={data.category}
-              />
+              <Card key={i} rank={i + 1} _onClick={() => navigate(`/tradeDetail/${data.tradeNo}`)} data={data} category={data.category} />
             ))
           : dataList.map((data, i) => (
-              <Card
-                key={i}
-                rank={i + 1}
-                _onClick={() => navigate(`/${category}/${data.communityNo}`)}
-                data={data}
-                category={data.category}
-              />
+              <Card key={i} rank={i + 1} _onClick={() => navigate(`/${category}/${data.communityNo}`)} data={data} category={data.category} />
             ))}
         {/* {dataList.map((data, i) => (
           <Card
@@ -245,9 +218,7 @@ const Main = () => {
           /> 
         ))} */}
       </StyledMainCardWrap>
-      <StyledMenuTitle margin={"3em 0 2em 0"}>
-        댕과사전 이용후기
-      </StyledMenuTitle>
+      <StyledMenuTitle margin={"3em 0 2em 0"}>댕과사전 이용후기</StyledMenuTitle>
       <StyledMainCommentWrap>
         {mainCommentList.map((commentList, i) => (
           <Comment key={i} text={commentList.text} info={commentList.info} />

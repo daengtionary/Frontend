@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const HeaderFullBox = styled.div`
-  width: 100%;
+  width: 100vw;
   height: auto;
   max-height: 150px;
   min-height: 100px;

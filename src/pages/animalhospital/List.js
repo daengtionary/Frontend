@@ -11,13 +11,7 @@ import SkeletonCard from "../../components/card/SkeletonCard";
 import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
-import {
-  getList,
-  reset,
-  resetLoad,
-  searchList,
-  firstList,
-} from "../../redux/modules/listSlice";
+import { getList, reset, resetLoad, searchList, firstList } from "../../redux/modules/listSlice";
 import search from "../../static/image/search.png";
 
 const List = () => {
@@ -246,14 +240,10 @@ const List = () => {
               }}
             />
             {/* <SerchIcon onClick={onClickHandler}>🔍</SerchIcon> */}
-            <StyledSerchImg
-              onClick={onClickHandler}
-              src={search}
-              style={{ width: "2em" }}
-            />
+            <StyledSerchImg onClick={onClickHandler} src={search} style={{ width: "2em" }} />
           </StyledSerchBox>
           <StyledFilterBox>
-            <StyledFiter name="address" onChange={filterHandler} width={"60px"}>
+            <StyledFilter name="address" onChange={filterHandler} width={"60px"}>
               <option disabled selected value="">
                 지역
               </option>
@@ -274,14 +264,14 @@ const List = () => {
               <option value="전북">전북</option>
               <option value="전남">전남</option>
               <option value="제주">제주</option>
-            </StyledFiter>
-            <StyledFiter name="sort" onChange={filterHandler}>
+            </StyledFilter>
+            <StyledFilter name="sort" onChange={filterHandler}>
               {/* <option disabled selected>
                 정렬방식
               </option> */}
               <option value="new">최근순</option>
               <option value="popular">인기순</option>
-            </StyledFiter>
+            </StyledFilter>
           </StyledFilterBox>
         </StyledSerchWrap>
         <StyledButtonWrap>
@@ -340,22 +330,12 @@ const List = () => {
           !ready ? (
             <LoadingSpinner />
           ) : data.length !== 0 ? (
-            data?.map((data, i) => (
-              <ListPageCard
-                onClick={() => navigate(`/detail/${data.mapNo}`)}
-                key={i}
-                data={data}
-              />
-            ))
+            data?.map((data, i) => <ListPageCard onClick={() => navigate(`/detail/${data.mapNo}`)} key={i} data={data} />)
           ) : (
             <h3>검색 결과가 없습니다.</h3>
           )
         }
-        {!listEnd ? null : data.length !== 0 ? (
-          <h3 style={{ textAlign: "center" }}>
-            데이터가 모두 로딩 되었습니다.
-          </h3>
-        ) : null}
+        {!listEnd ? null : data.length !== 0 ? <h3 style={{ textAlign: "center" }}>데이터가 모두 로딩 되었습니다.</h3> : null}
       </StyledListCardWrap>
     </StyledListWrap>
   );
@@ -404,7 +384,7 @@ const StyledButtonWrap = styled.div`
   margin-bottom: 1em;
 `;
 export const StyledFilterBox = styled.div``;
-export const StyledFiter = styled.select`
+export const StyledFilter = styled.select`
   width: ${(props) => (props.width ? props.width : "")};
   border: none;
   margin-right: 20px;
@@ -418,5 +398,5 @@ const StyledSerchImg = styled.img`
   padding: 6px 20px 6px 0;
 `;
 const StyledListCardWrap = styled.div`
-  min-height: 100em;
+  min-height: 100vh;
 `;
