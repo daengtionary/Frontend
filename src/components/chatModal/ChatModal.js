@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
-  useLocation,
   useMatch,
   useNavigate,
   useParams,
@@ -27,12 +26,13 @@ import { OrangeChatSVG, XSVG } from "../../elements/svg/SVG";
 const ChatModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
   const isMatchChat = useMatch("/chat");
   const { roomId } = useParams();
 
+
+  
   const onClickClose = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   const onClickBack = () => {
@@ -50,18 +50,18 @@ const ChatModal = () => {
   }, [dispatch]);
 
   // 화면 스크롤 방지
-  // useEffect(() => {
-  //   document.body.style.cssText = `
-  //       position: fixed;
-  //       top: -${window.scrollY}px;
-  //       overflow-y: scroll;
-  //       width: 100%;`;
-  //   return () => {
-  //     const scrollY = document.body.style.top;
-  //     document.body.style.cssText = "";
-  //     window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
-  //   };
-  // }, []);
+  useEffect(() => {
+    document.body.style.cssText = `
+        position: fixed;
+        top: -${window.scrollY}px;
+        overflow-y: scroll;
+        width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);
 
   return (
     <FloatWrap>
@@ -76,7 +76,7 @@ const ChatModal = () => {
           </Title>
           <ListWrap>
             <ChatRoomList 
-            location={location} roomId={roomId} />
+            roomId={roomId} />
           </ListWrap>
         </LeftWrap>
         <RoomWrap isRoom={roomId}>

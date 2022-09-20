@@ -43,6 +43,7 @@ export const getRoomListDB = () => {
   return async (dispatch) => {
     const response = await chatApis.getRoomList();
     dispatch(getRoomList(response.data));
+    console.log(response)
   };
 };
 

@@ -1,13 +1,12 @@
 // React
-// import { useEffect, Fragment } from "react";
+import { useEffect, Fragment } from "react";
 
 
-
-
+//토큰 디코더
+import jwtDecode from "jwt-decode";
 
 //pakages
 import { useNavigate } from "react-router-dom";
-// import { headerAction } from "../../redux/modules/userSlice";
 
 //styledComponent
 import {
@@ -16,12 +15,26 @@ import {
   HeaderLoginText,
   HeaderMypageText,
   HeaderLogoBox
-} from "./Header.styled"
+} from "./Header.styled";
 
 const Header = () => {
   const navigate = useNavigate()
 
+// 토큰 변수 할당
+let token = window.sessionStorage.getItem("authorization");
+// 토큰 decode 하는 부분
+let decoded = token && jwtDecode(token);
+// 토큰 만료시간
+let exp = token && Number(decoded.exp + "000");
+let expTime = new Date(exp);
+let now = new Date();
 
+const checkToken = () => {
+  if (expTime <= now && window.sessionStorage.length >= 2) {
+    token && window.sessionStorage.removeItem("authorization");
+    alert("로그인이 만료 되었습니다. 다시 로그인해 주세요!");
+    navigate("/signin");
+}};
 
   
   const signOut = () => {
@@ -30,6 +43,12 @@ const Header = () => {
     alert('로그아웃 되었습니다')
     navigate('/');
   };
+
+
+    useEffect(() => {
+    checkToken();
+  }, []);
+
 
   return (
     <HeaderFullBox>

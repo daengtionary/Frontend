@@ -29,10 +29,13 @@ const ChatRoom = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { roomId } = useParams();
-  const inputRef = useRef();
+  // const inputRef = useRef();
   let stompClient = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
-  const user = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user);
+
+  const memberNo = window.localStorage.getItem("memberNo")
+  const memberNick = window.localStorage.getItem("nick")
 
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
@@ -85,11 +88,11 @@ const ChatRoom = () => {
 
     const messageObj = {
       roomId: roomId,
-      senderId: user.id,
+      senderId: memberNo,
       message: event.target.chat.value,
       isRead: false,
       type: "TALK",
-      nickname: user.nickname,
+      nickname: memberNick,
     };
 
     stompClient.current.send(
@@ -103,7 +106,6 @@ const ChatRoom = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    inputRef.current.value = "";
 
     // 채팅방 전환 시 기존 연결 해제 후 새 연결 요청
     if (stompClient.current) {
@@ -133,7 +135,6 @@ const ChatRoom = () => {
       <ChatInputWrap>
         <form onSubmit={sendMessage}>
           <ChatInput
-            ref={inputRef}
             name="chat"
             autoComplete="off"
             placeholder="메시지를 입력해주세요."

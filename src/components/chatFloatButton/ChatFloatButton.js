@@ -14,17 +14,21 @@ import { SmileChatSVG } from "../../elements/svg/SVG";
 // 우측 하단 채팅 플로팅 버튼
 const ChatFloatButton = () => {
   const dispatch = useDispatch();
-  const isChatModalOn = useMatch("/chat/*");
+  // const isChatModalOn = useMatch("/chat/*");
   const notification = useSelector((state) => state.chat.notification);
-  const memberNo = window.localStorage.getItem("memberNo")
+  const memberNo = window.localStorage.getItem("memberNo");
   console.log(memberNo);
   const eventSource = useRef();
+  
+
+  
+
 
   // useEffect(() => {
   //   if (memberNo) {
   //     // SSE 구독 요청
   //     eventSource.current = new EventSource(
-  //       `${process.env.REACT_APP_CHAT_API_IP}/member/subscribe/${memberNo}`,
+  //       `http://${process.env.REACT_APP_CHAT_API_IP}/member/subscribe/${memberNo}`,
   //       {
   //         headers: {
   //           Authorization: `Bearer ${sessionStorage.getItem("authorization")}`,
@@ -50,9 +54,9 @@ const ChatFloatButton = () => {
 
   return (
     <>
-      {memberNo && !isChatModalOn && (
+      {memberNo && (
         <FloatWrap>
-          <Link to="/chat" >
+          <Link to={`/chat`} >
             <ChatButtonWrap>
               <ChatButton>
                 {notification && <NewNoti />}
@@ -61,7 +65,7 @@ const ChatFloatButton = () => {
             </ChatButtonWrap>
           </Link>
         </FloatWrap>
-      )}
+    )}
     </>
   );
 };

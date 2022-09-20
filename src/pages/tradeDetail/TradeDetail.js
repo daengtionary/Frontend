@@ -20,7 +20,8 @@ import {
 
 const TradeDetail = () => {
   const location = useLocation();
-  console.log(location.state);
+
+  
 
   const tradeImg = location.state.tradeImg;
   const title = location.state.title;

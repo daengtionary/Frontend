@@ -1,5 +1,5 @@
 // Packages import
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 // Pages
 import Main from "./pages/main/Main";
@@ -27,10 +27,12 @@ import TopButton from "./shared/TopButton";
 function App() {
   return (
     <>
-      <ScrollToTop />
+    <ScrollToTop />
       <Header />
+
       <ChatFloatButton />
       <TopButton />
+
       <Routes>
         <Route exact path={"/signin"} element={<SignIn />} />
         <Route exact path={"/signup"} element={<SignUp />} />
