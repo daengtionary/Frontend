@@ -21,7 +21,9 @@ const Community = () => {
   const [postModal, setPostModal] = useState(false);
 
   const data = useSelector((state) => state.community.community);
+  const test = useSelector((state) => state);
   console.log(data);
+  console.log(test);
 
   const userNick = window.sessionStorage.getItem("nick");
   console.log(window.sessionStorage.getItem("nick"));
@@ -81,8 +83,8 @@ const Community = () => {
                 return <CommunityCard key={el.communityNo} data={el} userNick={userNick} />;
               })}
           </Cards>
-          {postModal && <PostModal modalHandler={modalHandler} />}
         </CommunityWrap>
+      {postModal && <PostModal modalHandler={modalHandler} />}
       </ContentsLayout>
     </CommunityContainer>
   );

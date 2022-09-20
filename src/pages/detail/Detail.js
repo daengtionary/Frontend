@@ -21,12 +21,14 @@ import {
   Description,
   Infotmations,
   DescriptionTitle,
+  StyledDescriptionContents,
   ReservationWrap,
   CalendarWrap,
   TimeWrap,
   ResevationTop,
   ResevationBottom,
   TimeBox,
+  StyledTimeRow,
   ReviewCard,
   ProfileImg,
   Nick,
@@ -225,7 +227,7 @@ const Detail = () => {
       <BusinessInfo>
         <BusinessDescription>
           <DescriptionTitle>병원정보</DescriptionTitle>
-          <div>
+          <StyledDescriptionContents>
             <Description>
               <p>{data.content}</p>
             </Description>
@@ -247,7 +249,7 @@ const Detail = () => {
               </span>{" "}
               <span>진료시간</span>
             </Infotmations>
-          </div>
+          </StyledDescriptionContents>
         </BusinessDescription>
       </BusinessInfo>
 
@@ -259,36 +261,44 @@ const Detail = () => {
         <TimeWrap>
           <ResevationTop>예약시간</ResevationTop>
           <ResevationBottom>
-            <TimeBox>
-              <div>
+            <TimeBox id="select">
+              <StyledTimeRow>
                 <div value="10:00">10:00</div>
                 <div value="11:00">11:00</div>
                 <div value="12:00">12:00</div>
                 <div value="01:00">1:00</div>
-              </div>
-              <div>
+              </StyledTimeRow>
+              <StyledTimeRow>
                 <div value="02:00">2:00</div>
                 <div value="03:00">3:00</div>
                 <div value="04:00">4:00</div>
                 <div value="05:00">5:00</div>
-              </div>
-              <div>
+              </StyledTimeRow>
+              <StyledTimeRow>
                 <div value="06:00">6:00</div>
                 <div value="07:00">7:00</div>
                 <div value="08:00">8:00</div>
-              </div>
+                <div>blank</div>
+              </StyledTimeRow>
+              <StyledTimeRow>
+                <div>blank</div>
+                <div>blank</div>
+                <div>blank</div>
+                <div>blank</div>
+              </StyledTimeRow>
             </TimeBox>
           </ResevationBottom>
         </TimeWrap>
       </ReservationWrap>
 
       <ReviewWrap>
-        {data.mapReviewList.map((el) => {
+        {data.mapReviewList?.map((el) => {
           return (
-            <ReviewCard>
+            <ReviewCard key={el.reviewNo}>
               <ProfileImg url={el.memberImgUrl}></ProfileImg>
               <Nick>{el.nick}</Nick>
               <Star>{showStars(el.star)}</Star>
+              <div>{el.content}</div>
             </ReviewCard>
           );
         })}

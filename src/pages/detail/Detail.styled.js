@@ -63,6 +63,7 @@ export const BusinessInfo = styled.div`
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 40px;
 `
 
 export const BusinessDescription = styled.div`
@@ -70,10 +71,17 @@ export const BusinessDescription = styled.div`
   box-sizing: border-box;
 `
 
-export const DescriptionTitle = styled.div`
+export const DescriptionTitle = styled.h3`
+  margin-bottom: 30px;
+`
+export const StyledDescriptionContents = styled.div`
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  padding: 15px;
 `
 
 export const Description = styled.div`
+  margin: 30px 0 50px 0;
 `
 
 export const Infotmations = styled.div`
@@ -133,6 +141,7 @@ export const StarIcon = styled.img`
 export const ReservationWrap = styled.div`
   display: flex;
   width: 80vw;
+  height: 30vh;
 `
 
 export const ResevationTop = styled.div`
@@ -141,15 +150,54 @@ export const ResevationTop = styled.div`
   align-items: center;
   height: 44px;
   border-bottom: 1px solid gray;
+  margin-bottom: 10px;
 `
 
 export const ResevationBottom = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 `
 
 export const TimeBox = styled.div`
+  display: flex;
+  box-sizing: border-box;
+  gap: 10%;
+  justify-content: space-evenly;
+  flex-direction: column;
+  width: 100%;
+  height: 80%;
+  /* border: 1px solid cyan; */
+`
+export const StyledTimeRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 20%;
+  
+  div {
+    box-sizing: border-box;
+    width: 20%;
+    height: 100%;
+    border: 1px solid #DBDBDB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+  }
+  div:hover {
 
+  }
+
+  div:focus{
+    background-color: yellow;
+  }
+`
+export const StyledTimeCol = styled.div`
+  box-sizing: border-box;
+  width: 25%;
+  height: 33%;
 `
 
 export const CalendarWrap = styled.div`
@@ -160,4 +208,6 @@ export const CalendarWrap = styled.div`
 export const TimeWrap = styled.div`
   box-sizing: border-box;
   width: 50%;
+  display: flex;
+  flex-direction: column;
 `
