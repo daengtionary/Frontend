@@ -50,13 +50,12 @@ const SignIn = () => {
         dispatch(signUserThunk({ email, password }))
         .unwrap()
         .then(res=>{
-          console.log(res)
           alert(res.message);
           navigate('/')
         })
         .catch(error=>{
-          alert("로그인에 실패하였습니다");
           console.log(error)
+          alert("로그인에 실패하였습니다");
         })
         }
       },

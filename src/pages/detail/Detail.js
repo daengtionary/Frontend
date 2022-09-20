@@ -64,111 +64,276 @@ const Detail = () => {
     if (star > 0 && star < 0.5) {
       return (
         <div>
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
         </div>
       );
     } else if (star >= 0.5 && star < 1) {
       return (
         <div>
-          <StarIcon alt="halfStar" src={`${process.env.PUBLIC_URL}/img/halfStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
+          <StarIcon
+            alt="halfStar"
+            src={`${process.env.PUBLIC_URL}/img/halfStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
         </div>
       );
     } else if (star >= 1 && star < 1.5) {
       return (
         <div>
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
         </div>
       );
     } else if (star >= 1.5 && star < 2) {
       return (
         <div>
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="halfStar" src={`${process.env.PUBLIC_URL}/img/halfStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="halfStar"
+            src={`${process.env.PUBLIC_URL}/img/halfStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
         </div>
       );
     } else if (star >= 2 && star < 2.5) {
       return (
         <div>
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
         </div>
       );
     } else if (star >= 2.5 && star < 3) {
       return (
         <div>
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="halfStar" src={`${process.env.PUBLIC_URL}/img/halfStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="halfStar"
+            src={`${process.env.PUBLIC_URL}/img/halfStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
         </div>
       );
     } else if (star >= 3 && star < 3.5) {
       return (
         <div>
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
         </div>
       );
     } else if (star >= 3.5 && star < 4) {
       return (
         <div>
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="halfStar" src={`${process.env.PUBLIC_URL}/img/halfStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="halfStar"
+            src={`${process.env.PUBLIC_URL}/img/halfStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
         </div>
       );
     } else if (star >= 4 && star < 4.5) {
       return (
         <div>
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="emptyStar" src={`${process.env.PUBLIC_URL}/img/emptyStar.png`} />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="emptyStar"
+            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
+          />
         </div>
       );
     } else if (star >= 4.5 && star < 5) {
       return (
         <div>
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="halfStar" src={`${process.env.PUBLIC_URL}/img/halfStar.png`} />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="halfStar"
+            src={`${process.env.PUBLIC_URL}/img/halfStar.png`}
+          />
         </div>
       );
     } else if (star === 5) {
       return (
         <div>
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
-          <StarIcon alt="filledStar" src={`${process.env.PUBLIC_URL}/img/filledStar.png`} />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
+          <StarIcon
+            alt="filledStar"
+            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
+          />
         </div>
       );
     } else {
@@ -216,7 +381,10 @@ const Detail = () => {
 
       <MapAddress>
         <span onClick={modalHandler}>
-          <MapMark alt="mapMark" src={`${process.env.PUBLIC_URL}/img/mapLocation.png`} />
+          <MapMark
+            alt="mapMark"
+            src={`${process.env.PUBLIC_URL}/img/mapLocation.png`}
+          />
           {/* <HiOutlineLocationMarker size={24} /> */}
         </span>
         <span>{data.address}</span>
@@ -283,7 +451,7 @@ const Detail = () => {
       </ReservationWrap>
 
       <ReviewWrap>
-        {data.mapReviewList.map((el) => {
+        {data.mapReviewList?.map((el) => {
           return (
             <ReviewCard>
               <ProfileImg url={el.memberImgUrl}></ProfileImg>
@@ -294,7 +462,13 @@ const Detail = () => {
         })}
       </ReviewWrap>
 
-      {mapModal && <Map modalHandler={modalHandler} title={data.title} address={data.address} />}
+      {mapModal && (
+        <Map
+          modalHandler={modalHandler}
+          title={data.title}
+          address={data.address}
+        />
+      )}
     </DetailContainer>
   );
 };

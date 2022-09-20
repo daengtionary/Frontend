@@ -24,8 +24,9 @@ const ChatList = () => {
   const dispatch = useDispatch();
   const { roomId } = useParams();
   const scrollRef = useRef();
-  const user = useSelector((state) => state.user.user);
+  const user = window.localStorage.getItem("nick")
   let messageList = useSelector((state) => state.chat.messageList);
+  console.log(messageList)
 
   useEffect(() => {
     dispatch(cleanUpMessage());
@@ -44,22 +45,22 @@ const ChatList = () => {
   }, [messageList]);
 
   // 채팅방 나간 경우 이전 메시지 숨김 처리.
-  (() => {
-    let slicedList = [];
-    messageList.forEach((message) => {
-      slicedList = [...slicedList, message];
-      if (message.type === "STATUS" && message.senderName === user.username) {
-        slicedList = [];
-      }
-    });
-    messageList = slicedList;
-  })();
+  // (() => {
+  //   let slicedList = [];
+  //   messageList.forEach((message) => {
+  //     slicedList = [...slicedList, message];
+  //     if (message.type === "STATUS" && message.senderName === user) {
+  //       slicedList = [];
+  //     }
+  //   });
+  //   messageList = slicedList;
+  // })();
 
   return (
     <MessageWrap>
-      {messageList.map((chat, index) => {
+      {/* {messageList.map((chat, index) => {
         const date = moment(chat.date).format("HH:mm");
-        const isMe = chat?.senderName === user?.username;
+        const isMe = chat?.senderName === user;
         return (
           <>
             {chat.date.split("T")[0] !==
@@ -87,7 +88,8 @@ const ChatList = () => {
           </>
         );
       })}
-      <div ref={scrollRef} />
+      <div ref={scrollRef} /> */}
+      <Status>메세지</Status>
     </MessageWrap>
   );
 };

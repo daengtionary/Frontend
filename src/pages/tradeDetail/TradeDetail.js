@@ -20,7 +20,7 @@ import {
 
 const TradeDetail = () => {
   const location = useLocation();
-
+  
   const tradeImg = location.state.tradeImg;
   const title = location.state.title;
   const nick = location.state.nick;

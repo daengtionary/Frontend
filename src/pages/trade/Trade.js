@@ -21,12 +21,14 @@ import {
 import {
   Fiter
 } from '../animalhospital/List.js'
+import { useNavigate } from 'react-router-dom';
 
 
 const Trade = () => {
   const [page, setPage] = useState(0);
   const [tradeSort, setTradeSort] = useState('new')
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const items = useSelector((state) => state.trade.getTrade);
 
@@ -90,6 +92,7 @@ const Trade = () => {
               <option value="title">이름순</option>
               <option value="new">최근순</option>
             </Fiter>
+            <div onClick={()=>{navigate('/tradePosting')}}>상품 등록하기</div>
           </TopFilterBox>
         </TopLayout>
 

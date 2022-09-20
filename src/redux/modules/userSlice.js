@@ -44,7 +44,7 @@ export const signUserThunk = createAsyncThunk(
       .post(`member/login`, payload)
       .then((res) => res)
       .catch((error) => error);
-      console.log(resData)
+      
 
     window.sessionStorage.setItem(
       "authorization",
@@ -54,7 +54,6 @@ export const signUserThunk = createAsyncThunk(
       "refresh-token",
       resData.headers["refresh-token"]
     );
-    //로컬에 닉네임 저장
     window.localStorage.setItem(
       "nick",
       resData.data.data.nick
@@ -82,7 +81,7 @@ export const kakaoAuthThunk = createAsyncThunk(
     const resData = await api
       .get(`/member/kakao?code=${payload.code}`)
       .then((res) => res);
-
+      console.log(resData)
     window.sessionStorage.setItem(
       "authorization",
       resData.headers["authorization"].split(" ")[1]
@@ -91,7 +90,22 @@ export const kakaoAuthThunk = createAsyncThunk(
       "refresh-token",
       resData.headers["refresh-token"]
     );
-    //로컬에 닉네임 저장
+    window.localStorage.setItem(
+      "nick",
+      resData.data.data.nick
+    );
+    window.localStorage.setItem(
+      "email",
+      resData.data.data.email
+    );
+    window.localStorage.setItem(
+      "role",
+      "USER"
+    );
+    window.localStorage.setItem(
+      "memberNo",
+      resData.data.data.memberNo
+    );
 
     return thunkAPI.fulfillWithValue(resData.data);
   }
