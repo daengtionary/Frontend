@@ -1,34 +1,56 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const ListPageCard = ({ data }) => {
+const ListPageCard = ({ data, onClick }) => {
+  // const navigate = useNavigate();
   return (
-    <CardBox>
-      <CardImgBox>
-        <CardImg background={data?.mapImgUrl} />
-      </CardImgBox>
-      <CardTextBox>
-        <CardText color="#000" margin="6px 0" fontSize="1em" fontWeight="400">
+    <StyledCardBox onClick={onClick}>
+      <StyledCardImgBox>
+        <StyledCardImg background={data?.mapImgUrl} />
+      </StyledCardImgBox>
+      <StyledCardTextBox>
+        <StyledCardText
+          color="#000"
+          margin="6px 0"
+          fontSize="1em"
+          fontWeight="400"
+        >
           {data?.address?.slice(0, 2)}
-        </CardText>
-        <CardText color="#000" margin="6px 0" fontSize="1.5em" fontWeight="700">
+        </StyledCardText>
+        <StyledCardText
+          color="#000"
+          margin="6px 0"
+          fontSize="1.5em"
+          fontWeight="700"
+        >
           {data?.title}
-        </CardText>
-        <CardText color="#000" margin="6px 0" fontSize="0.5em" fontWeight="400">
+        </StyledCardText>
+        <StyledCardText
+          color="#000"
+          margin="6px 0"
+          fontSize=".5em"
+          fontWeight="400"
+        >
           별점⭐⭐⭐⭐{"⭐".repeat(data?.star)}
-        </CardText>
-        <CardText color="#999" margin="6px 0" fontSize="0.7em" fontWeight="700">
-          {data?.address}
-        </CardText>
-        <CardText
+        </StyledCardText>
+        <StyledCardText
           color="#999"
           margin="6px 0"
-          fontSize="0.8em"
+          fontSize=".7em"
+          fontWeight="700"
+        >
+          {data?.address}
+        </StyledCardText>
+        <StyledCardText
+          color="#999"
+          margin="6px 0"
+          fontSize=".8em"
           fontWeight="400"
           height="10em"
         >
           “믿을 수 있는” 으뜸 동물병원 . 2차병원 출신 의료진들이 고급 의료
           서비스를 제공합니다.
-        </CardText>
+        </StyledCardText>
         {/* <CardText
           color="#000"
           margin="6px 0"
@@ -39,17 +61,17 @@ const ListPageCard = ({ data }) => {
         >
           35,000원❤️
         </CardText> */}
-        <HeartButton>❤️</HeartButton>
+        <StyledHeartButton>❤️</StyledHeartButton>
 
         {/* {console.log(data.mapImgUrl)} */}
-      </CardTextBox>
-    </CardBox>
+      </StyledCardTextBox>
+    </StyledCardBox>
   );
 };
 
 export default ListPageCard;
 
-const CardBox = styled.div`
+const StyledCardBox = styled.div`
   width: 75em;
   margin: 0 5px;
   display: flex;
@@ -59,8 +81,9 @@ const CardBox = styled.div`
   padding: 2em 1em;
   border: 1.5px solid #ccc;
   border-radius: 20px;
+  cursor: pointer;
 `;
-const CardImgBox = styled.div`
+const StyledCardImgBox = styled.div`
   /* background: ${(props) =>
     `url(${props.background}) no-repeat top center`}; */
   height: 18em;
@@ -68,17 +91,17 @@ const CardImgBox = styled.div`
   flex: 1 1;
   padding: 0 1.5em;
 `;
-const CardImg = styled.div`
+const StyledCardImg = styled.div`
   background: ${(props) =>
     props.background
       ? `url(${props.background}) center / cover no-repeat`
       : " linear-gradient(#ccc, #cccccc50)"};
-  width: 60%;
+  /* width: 60%; */
   height: 100%;
   border-radius: 20px;
   margin: 0 auto;
 `;
-const CardTextBox = styled.div`
+const StyledCardTextBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -87,7 +110,7 @@ const CardTextBox = styled.div`
   /* height: 18em; */
   position: relative;
 `;
-const CardText = styled.div`
+const StyledCardText = styled.div`
   color: ${(props) => props.color};
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
@@ -99,7 +122,7 @@ const CardText = styled.div`
   align-items: center;
   justify-content: ${(props) => (props.justify ? props.justify : "")};
 `;
-const HeartButton = styled.div`
+const StyledHeartButton = styled.div`
   position: absolute;
   font-size: 1.6em;
   top: 0;

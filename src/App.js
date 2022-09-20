@@ -22,13 +22,17 @@ import CommunityDetail from "./pages/communityDetail/CommunityDetail";
 // Shared
 import Kakao from "./shared/kakao";
 import ScrollToTop from "./shared/ScrollToTop";
+import TopButton from "./shared/TopButton";
 
 function App() {
   return (
     <>
     <ScrollToTop />
       <Header />
-      <ChatFloatButton/>
+
+      <ChatFloatButton />
+      <TopButton />
+
       <Routes>
         <Route exact path={"/signin"} element={<SignIn />} />
         <Route exact path={"/signup"} element={<SignUp />} />
@@ -41,7 +45,7 @@ function App() {
         <Route exact path={"/mypage"} element={<MyPage />} />
         <Route exact path={"/service"} element={<Service />} />
         <Route exact path={"/detail/:id"} element={<Detail />} />
-        <Route exact path={"/tradePosting"} element={<TradePosting/>} />
+        <Route exact path={"/tradePosting"} element={<TradePosting />} />
         <Route exact path={"/tradeDetail/:id"} element={<TradeDetail />} />
         <Route exact path={"/kakao/callback"} element={<Kakao />} />
         <Route exact path={"/"} element={<Main />} />
