@@ -30,7 +30,19 @@ export const mainTrade = createAsyncThunk(
   async (payload, thunkAPI) => {
     const resData = await api
       .get(
-        `/${payload.category}?direction=${payload.direction}&page=${payload.page}&size=${payload.size}&sort=${payload.sort}`
+        `/trade?direction=${payload.direction}&page=${payload.page}&size=${payload.size}&sort=${payload.sort}`
+      )
+      .then((res) => res)
+      .catch((err) => console.log(err));
+    return thunkAPI.fulfillWithValue(resData.data.data.content);
+  }
+);
+export const mainCommunity = createAsyncThunk(
+  "mainSlice/mainCommunity",
+  async (payload, thunkAPI) => {
+    const resData = await api
+      .get(
+        `/community?direction=${payload.direction}&page=${payload.page}&size=${payload.size}&sort=${payload.sort}`
       )
       .then((res) => res)
       .catch((err) => console.log(err));
@@ -54,12 +66,16 @@ export const mainSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(mainList.fulfilled, (state, action) => {
-        state.mainList = action.payload;
-        console.log(action.payload);
+        state.mainList = [...action.payload];
+        console.log([...action.payload]);
       })
       .addCase(mainTrade.fulfilled, (state, action) => {
-        state.mainList = action.payload;
-        console.log(action.payload);
+        state.mainList = [...action.payload];
+        console.log([...action.payload]);
+      })
+      .addCase(mainCommunity.fulfilled, (state, action) => {
+        state.mainList = [...action.payload];
+        console.log([...action.payload]);
       });
   },
 });

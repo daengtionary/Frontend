@@ -3,7 +3,7 @@ import { useLayoutEffect } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ListPageCard from "../../components/card/ListPageCard";
 import Loading from "../../components/card/Loading";
@@ -13,14 +13,15 @@ import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
 import {
   getList,
-  getListFirst,
   reset,
   resetLoad,
   searchList,
+  firstList,
 } from "../../redux/modules/listSlice";
 import search from "../../static/image/search.png";
 
 const List = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.list.getList);
   const searchData = useSelector((state) => state.list.searchList);
@@ -35,13 +36,31 @@ const List = () => {
   // const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(0);
   const [isTopButtonOn, setIsTopButtonOn] = useState(false);
-  const filterButton = ["#전체", "#동물병원", "#애견호텔", "#애견카페"];
+  const filterButton = [
+    { name: "#전체", path: "all" },
+    { name: "#동물병원", path: "hospital" },
+    { name: "#애견호텔", path: "room" },
+    { name: "#애견카페", path: "cafe" },
+  ];
   const [checked, setChecked] = useState([true, false, false, false]);
-  const onClickFilterHandler = (i) => {
+  const onClickFilterHandler = (i, path) => {
     const newArr = Array(filterButton.length).fill(false);
     newArr[i] = true;
     setChecked(newArr);
-    // dispatch(mainList(filterButton[i]));
+    setPage(0);
+    // dispatch(reset());
+    dispatch(
+      firstList({
+        pathname: path,
+        page,
+        size,
+        address,
+        sort,
+        title: searchText,
+        content: "",
+        nick: "",
+      })
+    );
   };
   const [filter, setFilter] = useState({ address: "", sort: "new" });
   const { address, sort } = filter;
@@ -62,13 +81,6 @@ const List = () => {
   // }, []);
   useLayoutEffect(
     debounce(() => {
-      // if (
-      //   searchText === "" &&
-      //   filter.address === ""
-      //   // ||
-      //   // (searchText === "" && address === "전체")
-      // ) {
-      // dispatch(reset());
       dispatch(
         searchList({
           pathname,
@@ -81,6 +93,30 @@ const List = () => {
           nick: "",
         })
       );
+
+      console.log("1", window.scrollY);
+      // if (
+      //   searchText === "" &&
+      //   filter.address === ""
+      //   // ||
+      //   // (searchText === "" && address === "전체")
+      // ) {
+      // dispatch(reset());
+      // if (window.target.documentElement.scrollTop)
+
+      // dispatch(
+      //   searchList({
+      //     pathname,
+      //     page,
+      //     size,
+      //     address,
+      //     sort,
+      //     title: searchText,
+      //     content: "",
+      //     nick: "",
+      //   })
+      // );
+
       // alert("1번 실행");
       // }
       // else if (searchText !== "" || filter.address !== "")
@@ -119,16 +155,19 @@ const List = () => {
   );
   // setTimeout(() => setDataList(data), 10);
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll); //clean up
-    };
-  }, [isTopButtonOn]);
+  useEffect(
+    throttle(() => {
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll); //clean up
+      };
+    }, 200),
+    [isTopButtonOn]
+  );
 
   const handleScroll = debounce((e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.target.documentElement;
-    // console.log("1", scrollTop);
+    console.log("1", scrollTop);
     // console.log("2", scrollHeight);
     // console.log("3", scrollTop + clientHeight - scrollHeight);
     if (scrollTop + clientHeight >= scrollHeight - 50) {
@@ -185,10 +224,10 @@ const List = () => {
     // dispatch(searchList({ pathname: pathname, page: page, address: value }));
   };
   return (
-    <ListWrap>
-      <OptionWrap>
-        <SerchWrap>
-          <SerchBox>
+    <StyledListWrap>
+      <StyledOptionWrap>
+        <StyledSerchWrap>
+          <StyledSerchBox>
             <h2>지금 가장 핫한</h2>
             <Input
               _onKeyPress={onKeyPressHandler}
@@ -198,7 +237,7 @@ const List = () => {
                 width: "40%",
                 mg_left: "3.6em;",
                 bd_radius: "3em",
-                bg_color: "#cccccc60",
+                bg_color: "#eee",
                 bd: "none",
                 bd_bottom: "none",
                 pd_left: "1.6em",
@@ -207,14 +246,14 @@ const List = () => {
               }}
             />
             {/* <SerchIcon onClick={onClickHandler}>🔍</SerchIcon> */}
-            <SerchImg
+            <StyledSerchImg
               onClick={onClickHandler}
               src={search}
               style={{ width: "2em" }}
             />
-          </SerchBox>
-          <FilterBox>
-            <Fiter name="address" onChange={filterHandler} width={"60px"}>
+          </StyledSerchBox>
+          <StyledFilterBox>
+            <StyledFiter name="address" onChange={filterHandler} width={"60px"}>
               <option disabled selected value="">
                 지역
               </option>
@@ -235,23 +274,25 @@ const List = () => {
               <option value="전북">전북</option>
               <option value="전남">전남</option>
               <option value="제주">제주</option>
-            </Fiter>
-            <Fiter name="sort" onChange={filterHandler}>
+            </StyledFiter>
+            <StyledFiter name="sort" onChange={filterHandler}>
               {/* <option disabled selected>
                 정렬방식
               </option> */}
               <option value="new">최근순</option>
               <option value="popular">인기순</option>
-            </Fiter>
-          </FilterBox>
-        </SerchWrap>
-        <ButtonWrap>
+            </StyledFiter>
+          </StyledFilterBox>
+        </StyledSerchWrap>
+        <StyledButtonWrap>
           {filterButton.map((btn, i) => (
             <Button
               key={i}
-              text={btn}
+              text={btn.name}
               checked={checked[i]}
-              _onClick={() => onClickFilterHandler(i)}
+              _onClick={() => {
+                onClickFilterHandler(i, btn.path);
+              }}
               style={{
                 width: "auto",
                 height: "auto",
@@ -275,9 +316,9 @@ const List = () => {
               }}
             />
           ))}
-        </ButtonWrap>
-      </OptionWrap>
-      <ListCardWrap>
+        </StyledButtonWrap>
+      </StyledOptionWrap>
+      <StyledListCardWrap>
         {
           // !address || address === "전체"?
           // ready && data.length !== 0 ? (
@@ -299,7 +340,13 @@ const List = () => {
           !ready ? (
             <LoadingSpinner />
           ) : data.length !== 0 ? (
-            data?.map((data, i) => <ListPageCard key={i} data={data} />)
+            data?.map((data, i) => (
+              <ListPageCard
+                onClick={() => navigate(`/detail/${data.mapNo}`)}
+                key={i}
+                data={data}
+              />
+            ))
           ) : (
             <h3>검색 결과가 없습니다.</h3>
           )
@@ -309,55 +356,27 @@ const List = () => {
             데이터가 모두 로딩 되었습니다.
           </h3>
         ) : null}
-      </ListCardWrap>
-      {isTopButtonOn ? (
-        <TopBtn onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          TOP
-        </TopBtn>
-      ) : null}
-    </ListWrap>
+      </StyledListCardWrap>
+    </StyledListWrap>
   );
 };
 
 export default List;
 
-const ListWrap = styled.div`
+const StyledListWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   /* justify-content: center; */
   position: relative;
 `;
-const TopBtn = styled.button`
-  /* display: ${(props) => (props.ScrollActive ? "block" : "none")}; */
-  width: 50px;
-  height: 50px;
 
-  font-weight: 700;
-
-  border: none;
-  border-radius: 50%;
-
-  background-color: initial;
-  box-shadow: 0px 0px 10px gray;
-
-  position: fixed;
-  bottom: 10em;
-  right: 3em;
-
-  cursor: pointer;
-
-  transition: all 200ms;
-  :hover {
-    transform: scale(1.2);
-  }
-`;
-const OptionWrap = styled.div`
+const StyledOptionWrap = styled.div`
   width: 77em;
 
   /* padding: 0 2em; */
 `;
-const SerchWrap = styled.div`
+const StyledSerchWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -365,7 +384,7 @@ const SerchWrap = styled.div`
   border-bottom: 1px solid #ccc;
   margin-bottom: 1em;
 `;
-const SerchBox = styled.div`
+const StyledSerchBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -373,31 +392,31 @@ const SerchBox = styled.div`
   position: relative;
   width: 50%;
 `;
-const SerchIcon = styled.div`
+const StyledSerchIcon = styled.div`
   position: absolute;
   font-size: 1.6em;
   left: 546px;
   cursor: pointer;
 `;
-const ButtonWrap = styled.div`
-  display: flex;
+const StyledButtonWrap = styled.div`
+  display: inline-block;
   align-items: center;
   margin-bottom: 1em;
 `;
-export const FilterBox = styled.div``;
-export const Fiter = styled.select`
+export const StyledFilterBox = styled.div``;
+export const StyledFiter = styled.select`
   width: ${(props) => (props.width ? props.width : "")};
   border: none;
   margin-right: 20px;
   padding: 5px 5px;
 `;
-const SerchImg = styled.img`
+const StyledSerchImg = styled.img`
   width: 2em;
   position: absolute;
   right: 84px;
   cursor: pointer;
   padding: 6px 20px 6px 0;
 `;
-const ListCardWrap = styled.div`
-  min-height: 30em;
+const StyledListCardWrap = styled.div`
+  min-height: 100em;
 `;

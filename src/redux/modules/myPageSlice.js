@@ -5,13 +5,25 @@ import {
 } from "@reduxjs/toolkit";
 import { api_auth } from "../../shared/api";
 
-//formdata 전송 테스트용
-export const myList = createAsyncThunk(
-  "myPageSlice/myList",
+//강아지 프로필 등록
+export const addDog = createAsyncThunk(
+  "myPageSlice/addDog",
   async (payload, thunkAPI) => {
     for (const keyValue of payload) console.log(keyValue);
     const resData = await api_auth
       .post(`/mypage/dogs`, payload, {})
+      .then((res) => res)
+      .catch((err) => console.log(err));
+    console.log(resData);
+    return thunkAPI.fulfillWithValue(resData.data);
+  }
+);
+//강아지 프로필 삭제
+export const deleteDog = createAsyncThunk(
+  "myPageSlice/deleteDog",
+  async (payload, thunkAPI) => {
+    const resData = await api_auth
+      .delete(`/mypage/dogs/${payload}`)
       .then((res) => res)
       .catch((err) => console.log(err));
     console.log(resData);
@@ -38,9 +50,10 @@ export const myDogInfo = createAsyncThunk(
       .then((res) => res)
       .catch((err) => console.log(err));
     // console.log(resData.data.data.dogs[payload]);
-    return thunkAPI.fulfillWithValue(resData.data.data.dogs[payload]);
+    return thunkAPI.fulfillWithValue(resData.data.data.dogs);
   }
 );
+//닉네임 변경
 export const editNick = createAsyncThunk(
   "myPageSlice/editNick",
   async (payload, thunkAPI) => {
@@ -55,7 +68,7 @@ export const editNick = createAsyncThunk(
 );
 
 const initialState = {
-  myList: {},
+  myDogList: {},
   myPageInfo: { dogs: [] },
   myDogInfo: {},
   editNick: "",
@@ -67,16 +80,20 @@ export const myPageSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(myList.fulfilled, (state, action) => {
-        state.myList = action.payload;
-        console.log(action.payload);
+      .addCase(addDog.fulfilled, (state, action) => {
+        state.myDogList = { ...action.payload };
+        console.log({ ...action.payload });
+      })
+      .addCase(deleteDog.fulfilled, (state, action) => {
+        state.myDogList = { ...action.payload };
+        console.log({ ...action.payload });
       })
       .addCase(myPageInfo.fulfilled, (state, action) => {
-        state.myPageInfo = action.payload;
+        state.myPageInfo = { ...action.payload };
       })
       .addCase(myDogInfo.fulfilled, (state, action) => {
-        state.myDogInfo = action.payload;
-        console.log(action.payload);
+        state.myDogInfo = { ...action.payload };
+        console.log([...action.payload]);
       })
       .addCase(editNick.fulfilled, (state, action) => {
         state.editNick = action.payload;
