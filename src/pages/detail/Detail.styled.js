@@ -115,6 +115,8 @@ export const ReviewCard = styled.div`
 export const ProfileImg = styled.div`
   background-image: url(${props => props.url});
   background-color: gray;
+  background-size: 30px;
+  background-position: center;
   width: 30px;
   height: 30px;
   border-radius: 50%;

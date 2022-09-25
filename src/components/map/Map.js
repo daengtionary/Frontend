@@ -1,7 +1,7 @@
 /* global kakao */
 import React, { useEffect } from "react";
 import { BsXLg } from "react-icons/bs";
-import { MapContainer, MapWrap, ModalBackground, CloseBtm, MapTitle, MapAddress } from "./Map.styled";
+import { MapContainer, MapWrap, ModalBackground, CloseBtm, MapTitle, MapAddress, Icon } from "./Map.styled";
 const { kakao } = window;
 
 const Map = ({ modalHandler, title, address }) => {
@@ -85,6 +85,7 @@ const Map = ({ modalHandler, title, address }) => {
           </button>
         </CloseBtm>
         <MapWrap id="map"></MapWrap>
+        <Icon></Icon>
         <MapAddress>{address}</MapAddress>
         <MapTitle>{title}</MapTitle>
       </MapContainer>

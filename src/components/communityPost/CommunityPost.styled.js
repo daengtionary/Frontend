@@ -98,7 +98,7 @@ export const ButtonWrap = styled.div`
     width: 220px;
     height: 45px;
     border-radius: 10px;
-    background-color: #d9d9d9;
+    background-color: #6563FF;
     color: #fff;
   }
 `

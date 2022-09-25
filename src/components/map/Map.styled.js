@@ -37,11 +37,21 @@ export const CloseBtm = styled.div`
     background-color: white;
   }
 `
+export const Icon = styled.span`
+  width: 20px;
+  height: 20px;
+
+  background-image: url("/img/mapLocation.png");
+  background-size: 20px;
+  
+`
 
 export const MapTitle = styled.div`
-
+  font-weight: bold;
+  font-size: 20px;
 `
 
 export const MapAddress = styled.div`
-
+  color: #797979;
+  font-size: 14px;
 `

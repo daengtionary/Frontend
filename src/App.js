@@ -23,6 +23,7 @@ import CommunityDetail from "./pages/communityDetail/CommunityDetail";
 import Kakao from "./shared/kakao";
 import ScrollToTop from "./shared/ScrollToTop";
 import TopButton from "./shared/TopButton";
+import DogWalk from "./pages/dogWalk/DogWalk";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
         <Route exact path={"*"} element={<Main />} />
         <Route exact path={"chat"} element={<ChatModal />} />
         <Route exact path={"chat/:roomId"} element={<ChatModal />} />
+        <Route exact path={"dog-walk"} element={<DogWalk />} />
       </Routes>
       <Footer />
     </>

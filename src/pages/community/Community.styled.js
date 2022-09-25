@@ -9,6 +9,7 @@ export const CommunityTop = styled.div`
 `
 
 export const TopLayout = styled.div`
+  margin-top: 10px;
   width: 80%;
   display: flex;
   gap: 30px;
@@ -32,8 +33,16 @@ export const SearchBar = styled.div`
   }
 `
 
+export const StyledSerchImg = styled.img`
+  width: 2em;
+  position: absolute;
+  right: 84px;
+  cursor: pointer;
+  padding: 6px 20px 6px 0;
+`;
+
 export const CommunityContainer = styled.div`
-  margin-top: 60px;
+  /* margin-top: 60px; */
   width: 100%;
   box-sizing: border-box;
   display: flex;

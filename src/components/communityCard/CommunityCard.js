@@ -15,16 +15,19 @@ import {
   Title,
   Dog,
   User,
+  ContentImg,
+  CategoryTitleWrap,
 } from "./CommunityCard.styled";
 
 const CommunityCard = ({ data }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(data);
+  // console.log(data);
 
 
   return (
+
     <CommunityCardWrap>
       <IconWrap>
         {window.sessionStorage.getItem("nick") === data.nick ? (
@@ -38,11 +41,11 @@ const CommunityCard = ({ data }) => {
               size={"34px"}
               url={"/img/delete.png"}
               hover={"red"}
-            />
+              />
           </>
         ) : (
           ""
-        )}
+          )}
         <IconBox length={"24px"} size={"24px"} url={"/img/comment.png"} />
         {data.reviewCount === 0 ? <NullCircle/> : <RepleCircle>{data.reviewCount}</RepleCircle>}
       </IconWrap>
@@ -53,17 +56,23 @@ const CommunityCard = ({ data }) => {
           <Dog>{data.breed}</Dog>
           <User>{data.nick}</User>
         </Names>
-        <Category>{data.category}비어</Category>
+
+        <ContentImg alt="" src={data.communityImg}/>
+
+        <CategoryTitleWrap>
+          <Category>{data.category}없음</Category>
+          <Title
+            onClick={() => {
+              navigate(`/community/${data.communityNo}`);
+            }}
+            >
+            {data.title}
+          </Title>
+        </CategoryTitleWrap>
         {/* <Title onClick={detailHandler(data.communityNo)}>{data.title}</Title> */}
-        <Title
-          onClick={() => {
-            navigate(`/community/${data.communityNo}`);
-          }}
-        >
-          {data.title}
-        </Title>
       </CardContents>
     </CommunityCardWrap>
+
   );
 };
 
