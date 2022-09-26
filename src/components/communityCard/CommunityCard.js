@@ -19,12 +19,16 @@ import {
   CategoryTitleWrap,
 } from "./CommunityCard.styled";
 
-const CommunityCard = ({ data }) => {
+const CommunityCard = ({ data, modalHandler }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // console.log(data);
 
+  const updateHandler = () => {
+    
+
+  }
 
   return (
 

@@ -121,7 +121,7 @@ const Community = () => {
           <Cards>
             {data &&
               data?.map((el) => {
-                return <CommunityCard key={el.communityNo} data={el} userNick={userNick} ref={obsRef}/>;
+                return <CommunityCard modalHandler={modalHandler} key={el.communityNo} data={el} userNick={userNick} ref={obsRef}/>;
               })}
           </Cards>
         </CommunityWrap>

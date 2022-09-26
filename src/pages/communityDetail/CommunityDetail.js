@@ -16,14 +16,7 @@ const CommunityDetail = () => {
 
   let {id} = useParams();
   console.log(id);
-  
-  const sampleReview = {
-    id : 0,
-    profileImg : "",
-    dogKind: "불독",
-    nick : "닉넴",
-    content: "댓글내용",
-  }
+
 
   useEffect(() => {
     dispatch(getCommunityDetailThunk(id));
@@ -37,11 +30,6 @@ const CommunityDetail = () => {
   return (
     <CommunityContainer>
       <CommunityWrap>
-        {/* <SideBar>
-          <ul>
-            <li>댕과사전 커뮤니티</li>
-          </ul>
-        </SideBar> */}
 
         <DetailWrap>
           <PostContainer>

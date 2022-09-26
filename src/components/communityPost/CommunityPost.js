@@ -18,7 +18,7 @@ import {
   ButtonWrap,
 } from "./CommunityPost.styled";
 
-const CommunityPost = ({ postHandler }) => {
+const CommunityPost = ({ modalHandler }) => {
   const dispatch = useDispatch();
   const imgRef = useRef()
   const userNick = window.localStorage.getItem('nick')
@@ -40,6 +40,18 @@ const CommunityPost = ({ postHandler }) => {
   const [img, setImg] = useState([]);
 
   const onChangeImgHandler = (event) => {
+
+    const { files } = event.target
+    console.log(files);
+    console.log(typeof(files));
+
+    const formdata = new FormData();
+    console.log(formdata);
+    files ? formdata.append("image", files) : alert("사진을 추가해주세요.");
+    
+    formdata.getAll('image')
+    for (const keyValue of formdata) console.log(keyValue);
+
     const maxFileNum = 10; // 최대 첨부가능한 갯수
 
     // 선택한 이미지들
@@ -55,6 +67,7 @@ const CommunityPost = ({ postHandler }) => {
     for (let i = 0; i < imagesMax.length; i++) {
       img.push(URL.createObjectURL(imagesMax[i]));
     }
+
   };
 
   const onChangeDataHandler = (event) => {
@@ -70,35 +83,11 @@ const CommunityPost = ({ postHandler }) => {
     });
   };
 
-  const reader = new FileReader();
 
-  const imgHandler = (e) => {
-    const { files } = e.target;
-    console.log(files[0]);
-
-    files[0] && reader.readAsDataURL(files[0]);
-
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        setUploadImg(reader.result);
-
-        resolve();
-      };
-    });
-  };
-
-  const imgUploader = (e) => {
-    console.log(e)
-    const fileImg = imgRef.current
-    console.log(fileImg)
-  }
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
     // console.log(e);
-
-    const fileImg = imgRef.current
-    console.log(fileImg)
 
     const haveToSend = {
       data: {
@@ -106,12 +95,15 @@ const CommunityPost = ({ postHandler }) => {
         content: post.data.content,
         category: post.data.category,
       },
+
       imgUrl: img,
     }
+
     console.log(haveToSend)
     dispatch(
       getCommunityPostThunk(haveToSend)
     );
+    modalHandler()
   };
   
   // console.log(post);
@@ -173,7 +165,6 @@ const CommunityPost = ({ postHandler }) => {
 
       <ButtonWrap>
         <button type="submit">등록하기</button>
-        <button type="button" onClick={imgUploader}>테스트</button>
       </ButtonWrap>
     </CommunityPostForm>
   );
