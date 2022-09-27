@@ -3,19 +3,20 @@ import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCommunityPostThunk } from "../../redux/modules/communitySlice";
 import {
-  CommunityPostForm,
-  Category,
-  UserName,
-  Title,
-  Content,
-  ImgFile,
-  Label,
-  Posts,
-  FileInput,
-  Select,
-  Input,
-  TextArea,
-  ButtonWrap,
+  StyledCommunityPostForm,
+  StyledCategory,
+  StyledUserName,
+  StyledTitle,
+  StyledContent,
+  StyledImgFile,
+  StyledLabel,
+  StyledPosts,
+  StyledFileInput,
+  StyledSelect,
+  StyledInput,
+  StyledTextArea,
+  StyledButtonWrap,
+  StyledUserNick,
 } from "./CommunityPost.styled";
 
 const CommunityPost = ({ modalHandler }) => {
@@ -41,16 +42,16 @@ const CommunityPost = ({ modalHandler }) => {
 
   const onChangeImgHandler = (event) => {
 
-    const { files } = event.target
-    console.log(files);
-    console.log(typeof(files));
+    // const { files } = event.target
+    // console.log(files);
+    // console.log(typeof(files));
 
-    const formdata = new FormData();
-    console.log(formdata);
-    files ? formdata.append("image", files) : alert("사진을 추가해주세요.");
+    // const formdata = new FormData();
+    // console.log(formdata);
+    // files ? formdata.append("image", files) : alert("사진을 추가해주세요.");
     
-    formdata.getAll('image')
-    for (const keyValue of formdata) console.log(keyValue);
+    // formdata.getAll('image')
+    // for (const keyValue of formdata) console.log(keyValue);
 
     const maxFileNum = 10; // 최대 첨부가능한 갯수
 
@@ -109,64 +110,64 @@ const CommunityPost = ({ modalHandler }) => {
   // console.log(post);
 
   return (
-    <CommunityPostForm onSubmit={onSubmitHandler}>
-      <Category>
-        <Label topLeftRadius={"10px"} bottomLeftRadius={"none"}>
+    <StyledCommunityPostForm onSubmit={onSubmitHandler}>
+      <StyledCategory>
+        <StyledLabel topLeftRadius={"10px"} bottomLeftRadius={"none"}>
           <label>분류</label>
-        </Label>
-        <Posts>
-          <Select name="category" onChange={onChangeDataHandler}>
+        </StyledLabel>
+        <StyledPosts>
+          <StyledSelect name="category" onChange={onChangeDataHandler}>
             <option value="">분류선택</option>
             <option value="장터">장터</option>
             <option value="호텔">호텔</option>
             <option value="병원">병원</option>
             <option value="자유">자유</option>
-          </Select>
-        </Posts>
-      </Category>
+          </StyledSelect>
+        </StyledPosts>
+      </StyledCategory>
 
-      <UserName>
-        <Label borderTop={"1px solid #797979"}>
+      <StyledUserName>
+        <StyledLabel borderTop={"1px solid #797979"}>
           <label>작성자</label>
-        </Label>
-        <Posts borderTop={"1px solid #797979"}>
-          <div>{userNick}</div>
-        </Posts>
-      </UserName>
+        </StyledLabel>
+        <StyledPosts borderTop={"1px solid #797979"}>
+          <StyledUserNick>{userNick}</StyledUserNick>
+        </StyledPosts>
+      </StyledUserName>
 
-      <Title>
-        <Label borderTop={"1px solid #797979"}>
+      <StyledTitle>
+        <StyledLabel borderTop={"1px solid #797979"}>
           <label>제목</label>
-        </Label>
-        <Posts borderTop={"1px solid #797979"}>
-          <Input type="text" name="title" required onChange={onChangeDataHandler} />
-        </Posts>
-      </Title>
+        </StyledLabel>
+        <StyledPosts borderTop={"1px solid #797979"}>
+          <StyledInput type="text" name="title" required onChange={onChangeDataHandler} />
+        </StyledPosts>
+      </StyledTitle>
 
-      <ImgFile>
-        <Label borderTop={"1px solid #797979"}>
+      <StyledImgFile>
+        <StyledLabel borderTop={"1px solid #797979"}>
           <label>사진등록</label>
-        </Label>
-        <Posts borderTop={"1px solid #797979"}>
+        </StyledLabel>
+        <StyledPosts borderTop={"1px solid #797979"}>
           <div>
-            <FileInput onChange={onChangeImgHandler} type="file" name="imgUrl" accept="image/*" multiple />
+            <StyledFileInput onChange={onChangeImgHandler} type="file" name="imgUrl" accept="image/*" multiple />
           </div>
-        </Posts>
-      </ImgFile>
+        </StyledPosts>
+      </StyledImgFile>
 
-      <Content>
-        <Label bottomLeftRadius={"10px"} borderTop={"1px solid #797979"}>
+      <StyledContent>
+        <StyledLabel bottomLeftRadius={"10px"} borderTop={"1px solid #797979"}>
           <label>내용</label>
-        </Label>
-        <Posts borderTop={"1px solid #797979"}>
-          <TextArea onChange={onChangeDataHandler} name="content" />
-        </Posts>
-      </Content>
+        </StyledLabel>
+        <StyledPosts borderTop={"1px solid #797979"}>
+          <StyledTextArea onChange={onChangeDataHandler} name="content" />
+        </StyledPosts>
+      </StyledContent>
 
-      <ButtonWrap>
+      <StyledButtonWrap>
         <button type="submit">등록하기</button>
-      </ButtonWrap>
-    </CommunityPostForm>
+      </StyledButtonWrap>
+    </StyledCommunityPostForm>
   );
 };
 

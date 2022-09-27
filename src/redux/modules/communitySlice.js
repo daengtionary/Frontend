@@ -7,9 +7,11 @@ export const getCommunityPostListThunk = createAsyncThunk("GET_COMMUNITY_POST_LI
     console.log(payload);
     // const resp = await api.get(`/community?orderby=new&size=10&page=0`);
     // const resp = await api.get(`/community?page=0&size=10&sort=new&direction=asc`);
-    const resp = await api.get(`/community?sort=new&pagenum=0&pagesize=10`);
 
-    return (thunkAPI.fulfillWithValue(resp.data.data.content))
+    const resp = await api.get(`/community?sort=new&pagenum=0&pagesize=10`);
+    console.log(resp)
+
+    return (thunkAPI.fulfillWithValue(resp.data.data))
   } catch (err) {
     return thunkAPI.rejectWithValue(err.code);
   }
@@ -20,14 +22,14 @@ export const getCommunityDetailThunk = createAsyncThunk("GET_COMMUNITY_DETAIL", 
   try {
     console.log("id:", payload);
     const resp = await api.get(`/community/${payload}`);
-
+    console.log(resp)
     return (thunkAPI.fulfillWithValue(resp.data.data))
   } catch (err) {
     return thunkAPI.rejectWithValue(err.code);
   }
 });
 
-/** 게시글 둥록 */
+/** 게시글 등록 */
 export const getCommunityPostThunk = createAsyncThunk("GET_COMMUNITY_POST", async (payload, thunkAPI) => {
   try {
     console.log(payload)

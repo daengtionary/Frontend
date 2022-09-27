@@ -1,41 +1,41 @@
 import styled from "styled-components";
 
-export const CommunityPostForm = styled.form`
+export const StyledCommunityPostForm = styled.form`
   width: 100%;
   height: 50vh;
   border: 1px solid #797979;
   border-radius: 10px;
 `;
-export const Category = styled.div`
+export const StyledCategory = styled.div`
   display: flex;
   height: 10%;
   align-items: center;
 `;
-export const UserName = styled.div`
+export const StyledUserName = styled.div`
   display: flex;
   height: 10%;
   align-items: center;
 `;
-export const Title = styled.div`
-  display: flex;
-  height: 10%;
-  align-items: center;
-`;
-
-export const ImgFile = styled.div`
+export const StyledTitle = styled.div`
   display: flex;
   height: 10%;
   align-items: center;
 `;
 
+export const StyledImgFile = styled.div`
+  display: flex;
+  height: 10%;
+  align-items: center;
+`;
 
-export const Content = styled.div`
+
+export const StyledContent = styled.div`
   display: flex;
   height: 60%;
   align-items: flex-start;
 `;
 
-export const Label = styled.div`
+export const StyledLabel = styled.div`
   box-sizing: border-box;
   width: 15%;
   display: flex;
@@ -47,9 +47,18 @@ export const Label = styled.div`
   border-top: ${(props) => props.borderTop};
   /* border-bottom: ${(props) => props.borderBottom}; */
   background-color: #f1f1f1;
+
+  label { 
+    font-size: 12px;
+  }
 `;
 
-export const Posts = styled.div`
+export const StyledUserNick = styled.div`
+  font-size: 12px;
+
+`
+
+export const StyledPosts = styled.div`
   box-sizing: border-box;
   width: 85%;
   padding: 0 25px;
@@ -59,27 +68,29 @@ export const Posts = styled.div`
   align-items: center;
 `;
 
-export const FileInput = styled.input`
+export const StyledFileInput = styled.input`
   display: flex;
   align-items: center;
   height: 90%;
   
 `
 
-export const Select = styled.select`
+export const StyledSelect = styled.select`
   border: 1px solid #f1f1f1;
-  padding: 10px;
+  width: 100px;
   border-radius: 10px;
+  height: 90%;
+  padding: 0 10px
 `
 
-export const Input = styled.input`
-  border: none;
-  padding: 10px;
-  width: 100%;
+export const StyledInput = styled.input`
   
+  border: none;
+  width: 100%;
+  height: 80%;
 `
 
-export const TextArea = styled.textarea`
+export const StyledTextArea = styled.textarea`
   box-sizing: border-box;
   resize: none;
   width: 100%;
@@ -87,8 +98,9 @@ export const TextArea = styled.textarea`
   border: none;
   padding: 10px;
 `
-export const ButtonWrap = styled.div`
-  margin-top: 2.3vh;
+
+export const StyledButtonWrap = styled.div`
+  margin-top: 10px;
   width: 100%;
   display: flex;
   justify-content: center;

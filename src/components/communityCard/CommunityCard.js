@@ -24,6 +24,7 @@ const CommunityCard = ({ data, modalHandler }) => {
   const dispatch = useDispatch();
 
   // console.log(data);
+  console.log(data.nick);
 
   const updateHandler = () => {
     
@@ -34,7 +35,7 @@ const CommunityCard = ({ data, modalHandler }) => {
 
     <CommunityCardWrap>
       <IconWrap>
-        {window.sessionStorage.getItem("nick") === data.nick ? (
+        {window.localStorage.getItem("nick") === data.nick ? (
           <>
             <IconBox length={"24px"} size={"24px"} url={"/img/pen.png"} hover={"blue"} />
             <IconBox

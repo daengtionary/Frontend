@@ -14,6 +14,8 @@ const CommunityDetail = () => {
   const data = useSelector((state) => state.community.communityDetail);
   console.log("커뮤니티 디테일:",data)
 
+  const test = useSelector((state)=>console.log(state))
+
   let {id} = useParams();
   console.log(id);
 
