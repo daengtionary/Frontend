@@ -6,147 +6,126 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ListPageCard from "../../components/card/ListPageCard";
-import Loading from "../../components/card/Loading";
-import SkeletonCard from "../../components/card/SkeletonCard";
 import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
-import { getList, reset, resetLoad, searchList, firstList } from "../../redux/modules/listSlice";
-import search from "../../static/image/search.png";
+import { getListThunk, reset, resetLoad, searchListThunk, firstListThunk, resetEnd, pageUp, setChecked } from "../../redux/modules/listSlice";
+import searchIcon from "../../static/image/search.png";
 
 const List = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.list.getList);
-  const searchData = useSelector((state) => state.list.searchList);
+  // const searchData = useSelector((state) => state.list.searchListThunk);
+  const pageNum = useSelector((state) => state.list.pageNum);
   const ready = useSelector((state) => state.list.isLoad);
   console.log(ready);
   const listEnd = useSelector((state) => state.list.isEnd);
   console.log(listEnd);
-
+  const checked = useSelector((state) => state.list.isChecked);
+  console.log(checked);
   const location = useLocation();
-  const { pathname, serch } = location;
+  const { pathname, search } = location;
 
   // const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(0);
   const [isTopButtonOn, setIsTopButtonOn] = useState(false);
   const filterButton = [
-    { name: "#전체", path: "all" },
-    { name: "#동물병원", path: "hospital" },
-    { name: "#애견호텔", path: "room" },
-    { name: "#애견카페", path: "cafe" },
+    { name: "#전체", path: "/all" },
+    { name: "#동물병원", path: "/hospital" },
+    { name: "#애견호텔", path: "/room" },
+    { name: "#애견카페", path: "/cafe" },
   ];
-  const [checked, setChecked] = useState([true, false, false, false]);
-  const onClickFilterHandler = (i, path) => {
-    const newArr = Array(filterButton.length).fill(false);
-    newArr[i] = true;
-    setChecked(newArr);
-    setPage(0);
-    // dispatch(reset());
-    dispatch(
-      firstList({
-        pathname: path,
-        page,
-        size,
-        address,
-        sort,
-        title: searchText,
-        content: "",
-        nick: "",
-      })
-    );
-  };
   const [filter, setFilter] = useState({ address: "", sort: "new" });
   const { address, sort } = filter;
   const [size, setSize] = useState(4);
+  // const [checked, setChecked] = useState([true, false, false, false]);
+  const onClickFilterHandler = (i, path) => {
+    dispatch(setChecked(i));
+    // const newArr = Array(filterButton.length).fill(false);
+    // newArr[i] = true;
+    // setChecked(newArr);
+    setPage(0);
+    // dispatch(reset());
+    navigate(`${path}`);
+    dispatch(resetEnd());
+
+    // if (path === "/all") {
+    //   dispatch(
+    //     firstListThunk({
+    //       pathname: "/query?category",
+    //       page: 0,
+    //       size,
+    //       address,
+    //       sort,
+    //       title: searchText,
+    //       content: "",
+    //       nick: "",
+    //     })
+    //   );
+    // } else {
+    //   dispatch(
+    //     firstListThunk({
+    //       pathname: path + "/search",
+    //       page: 0,
+    //       size,
+    //       address,
+    //       sort,
+    //       title: searchText,
+    //       content: "",
+    //       nick: "",
+    //     })
+    //   );
+    // }
+  };
   console.log(filter);
 
-  console.log(pathname, serch);
+  console.log(pathname, search);
   console.log(data);
-  console.log(searchData);
+  console.log(page, pageNum);
+  // console.log(searchData);
 
-  // useLayoutEffect(() => {
-  //   dispatch(getListFirst({ pathname: pathname, page: page, address: "" }));
-  //   console.log("마운트");
-  //   return () => {
-  //     dispatch(getListFirst({ pathname: pathname, page: page, address: "" }));
-  //     console.log("언마운트");
-  //   };
-  // }, []);
-  useLayoutEffect(
-    debounce(() => {
-      dispatch(
-        searchList({
-          pathname,
-          page,
-          size,
-          address,
-          sort,
-          title: searchText,
-          content: "",
-          nick: "",
-        })
-      );
-
-      console.log("1", window.scrollY);
-      // if (
-      //   searchText === "" &&
-      //   filter.address === ""
-      //   // ||
-      //   // (searchText === "" && address === "전체")
-      // ) {
-      // dispatch(reset());
-      // if (window.target.documentElement.scrollTop)
-
-      // dispatch(
-      //   searchList({
-      //     pathname,
-      //     page,
-      //     size,
-      //     address,
-      //     sort,
-      //     title: searchText,
-      //     content: "",
-      //     nick: "",
-      //   })
-      // );
-
-      // alert("1번 실행");
-      // }
-      // else if (searchText !== "" || filter.address !== "")
-      // else {
-      //   dispatch(
-      //     searchList({
-      //       pathname,
-      //       page,
-      //       size,
-      //       address,
-      //       sort,
-      //       title: searchText,
-      //       content: "",
-      //       nick: "",
-      //     })
-      //   );
-      //   alert("2번 실행");
-      // }
-      // else if (page === 0) {
-      //   // dispatch(reset());
-      //   dispatch(
-      //     searchList({
-      //       pathname,
-      //       page,
-      //       size,
-      //       address,
-      //       sort,
-      //       title: "",
-      //       content: "",
-      //       nick: "",
-      //     })
-      //   );
-      // }
-    }, 200),
-    [page, filter]
-  );
+  useLayoutEffect(() => {
+    window.addEventListener("beforeunload", () => {
+      window.scrollTo(0, 0);
+      dispatch(setChecked(0));
+    });
+    // dispatch(getAllListThunk());
+    // if (listEnd === false && pageNum < page) {
+    // console.log(data);
+    // if (data) return;
+    if (listEnd === false) {
+      if (pathname === "/all") {
+        console.log(page);
+        dispatch(
+          searchListThunk({
+            pathname: "/query?category",
+            page: pageNum,
+            size,
+            address,
+            sort,
+            title: searchText,
+            content: "",
+            nick: "",
+          })
+        );
+      } else {
+        dispatch(
+          searchListThunk({
+            pathname: pathname + "/search",
+            page: pageNum,
+            size,
+            address,
+            sort,
+            title: searchText,
+            content: "",
+            nick: "",
+          })
+        );
+      }
+    }
+    // }
+  }, [checked, pageNum, filter]);
   // setTimeout(() => setDataList(data), 10);
 
   useEffect(
@@ -156,26 +135,21 @@ const List = () => {
         window.removeEventListener("scroll", handleScroll); //clean up
       };
     }, 200),
-    [isTopButtonOn]
+    []
   );
 
   const handleScroll = debounce((e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.target.documentElement;
-    console.log("1", scrollTop);
+    // console.log("1", scrollTop);
     // console.log("2", scrollHeight);
     // console.log("3", scrollTop + clientHeight - scrollHeight);
     if (scrollTop + clientHeight >= scrollHeight - 50) {
-      console.log("바닥");
-      setPage((page) => page + 1);
+      console.log("끝?", listEnd);
+      // setPage((page) => page + 1);
+      // 페이지도 스토어에 저장하는걸로....
+      dispatch(pageUp(1));
+
       // dispatch(resetLoad());
-    }
-    if (scrollTop > 300) {
-      setIsTopButtonOn(true);
-      // return;
-    }
-    if (scrollTop <= 300) {
-      setIsTopButtonOn(false);
-      // return;
     }
   }, 200);
   const [searchText, setSearchText] = useState("");
@@ -189,8 +163,8 @@ const List = () => {
     setPage(0);
     dispatch(reset());
     dispatch(
-      searchList({
-        pathname,
+      searchListThunk({
+        pathname: pathname + "/search",
         page,
         size,
         address,
@@ -215,7 +189,7 @@ const List = () => {
     console.log(filter);
     setPage(0);
 
-    // dispatch(searchList({ pathname: pathname, page: page, address: value }));
+    // dispatch(searchListThunk({ pathname: pathname, page: page, address: value }));
   };
   return (
     <StyledListWrap>
@@ -240,7 +214,7 @@ const List = () => {
               }}
             />
             {/* <SerchIcon onClick={onClickHandler}>🔍</SerchIcon> */}
-            <StyledSerchImg onClick={onClickHandler} src={search} style={{ width: "2em" }} />
+            <StyledSerchImg onClick={onClickHandler} src={searchIcon} style={{ width: "2em" }} />
           </StyledSerchBox>
           <StyledFilterBox>
             <StyledFilter name="address" onChange={filterHandler} width={"60px"}>
@@ -296,8 +270,8 @@ const List = () => {
                 pd_bottom: "8px",
                 pd_left: "14px",
                 pd_right: "14px",
-                hv_color: "#000",
-                hv_bd_color: "#000",
+                hv_color: "#767676",
+                hv_bd_color: "#767676",
                 f_color: "#000",
                 f_bd_color: "#000",
                 ft_weight: "700",
@@ -309,32 +283,13 @@ const List = () => {
         </StyledButtonWrap>
       </StyledOptionWrap>
       <StyledListCardWrap>
-        {
-          // !address || address === "전체"?
-          // ready && data.length !== 0 ? (
-          //   data?.map(
-          //     (data, i) => (
-          //       // isLoad ? (
-          //       <ListPageCard key={i} data={data} />
-          //     )
-          //     // ) : (
-          //     //   <SkeletonCard key={i} />
-          //     // )
-          //   )
-          // ) : !ready ? (
-          //   <h3>로딩중</h3>
-          // ) : (
-          //   <h3 style={{ paddingTop: "2em" }}>검색 결과가 없습니다.</h3>
-          // )
-
-          !ready ? (
-            <LoadingSpinner />
-          ) : data.length !== 0 ? (
-            data?.map((data, i) => <ListPageCard onClick={() => navigate(`/detail/${data.mapNo}`)} key={i} data={data} />)
-          ) : (
-            <h3>검색 결과가 없습니다.</h3>
-          )
-        }
+        {!ready ? (
+          <LoadingSpinner />
+        ) : data.length !== 0 ? (
+          data?.map((data, i) => <ListPageCard onClick={() => navigate(`/detail/${data.mapNo}`)} key={i} data={data} />)
+        ) : (
+          <h3>검색 결과가 없습니다.</h3>
+        )}
         {!listEnd ? null : data.length !== 0 ? <h3 style={{ textAlign: "center" }}>데이터가 모두 로딩 되었습니다.</h3> : null}
       </StyledListCardWrap>
     </StyledListWrap>
