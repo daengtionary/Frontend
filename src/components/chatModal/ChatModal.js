@@ -12,22 +12,17 @@ import {
   Title,
   LeftWrap,
   ListWrap,
-  RoomWrap,
-  Header,
-  HelpMessage
+
 } from './ChatModal.styled';
 import { setNotification, getRoomListDB } from "../../redux/modules/chatSlice";
-import ChatRoom from "../chatRoom/ChatRoom";
 import ChatRoomList from "../chatRoomList/ChatRoomList"
 
-import { OrangeChatSVG, XSVG } from "../../elements/svg/SVG";
 
 // 채팅 모달
 const ChatModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isMatchChat = useMatch("/chat");
-  const { roomId } = useParams();
+  const roomNo = window.localStorage.getItem("memberNo");
 
 
   
@@ -67,38 +62,16 @@ const ChatModal = () => {
     <FloatWrap>
       <Dim />
       <Wrap>
-        <LeftWrap isRoom={roomId}>
+        <LeftWrap isRoom={roomNo}>
           <Title>
-            채팅
-            <span onClick={onClickClose}>
-              <XSVG />
-            </span>
+            댕톡
           </Title>
           <ListWrap>
             <ChatRoomList 
-            roomId={roomId} />
+            roomId={roomNo} />
           </ListWrap>
         </LeftWrap>
-        <RoomWrap isRoom={roomId}>
-          {isMatchChat && (
-            <HelpMessage>
-              <div>
-                <OrangeChatSVG />
-              </div>
-              <>
-                왼쪽 채팅 목록을 클릭하여 <br />
-                채팅 내용을 확인해주세요!
-              </>
-            </HelpMessage>
-          )}
-          {roomId && <ChatRoom roomId={roomId} />}
-          <Header isRoom={roomId}>
-            <span onClick={onClickClose}>
-              <XSVG />
-            </span>
-            {roomId && <div onClick={onClickBack}>{"<"}</div>}
-          </Header>
-        </RoomWrap>
+       
       </Wrap>
     </FloatWrap>
   );

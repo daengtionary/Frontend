@@ -4,7 +4,6 @@ export const List = styled.div`
   padding: 30px;
   color: ${({ selected }) => selected && "#fff"};
   background-color: ${({ selected, theme }) => selected && theme.colors.black};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
   span {
     display: flex;
     gap: 5px;
@@ -13,8 +12,8 @@ export const List = styled.div`
   }
 `;
 export const Nickname = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.l};
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

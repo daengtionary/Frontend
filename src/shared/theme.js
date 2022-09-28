@@ -14,6 +14,7 @@ const fontSizes = {
   s: "12px",
   m: "14px",
   l: "18px",
+  ml: "22px",
   xl: "27px",
 };
 

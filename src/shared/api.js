@@ -9,6 +9,7 @@ export const api_auth = axios.create({
   },
 });
 
+
 api_auth.interceptors.request.use(
   function (config) {
     config.headers["authorization"] = `Bearer ${window.sessionStorage.getItem("authorization")}`;
@@ -47,8 +48,9 @@ chatApi.interceptors.request.use(function (config) {
 export const chatApis = {
   // 채팅
   getRoomList: () => chatApi.get("/chat/rooms"),
-  getMessageList: (roomId) => chatApi.get("/chat/room/" + roomId),
-  addRoom: (memberNo) => chatApi.post("/chat/rooms", { memberNo }),
-  enterRoom: (roomId) => chatApi.get(`/chat/room/${roomId}`),
+  getMessageList: (roomId) => chatApi.get("/chat/message/" + roomId),
+  addRoom: (memberNo) => chatApi.post("/chat/room/personal", { memberNo }),
   exitRoom: (roomId) => chatApi.get(`chat/room/exit/${roomId}`),
+  addMatchingRoom: () => chatApi.post("/chat/room/group"),
 };
+

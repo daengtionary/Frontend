@@ -75,18 +75,14 @@ export const ItemDetailInfoText = styled.div`
   margin-top: 50px;
   width: 420px;
   height: auto;
-  font-size: 15px;
-  .sellerNick{
-    font-size: 17px;
-    font-weight: 600;
-    color: gray;
-    margin-left: 30px;
-  };
+  font-size: 17px;
+  font-weight: 500;
   .sellInfo{
     font-size: 17px;
-    font-weight: 600;
+    font-weight: 700;
     color: gray;
-    margin-left: 30px;
+    position: absolute;
+    left: 30%;
   };
 `
 

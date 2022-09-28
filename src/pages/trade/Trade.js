@@ -39,6 +39,7 @@ const Trade = () => {
   }, []);
 
   useEffect(() => {
+    dispatch(clearTradeItem);
     dispatch(
       getTrade({
         page: page,
@@ -47,6 +48,9 @@ const Trade = () => {
         direction: "asc",
       })
     );
+    return () =>{
+      clearTradeItem();
+    }
   }, [page]);
   console.log(page);
 

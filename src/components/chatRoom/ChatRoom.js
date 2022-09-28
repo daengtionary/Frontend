@@ -1,60 +1,52 @@
-import SockJS from "sockjs-client";
-import { Stomp } from "@stomp/stompjs";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import {
-  ChatInputWrap,
-  ChatInput,
-  SendButton,
-  ExitButton
-} from "./ChatRoom.styled"
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+//스타일 컴포넌트
+import { ChatInputWrap, ChatInput, SendButton, ExitButton, ChatRoomFullBox, ChatRoomAll, ChatInputForm } from './ChatRoom.styled';
+import { Dim, Title } from '../chatModal/ChatModal.styled';
 
-import {
-  addMessage,
-  getRoomListDB,
-  readMessage,
-  updateRoomMessage,
-} from "../../redux/modules/chatSlice";
-import { chatApis } from "../../shared/api";
-import ChatList from "../chatList/ChatList";
-import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
-
-// import { Input } from "../elements/Inputs";
-// import { Button } from "../elements/Buttons";
+import { addMessage, getRoomListDB, readMessage, updateRoomMessage } from '../../redux/modules/chatSlice';
+import { chatApis } from '../../shared/api';
+import ChatList from '../chatList/ChatList';
 
 // 채팅 모달 > 채팅방
 const ChatRoom = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const { roomId } = useParams();
-  // const inputRef = useRef();
-  let stompClient = useRef(null);
-  const [isLoading, setIsLoading] = useState(false);
-  // const user = useSelector((state) => state.user);
+  const stompClient = useRef(null);
+  const { roomNo } = useParams();
+  console.log(roomNo);
 
-  const memberNo = window.localStorage.getItem("memberNo")
-  const memberNick = window.localStorage.getItem("nick")
+  const memberNo = window.localStorage.getItem('memberNo');
+  const nick = window.localStorage.getItem('nick');
+
+  const targetNick = location.state.targetNick;
+
+  console.log(location.state.targetNo);
+  console.log(location.state.targetNick);
+  console.log(location.state.index);
 
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
-    const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_API_IP}/ws-stomp`);
+    const webSocket = new SockJS(`http://${process.env.REACT_APP_CHAT_API_IP}/ws/chat`);
     stompClient.current = Stomp.over(webSocket);
 
-    // STOMPJS console log 지워주는 부분
-    stompClient.current.debug = null;
+    // // STOMPJS console log 지워주는 부분
+    // stompClient.current.debug = null;
 
     stompClient.current.connect(
       {
-        Authorization: `Bearer ${sessionStorage.getItem("authorization")}`,
-        type: "TALK",
+        Authorization: `Bearer ${sessionStorage.getItem('authorization')}`,
+        type: 'TALK',
       },
 
       // 연결 성공 시 실행되는 함수
       () => {
         stompClient.current.subscribe(
-          `/sub/chat/room/${roomId}`,
+          `/queue/chat/room/${roomNo}`,
           (response) => {
             const messageFromServer = JSON.parse(response.body);
             dispatch(addMessage(messageFromServer));
@@ -65,9 +57,9 @@ const ChatRoom = () => {
               })
             );
           },
-          { Authorization: `Bearer ${sessionStorage.getItem("authorization")}` }
+          { Authorization: `Bearer ${sessionStorage.getItem('authorization')}` }
         );
-        setIsLoading(false);
+        stompClient.current.send(`/app/chat/message`, { nick }, JSON.stringify({ type: 'ENTER', roomNo: roomNo, sender: nick }));
       }
     );
   };
@@ -84,29 +76,21 @@ const ChatRoom = () => {
 
     const message = event.target.chat.value;
 
-    if (message === "" || message.trim() === "") return false;
+    if (message === '') return false;
 
     const messageObj = {
-      roomId: roomId,
-      senderId: memberNo,
-      message: event.target.chat.value,
-      isRead: false,
-      type: "TALK",
-      nickname: memberNick,
+      roomNo: roomNo,
+      message: message,
+      type: 'TALK',
+      sender: nick,
     };
 
-    stompClient.current.send(
-      `/pub/chat/message`,
-      { Authorization: `Bearer ${sessionStorage.getItem("authorization")}` },
-      JSON.stringify(messageObj)
-    );
+    stompClient.current.send(`/app/chat/message`, { Authorization: `Bearer ${sessionStorage.getItem('authorization')}` }, JSON.stringify(messageObj));
 
-    event.target.chat.value = null;
+    event.target.chat.value = [];
   };
 
   useEffect(() => {
-    setIsLoading(true);
-
     // 채팅방 전환 시 기존 연결 해제 후 새 연결 요청
     if (stompClient.current) {
       socketDisconnect();
@@ -118,33 +102,37 @@ const ChatRoom = () => {
       if (stompClient.current) socketDisconnect();
       dispatch(readMessage(location.state.index));
     };
-  }, [roomId]);
+  }, [roomNo]);
 
   // 채팅방 나가기
   const exitRoom = async () => {
-    const confirm = window.confirm("채팅방을 나가시겠어요?");
+    const confirm = window.confirm('채팅방을 나가시겠어요?');
     if (confirm) {
-      await chatApis.exitRoom(roomId);
+      await chatApis.exitRoom(roomNo);
       dispatch(getRoomListDB()).then(() => navigate(-1));
     }
   };
 
   return (
     <>
-      {isLoading && <LoadingSpinner />}
-      <ChatInputWrap>
-        <form onSubmit={sendMessage}>
-          <ChatInput
-            name="chat"
-            autoComplete="off"
-            placeholder="메시지를 입력해주세요."
-            maxLength={150}
-          />
-          <SendButton>보내기</SendButton>
-        </form>
-      </ChatInputWrap>
-      <ChatList />
-      <ExitButton onClick={exitRoom}>나가기</ExitButton>
+      <Dim>
+        <ChatRoomAll>
+        <Title>
+         댕톡 
+        </Title>        
+        <ChatRoomFullBox>
+          {/* {isLoading && <LoadingSpinner />} */}
+          <ChatList />
+          <ExitButton onClick={exitRoom}>나가기</ExitButton>
+        </ChatRoomFullBox>
+        <ChatInputWrap>
+            <ChatInputForm onSubmit={sendMessage}>
+              <ChatInput name="chat" autoComplete="off" placeholder="메시지를 입력해주세요." maxLength={150} />
+              <SendButton>보내기</SendButton>
+            </ChatInputForm>
+          </ChatInputWrap>
+        </ChatRoomAll>
+      </Dim>
     </>
   );
 };

@@ -46,10 +46,12 @@ const Main = () => {
   }, []);
 
   const mainButtonList = [
+
     { name: "댕매칭", category: "all", img: matchButtonImg },
     { name: "댕플레이스", category: "all", img: placeButtonImg },
     { name: "장터", category: "trade", img: tradeButtonImg },
     { name: "커뮤니티", category: "community", img: communityButtonImg },
+
   ];
   // const mainCardList = ["인기 병원", "인기 숙소", "인기 장터", "인기 게시물"];
   const mainCommentList = [
@@ -219,7 +221,9 @@ const Main = () => {
           ? dataList.map((data, i) => <Card key={i} rank={rankMedalList[i]} _onClick={() => alert("준비 중 입니다..")} data={data} category={data.category} />)
           : category === "trade"
           ? dataList.map((data, i) => (
+
               <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/tradeDetail/${data.tradeNo}`)} data={data} category={data.category} />
+
             ))
           : dataList.map((data, i) => (
               <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/${category}/${data.communityNo}`)} data={data} category={data.category} />
