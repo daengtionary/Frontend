@@ -1,16 +1,11 @@
 import styled from "styled-components";
-import { TbCameraPlus, TbCircleCheck } from "react-icons/tb";
+import { TbCameraPlus, TbGenderFemale, TbGenderMale } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 import { useRef } from "react";
 import Input from "../../elements/input/Input";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  addDog,
-  deleteDog,
-  myDogInfo,
-  myPageInfo,
-} from "../../redux/modules/myPageSlice";
+import { addDogThunk } from "../../redux/modules/myPageSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../elements/button/Button";
@@ -22,13 +17,42 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
   const dogImgRef = useRef();
   const [dogProfile, setDogProfile] = useState({});
   const [myDogImg, setMyDogImg] = useState("");
+  const [checked, setChecked] = useState([false, false]);
+  const genderButtonList = [
+    { key: "여아", value: "암컷" },
+    { key: "남아", value: "수컷" },
+  ];
+
+  const genderSelect = (i) => {
+    const newArr = Array(genderButtonList.length).fill(false);
+    newArr[i] = true;
+    setChecked(newArr);
+    // console.log(i, newArr, checked);
+  };
 
   const onChangeDogProfile = (e) => {
+    // const newArr = Array(genderButtonList.length).fill(false);
+    // newArr[i] = true;
+    // setChecked(newArr);
+    // console.log(i, newArr, checked);
+    console.log(e.currentTarget.value);
     const { value, name } = e.target;
-    setDogProfile({
-      ...dogProfile,
-      [name]: value,
-    });
+    if (name !== "gender" && name !== "weight") {
+      setDogProfile({
+        ...dogProfile,
+        [name]: value,
+      });
+    } else if (name === "weight") {
+      setDogProfile({
+        ...dogProfile,
+        [name]: value.replace(/[^0-9]/g, ""),
+      });
+    } else if (name === "gender") {
+      setDogProfile({
+        ...dogProfile,
+        [name]: e.currentTarget.value,
+      });
+    }
     console.log(dogProfile);
   };
   const onClickDogInput = () => {
@@ -65,11 +89,11 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
     );
 
     for (const keyValue of formdata) console.log(keyValue);
+    console.log(dogProfile.weight.replace(/[^0-9]/g, ""));
     // formdata전송
-    const addDogconfirm =
-      file && window.confirm("강아지 프로필을 추가하시겠습니까?");
+    const addDogconfirm = file && window.confirm("강아지 프로필을 추가하시겠습니까?");
     if (addDogconfirm === true) {
-      dispatch(addDog(formdata));
+      dispatch(addDogThunk(formdata));
       onModalHandler();
       alert("등록완료!");
     } else if (addDogconfirm === false) {
@@ -86,11 +110,7 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
         </StyledCloseButton>
         <StyledMyPageProfileTitle>나의 강아지</StyledMyPageProfileTitle>
         <StyledMyPageDogImgBox>
-          {myDogImg ? (
-            <StyledMyPageDogImg alt="미리보기" src={myDogImg} />
-          ) : (
-            <StyledMyPageDogImg src={dogIcon} imgSize={"70%"} />
-          )}
+          {myDogImg ? <StyledMyPageDogImg alt="미리보기" src={myDogImg} /> : <StyledMyPageDogImg src={dogIcon} imgSize={"70%"} />}
           <StyledMyPageDogImgDot onClick={onClickDogInput}>
             <TbCameraPlus
               style={{
@@ -101,12 +121,7 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
               size="14"
               color="#fff"
             />
-            <StyledMyPageDogImgInput
-              ref={dogImgRef}
-              onChange={onImgHandler}
-              type="file"
-              accept="image/*"
-            />
+            <StyledMyPageDogImgInput ref={dogImgRef} onChange={onImgHandler} type="file" accept="image/*" />
           </StyledMyPageDogImgDot>
         </StyledMyPageDogImgBox>
         {/* {dogData.map((dog, i) => (
@@ -131,6 +146,29 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
             />
           </div>
         ))}
+        <StyledGenderButtonWrap>
+          성별
+          {genderButtonList.map((gender, i) => (
+            <StyledGenderButton
+              key={i}
+              name="gender"
+              value={gender.value}
+              onClick={(e) => {
+                onChangeDogProfile(e);
+                genderSelect(i);
+              }}
+              checked={checked[i]}
+            >
+              {i === 0 ? (
+                <TbGenderFemale color={checked[i] ? "#6563FF" : "#757575"} size={18} />
+              ) : (
+                <TbGenderMale color={checked[i] ? "#6563FF" : "#757575"} size={18} />
+              )}
+
+              {gender.key}
+            </StyledGenderButton>
+          ))}
+        </StyledGenderButtonWrap>
         {/* <StyledSelectDog onClick={() => setChecked(!checked)}>
         <StyledCheckMark checkColor={checked} checkFontWeight={checked}>
           <TbCircleCheck
@@ -175,7 +213,7 @@ const StyledModalWrap = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: 10;
   text-align: center;
 `;
 const StyledAddBox = styled.div`
@@ -202,8 +240,7 @@ const StyledMyPageDogImgBox = styled.div`
   border-radius: 50%;
   margin-bottom: 2em;
   position: relative;
-  background-color: ${(props) =>
-    props.background ? props.background : "#eee"};
+  background-color: ${(props) => (props.background ? props.background : "#eee")};
 `;
 const StyledMyPageDogImg = styled.img`
   width: ${(props) => (props.imgSize ? props.imgSize : "100%")};
@@ -211,8 +248,7 @@ const StyledMyPageDogImg = styled.img`
   object-fit: cover;
   border: none;
   border-radius: 50%;
-  background-color: ${(props) =>
-    props.background ? props.background : "#eee"};
+  background-color: ${(props) => (props.background ? props.background : "#eee")};
 `;
 const StyledMyPageDogImgDot = styled.div`
   position: absolute;
@@ -241,4 +277,31 @@ const StyledCloseButton = styled.div`
   right: 1.8em;
   cursor: pointer;
   padding: 5px 5px;
+`;
+export const StyledGenderButtonWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  width: 80%;
+  color: #757575;
+  font-size: 0.8em;
+  text-indent: 1px;
+  margin-top: 1.6em;
+`;
+export const StyledGenderButton = styled.button`
+  display: flex;
+  color: ${(props) => (props.checked ? "#6563ff" : "#757575")};
+  border: ${(props) => (props.checked ? "2px solid #6563ff" : "2px solid #757575")};
+
+  background: none;
+  padding: 3px 10px 3px 7px;
+  font-size: 1em;
+  border-radius: 20px;
+  cursor: pointer;
+
+  /* &:hover {
+    color: #6563ff;
+    border: 2px solid #6563ff;
+  } */
 `;

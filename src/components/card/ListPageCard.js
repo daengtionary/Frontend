@@ -9,47 +9,20 @@ const ListPageCard = ({ data, onClick }) => {
         <StyledCardImg background={data?.mapImgUrl} />
       </StyledCardImgBox>
       <StyledCardTextBox>
-        <StyledCardText
-          color="#000"
-          margin="6px 0"
-          fontSize="1em"
-          fontWeight="400"
-        >
+        <StyledCardText color="#6563ff" margin="6px 0" fontSize="1em" fontWeight="400">
           {data?.address?.slice(0, 2)}
         </StyledCardText>
-        <StyledCardText
-          color="#000"
-          margin="6px 0"
-          fontSize="1.5em"
-          fontWeight="700"
-        >
+        <StyledCardText color="#000" margin="6px 0" fontSize="1.5em" fontWeight="700">
           {data?.title}
         </StyledCardText>
-        <StyledCardText
-          color="#000"
-          margin="6px 0"
-          fontSize=".5em"
-          fontWeight="400"
-        >
+        <StyledCardText color="#000" margin="6px 0" fontSize=".5em" fontWeight="400">
           별점⭐⭐⭐⭐{"⭐".repeat(data?.star)}
         </StyledCardText>
-        <StyledCardText
-          color="#999"
-          margin="6px 0"
-          fontSize=".7em"
-          fontWeight="700"
-        >
+        <StyledCardText color="#999" margin="6px 0" fontSize=".7em" fontWeight="700">
           {data?.address}
         </StyledCardText>
-        <StyledCardText
-          color="#999"
-          margin="6px 0"
-          fontSize=".8em"
-          fontWeight="400"
-          height="10em"
-        >
-          “믿을 수 있는” 으뜸 동물병원 . 2차병원 출신 의료진들이 고급 의료
-          서비스를 제공합니다.
+        <StyledCardText color="#999" margin="6px 0" fontSize=".8em" fontWeight="400" height="10em">
+          “믿을 수 있는” 으뜸 동물병원 . 2차병원 출신 의료진들이 고급 의료 서비스를 제공합니다.
         </StyledCardText>
         {/* <CardText
           color="#000"
@@ -82,24 +55,39 @@ const StyledCardBox = styled.div`
   border: 1.5px solid #ccc;
   border-radius: 20px;
   cursor: pointer;
+  :hover {
+    transition: box-shadow 0.2s ease-in-out;
+    box-shadow: 2px 2px 5px gray;
+    div {
+      /* div {
+        :nth-child(2) {
+          text-decoration: underline;
+        }
+      } */
+      :first-child {
+        div {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
 `;
 const StyledCardImgBox = styled.div`
-  /* background: ${(props) =>
-    `url(${props.background}) no-repeat top center`}; */
+  /* background: ${(props) => `url(${props.background}) no-repeat top center`}; */
   height: 18em;
   /* width: 18em; */
   flex: 1 1;
-  padding: 0 1.5em;
+  margin: 0 1.5em;
+  overflow: hidden;
+  border-radius: 20px;
 `;
 const StyledCardImg = styled.div`
-  background: ${(props) =>
-    props.background
-      ? `url(${props.background}) center / cover no-repeat`
-      : " linear-gradient(#ccc, #cccccc50)"};
   /* width: 60%; */
   height: 100%;
   border-radius: 20px;
   margin: 0 auto;
+  background: ${(props) => (props.background ? `url(${props.background}) center / cover no-repeat` : " linear-gradient(#ccc, #cccccc50)")};
+  transition: transform 0.15s ease-in-out;
 `;
 const StyledCardTextBox = styled.div`
   display: flex;
