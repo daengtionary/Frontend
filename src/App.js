@@ -18,28 +18,33 @@ import TradeDetail from "./pages/tradeDetail/TradeDetail";
 import TradePosting from "./pages/tradePosting/TradePosting";
 import Community from "./pages/community/Community";
 import CommunityDetail from "./pages/communityDetail/CommunityDetail";
+
 import Matching from "./pages/matching/Matching";
 import MatchingRoom from "./pages/matching/MatchingRoom";
+import PlacePosting from "./pages/placePosting/PlacePosting";
 
 // Shared
 import Kakao from "./shared/kakao";
 import ScrollToTop from "./shared/ScrollToTop";
 import TopButton from "./shared/TopButton";
 import ChatRoom from "./components/chatRoom/ChatRoom";
+import DogWalk from "./pages/dogWalk/DogWalk";
+
 
 function App() {
   return (
     <>
-    <ScrollToTop />
+      <ScrollToTop />
       <Header />
 
-      <ChatFloatButton />
+      {/* <ChatFloatButton /> */}
       <TopButton />
 
       <Routes>
         <Route exact path={"/signin"} element={<SignIn />} />
         <Route exact path={"/signup"} element={<SignUp />} />
         <Route exact path={"/hospital"} element={<List />} />
+        <Route exact path={"/all"} element={<List />} />
         <Route exact path={"/shop"} element={<List />} />
         <Route exact path={"/trade"} element={<Trade />} />
         <Route exact path={"/room"} element={<List />} />
@@ -57,6 +62,9 @@ function App() {
         <Route exact path={"chat/:roomNo"} element={<ChatRoom />} />
         <Route exact path={"matching"} element={<Matching />} />
         <Route exact path={"matchingRoom"} element={<MatchingRoom/>} />
+        <Route exact path={"dog-walk"} element={<DogWalk />} />
+        <Route exact path={"placeposting"} element={<PlacePosting />} />
+
       </Routes>
       <Footer />
     </>

@@ -1,7 +1,10 @@
 // Style
 import { StyledButton } from "./Button.styled";
+// import placeButtonImg from "../../static/image/플레이스.jpg";
+// import tradeButtonImg from "../../static/image/장터.jpg";
+// import communityButtonImg from "../../static/image/커뮤니티.jpg";
 
-const Button = ({ type, text, style, _onClick, checked, id }) => {
+const Button = ({ type, text, style, _onClick, checked, id, img }) => {
   return (
     <StyledButton
       id={id}
@@ -12,6 +15,7 @@ const Button = ({ type, text, style, _onClick, checked, id }) => {
       height={style?.height}
       ft_size={style?.ft_size}
       ft_weight={style?.ft_weight}
+      // bg_img={style?.bg_img}
       bg_color={style?.bg_color}
       color={style?.color}
       mg_top={style?.mg_top}
@@ -32,6 +36,7 @@ const Button = ({ type, text, style, _onClick, checked, id }) => {
       f_ft_weight={style?.f_ft_weight}
       position={style?.position}
     >
+      {img && <img src={img} style={{ width: style?.width }} />}
       {text}
     </StyledButton>
   );

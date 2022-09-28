@@ -6,9 +6,12 @@ export const getCommunityPostListThunk = createAsyncThunk("GET_COMMUNITY_POST_LI
   try {
     console.log(payload);
     // const resp = await api.get(`/community?orderby=new&size=10&page=0`);
-    const resp = await api.get(`/community?page=0&size=10&sort=new&direction=asc`);
+    // const resp = await api.get(`/community?page=0&size=10&sort=new&direction=asc`);
 
-    return (thunkAPI.fulfillWithValue(resp.data.data.content))
+    const resp = await api.get(`/community?sort=new&pagenum=0&pagesize=10`);
+    console.log(resp)
+
+    return (thunkAPI.fulfillWithValue(resp.data.data))
   } catch (err) {
     return thunkAPI.rejectWithValue(err.code);
   }
@@ -19,20 +22,28 @@ export const getCommunityDetailThunk = createAsyncThunk("GET_COMMUNITY_DETAIL", 
   try {
     console.log("id:", payload);
     const resp = await api.get(`/community/${payload}`);
-
+    console.log(resp)
     return (thunkAPI.fulfillWithValue(resp.data.data))
   } catch (err) {
     return thunkAPI.rejectWithValue(err.code);
   }
 });
 
-/** 게시글 둥록 */
+/** 게시글 등록 */
 export const getCommunityPostThunk = createAsyncThunk("GET_COMMUNITY_POST", async (payload, thunkAPI) => {
   try {
-    console.log(JSON.stringify(payload))
-    const resp = await api_auth.post('/community/create', payload, {"Content-Type": "application/json"});
+    console.log(payload)
+    
+    const formData = new FormData();
+    formData.append("data" ,  
+    new Blob([JSON.stringify(payload.data)], {
+      type: "application/json;charset=UTF-8",
+    }));
+    formData.append("imgUrl" , payload.imgUrl[0])
+
+    const resp = await api_auth.post('/community/create', formData, {"Content-Type": "multipart/form-data"});
     console.log(resp)
-    // return (thunkAPI.fulfillWithValue(resp.data.data))
+    return (thunkAPI.fulfillWithValue(resp.data.data))
   } catch (err) {
     return thunkAPI.rejectWithValue(err.code);
   }

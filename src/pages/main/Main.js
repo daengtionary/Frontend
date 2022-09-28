@@ -10,12 +10,22 @@ import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import { useDispatch, useSelector } from "react-redux";
-import { mainCommunity, mainList, mainTrade, resetMain } from "../../redux/modules/mainSlice";
+import { mainCommunityThunk, mainListThunk, mainTradeThunk, resetMain } from "../../redux/modules/mainSlice";
 import { reset } from "../../redux/modules/listSlice";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { clearTradeItem } from "../../redux/modules/tradeSlice";
+import placeButtonImg from "../../static/image/플레이스.jpg";
+import matchButtonImg from "../../static/image/매칭.jpg";
+import tradeButtonImg from "../../static/image/장터.jpg";
+import communityButtonImg from "../../static/image/커뮤니티.jpg";
+import banner_01 from "../../static/image/베너01_.jpg";
+import banner_02 from "../../static/image/댕매칭.jpg";
+import banner_03 from "../../static/image/이용방법.jpg";
+import medal_01 from "../../static/image/메달1.png";
+import medal_02 from "../../static/image/메달2.png";
+import medal_03 from "../../static/image/메달3.png";
 
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
@@ -31,15 +41,17 @@ const Main = () => {
   console.log(pathname, search);
 
   useEffect(() => {
-    // mainHotButtonList.map((btn) => dispatch(mainList(btn.category)));
-    dispatch(mainList("/hospital"));
+    // mainHotButtonList.map((btn) => dispatch(mainListThunk(btn.category)));
+    dispatch(mainListThunk("/hospital"));
   }, []);
 
   const mainButtonList = [
-    { name: "병원", category: "hospital" },
-    { name: "댕친구", category: "matching" },
-    { name: "장터", category: "trade" },
-    { name: "커뮤니티", category: "community" },
+
+    { name: "댕매칭", category: "all", img: matchButtonImg },
+    { name: "댕플레이스", category: "all", img: placeButtonImg },
+    { name: "장터", category: "trade", img: tradeButtonImg },
+    { name: "커뮤니티", category: "community", img: communityButtonImg },
+
   ];
   // const mainCardList = ["인기 병원", "인기 숙소", "인기 장터", "인기 게시물"];
   const mainCommentList = [
@@ -60,11 +72,14 @@ const Main = () => {
   const mainHotButtonList = [
     { id: 0, text: "#동물병원", category: "hospital" },
     { id: 1, text: "#애견호텔", category: "room" },
-    { id: 2, text: "#중고장터", category: "trade" }, // room community 등으로 교체 해야함
-    { id: 3, text: "#커뮤니티", category: "community" }, // room community 등으로 교체 해야함
+    { id: 2, text: "#중고장터", category: "trade" },
+    // { id: 3, text: "#커뮤니티", category: "community" },
   ];
   const [category, setCategory] = useState("hospital");
   console.log(category);
+
+  const rankMedalList = [medal_01, medal_02, medal_03];
+
   const onClickHandler = (i) => {
     const newArr = Array(mainHotButtonList.length).fill(false);
     newArr[i] = true;
@@ -73,15 +88,15 @@ const Main = () => {
     if (i === 0) {
       setCategory("hospital");
       // dispatch(clearTradeItem());
-      dispatch(mainList(mainHotButtonList[i].category));
+      dispatch(mainListThunk(mainHotButtonList[i].category));
     } else if (i === 1) {
       setCategory("room");
       // dispatch(clearTradeItem());
-      dispatch(mainList(mainHotButtonList[i].category));
+      dispatch(mainListThunk(mainHotButtonList[i].category));
     } else if (i === 2) {
       setCategory("trade");
       dispatch(
-        mainTrade({
+        mainTradeThunk({
           category: "trade",
           page: 0,
           size: "4",
@@ -92,7 +107,7 @@ const Main = () => {
     } else {
       setCategory("community");
       dispatch(
-        mainCommunity({
+        mainCommunityThunk({
           category: "community",
           page: 0,
           size: "4",
@@ -117,13 +132,13 @@ const Main = () => {
         centeredSlides={true}
       >
         <SwiperSlide>
-          <StyledMainBanner background={"#0000ff50"}>배너1</StyledMainBanner>
+          <StyledMainBanner backgroundImg={banner_01} />
         </SwiperSlide>
         <SwiperSlide>
-          <StyledMainBanner background={"#00ff0050"}>배너2</StyledMainBanner>
+          <StyledMainBanner backgroundImg={banner_02} />
         </SwiperSlide>
         <SwiperSlide>
-          <StyledMainBanner>배너3</StyledMainBanner>
+          <StyledMainBanner backgroundImg={banner_03} />
         </SwiperSlide>
       </StyledSwiper>
       <StyledMainButtonWrap>
@@ -136,6 +151,7 @@ const Main = () => {
                 navigate("/" + mainButton.category);
                 dispatch(reset());
               }}
+              img={mainButton.img}
               style={{
                 width: "10em",
                 height: "10em",
@@ -146,7 +162,7 @@ const Main = () => {
                 bd_radius: "50%",
                 bd_color: "transparent",
               }}
-            />
+            ></Button>
             <div>{mainButton.name}</div>
           </StyledMainButtonBox>
         ))}
@@ -174,8 +190,8 @@ const Main = () => {
               pd_bottom: "8px",
               pd_left: "14px",
               pd_right: "14px",
-              hv_color: "#000",
-              hv_bd_color: "#000",
+              hv_color: "#767676",
+              hv_bd_color: "#767676",
               f_color: "#000",
               f_bd_color: "#000",
               ft_weight: "700",
@@ -187,11 +203,12 @@ const Main = () => {
       </StyledMainHotButtonbWrap>
       <StyledMainCardWrap>
         {category === "hospital"
-          ? dataList.map(
+          ? // ? [1, 2, 3, 4].map(
+            dataList.map(
               (data, i) => (
                 <Card
                   key={i}
-                  rank={i + 1}
+                  rank={rankMedalList[i]}
                   _onClick={() => navigate(`/detail/${data.mapNo}`)}
                   // _onClick={() => navigate(`/tradeDetail/${data.tradeNo}`)}
                   data={data}
@@ -201,13 +218,15 @@ const Main = () => {
               // console.log(category)
             )
           : category === "room"
-          ? dataList.map((data, i) => <Card key={i} rank={i + 1} _onClick={() => alert("준비 중 입니다..")} data={data} category={data.category} />)
+          ? dataList.map((data, i) => <Card key={i} rank={rankMedalList[i]} _onClick={() => alert("준비 중 입니다..")} data={data} category={data.category} />)
           : category === "trade"
           ? dataList.map((data, i) => (
-              <Card key={i} rank={i + 1} _onClick={() => navigate(`/tradeDetail/${data.tradeNo}`, )} data={data} category={data.category} />
+
+              <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/tradeDetail/${data.tradeNo}`)} data={data} category={data.category} />
+
             ))
           : dataList.map((data, i) => (
-              <Card key={i} rank={i + 1} _onClick={() => navigate(`/${category}/${data.communityNo}`)} data={data} category={data.category} />
+              <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/${category}/${data.communityNo}`)} data={data} category={data.category} />
             ))}
         {/* {dataList.map((data, i) => (
           <Card
@@ -248,7 +267,7 @@ const StyledSwiper = styled(Swiper)`
   height: 36em;
 `;
 const StyledMainBanner = styled.div`
-  background: ${(props) => props.background};
+  background: ${(props) => `url(${props.backgroundImg}) center / cover no-repeat `};
   width: 100%;
   height: 36em;
 `;
@@ -260,7 +279,7 @@ const StyledMainButtonWrap = styled.div`
   /* width: 50%;
   height: auto; */
 
-  margin: 80px 0;
+  margin: 80px 0 40px 0;
 `;
 const StyledMainButtonBox = styled.div`
   display: flex;
@@ -280,11 +299,9 @@ const StyledMainCardWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /* flex-basis: 25%;
-  flex-grow: 1; */
 
   width: 70%;
-  height: 32em;
+  height: 26em;
 
   margin: 60px 0;
 `;

@@ -421,7 +421,7 @@ const Detail = () => {
         </BusinessDescription>
       </BusinessInfo>
 
-      <ReservationWrap>
+      {/* <ReservationWrap>
         <CalendarWrap>
           <Calendar onChange={setCalendar} value={calendar} />
         </CalendarWrap>
@@ -457,7 +457,7 @@ const Detail = () => {
             </TimeBox>
           </ResevationBottom>
         </TimeWrap>
-      </ReservationWrap>
+      </ReservationWrap> */}
 
       <ReviewWrap>
         {data.mapReviewList?.map((el) => {

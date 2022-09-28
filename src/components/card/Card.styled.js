@@ -1,41 +1,63 @@
 import styled from "styled-components";
 
 export const StyledCardBox = styled.div`
+  /* width: 20em; */
   margin: 0 5px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   /* flex: 1 1 0; */
   position: relative;
+  cursor: pointer;
+  :hover {
+    border-radius: 20px;
+    transition: box-shadow 0.2s ease-in-out;
+    box-shadow: 2px 2px 5px gray;
+    > div:nth-child(2) > div {
+      transform: scale(1.1);
+    }
+    /* div > div {
+      :first-child {
+        :last-child {
+          transform: scale(1.1);
+        }
+      }
+    } */
+  }
 `;
 export const StyledRankBadge = styled.div`
   display: block;
   text-align: center;
   line-height: 2em;
   position: absolute;
-  top: -20px;
-  left: -7px;
-  background: #ffc;
-  width: 2em;
-  height: 2em;
-  border: 3px solid #666;
-  border-radius: 50%;
+  top: 0;
+  left: 12px;
+  background: ${(props) => `url(${props.rank}) center / cover no-repeat `};
+  width: 3em;
+  height: 3em;
+  /* border: 3px solid #666; */
+  /* border-radius: 50%; */
+  z-index: 2;
 `;
 export const StyledCardImgBox = styled.div`
-  /* border-bottom: 30px solid #cccccc90;
-  border-top: 30px solid #cccccc90; */
-  border-radius: 20px;
-  background: ${(props) =>
-    `url(${props.background}) center / cover no-repeat `};
-  min-height: 16em;
   width: 18em;
+  height: 18em;
   flex: 3 3;
+  /* margin: 0 1.5em; */
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
 `;
-// export const StyledCardImg = styled.img``;
+export const StyledCardImg = styled.div`
+  border-radius: 20px 20px 0 0;
+  background: ${(props) => `url(${props.background}) center / cover no-repeat `};
+  min-height: 100%;
+  width: 18em;
+  transition: transform 0.2s ease-in-out;
+`;
 export const StyledCardTextBox = styled.div`
   width: 18em;
   padding: 0.5em 0;
-  flex: 1 1;
+  /* flex: 1 1; */
 `;
 export const StyledCardText = styled.div`
   display: inline-block;

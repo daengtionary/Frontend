@@ -1,12 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useMatch } from "react-router-dom";
-import {
-  FloatWrap,
-  ChatButtonWrap,
-  ChatButton,
-  NewNoti,
-} from "./ChatFloatButton.styled";
+import { FloatWrap, ChatButtonWrap, ChatButton, NewNoti } from "./ChatFloatButton.styled";
 
 import { setNotification } from "../../redux/modules/chatSlice";
 import { SmileChatSVG } from "../../elements/svg/SVG";
@@ -19,10 +14,6 @@ const ChatFloatButton = () => {
   const memberNo = window.localStorage.getItem("memberNo");
   console.log(memberNo);
   const eventSource = useRef();
-  
-
-  
-
 
   // useEffect(() => {
   //   if (memberNo) {
@@ -56,7 +47,7 @@ const ChatFloatButton = () => {
     <>
       {memberNo && (
         <FloatWrap>
-          <Link to={`/chat`} >
+          <Link to={`/chat`}>
             <ChatButtonWrap>
               <ChatButton>
                 {notification && <NewNoti />}
@@ -65,7 +56,7 @@ const ChatFloatButton = () => {
             </ChatButtonWrap>
           </Link>
         </FloatWrap>
-    )}
+      )}
     </>
   );
 };
