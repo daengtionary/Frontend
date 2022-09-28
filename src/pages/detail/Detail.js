@@ -33,6 +33,7 @@ import {
   ProfileImg,
   Nick,
   Star,
+  StarNum,
 } from "./Detail.styled";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
@@ -42,9 +43,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetailThunk } from "../../redux/modules/detailSlice";
 import { useParams } from "react-router-dom";
 
-// Calendar import 삭제 예정
-import Calendar from "react-calendar";
-import "./Calendar.css"; // css import
+import { showStars } from "../../shared/showStars" 
 
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
@@ -62,286 +61,6 @@ const Detail = () => {
   console.log(data);
   console.log(data.star);
 
-  const showStars = (star) => {
-    if (star > 0 && star < 0.5) {
-      return (
-        <div>
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-        </div>
-      );
-    } else if (star >= 0.5 && star < 1) {
-      return (
-        <div>
-          <StarIcon
-            alt="halfStar"
-            src={`${process.env.PUBLIC_URL}/img/halfStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-        </div>
-      );
-    } else if (star >= 1 && star < 1.5) {
-      return (
-        <div>
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-        </div>
-      );
-    } else if (star >= 1.5 && star < 2) {
-      return (
-        <div>
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="halfStar"
-            src={`${process.env.PUBLIC_URL}/img/halfStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-        </div>
-      );
-    } else if (star >= 2 && star < 2.5) {
-      return (
-        <div>
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-        </div>
-      );
-    } else if (star >= 2.5 && star < 3) {
-      return (
-        <div>
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="halfStar"
-            src={`${process.env.PUBLIC_URL}/img/halfStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-        </div>
-      );
-    } else if (star >= 3 && star < 3.5) {
-      return (
-        <div>
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-        </div>
-      );
-    } else if (star >= 3.5 && star < 4) {
-      return (
-        <div>
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="halfStar"
-            src={`${process.env.PUBLIC_URL}/img/halfStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-        </div>
-      );
-    } else if (star >= 4 && star < 4.5) {
-      return (
-        <div>
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="emptyStar"
-            src={`${process.env.PUBLIC_URL}/img/emptyStar.png`}
-          />
-        </div>
-      );
-    } else if (star >= 4.5 && star < 5) {
-      return (
-        <div>
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="halfStar"
-            src={`${process.env.PUBLIC_URL}/img/halfStar.png`}
-          />
-        </div>
-      );
-    } else if (star === 5) {
-      return (
-        <div>
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-          <StarIcon
-            alt="filledStar"
-            src={`${process.env.PUBLIC_URL}/img/filledStar.png`}
-          />
-        </div>
-      );
-    } else {
-      return <div>별점 정보가 없습니다.</div>;
-    }
-  };
 
   const { id } = useParams();
   console.log(id);
@@ -377,8 +96,12 @@ const Detail = () => {
       </BusinessTitle>
 
       <StarRating>
-        {showStars(data.star)}
-        {data.star}
+        <div>
+          {showStars(data.mapStar)}
+        </div>
+        <div>
+          {data.mapStar}
+        </div>
       </StarRating>
 
       <MapAddress>
