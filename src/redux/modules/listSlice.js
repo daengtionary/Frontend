@@ -1,85 +1,77 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import { api } from "../../shared/api";
 
-export const getList = createAsyncThunk(
-  "listSlice/getList",
-  async (payload, thunkAPI) => {
-    console.log(JSON.stringify(payload));
-    const { pathname, page, address, sort, size } = payload;
-    console.log(payload);
-    const params = {
-      address,
-      page,
-      size,
-      sort,
-      direction: "dasc",
-    };
-    const resData = await api
-      .get(`${pathname}`, { params })
-      .then((res) => res)
-      .catch((err) => console.log(err));
-    console.log(resData.data.data);
-    return thunkAPI.fulfillWithValue(resData.data.data.content);
-  }
-);
-export const searchList = createAsyncThunk(
-  "listSlice/searchList",
-  async (payload, thunkAPI) => {
-    console.log(JSON.stringify(payload));
-    const { pathname, page, title, address, sort, content, nick, size } =
-      payload;
-    console.log(payload);
-    const params = {
-      title,
-      content,
-      nick,
-      address,
-      page,
-      size,
-      sort,
-      direction: "dasc",
-    };
-    const resData = await api
-      .get(`${pathname}/search`, { params })
-      // .get(
-      //   "/hospital/search?title=정서&content&nick&address=인천&direction=asc&page=0&size=10&sort=new"
-      // )
+//전체 조회
+// export const getAllListThunk = createAsyncThunk("listSlice/getAllListThunk", async (payload, thunkAPI) => {
+//   console.log(JSON.stringify(payload));
+//   const { category, page, title, address, sort, content, nick, size } = payload;
+//   const params = {
+//     category: "",
+//     title,
+//     content,
+//     nick,
+//     address,
+//     pagenum: page,
+//     pagesize: size,
+//     sort,
+//     // direction: "dasc",
+//   };
+//   console.log(payload);
+//   const resData = await api
+//     .get(`/query`, { params })
+//     // .get(`/query?category&title=&content&nick&address=&direction=desc&page=0&size=30&sort=new`)
+//     .then((res) => res)
+//     .catch((err) => console.log(err));
+//   console.log(resData.data.data);
+//   return thunkAPI.fulfillWithValue({ data: resData.data.data, page: payload.page });
+// });
 
-      .then((res) => res)
-      .catch((err) => console.log(err));
-    console.log(resData.data.data);
-    return thunkAPI.fulfillWithValue(resData.data.data.content);
-  }
-);
-export const firstList = createAsyncThunk(
-  "listSlice/firstList",
-  async (payload, thunkAPI) => {
-    console.log(JSON.stringify(payload));
-    const { pathname, page, title, address, sort, content, nick, size } =
-      payload;
-    console.log(payload);
-    const params = {
-      title,
-      content,
-      nick,
-      address,
-      page,
-      size,
-      sort,
-      direction: "dasc",
-    };
-    const resData = await api
-      .get(`${pathname}/search`, { params })
-      // .get(
-      //   "/hospital/search?title=정서&content&nick&address=인천&direction=asc&page=0&size=10&sort=new"
-      // )
+//무한스크롤, 검색
+export const searchListThunk = createAsyncThunk("listSlice/searchListThunk", async (payload, thunkAPI) => {
+  console.log(JSON.stringify(payload));
+  const { pathname, page, title, address, sort, content, nick, size } = payload;
+  console.log(payload);
+  const params = {
+    title,
+    content,
+    nick,
+    address,
+    pagenum: page,
+    pagesize: size,
+    sort,
+    // direction: "dasc",
+  };
+  const resData = await api
+    .get(`${pathname}`, { params })
+    .then((res) => res)
+    .catch((err) => console.log(err));
+  console.log(resData);
+  return thunkAPI.fulfillWithValue({ data: resData.data.data, page: payload.page });
+});
 
-      .then((res) => res)
-      .catch((err) => console.log(err));
-    console.log(resData.data.data);
-    return thunkAPI.fulfillWithValue(resData.data.data.content);
-  }
-);
+//카테고리 전환시
+export const firstListThunk = createAsyncThunk("listSlice/firstListThunk", async (payload, thunkAPI) => {
+  console.log(JSON.stringify(payload));
+  const { pathname, page, title, address, sort, content, nick, size } = payload;
+  console.log(payload);
+  const params = {
+    title,
+    content,
+    nick,
+    address,
+    pagenum: page,
+    pagesize: size,
+    sort,
+    // direction: "dasc",
+  };
+  const resData = await api
+    .get(`${pathname}`, { params })
+    .then((res) => res)
+    .catch((err) => console.log(err));
+  console.log(resData.data.data);
+  return thunkAPI.fulfillWithValue({ data: resData.data.data, page: payload.page });
+});
 
 const initialState = {
   isLoad: false,
@@ -87,6 +79,8 @@ const initialState = {
   getList: [],
   getListFirst: [],
   searchList: [],
+  pageNum: 0,
+  isChecked: [false, false, false, false],
 };
 
 export const listSlice = createSlice({
@@ -99,38 +93,60 @@ export const listSlice = createSlice({
     resetLoad(state) {
       state.isLoad = false;
     },
+    resetEnd(state) {
+      state.isEnd = false;
+    },
+    pageUp(state, action) {
+      console.log(action.payload);
+      if (state.isEnd === false) {
+        state.pageNum = state.pageNum + action.payload;
+      }
+    },
+    setChecked(state, action) {
+      console.log(action.payload);
+      const newArr = Array(state.isChecked.length).fill(false);
+      newArr[action.payload] = true;
+      state.isChecked = newArr;
+      state.pageNum = 0;
+      console.log(state.isChecked);
+    },
   },
 
   extraReducers: (builder) => {
-    builder.addCase(getList.fulfilled, (state, action) => {
+    // builder.addCase(getAllListThunk.fulfilled, (state, action) => {
+    //   state.isLoad = true;
+    //   state.getList = [...state.getList, ...action.payload.data];
+    //   console.log(state.getList);
+    //   console.log(action.payload);
+    //   // if ([action.payload].length === 0) {
+    //   //   state.isEnd = true;
+    //   // }
+    // });
+    builder.addCase(searchListThunk.fulfilled, (state, action) => {
       state.isLoad = true;
-      state.getList = [...state.getList, ...action.payload];
+      state.pageNum = action.payload.page;
+      if (state.pageNum === 0) {
+        state.getList = [...action.payload.data];
+      } else if (action.payload.page * action.payload.data.length >= state.getList.length) {
+        // console.log(action.payload.page * action.payload.data.length, state.getList.length);
+        state.getList = [...state.getList, ...action.payload.data];
+      }
       console.log(state.getList);
-      console.log(action.payload);
-      if ([action.payload].length === 0) {
+      if (action.payload.data.length < 4) {
         state.isEnd = true;
       }
     });
-    builder.addCase(searchList.fulfilled, (state, action) => {
+    builder.addCase(firstListThunk.fulfilled, (state, action) => {
       state.isLoad = true;
-      state.getList = [...state.getList, ...action.payload];
-      console.log(state.searchList);
-      console.log(action.payload);
-      if (action.payload.length < 4) {
-        state.isEnd = true;
-      }
-    });
-    builder.addCase(firstList.fulfilled, (state, action) => {
-      state.isLoad = true;
-      state.getList = [...action.payload];
-      console.log(state.searchList);
-      console.log(action.payload);
-      if (action.payload.length < 4) {
+      // state.pageNum = action.payload.pageable.pageNumber;
+      state.pageNum = 0;
+      state.getList = [...action.payload.data];
+      if (action.payload.data.length < 4) {
         state.isEnd = true;
       }
     });
   },
 });
 
-export const { reset, resetLoad } = listSlice.actions;
+export const { reset, resetLoad, resetEnd, pageUp, setChecked } = listSlice.actions;
 export default listSlice.reducer;

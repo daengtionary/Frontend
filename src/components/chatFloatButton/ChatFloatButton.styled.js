@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const FloatWrap = styled.div`
+  display: none;
   z-index: 9;
   position: fixed;
   bottom: 30px;
@@ -10,7 +11,6 @@ export const FloatWrap = styled.div`
     right: 20px;
   }
 `;
-
 
 export const ChatButtonWrap = styled.div`
   width: 57px;
@@ -41,11 +41,9 @@ export const ChatButtonWrap = styled.div`
   }
 `;
 
-
 export const ChatButton = styled.div`
   position: relative;
 `;
-
 
 export const NewNoti = styled.div`
   width: 14px;

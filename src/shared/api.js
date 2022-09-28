@@ -11,12 +11,8 @@ export const api_auth = axios.create({
 
 api_auth.interceptors.request.use(
   function (config) {
-    config.headers["authorization"] = `Bearer ${window.sessionStorage.getItem(
-      "authorization"
-    )}`;
-    config.headers["refresh-token"] = `${window.sessionStorage.getItem(
-      "refresh-token"
-    )}`;
+    config.headers["authorization"] = `Bearer ${window.sessionStorage.getItem("authorization")}`;
+    config.headers["refresh-token"] = `${window.sessionStorage.getItem("refresh-token")}`;
     return config;
   },
   function (error) {
@@ -33,7 +29,7 @@ export const api = axios.create({
 });
 
 export const chatApi = axios.create({
-  baseURL: `http://${process.env.REACT_APP_CHAT_API_IP}`,
+  baseURL: `https://${process.env.REACT_APP_CHAT_API_IP}`,
   headers: {
     "content-type": "application/json;charset=UTF-8",
     // accept: "application/json,",
