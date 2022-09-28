@@ -3,8 +3,8 @@ import CommunityCard from "../../components/communityCard/CommunityCard";
 import CommunityPost from "../../components/communityPost/CommunityPost";
 import SearchBar from "../../components/searchBar/SearchBar";
 
-import { CommunityContainer, CommunityWrap, SideBar, ContentsLayout, Cards, ButtonWrap, CommunityTop, TopLayout, StyledSerchImg } from "./Community.styled";
-import { ModalBackground } from "../../components/map/Map.styled";
+import { StyledCommunityContainer, StyledCommunityWrap, StyledSideBar, StyledContentsLayout, StyledCards, StyledButtonWrap, StyledCommunityTop, TopLayout, StyledSerchImg } from "./Community.styled";
+import { StyledModalBackground } from "../../components/map/Map.styled";
 import jwtDecode from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -16,9 +16,9 @@ import Input from "../../elements/input/Input";
 const Community = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const obsRef = useRef(null); //옵저버 요소
-  const preventRef = useRef(true); //옵저버 중복 실행 방지
-  const endRef = useRef(false); //모든 글 로드 확인
+  // const obsRef = useRef(null); //옵저버 요소
+  // const preventRef = useRef(true); //옵저버 중복 실행 방지
+  // const endRef = useRef(false); //모든 글 로드 확인
 
   const [page, setPage] = useState(0); // 현재 페이지
   const [postModal, setPostModal] = useState(false);
@@ -27,19 +27,19 @@ const Community = () => {
   // const [post, setPost] = useState(false);
   
 
-  useEffect(()=> { //옵저버 생성
-    const observer = new IntersectionObserver(observerHandler, { threshold : 0.5 });
-    if(obsRef.current) observer.observe(obsRef.current);
-    return () => { observer.disconnect(); }
-}, [])
+//   useEffect(()=> { //옵저버 생성
+//     const observer = new IntersectionObserver(observerHandler, { threshold : 0.5 });
+//     if(obsRef.current) observer.observe(obsRef.current);
+//     return () => { observer.disconnect(); }
+// }, [])
 
-  const observerHandler = ((entries) => { //옵저버 콜백함수
-    const target = entries[0];
-    if(!endRef.current && target.isIntersecting && preventRef.current){ //옵저버 중복 실행 방지
-      preventRef.current = false; //옵저버 중복 실행 방지
-      setPage(prev => prev+1 ); //페이지 값 증가
-    }
-})
+//   const observerHandler = ((entries) => { //옵저버 콜백함수
+//     const target = entries[0];
+//     if(!endRef.current && target.isIntersecting && preventRef.current){ //옵저버 중복 실행 방지
+//       preventRef.current = false; //옵저버 중복 실행 방지
+//       setPage(prev => prev+1 ); //페이지 값 증가
+//     }
+// })
 
   const data = useSelector((state) => state.community.community);
   // const test = useSelector((state) => state);
@@ -81,8 +81,8 @@ const Community = () => {
   }, [dispatch]);
 
   return (
-    <CommunityContainer>
-      <CommunityTop>
+    <StyledCommunityContainer>
+      <StyledCommunityTop>
         <TopLayout>
           <h3>댕과사전 커뮤니티</h3>
 
@@ -108,26 +108,26 @@ const Community = () => {
             />
           {/* <SearchBar /> */}
         </TopLayout>
-      </CommunityTop>
+      </StyledCommunityTop>
 
-      <ContentsLayout marginTop={"70px"}>
-        <ButtonWrap>
+      <StyledContentsLayout marginTop={"70px"}>
+        <StyledButtonWrap>
           <button onClick={modalHandler}>글쓰기</button>
-        </ButtonWrap>
-      </ContentsLayout>
+        </StyledButtonWrap>
+      </StyledContentsLayout>
 
-      <ContentsLayout>
-        <CommunityWrap>
-          <Cards>
+      <StyledContentsLayout>
+        <StyledCommunityWrap id="this">
+          <StyledCards>
             {data &&
               data?.map((el) => {
-                return <CommunityCard modalHandler={modalHandler} key={el.communityNo} data={el} userNick={userNick} ref={obsRef}/>;
+                return <CommunityCard modalHandler={modalHandler} key={el.communityNo} data={el} userNick={userNick}/>;
               })}
-          </Cards>
-        </CommunityWrap>
+          </StyledCards>
+        </StyledCommunityWrap>
       {postModal && <PostModal modalHandler={modalHandler} nick={userNick} />}
-      </ContentsLayout>
-    </CommunityContainer>
+      </StyledContentsLayout>
+    </StyledCommunityContainer>
   );
 };
 

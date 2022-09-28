@@ -17,6 +17,7 @@ import {
   User,
   ContentImg,
   CategoryTitleWrap,
+  DefaultImg,
 } from "./CommunityCard.styled";
 
 const CommunityCard = ({ data, modalHandler }) => {
@@ -61,8 +62,13 @@ const CommunityCard = ({ data, modalHandler }) => {
           <Dog>{data.breed}</Dog>
           <User>{data.nick}</User>
         </Names>
-
-        <ContentImg alt="" src={data.communityImg}/>
+        
+        {data.communityImg ? (
+        <ContentImg alt="" src={data.communityImg}/>):
+        (
+          <DefaultImg/>
+        )}
+        {/* <ContentImg alt="" src={data.communityImg}/> */}
 
         <CategoryTitleWrap>
           <Category>{data.category}없음</Category>

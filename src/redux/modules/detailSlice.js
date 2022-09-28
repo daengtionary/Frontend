@@ -13,6 +13,18 @@ export const getDetailThunk = createAsyncThunk("GET_DETAIL", async (payload, thu
   }
 });
 
+/** 게시물 댓글 작성 */
+// export const postDetailCommentThunk = createAsyncThunk("POST_DETAIL_COMMENT", async (payload, thunkAPI) => {
+//   try {
+//     console.log(payload);
+//     const resp = await api.get(`hospital/${payload}`);
+
+//     return (console.log(resp), thunkAPI.fulfillWithValue(resp.data.data))
+//   } catch (err) {
+//     return thunkAPI.rejectWithValue(err.code);
+//   }
+// });
+
 const initialState = {
   detail: [],
 };
