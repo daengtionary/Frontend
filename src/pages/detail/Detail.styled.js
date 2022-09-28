@@ -131,6 +131,8 @@ export const Star = styled.div`
 export const StarRating = styled.div`
   width: 80vw;
   display: flex;
+  gap: 10px;
+  align-items: center;
   margin-bottom: 10px;
 
 `

@@ -21,6 +21,7 @@ import { useDispatch } from "react-redux";
 import { addTrade } from "../../redux/modules/tradeSlice";
 import React from "react";
 
+
 //리액트 아이콘
 import { TbCameraPlus } from "react-icons/tb";
 import { MdOutlineCancel } from "react-icons/md";
