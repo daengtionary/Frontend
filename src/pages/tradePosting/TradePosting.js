@@ -13,7 +13,7 @@ import {
   StyleTradePlaceInputGroup,
   StyleTradePlaceSpanBox,
 } from './TradePosting.styled';
-import { Input } from '../../components/communityPost/CommunityPost.styled';
+import Input from "../../elements/input/Input";
 
 const TradePosting = () => {
   const [title, setTitle] = useState('');

@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CommunityDetailRipleCard from "../../components/communityDetialRipleCard/CommunityDetailRipleCard";
-import { CommunityContainer, CommunityWrap, SideBar } from "../community/Community.styled";
-import { DetailWrap, PostContainer, Title, PostInfo, Content, ShowRiples, Riple, WriteRiple, RipleBtn, BottomBtn } from "./CommunityDetail.styled";
+import { StyledCommunityContainer, StyledCommunityWrap} from "../community/Community.styled";
+import { StyledDetailWrap, StyledPostContainer, StyledTitle, StyledPostInfo, StyledContent, StyledShowRiples, StyledRiple, StyledWriteRiple, StyledRipleBtn, StyledBottomBtn } from "./CommunityDetail.styled";
 import { getCommunityDetailThunk } from "../../redux/modules/communitySlice";
-import { map } from "lodash";
+import { groupBy, map } from "lodash";
 const CommunityDetail = () => {
 
   const navigate = useNavigate()
@@ -14,16 +14,11 @@ const CommunityDetail = () => {
   const data = useSelector((state) => state.community.communityDetail);
   console.log("커뮤니티 디테일:",data)
 
+  // const test = useSelector((state)=>console.log(state))
+
   let {id} = useParams();
   console.log(id);
-  
-  const sampleReview = {
-    id : 0,
-    profileImg : "",
-    dogKind: "불독",
-    nick : "닉넴",
-    content: "댓글내용",
-  }
+
 
   useEffect(() => {
     dispatch(getCommunityDetailThunk(id));
@@ -34,45 +29,54 @@ const CommunityDetail = () => {
     e.preventdefault();
   }
 
+  console.log("랜더링 전에 이게 나와야해 :",data.imgList)
+  
   return (
-    <CommunityContainer>
-      <CommunityWrap>
-        {/* <SideBar>
-          <ul>
-            <li>댕과사전 커뮤니티</li>
-          </ul>
-        </SideBar> */}
 
-        <DetailWrap>
-          <PostContainer>
-            <Title>{data.title}</Title>
-            <PostInfo>
+    <StyledCommunityContainer id="super">
+      <StyledCommunityWrap>
+
+        <StyledDetailWrap>
+          <StyledPostContainer marginTop={"60px"}>
+            <StyledTitle>{data?.title}</StyledTitle>
+            <StyledPostInfo>
               <div>분류 : 카테고리{data.communityNo}</div>
               <div>작성자 : {data.nick}</div>
               <div>견종 : {data.breed ? data.breed : "견종정보없음"}</div>
               <div>작성일 : {data.createdAt}</div>
-            </PostInfo>
-            <Content>
+            </StyledPostInfo>
+
+            {console.log("랜더링 됨", data.imgList)}
+
+            <StyledContent>
+              {/* {data.imgList.length !== 0 ? (""): (<div>이미지 없음</div>)} */}
+              {data.imgList?.map((el)=>{
+                return (
+                <div>
+                  <img alt="" src={el} style={{backgroundColor:'gray'}}/>
+                </div>
+                )
+              })}
               <p>{data.content}</p>
-            </Content>
-          </PostContainer>
+            </StyledContent>
+          </StyledPostContainer>
 
-          <Riple onSubmit={OnCommentSubmitHandler}>
-            <WriteRiple placeholder="000글자 이내로 작성해주세요"/>
-            <RipleBtn type="submit">댓글달기</RipleBtn>
-          </Riple>
+          <StyledRiple onSubmit={OnCommentSubmitHandler}>
+            <StyledWriteRiple placeholder="000글자 이내로 작성해주세요"/>
+            <StyledRipleBtn type="submit">댓글달기</StyledRipleBtn>
+          </StyledRiple>
 
-          <ShowRiples>
+          <StyledShowRiples>
             <CommunityDetailRipleCard data={data.reviewList}/>
-          </ShowRiples>
+          </StyledShowRiples>
 
 
-          <BottomBtn>
+          <StyledBottomBtn>
             <button onClick={()=>navigate('/community')}>목록으로</button>
-          </BottomBtn>
-        </DetailWrap>
-      </CommunityWrap>
-    </CommunityContainer>
+          </StyledBottomBtn>
+        </StyledDetailWrap>
+      </StyledCommunityWrap>
+    </StyledCommunityContainer>
   );
 };
 

@@ -15,19 +15,28 @@ import {
   Title,
   Dog,
   User,
+  ContentImg,
+  CategoryTitleWrap,
+  DefaultImg,
 } from "./CommunityCard.styled";
 
-const CommunityCard = ({ data }) => {
+const CommunityCard = ({ data, modalHandler }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(data);
+  // console.log(data);
+  console.log(data.nick);
 
+  const updateHandler = () => {
+    
+
+  }
 
   return (
+
     <CommunityCardWrap>
       <IconWrap>
-        {window.sessionStorage.getItem("nick") === data.nick ? (
+        {window.localStorage.getItem("nick") === data.nick ? (
           <>
             <IconBox length={"24px"} size={"24px"} url={"/img/pen.png"} hover={"blue"} />
             <IconBox
@@ -38,11 +47,11 @@ const CommunityCard = ({ data }) => {
               size={"34px"}
               url={"/img/delete.png"}
               hover={"red"}
-            />
+              />
           </>
         ) : (
           ""
-        )}
+          )}
         <IconBox length={"24px"} size={"24px"} url={"/img/comment.png"} />
         {data.reviewCount === 0 ? <NullCircle/> : <RepleCircle>{data.reviewCount}</RepleCircle>}
       </IconWrap>
@@ -53,17 +62,28 @@ const CommunityCard = ({ data }) => {
           <Dog>{data.breed}</Dog>
           <User>{data.nick}</User>
         </Names>
-        <Category>{data.category}비어</Category>
+        
+        {data.communityImg ? (
+        <ContentImg alt="" src={data.communityImg}/>):
+        (
+          <DefaultImg/>
+        )}
+        {/* <ContentImg alt="" src={data.communityImg}/> */}
+
+        <CategoryTitleWrap>
+          <Category>{data.category}없음</Category>
+          <Title
+            onClick={() => {
+              navigate(`/community/${data.communityNo}`);
+            }}
+            >
+            {data.title}
+          </Title>
+        </CategoryTitleWrap>
         {/* <Title onClick={detailHandler(data.communityNo)}>{data.title}</Title> */}
-        <Title
-          onClick={() => {
-            navigate(`/community/${data.communityNo}`);
-          }}
-        >
-          {data.title}
-        </Title>
       </CardContents>
     </CommunityCardWrap>
+
   );
 };
 

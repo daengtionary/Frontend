@@ -13,6 +13,7 @@ export const CardContents = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 35px;
+  height: 120px;
 `;
 
 export const IconWrap = styled.div`
@@ -109,16 +110,55 @@ export const Names = styled.div`
   margin: 0 20px 0 0;
 `;
 
+export const ContentImg = styled.img`
+  box-sizing: border-box;
+  width: 200px;
+  height: 100%;
+  border-radius: 15px;
+  margin-right: 15px;
+`
+
+export const DefaultImg = styled.div`
+  box-sizing: border-box;
+  width: 200px;
+  height: 100%;
+  border-radius: 15px;
+  margin-right: 15px;
+  
+  background-image: url("img/dogIconGray.png");
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #F1F1F5;
+  
+`
+
+export const CategoryTitleWrap = styled.div`
+  box-sizing: border-box;
+  height: 100%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+`
+
 export const Category = styled.div`
-  border: 1px solid #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #6563ff;
+  color: #6563ff;
   border-radius: 10px;
   padding: 5px 15px;
   font-size: 16px;
   margin-right: 20px;
+  width: 40px;
+  margin-bottom: 20px;
+
 `;
 
 export const Title = styled.div`
-  font-size: 20px;
+  font-size: 15px;
+  color: #797979;
   width: 50%;
   padding: 10px 0;
   cursor: pointer;

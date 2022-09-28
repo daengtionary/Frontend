@@ -12,7 +12,7 @@ const PostModal = ({modalHandler}) => {
             <BsXLg />
           </button>
         </CloseBtm>
-        <CommunityPost />
+        <CommunityPost modalHandler={modalHandler}/>
       </PostModalContainer>
     </ModalBackground>
   );
