@@ -3,11 +3,12 @@ import axios from "axios";
 const SERVER_IP = process.env.REACT_APP_REST_API_IP;
 
 export const api_auth = axios.create({
-  baseURL: `http://${SERVER_IP}`,
+  baseURL: `https://${SERVER_IP}`,
   headers: {
     "content-type": "application/json;charset=UTF-8",
   },
 });
+
 
 api_auth.interceptors.request.use(
   function (config) {
@@ -26,7 +27,7 @@ api_auth.interceptors.request.use(
 );
 
 export const api = axios.create({
-  baseURL: `http://${SERVER_IP}`,
+  baseURL: `https://${SERVER_IP}`,
   headers: {
     "content-type": "application/json;charset=UTF-8",
   },
@@ -51,8 +52,9 @@ chatApi.interceptors.request.use(function (config) {
 export const chatApis = {
   // 채팅
   getRoomList: () => chatApi.get("/chat/rooms"),
-  getMessageList: (roomId) => chatApi.get("/chat/room/" + roomId),
-  addRoom: (memberNo) => chatApi.post("/chat/rooms", { memberNo }),
-  enterRoom: (roomId) => chatApi.get(`/chat/room/${roomId}`),
+  getMessageList: (roomId) => chatApi.get("/chat/message/" + roomId),
+  addRoom: (memberNo) => chatApi.post("/chat/room/personal", { memberNo }),
   exitRoom: (roomId) => chatApi.get(`chat/room/exit/${roomId}`),
+  addMatchingRoom: () => chatApi.post("/chat/room/group"),
 };
+

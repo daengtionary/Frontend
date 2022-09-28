@@ -43,14 +43,13 @@ export const getRoomListDB = () => {
   return async (dispatch) => {
     const response = await chatApis.getRoomList();
     dispatch(getRoomList(response.data));
-    console.log(response)
   };
 };
 
 // 채팅방에서 채팅 내역 받아오기
-export const getMessageListDB = (roomId) => {
+export const getMessageListDB = (roomNo) => {
   return async (dispatch) => {
-    const response = await chatApis.getMessageList(roomId);
+    const response = await chatApis.getMessageList(roomNo);
     dispatch(getMessageList(response.data));
   };
 };
@@ -72,16 +71,16 @@ export default handleActions(
     // 채팅 메시지 추가
     [ADD_MESSAGE]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.messageList.push(payload.messageObj);
+      draft.messageList.data.push(payload.messageObj);
       }),
 
-    // 채팅 리스트의 메시지 갱신
-    [UPDATE_ROOM_MESSAGE]: (state, { payload }) =>
-      produce(state, (draft) => {
-        draft.roomList[payload.messageObj.index].message =
-          payload.messageObj.message;
-        draft.roomList[payload.messageObj.index].date = payload.messageObj.date;
-      }),
+    // // 채팅 리스트의 메시지 갱신
+    // [UPDATE_ROOM_MESSAGE]: (state, { payload }) =>
+    //   produce(state, (draft) => {
+    //     draft.roomList[payload.messageObj.index].message =
+    //       payload.messageObj.message;
+    //     draft.roomList[payload.messageObj.index].date = payload.messageObj.date;
+    //   }),
 
     // 메시지 지우기
     [CLEAN_UP_MESSAGE]: (state, { payload }) =>

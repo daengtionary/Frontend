@@ -15,15 +15,18 @@ export const Dim = styled.div`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.6);
+  
 `;
 export const Wrap = styled.div`
   position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 75%;
-  height: 82%;
+  top: 60%;
+  left: 80%;
+  width:  400px;
+  height: 600px;
   max-width: 1360px;
+  min-width: 400px;
   max-height: 1160px;
+  min-height: 600px;
   transform: translate(-50%, -50%);
   background-color: #fff;
   display: flex;
@@ -35,9 +38,10 @@ export const Wrap = styled.div`
   }
 `;
 export const Title = styled.div`
-  margin: 30px;
+  margin: 20px;
+  margin-left: 30px;
   font-weight: 700;
-  font-size: ${({ theme }) => theme.fontSizes.xl};
+  font-size: ${({ theme }) => theme.fontSizes.l};
   display: flex;
   justify-content: space-between;
   span {
@@ -48,7 +52,7 @@ export const Title = styled.div`
   }
 `;
 export const LeftWrap = styled.div`
-  width: 33%;
+  width: 100%;
   @media screen and (max-width: 768px) {
     display: ${({ isRoom }) => isRoom && "none"};
     width: ${({ isRoom }) => !isRoom && "100%"};
@@ -58,17 +62,23 @@ export const ListWrap = styled.div`
   height: 80%;
   overflow-y: auto;
   border-top: 1px solid ${({ theme }) => theme.colors.gray};
+  @media screen and (max-width: 768px) {
+    display: ${({ isRoom }) => !isRoom && "none"};
+    width: ${({ isRoom }) => isRoom && "100%"};
+    display: none;
+    width: 100%;
+  }
 `;
 export const RoomWrap = styled.div`
   padding-top: 45px;
-  width: 67%;
+  width: 0%;
   display: flex;
   flex-direction: column-reverse;
   border-left: 1px solid ${({ theme }) => theme.colors.gray};
   position: relative;
   @media screen and (max-width: 768px) {
-    /* display: ${({ isRoom }) => !isRoom && "none"};
-    width: ${({ isRoom }) => isRoom && "100%"}; */
+    display: ${({ isRoom }) => !isRoom && "none"};
+    width: ${({ isRoom }) => isRoom && "100%"};
     display: none;
     width: 100%;
   }

@@ -27,6 +27,7 @@ const TradeDetail = () => {
   const title = location.state.title;
   const nick = location.state.nick;
   const id = location.state.id;
+  console.log(id)
 
   //채팅 룸 생성
   const onClickChat = async () => {
@@ -52,13 +53,10 @@ const TradeDetail = () => {
             </ItemNameInfoText>
             <ItemDetailInfoText>
               <span>
-                판매자 <span className="sellerNick">{nick}</span>
+                판매자 <span className="sellInfo">{nick}</span>
               </span>
               <span>
                 상품상태 <span className="sellInfo">거의 새것</span>
-              </span>
-              <span>
-                교환여부교환 <span className="sellInfo">불가능</span>
               </span>
               <span>
                 배송비 <span className="sellInfo">배송비 미포함</span>

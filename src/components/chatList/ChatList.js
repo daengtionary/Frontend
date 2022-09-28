@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { 
@@ -12,6 +12,7 @@ import {
   Status
 } from "./ChatList.styled"
 import moment from "moment";
+import "moment/locale/ko";
 
 import {
   cleanUpMessage,
@@ -19,30 +20,43 @@ import {
   getRoomListDB,
 } from "../../redux/modules/chatSlice";
 
+
 // 채팅 > 채팅방 > 채팅 내역
 const ChatList = () => {
   const dispatch = useDispatch();
-  const { roomId } = useParams();
+  const { roomNo } = useParams();
   const scrollRef = useRef();
-  const user = window.localStorage.getItem("nick")
-  let messageList = useSelector((state) => state.chat.messageList);
+  const user = window.localStorage.getItem("nick");
+
+  const messageList = useSelector((state) => state.chat.messageList);
   console.log(messageList)
+
+
+  
 
   useEffect(() => {
     dispatch(cleanUpMessage());
-    dispatch(getMessageListDB(roomId));
-  }, [roomId]);
+    dispatch(getMessageListDB(roomNo));
+  }, [roomNo]);
 
   useEffect(() => {
     // 채팅 메시지 내역 자동 스크롤
     scrollRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
 
-    // 새로운 채팅방인 경우, 메시지 보내는 순간 방이 생성되기 때문에
-    // 좌측 채팅방 리스트에 표시해주기 위해 GET 요청 보냄.
-    if (messageList.length === 1) {
-      dispatch(getRoomListDB());
-    }
   }, [messageList]);
+
+  useEffect(() => {
+    document.body.style.cssText = `
+        position: fixed;
+        top: -${window.scrollY}px;
+        overflow-y: scroll;
+        width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);
 
   // 채팅방 나간 경우 이전 메시지 숨김 처리.
   // (() => {
@@ -58,38 +72,39 @@ const ChatList = () => {
 
   return (
     <MessageWrap>
-      {/* {messageList.map((chat, index) => {
-        const date = moment(chat.date).format("HH:mm");
-        const isMe = chat?.senderName === user;
+      {messageList.data?.map((chat, index) => {
+        const date = chat.date.split("년")[1].substring(1, 8)
+        console.log(date)
+        const isMe = chat?.sender === user;
         return (
-          <>
-            {chat.date.split("T")[0] !==
-              messageList[index - 1]?.date?.split("T")[0] && (
-              <ChatListDate key={chat.date}>
-                {moment(chat.date).format("YYYY.MM.DD")}
+          <div key={chat.messageNo} >
+            {chat.date.split("년")[1].substring(1, 8) !==
+              messageList.data[index - 1]?.date.split("년")[1].substring(1, 8) && (
+              <ChatListDate>
+                {chat.date.split("년")[1].substring(1, 8)}
               </ChatListDate>
             )}
             {chat.type === "TALK" ? (
-              <Message key={chat.messageId} me={isMe}>
-                {(chat.senderName !== messageList[index - 1]?.senderName ||
-                  messageList[index - 1].type === "STATUS" ||
+              <Message  me={isMe}>
+                {(chat.sender !== messageList.data[index - 1]?.sender ||
                   date !==
-                    moment(messageList[index - 1]?.date).format("HH:mm")) && (
+                   (chat.date.split(" ")[0])) && (
                   <NickAndDate me={isMe}>
-                    <Nickname>{chat?.senderNickname}</Nickname>
-                    <Date me={isMe}>{date}</Date>
+                    <Nickname>{chat?.sender}</Nickname>
                   </NickAndDate>
+                  
                 )}
-                <Bubble me={isMe}>{chat?.message}</Bubble>
+                <Bubble me={!isMe}>{chat?.message}</Bubble>
+                <Date me={isMe}>{chat.date.split(" ")[3].substring(0, 5)}</Date>
               </Message>
             ) : (
               <Status>{chat?.message}</Status>
             )}
-          </>
+          </div>
         );
       })}
-      <div ref={scrollRef} /> */}
-      <Status>메세지</Status>
+      <div ref={scrollRef} />
+
     </MessageWrap>
   );
 };

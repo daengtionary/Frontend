@@ -18,11 +18,14 @@ import TradeDetail from "./pages/tradeDetail/TradeDetail";
 import TradePosting from "./pages/tradePosting/TradePosting";
 import Community from "./pages/community/Community";
 import CommunityDetail from "./pages/communityDetail/CommunityDetail";
+import Matching from "./pages/matching/Matching";
+import MatchingRoom from "./pages/matching/MatchingRoom";
 
 // Shared
 import Kakao from "./shared/kakao";
 import ScrollToTop from "./shared/ScrollToTop";
 import TopButton from "./shared/TopButton";
+import ChatRoom from "./components/chatRoom/ChatRoom";
 
 function App() {
   return (
@@ -51,7 +54,9 @@ function App() {
         <Route exact path={"/"} element={<Main />} />
         <Route exact path={"*"} element={<Main />} />
         <Route exact path={"chat"} element={<ChatModal />} />
-        <Route exact path={"chat/:roomId"} element={<ChatModal />} />
+        <Route exact path={"chat/:roomNo"} element={<ChatRoom />} />
+        <Route exact path={"matching"} element={<Matching />} />
+        <Route exact path={"matchingRoom"} element={<MatchingRoom/>} />
       </Routes>
       <Footer />
     </>

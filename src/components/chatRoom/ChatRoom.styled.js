@@ -2,17 +2,59 @@ import styled from "styled-components";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
 
+
+
+export const ChatRoomAll = styled.div`
+  position: fixed;
+  top: 60%;
+  left: 80%;
+  width:  400px;
+  height: 600px;
+  max-width: 1360px;
+  min-width: 400px;
+  max-height: 1160px;
+  min-height: 600px;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 24px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  background-color: wheat;
+` 
+
+export const ChatRoomFullBox = styled.div`
+  width: 100%;
+  height: 80%;
+  background-color: aliceblue;
+  overflow-y: auto;
+`
+
 export const ChatInputWrap = styled.div`
-  margin: 0 30px 30px 30px;
+  margin: 10px 10px 10px 10px;
   border-radius: 15px;
-  border: 1px solid ${({ theme }) => theme.colors.gray};
+  display: flex;
+  justify-content: center;
   @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
     margin: 0 10px 10px 10px;
   }
+  
 `;
-export const ChatInput = styled(Input)`
+
+export const ChatInputForm = styled.form`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`
+
+export const ChatInput = styled.input`
+  padding-left: 15px;
   border: none;
-  width: calc(100% - 100px);
+  width: 100%;
+  height: 30px;
+  border-radius: 15px;
   &:focus {
     outline: none;
   }
@@ -23,18 +65,15 @@ export const ChatInput = styled(Input)`
   }
 `;
 export const SendButton = styled.button`
-  padding: 10px 20px;
   font-size: ${({ theme }) => theme.fontSizes.m};
+  width:100px;
 `;
-export const ExitButton = styled(Button)`
-  color: ${({ theme }) => theme.colors.black};
-  background-color: #fff;
-  border: solid 1px ${({ theme }) => theme.colors.black};
-  font-size: ${({ theme }) => theme.fontSizes.s};
+export const ExitButton = styled.button`
+  width: 100px;
+  height: 30px;
   padding: 5px 10px;
-  position: absolute;
+  position: relative;
   z-index: 2;
   top: 18px;
-  right: 60px;
 `;
 
