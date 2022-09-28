@@ -1,7 +1,7 @@
 /* global kakao */
 import React, { useEffect } from "react";
 import { BsXLg } from "react-icons/bs";
-import { MapContainer, MapWrap, ModalBackground, CloseBtm, MapTitle, MapAddress, Icon } from "./Map.styled";
+import { StyledMapContainer, StyledMapWrap, StyledModalBackground, StyledCloseBtm, StyledMapTitle, StyledMapAddress, StyledIcon } from "./Map.styled";
 const { kakao } = window;
 
 const Map = ({ modalHandler, title, address }) => {
@@ -77,19 +77,19 @@ const Map = ({ modalHandler, title, address }) => {
   }, []);
 
   return (
-    <ModalBackground onClick={modalHandler}>
-      <MapContainer onClick={(e) => e.stopPropagation()}>
-        <CloseBtm>
+    <StyledModalBackground onClick={modalHandler}>
+      <StyledMapContainer onClick={(e) => e.stopPropagation()}>
+        <StyledCloseBtm>
           <button onClick={modalHandler}>
             <BsXLg />
           </button>
-        </CloseBtm>
-        <MapWrap id="map"></MapWrap>
-        <Icon></Icon>
-        <MapAddress>{address}</MapAddress>
-        <MapTitle>{title}</MapTitle>
-      </MapContainer>
-    </ModalBackground>
+        </StyledCloseBtm>
+        <StyledMapWrap id="map"></StyledMapWrap>
+        <StyledIcon></StyledIcon>
+        <StyledMapAddress>{address}</StyledMapAddress>
+        <StyledMapTitle>{title}</StyledMapTitle>
+      </StyledMapContainer>
+    </StyledModalBackground>
   );
 };
 

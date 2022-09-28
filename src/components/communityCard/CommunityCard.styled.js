@@ -114,9 +114,23 @@ export const ContentImg = styled.img`
   box-sizing: border-box;
   width: 200px;
   height: 100%;
-  border: 1px solid black;
   border-radius: 15px;
   margin-right: 15px;
+`
+
+export const DefaultImg = styled.div`
+  box-sizing: border-box;
+  width: 200px;
+  height: 100%;
+  border-radius: 15px;
+  margin-right: 15px;
+  
+  background-image: url("img/dogIconGray.png");
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #F1F1F5;
+  
 `
 
 export const CategoryTitleWrap = styled.div`

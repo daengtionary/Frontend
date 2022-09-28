@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 
-export const ModalBackground = styled.div`
+export const StyledModalBackground = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);;
@@ -12,7 +12,7 @@ export const ModalBackground = styled.div`
   align-items: center;
 `
 
-export const MapContainer = styled.div`
+export const StyledMapContainer = styled.div`
   width: 70vw;
   height: 70vh;
   border-radius: 10px;
@@ -22,13 +22,13 @@ export const MapContainer = styled.div`
   padding: 25px;
 `
 
-export const MapWrap = styled.div`
+export const StyledMapWrap = styled.div`
   margin: 15px 0;
   width: 100%;
   height: 50vh;
 `
 
-export const CloseBtm = styled.div`
+export const StyledCloseBtm = styled.div`
   display: flex;
   justify-content: flex-end;
 
@@ -37,7 +37,7 @@ export const CloseBtm = styled.div`
     background-color: white;
   }
 `
-export const Icon = styled.span`
+export const StyledIcon = styled.span`
   width: 20px;
   height: 20px;
 
@@ -46,12 +46,12 @@ export const Icon = styled.span`
   
 `
 
-export const MapTitle = styled.div`
+export const StyledMapTitle = styled.div`
   font-weight: bold;
   font-size: 20px;
 `
 
-export const MapAddress = styled.div`
+export const StyledMapAddress = styled.div`
   color: #797979;
   font-size: 14px;
 `

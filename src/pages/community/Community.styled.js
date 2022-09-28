@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CommunityTop = styled.div`
+export const StyledCommunityTop = styled.div`
   width: 100%;
   /* border: 1px solid red; */
   display: flex;
@@ -41,16 +41,17 @@ export const StyledSerchImg = styled.img`
   padding: 6px 20px 6px 0;
 `;
 
-export const CommunityContainer = styled.div`
-  /* margin-top: 60px; */
+export const StyledCommunityContainer = styled.div`
+  /* margin-top: 5px; */
   width: 100%;
+  /* height: 100vh; */
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   flex-direction: column;
 `
 
-export const ContentsLayout = styled.div`
+export const StyledContentsLayout = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -58,16 +59,16 @@ export const ContentsLayout = styled.div`
   margin-top: ${props => props.marginTop};
 `
 
-export const CommunityWrap = styled.div`
+export const StyledCommunityWrap = styled.div`
+  /* margin-top: 60px; */
   width: 100%;
-  height: auto;
+  height: 100%;
   display: flex;
   justify-content: center;
-  /* align-items: flex-start; */
   box-sizing: border-box;
 ` 
 
-export const SideBar = styled.div`
+export const StyledSideBar = styled.div`
   width: 20%;
   min-width: 200px;
   box-sizing: border-box;
@@ -88,11 +89,11 @@ export const SideBar = styled.div`
   }
 `
 
-export const Cards = styled.div`
+export const StyledCards = styled.div`
   width: 60%;
 `
 
-export const ButtonWrap = styled.div`
+export const StyledButtonWrap = styled.div`
   width: 60%;
   display: flex;
   justify-content: flex-end;
