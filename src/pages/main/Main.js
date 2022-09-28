@@ -46,12 +46,10 @@ const Main = () => {
   }, []);
 
   const mainButtonList = [
-
-    { name: "댕매칭", category: "all", img: matchButtonImg },
+    { name: "댕매칭", category: "matching", img: matchButtonImg },
     { name: "댕플레이스", category: "all", img: placeButtonImg },
     { name: "장터", category: "trade", img: tradeButtonImg },
     { name: "커뮤니티", category: "community", img: communityButtonImg },
-
   ];
   // const mainCardList = ["인기 병원", "인기 숙소", "인기 장터", "인기 게시물"];
   const mainCommentList = [
@@ -135,7 +133,12 @@ const Main = () => {
           <StyledMainBanner backgroundImg={banner_01} />
         </SwiperSlide>
         <SwiperSlide>
-          <StyledMainBanner backgroundImg={banner_02} />
+          <StyledMainBanner
+            backgroundImg={banner_02}
+            onClick={() => {
+              navigate("/matching");
+            }}
+          />
         </SwiperSlide>
         <SwiperSlide>
           <StyledMainBanner backgroundImg={banner_03} />
@@ -221,9 +224,7 @@ const Main = () => {
           ? dataList.map((data, i) => <Card key={i} rank={rankMedalList[i]} _onClick={() => alert("준비 중 입니다..")} data={data} category={data.category} />)
           : category === "trade"
           ? dataList.map((data, i) => (
-
               <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/tradeDetail/${data.tradeNo}`)} data={data} category={data.category} />
-
             ))
           : dataList.map((data, i) => (
               <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/${category}/${data.communityNo}`)} data={data} category={data.category} />
@@ -259,7 +260,7 @@ const StyledMainWrap = styled.div`
   /* padding: 0 10%; */
 `;
 const StyledSwiper = styled(Swiper)`
-  background: #ff000050;
+  background: #ff000020;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -270,6 +271,7 @@ const StyledMainBanner = styled.div`
   background: ${(props) => `url(${props.backgroundImg}) center / cover no-repeat `};
   width: 100%;
   height: 36em;
+  cursor: pointer;
 `;
 const StyledMainButtonWrap = styled.div`
   display: flex;

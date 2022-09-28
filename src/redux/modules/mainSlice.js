@@ -24,10 +24,10 @@ export const mainListThunk = createAsyncThunk("mainSlice/mainListThunk", async (
 });
 export const mainTradeThunk = createAsyncThunk("mainSlice/mainTradeThunk", async (payload, thunkAPI) => {
   const resData = await api
-    .get(`/trade?direction=${payload.direction}&page=${payload.page}&size=${payload.size}&sort=${payload.sort}`)
+    .get(`/trade?direction=${payload.direction}&pagenum=${payload.page}&pagesize=${payload.size}&sort=${payload.sort}`)
     .then((res) => res)
     .catch((err) => console.log(err));
-  return thunkAPI.fulfillWithValue(resData.data.data.content);
+  return thunkAPI.fulfillWithValue(resData.data.data);
 });
 export const mainCommunityThunk = createAsyncThunk("mainSlice/mainCommunityThunk", async (payload, thunkAPI) => {
   const resData = await api
