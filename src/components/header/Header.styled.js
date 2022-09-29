@@ -22,6 +22,7 @@ export const HeaderLogoBox = styled.div`
   position: absolute;
   left: 10%;
   font-size: 30px;
+  background: ${(props) => `url(${props.backgroundImg}) center / contain no-repeat`};
 `;
 
 export const HeaderTextBox = styled.div`

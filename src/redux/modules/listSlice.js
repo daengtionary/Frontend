@@ -80,11 +80,12 @@ const initialState = {
   getListFirst: [],
   searchList: [],
   pageNum: 0,
-  isChecked: [false, false, false, false],
+  isChecked: [true, false, false, false],
+  pathName: "place",
 };
 
 export const listSlice = createSlice({
-  name: "listPage",
+  name: "list", //오류나면 여기도 봐라
   initialState: initialState,
   reducers: {
     reset(state) {
@@ -98,6 +99,10 @@ export const listSlice = createSlice({
     },
     pageUp(state, action) {
       console.log(action.payload);
+      if (action.payload === 0) {
+        state.pageNum = action.payload;
+        return;
+      }
       if (state.isEnd === false) {
         state.pageNum = state.pageNum + action.payload;
       }
@@ -105,9 +110,11 @@ export const listSlice = createSlice({
     setChecked(state, action) {
       console.log(action.payload);
       const newArr = Array(state.isChecked.length).fill(false);
-      newArr[action.payload] = true;
+      newArr[action.payload.i] = true;
       state.isChecked = newArr;
       state.pageNum = 0;
+      state.pathName = action.payload.path;
+      console.log(state.pathName);
       console.log(state.isChecked);
     },
   },
