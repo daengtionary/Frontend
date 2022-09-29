@@ -210,8 +210,6 @@ const SignUp = () => {
           checkboxes[i].checked = false;
         }
         if (checkboxes[0].checked === true) {
-          setRole('BUSINESS');
-        } else if (checkboxes[1].checked === true) {
           setRole('ADMIN');
         } else {
           setRole('USER');
@@ -220,6 +218,7 @@ const SignUp = () => {
     },
     [role]
   );
+  console.log(role)
 
   useEffect(() => {
     if (nick !== '') {
@@ -486,15 +485,6 @@ const SignUp = () => {
               ''
             )}
             <AdminCheckBoxGroub>
-              <span>
-                <input
-                  type={'checkbox'}
-                  name="adminName"
-                  value="BUSINESS"
-                  onChange={(e) => checkOnlyOne(e.target)}
-                />
-                비즈니스로 가입하기
-              </span>
               <span>
                 <input
                   type={'checkbox'}

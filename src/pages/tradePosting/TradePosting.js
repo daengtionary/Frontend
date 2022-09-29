@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useCallback, useRef } from "react";
 import Button from "../../elements/button/Button";
 import {
   StyleTradePostingForm,
@@ -18,14 +18,14 @@ import {
   StylePreviewBox,
 } from "./TradePosting.styled";
 import { useDispatch } from "react-redux";
-import { addTrade } from "../../redux/modules/tradeSlice";
+import {postingTrade} from "../../redux/modules/tradeSlice";
 import React from "react";
-
 
 //리액트 아이콘
 import { TbCameraPlus } from "react-icons/tb";
 import { MdOutlineCancel } from "react-icons/md";
 import Input from "../../elements/input/Input";
+import { useNavigate } from "react-router-dom";
 
 const TradePosting = () => {
   const [showImages, setShowImages] = useState([]);
@@ -38,17 +38,19 @@ const TradePosting = () => {
 
   const postingData = {
     data: {
-      title: title,
-      address: "서울시 음평구 녹번동",
-      sutuffStatus: status,
-      content: detail,
-      price: price,
-      postStatus: "판매중",
+      "title": title,
+      "address": "전국",
+      "stuffStatus": status,
+      "content": detail,
+      "price": price,
+      "postStatus": "판매중",
+      "exchange":"교환불가"
     },
-    imgUrl: fileImage,
+    imgUrl: fileImage
   };
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //이미지 상대경로 저장, 요청 이미지 저장
   const uploadImage = useCallback(
@@ -98,18 +100,27 @@ const TradePosting = () => {
     },
     [status]
   );
-  console.log(status);
 
   const onSubmitHandler = () => {
-    dispatch(addTrade(postingData));
+    console.log(postingData)
+    dispatch(postingTrade(postingData))
+    .unwrap()
+    .then((res) => {
+      alert(res.message);
+      navigate("/trade")
+    })
+    .catch((error) =>{
+      console.log(error)
+    })
   };
+
 
   return (
     <>
+      <StyleTradePostingForm >
       <StyleTradePageTopTitle>
         <span>중고상품 등록하기</span>
       </StyleTradePageTopTitle>
-      <StyleTradePostingForm>
         <StyleTradePostingImageBox>
           <span>상품 이미지</span>
           <StyleTradeUplodeLabel onChange={uploadImage} htmlFor="input-file">
@@ -132,14 +143,15 @@ const TradePosting = () => {
           <Input
             type={"text"}
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            _onChange={(e) => setTitle(e.target.value)}
             style={{
               width: "50%",
-              height: "20px",
+              height: "40px",
               pd_left: "10px",
               mg_right: "0px",
-              border: "2px solid lightGray ",
-              borderRadius: "5px",
+              bd: "1px solid lightGray ",
+              bd_bottom:"1px solid lightGray ",
+              bd_radius: "10px",
             }}
             placeholder={"제목을 입력해주세요"}
           />
@@ -193,13 +205,15 @@ const TradePosting = () => {
           <Input
             type={"text"}
             value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            _onChange={(e) => setPrice(e.target.value)}
             style={{
               width: "20%",
-              height: "20px",
+              height: "40px",
               pd_left: "10px",
-              border: "2px solid lightGray ",
-              borderRadius: "5px",
+              mg_right: "0px",
+              bd: "1px solid lightGray ",
+              bd_bottom:"1px solid lightGray ",
+              bd_radius: "10px",
             }}
             placeholder={"가격을 입력해주세요"}
           />
@@ -209,13 +223,15 @@ const TradePosting = () => {
           <Input
             type={"text"}
             value={detail}
-            onChange={(e) => setDetail(e.target.value)}
+            _onChange={(e) => setDetail(e.target.value)}
             style={{
               width: "50%",
-              height: "100px",
+              height: "150px",
               pd_left: "10px",
-              border: "2px solid lightGray ",
-              borderRadius: "5px",
+              mg_right: "0px",
+              bd: "1px solid lightGray ",
+              bd_bottom:"1px solid lightGray ",
+              bd_radius: "10px",
             }}
             placeholder={"상품에 대해 설명해주세요"}
           />

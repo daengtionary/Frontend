@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import Button from "../../elements/button/Button";
-import Input from "../../elements/input/Input";
 
 
 
@@ -22,13 +20,11 @@ export const ChatRoomAll = styled.div`
     height: 100%;
     border-radius: 0;
   }
-  background-color: wheat;
 ` 
 
 export const ChatRoomFullBox = styled.div`
   width: 100%;
   height: 80%;
-  background-color: aliceblue;
   overflow-y: auto;
 `
 

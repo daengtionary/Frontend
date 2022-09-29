@@ -9,7 +9,7 @@ import { SmileChatSVG } from "../../elements/svg/SVG";
 // 우측 하단 채팅 플로팅 버튼
 const ChatFloatButton = () => {
   const dispatch = useDispatch();
-  // const isChatModalOn = useMatch("/chat/*");
+  const isChatModalOn = useMatch("/chat/*");
   const notification = useSelector((state) => state.chat.notification);
   const memberNo = window.localStorage.getItem("memberNo");
   console.log(memberNo);
@@ -45,7 +45,7 @@ const ChatFloatButton = () => {
 
   return (
     <>
-      {memberNo && (
+      {memberNo && isChatModalOn && (
         <FloatWrap>
           <Link to={`/chat`}>
             <ChatButtonWrap>

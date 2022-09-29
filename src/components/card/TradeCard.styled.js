@@ -4,6 +4,15 @@ export const TradeCardFullBox = styled.div`
 width: 280px;
 height: 370px;
 position: relative;
+:hover {
+  cursor: pointer;
+    border-radius: 20px;
+    transition: box-shadow 0.2s ease-in-out;
+    box-shadow: 2px 2px 5px gray;
+    > div:nth-child(2) > div {
+      transform: scale(1.1);
+    }
+  }
 `;
 
 export const ItemImageBox = styled.img`

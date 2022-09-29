@@ -11,6 +11,10 @@ import { addMessage, getRoomListDB, readMessage, updateRoomMessage } from '../..
 import { chatApis } from '../../shared/api';
 import ChatList from '../chatList/ChatList';
 
+//아이콘
+import cencel from "../../static/image/cencel.png";
+import leftArrow from "../../static/image/leftArrow.png"
+
 // 채팅 모달 > 채팅방
 const ChatRoom = () => {
   const dispatch = useDispatch();
@@ -25,9 +29,13 @@ const ChatRoom = () => {
 
   const targetNick = location.state.targetNick;
 
-  console.log(location.state.targetNo);
-  console.log(location.state.targetNick);
-  console.log(location.state.index);
+  // const onClickClose = () => {
+  //   navigate("/");
+  // };
+
+  const onClickBack = () => {
+    navigate("/chat");
+  };
 
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
@@ -36,6 +44,7 @@ const ChatRoom = () => {
 
     // // STOMPJS console log 지워주는 부분
     // stompClient.current.debug = null;
+    
 
     stompClient.current.connect(
       {
@@ -105,13 +114,13 @@ const ChatRoom = () => {
   }, [roomNo]);
 
   // 채팅방 나가기
-  const exitRoom = async () => {
-    const confirm = window.confirm('채팅방을 나가시겠어요?');
-    if (confirm) {
-      await chatApis.exitRoom(roomNo);
-      dispatch(getRoomListDB()).then(() => navigate(-1));
-    }
-  };
+  // const exitRoom = async () => {
+  //   const confirm = window.confirm('채팅방을 나가시겠어요?');
+  //   if (confirm) {
+  //     await chatApis.exitRoom(roomNo);
+  //     dispatch(getRoomListDB()).then(() => navigate(-1));
+  //   }
+  // };
 
   return (
     <>
@@ -119,11 +128,11 @@ const ChatRoom = () => {
         <ChatRoomAll>
         <Title>
          댕톡 
+         <img src={cencel} alt="exit" onClick={onClickBack}/>
         </Title>        
         <ChatRoomFullBox>
           {/* {isLoading && <LoadingSpinner />} */}
           <ChatList />
-          <ExitButton onClick={exitRoom}>나가기</ExitButton>
         </ChatRoomFullBox>
         <ChatInputWrap>
             <ChatInputForm onSubmit={sendMessage}>

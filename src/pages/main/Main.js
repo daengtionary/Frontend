@@ -136,7 +136,7 @@ const Main = () => {
           <StyledMainBanner
             backgroundImg={banner_02}
             onClick={() => {
-              navigate("/matching");
+             alert("준비중입니다:)");
             }}
           />
         </SwiperSlide>
@@ -151,8 +151,12 @@ const Main = () => {
               key={i}
               type={"button"}
               _onClick={() => {
+                if(mainButton.category ==="matching"){
+                  alert("준비중입니다.")               
+                }else{
                 navigate("/" + mainButton.category);
                 dispatch(reset());
+                }
               }}
               img={mainButton.img}
               style={{
@@ -259,7 +263,7 @@ const StyledMainWrap = styled.div`
 
   /* padding: 0 10%; */
 `;
-const StyledSwiper = styled(Swiper)`
+export const StyledSwiper = styled(Swiper)`
   background: #ff000020;
   display: flex;
   align-items: center;
@@ -267,7 +271,7 @@ const StyledSwiper = styled(Swiper)`
   width: 100vw;
   height: 36em;
 `;
-const StyledMainBanner = styled.div`
+export const StyledMainBanner = styled.div`
   background: ${(props) => `url(${props.backgroundImg}) center / cover no-repeat `};
   width: 100%;
   height: 36em;

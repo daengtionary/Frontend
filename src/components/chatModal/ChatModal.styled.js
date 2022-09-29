@@ -44,12 +44,24 @@ export const Title = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.l};
   display: flex;
   justify-content: space-between;
+
   span {
     cursor: pointer;
     @media screen and (min-width: 768px) {
       display: none;
     }
   }
+
+  img {
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+    :hover{
+   cursor: pointer;
+   }
+   }
+
+
 `;
 export const LeftWrap = styled.div`
   width: 100%;

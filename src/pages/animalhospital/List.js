@@ -347,7 +347,7 @@ const List = () => {
 
 export default List;
 
-const StyledListWrap = styled.div`
+export const StyledListWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -355,12 +355,12 @@ const StyledListWrap = styled.div`
   position: relative;
 `;
 
-const StyledOptionWrap = styled.div`
+export const StyledOptionWrap = styled.div`
   width: 77em;
 
   /* padding: 0 2em; */
 `;
-const StyledSerchWrap = styled.div`
+export const StyledSerchWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -368,7 +368,7 @@ const StyledSerchWrap = styled.div`
   border-bottom: 1px solid #ccc;
   margin-bottom: 1em;
 `;
-const StyledSerchBox = styled.div`
+export const StyledSerchBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -376,32 +376,42 @@ const StyledSerchBox = styled.div`
   position: relative;
   width: 50%;
 `;
-const StyledSerchIcon = styled.div`
+export const StyledSerchIcon = styled.div`
   position: absolute;
   font-size: 1.6em;
   left: 546px;
   cursor: pointer;
 `;
+
 const StyledButtonWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1em;
 `;
-export const StyledFilterBox = styled.div``;
+
+export const StyledFilterBox = styled.div`
+  span{
+    font-size: 14px;
+    :hover{
+      cursor: pointer;
+    }
+  }
+`;
+
 export const StyledFilter = styled.select`
   width: ${(props) => (props.width ? props.width : "")};
   border: none;
   margin-right: 20px;
   padding: 5px 5px;
 `;
-const StyledSerchImg = styled.img`
+export const StyledSerchImg = styled.img`
   width: 2em;
   position: absolute;
   right: 84px;
   cursor: pointer;
   padding: 6px 20px 6px 0;
 `;
-const StyledListCardWrap = styled.div`
+export const StyledListCardWrap = styled.div`
   min-height: 100vh;
 `;
