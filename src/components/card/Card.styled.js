@@ -11,7 +11,7 @@ export const StyledCardBox = styled.div`
   cursor: pointer;
   :hover {
     border-radius: 20px;
-    transition: box-shadow 0.2s ease-in-out;
+    transition: box-shadow 0.2s;
     box-shadow: 2px 2px 5px gray;
     > div:nth-child(2) > div {
       transform: scale(1.1);
@@ -52,7 +52,7 @@ export const StyledCardImg = styled.div`
   background: ${(props) => `url(${props.background}) center / cover no-repeat `};
   min-height: 100%;
   width: 18em;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s;
 `;
 export const StyledCardTextBox = styled.div`
   width: 18em;

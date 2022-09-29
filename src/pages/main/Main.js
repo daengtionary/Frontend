@@ -23,7 +23,7 @@ import communityButtonImg from "../../static/image/커뮤니티.jpg";
 import banner_01 from "../../static/image/베너01_.jpg";
 import banner_02 from "../../static/image/댕매칭.jpg";
 import banner_03 from "../../static/image/이용방법.jpg";
-import medal_01 from "../../static/image/메달1.png";
+import medal_01 from "../../static/image/메달1_.png";
 import medal_02 from "../../static/image/메달2.png";
 import medal_03 from "../../static/image/메달3.png";
 
@@ -47,7 +47,7 @@ const Main = () => {
 
   const mainButtonList = [
     { name: "댕매칭", category: "matching", img: matchButtonImg },
-    { name: "댕플레이스", category: "all", img: placeButtonImg },
+    { name: "댕플레이스", category: "place", img: placeButtonImg },
     { name: "장터", category: "trade", img: tradeButtonImg },
     { name: "커뮤니티", category: "community", img: communityButtonImg },
   ];
@@ -165,7 +165,7 @@ const Main = () => {
                 bd_radius: "50%",
                 bd_color: "transparent",
               }}
-            ></Button>
+            />
             <div>{mainButton.name}</div>
           </StyledMainButtonBox>
         ))}
@@ -290,6 +290,10 @@ const StyledMainButtonBox = styled.div`
   margin: 0 14px;
   /* width: 25%; */
   height: auto;
+
+  > div button {
+    transform: scale(1);
+  }
 `;
 const StyledMainHotTrend = styled.div``;
 const StyledMainHotButtonbWrap = styled.div`
