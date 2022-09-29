@@ -35,8 +35,10 @@ const Button = ({ type, text, style, _onClick, checked, id, img }) => {
       f_bd_color={style?.f_bd_color}
       f_ft_weight={style?.f_ft_weight}
       position={style?.position}
+      top={style?.top}
+      left={style?.left}
     >
-      {img && <img src={img} style={{ width: style?.width }} />}
+      {img && <img src={img} />}
       {text}
     </StyledButton>
   );

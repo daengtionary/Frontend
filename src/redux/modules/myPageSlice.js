@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api_auth } from "../../shared/api";
 
 //강아지 프로필 등록
@@ -65,7 +65,7 @@ const initialState = {
 };
 
 export const myPageSlice = createSlice({
-  name: "main",
+  name: "myPage", //오류나면 여기 봐라
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {

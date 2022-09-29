@@ -56,7 +56,7 @@ const StyledCardBox = styled.div`
   border-radius: 20px;
   cursor: pointer;
   :hover {
-    transition: box-shadow 0.2s ease-in-out;
+    transition: box-shadow 0.2s;
     box-shadow: 2px 2px 5px gray;
     div {
       /* div {
@@ -87,7 +87,7 @@ const StyledCardImg = styled.div`
   border-radius: 20px;
   margin: 0 auto;
   background: ${(props) => (props.background ? `url(${props.background}) center / cover no-repeat` : " linear-gradient(#ccc, #cccccc50)")};
-  transition: transform 0.15s ease-in-out;
+  transition: transform 0.2s;
 `;
 const StyledCardTextBox = styled.div`
   display: flex;

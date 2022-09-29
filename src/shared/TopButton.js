@@ -84,7 +84,7 @@ const StyledTopBtn = styled.button`
   bottom: 4em;
   right: 4em;
 
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s;
 
   cursor: pointer;
 
@@ -99,7 +99,7 @@ const StyledTopBtnImg = styled.img`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   transform: ${(props) => props.rotate} ${(props) => props.scale};
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s;
   top: 0;
   left: 50%;
   :hover {

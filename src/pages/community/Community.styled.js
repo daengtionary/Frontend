@@ -104,7 +104,7 @@ export const StyledButtonWrap = styled.div`
     padding: 10px;
     border: none;
     border-radius: 10px;
-    background-color: #797979;
+    background-color: #6563ff;
     color: #fff;
     cursor: pointer;
   }

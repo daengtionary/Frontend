@@ -7,9 +7,9 @@ import list from "./modules/listSlice";
 import chat from "./modules/chatSlice";
 import trade from "./modules/tradeSlice";
 import community from "./modules/communitySlice";
+import place from "./modules/placeSlice";
 
-
-const rootReducer = combineReducers({ user, detail, main, myPage, list, chat, community, trade });
+const rootReducer = combineReducers({ user, detail, main, myPage, list, chat, community, trade, place });
 
 const store = configureStore({ reducer: rootReducer });
 

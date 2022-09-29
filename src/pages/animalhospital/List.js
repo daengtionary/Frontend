@@ -1,3 +1,4 @@
+import jwtDecode from "jwt-decode";
 import { debounce, throttle } from "lodash";
 import { useLayoutEffect } from "react";
 import { useState } from "react";
@@ -24,6 +25,8 @@ const List = () => {
   console.log(listEnd);
   const checked = useSelector((state) => state.list.isChecked);
   console.log(checked);
+  const pathName = useSelector((state) => state.list.pathName);
+  console.log(pathName);
   const location = useLocation();
   const { pathname, search } = location;
 
@@ -31,7 +34,7 @@ const List = () => {
   const [page, setPage] = useState(0);
   const [isTopButtonOn, setIsTopButtonOn] = useState(false);
   const filterButton = [
-    { name: "#전체", path: "/all" },
+    { name: "#전체", path: "/place" },
     { name: "#동물병원", path: "/hospital" },
     { name: "#애견호텔", path: "/room" },
     { name: "#애견카페", path: "/cafe" },
@@ -41,13 +44,13 @@ const List = () => {
   const [size, setSize] = useState(4);
   // const [checked, setChecked] = useState([true, false, false, false]);
   const onClickFilterHandler = (i, path) => {
-    dispatch(setChecked(i));
+    dispatch(setChecked({ i, path }));
     // const newArr = Array(filterButton.length).fill(false);
     // newArr[i] = true;
     // setChecked(newArr);
-    setPage(0);
+    // dispatch(pageUp(0));
     // dispatch(reset());
-    navigate(`${path}`);
+    // navigate(`${path}`);
     dispatch(resetEnd());
 
     // if (path === "/all") {
@@ -95,7 +98,7 @@ const List = () => {
     // console.log(data);
     // if (data) return;
     if (listEnd === false) {
-      if (pathname === "/all") {
+      if ((pathName && pathName === "place") || pathName === "/place") {
         console.log(page);
         dispatch(
           searchListThunk({
@@ -112,7 +115,7 @@ const List = () => {
       } else {
         dispatch(
           searchListThunk({
-            pathname: pathname + "/search",
+            pathname: pathName + "/search",
             page: pageNum,
             size,
             address,
@@ -125,7 +128,7 @@ const List = () => {
       }
     }
     // }
-  }, [checked, pageNum, filter]);
+  }, [checked, pageNum, filter, ready]);
   // setTimeout(() => setDataList(data), 10);
 
   useEffect(
@@ -164,7 +167,7 @@ const List = () => {
     dispatch(reset());
     dispatch(
       searchListThunk({
-        pathname: pathname + "/search",
+        pathname: pathName + "/search",
         page,
         size,
         address,
@@ -191,6 +194,32 @@ const List = () => {
 
     // dispatch(searchListThunk({ pathname: pathname, page: page, address: value }));
   };
+
+  // 토큰 변수 할당
+  let token = window.sessionStorage.getItem("authorization");
+  // 토큰 decode 하는 부분
+  let decoded = token && jwtDecode(token);
+  console.log(decoded);
+  // 토큰 만료시간
+  let exp = token && Number(decoded.exp + "000");
+  let expTime = new Date(exp);
+  console.log(expTime, "만료 시간");
+  let now = new Date();
+  console.log(now, "현재 시간");
+
+  const checkToken = () => {
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate("/signin");
+    } else if (token && expTime <= now) {
+      window.sessionStorage.removeItem("authorization");
+      alert("로그인이 만료되었습니다. 다시 로그인 해 주세요.");
+      navigate("/signin");
+    } else {
+      navigate("/placeposting");
+    }
+  };
+
   return (
     <StyledListWrap>
       <StyledOptionWrap>
@@ -218,7 +247,7 @@ const List = () => {
           </StyledSerchBox>
           <StyledFilterBox>
             <StyledFilter name="address" onChange={filterHandler} width={"60px"}>
-              <option disabled selected value="">
+              <option disabled selected value="전체">
                 지역
               </option>
               <option value=" ">전체</option>
@@ -249,37 +278,57 @@ const List = () => {
           </StyledFilterBox>
         </StyledSerchWrap>
         <StyledButtonWrap>
-          {filterButton.map((btn, i) => (
-            <Button
-              key={i}
-              text={btn.name}
-              checked={checked[i]}
-              _onClick={() => {
-                onClickFilterHandler(i, btn.path);
-              }}
-              style={{
-                width: "auto",
-                height: "auto",
-                color: "#ccc",
-                bg_color: "#fff",
-                mg_left: "5px",
-                mg_right: "5px",
-                bd_radius: "20px",
-                bd_color: "#ccc",
-                pd_top: "8px",
-                pd_bottom: "8px",
-                pd_left: "14px",
-                pd_right: "14px",
-                hv_color: "#767676",
-                hv_bd_color: "#767676",
-                f_color: "#000",
-                f_bd_color: "#000",
-                ft_weight: "700",
-                f_ft_weight: "700",
-                hv_ft_weight: "700",
-              }}
-            />
-          ))}
+          <div>
+            {filterButton.map((btn, i) => (
+              <Button
+                key={i}
+                text={btn.name}
+                checked={checked[i]}
+                _onClick={() => {
+                  onClickFilterHandler(i, btn.path);
+                }}
+                style={{
+                  width: "auto",
+                  height: "auto",
+                  color: "#ccc",
+                  bg_color: "#fff",
+                  mg_left: "5px",
+                  mg_right: "5px",
+                  bd_radius: "20px",
+                  bd_color: "#ccc",
+                  pd_top: "8px",
+                  pd_bottom: "8px",
+                  pd_left: "14px",
+                  pd_right: "14px",
+                  hv_color: "#767676",
+                  hv_bd_color: "#767676",
+                  hv_ft_weight: "700",
+                  ft_weight: "700",
+                  // f_color: "#000",
+                  // f_bd_color: "#000",
+                  // f_ft_weight: "700",
+                }}
+              />
+            ))}
+          </div>
+          <Button
+            _onClick={checkToken}
+            text={"글쓰기"}
+            style={{
+              width: "auto",
+              height: "auto",
+              color: "#fff",
+              bg_color: "#6563ff",
+              mg_left: "5px",
+              mg_right: "5px",
+              bd_radius: "10px",
+              bd_color: "#ccc",
+              pd_top: "8px",
+              pd_bottom: "8px",
+              pd_left: "20px",
+              pd_right: "20px",
+            }}
+          />
         </StyledButtonWrap>
       </StyledOptionWrap>
       <StyledListCardWrap>
@@ -333,11 +382,14 @@ export const StyledSerchIcon = styled.div`
   left: 546px;
   cursor: pointer;
 `;
-export const StyledButtonWrap = styled.div`
-  display: inline-block;
+
+const StyledButtonWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 1em;
 `;
+
 export const StyledFilterBox = styled.div`
   span{
     font-size: 14px;

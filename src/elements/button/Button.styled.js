@@ -16,6 +16,19 @@ export const StyledButton = styled.button`
   padding-left: ${(props) => (props.pd_left ? props.pd_left : "0px")};
   padding-right: ${(props) => (props.pd_right ? props.pd_right : "0px")};
   border-radius: ${(props) => (props.bd_radius ? props.bd_radius : "0px")};
+  overflow: hidden;
+  position: ${(props) => (props.position ? props.position : "relative")};
+  top: ${(props) => (props.top ? props.top : "0")};
+  left: ${(props) => (props.left ? props.left : "0")};
+  img {
+    width: 11em;
+    height: 11em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transition: transform 0.2s;
+    transform: translate(-50%, -50%) scale(1) rotate(0.001deg);
+  }
 
   &:hover {
     cursor: pointer;
@@ -23,6 +36,12 @@ export const StyledButton = styled.button`
     font-weight: ${(props) => (props.hv_ft_weight ? props.hv_ft_weight : props.ft_weight)};
     color: ${(props) => (props.hv_color ? props.hv_color : props.color)};
     border: 0.1px solid ${(props) => (props.hv_bd_color ? props.hv_bd_color : props.bd_color)};
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.15) rotate(0.001deg);
+    }
   }
   ${(props) =>
     !props.checked
