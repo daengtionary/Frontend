@@ -17,8 +17,8 @@ export const TradeDetailFullBox = styled.div`
 `;
 
 export const ImgBox = styled.div`
-  width: 700px;
-  height: auto;
+  width: 500px;
+  height: 500px;
   display: flex;
 `;
 
@@ -87,16 +87,26 @@ export const ItemDetailInfoText = styled.div`
 `
 
 export const ButtonWrap = styled.div`
+  width: 100%;
   display: flex;
   position:absolute;
-  bottom: 0%;
+  justify-content: end;
+  bottom: -5%;
+  right: 8%;
+  
+  img{
+    position: relative;
+    width: 33px;
+    height: 33px;
+    top: 8px;
+    right: 3px;
+  }
 `;
 
 export const AddWishButton = styled.div`
-  width: 170px;
+  width: 120px;
   height: 100px;
   text-align: right;
-  background-color: beige;
   line-height: 100px;
   font-size: 25px;
   font-weight: 600;
@@ -105,10 +115,9 @@ export const AddWishButton = styled.div`
 `;
 
 export const ChatStartButton = styled.div`
-  width: 170px;
+  width: 120px;
   height: 100px;
   text-align: right;
-  background-color: aliceblue;
   line-height: 100px;
   font-size: 25px;
   font-weight: 600;

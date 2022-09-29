@@ -17,6 +17,9 @@ import {
 import { setNotification, getRoomListDB } from "../../redux/modules/chatSlice";
 import ChatRoomList from "../chatRoomList/ChatRoomList"
 
+//아이콘
+import cencel from "../../static/image/cencel.png";
+
 
 // 채팅 모달
 const ChatModal = () => {
@@ -26,13 +29,6 @@ const ChatModal = () => {
 
 
   
-  const onClickClose = () => {
-    navigate("/");
-  };
-
-  const onClickBack = () => {
-    navigate("/chat");
-  };
 
   useEffect(() => {
     dispatch(getRoomListDB());
@@ -65,6 +61,7 @@ const ChatModal = () => {
         <LeftWrap isRoom={roomNo}>
           <Title>
             댕톡
+            <img src={cencel} alt="exit" onClick={()=>{navigate('/');}}/>
           </Title>
           <ListWrap>
             <ChatRoomList 

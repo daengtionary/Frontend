@@ -8,6 +8,10 @@ flex-direction: column;
 justify-content: center;
 `
 
+export const StyledSerchFilterBox = styled.div`
+width: 73%;
+`
+
 
 export const TradeTopBox = styled.div`
 display: block;

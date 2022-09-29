@@ -95,7 +95,7 @@ const ChatList = () => {
                   
                 )}
                 <Bubble me={!isMe}>{chat?.message}</Bubble>
-                <Date me={isMe}>{chat.date.split(" ")[3].substring(0, 5)}</Date>
+                <Date me={isMe}>{chat.date.split("요일")[1]}</Date>
               </Message>
             ) : (
               <Status>{chat?.message}</Status>

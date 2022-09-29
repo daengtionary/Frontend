@@ -1,21 +1,22 @@
 import styled from "styled-components";
 
 export const StyleTradePageTopTitle = styled.div`
-  width: 100%;
+  width: 65%;
   height: 80px;
   display: flex;
   align-items: center;
   position: relative;
+  margin: auto;
   border-bottom: 2px solid lightgray;
   span{
     position: absolute;
-    left: 15%;
+    left: 0%;
     font-weight: 600;
     font-size: 23px;
   }
 `
 
-export const StyleTradePostingForm = styled.form`
+export const StyleTradePostingForm = styled.div`
 width: 100%;
 height : 100%;
 display: flex;

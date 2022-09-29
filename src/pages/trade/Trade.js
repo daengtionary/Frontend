@@ -1,22 +1,23 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import TradeCard from "../../components/card/TradeCard";
-import { useSelector, useDispatch } from "react-redux";
-import { getTrade, clearTradeItem } from "../../redux/modules/tradeSlice";
-import { useCallback } from "react";
+
+import {useState, useEffect, useRef } from 'react';
+import TradeCard from '../../components/card/TradeCard';
+import { useSelector, useDispatch } from 'react-redux';
+import { getTrade, clearTradeItem } from '../../redux/modules/tradeSlice';
+import { useCallback } from 'react';
 
 // 스타일 컴포넌트
-import { TradeAll, TradeFullBox, CardList, TopFilterBox } from "./Trade.styled";
+import { TradeAll, TradeFullBox, CardList, StyledSerchFilterBox } from './Trade.styled';
 
-import { TopLayout, SearchBar } from "../community/Community.styled";
+import { StyledSerchWrap, StyledSerchBox, StyledSerchImg, StyledFilter, StyledFilterBox } from '../animalhospital/List';
 
-import { useNavigate } from "react-router-dom";
-
-import { StyledFilter } from "../animalhospital/List.js";
+import { useNavigate } from 'react-router-dom';
+import Input from '../../elements/input/Input';
+import searchIcon from '../../static/image/search.png';
+// import 글작성 from '../../static/image/글작성.png'
 
 const Trade = () => {
   const [page, setPage] = useState(0);
-  const [tradeSort, setTradeSort] = useState("new");
+  const [tradeSort, setTradeSort] = useState('new');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,28 +32,28 @@ const Trade = () => {
     }
   };
 
+
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   useEffect(() => {
-    dispatch(clearTradeItem);
     dispatch(
       getTrade({
         page: page,
-        size: "12",
+        size: '12',
         sort: tradeSort,
-        direction: "asc",
+        direction: 'asc',
       })
     );
-    return () =>{
+    return () => {
       clearTradeItem();
-    }
+    };
   }, [page]);
-  console.log(page);
+
 
   const onChangeHandeler = useCallback(
     (e) => {
@@ -77,33 +78,54 @@ const Trade = () => {
 
   return (
     <TradeAll>
-      <TopLayout style={{ width: "70%", marginTop: "30px" }}>
-        <h3>애견 장터</h3>
-        <SearchBar>
-          <input type="text" placeholder="어떤 물건을 찾으세요?" />
-        </SearchBar>
-        <TopFilterBox>
-          <StyledFilter style={{ width: "100px" }} onChange={onChangeHandeler}>
-            <option select="true" defaultValue={"최근순"}>
-              정렬방식
-            </option>
-            <option value="title">이름순</option>
-            <option value="new">최근순</option>
-          </StyledFilter>
-          <div
-            onClick={() => {
-              navigate("/tradePosting");
-            }}
-          >
-            상품 등록하기
-          </div>
-        </TopFilterBox>
-      </TopLayout>
+      <StyledSerchFilterBox>
+        <StyledSerchWrap>
+          <StyledSerchBox>
+            <h2>지금 가장 핫한</h2>
+            <Input
+              // _onKeyPress={onKeyPressHandler}
+              // _onChange={onChangeHandler}
+              placeholder={'어떤 물건을 찾으세요?'}
+              style={{
+                width: '40%',
+                mg_left: '3.6em;',
+                bd_radius: '3em',
+                bg_color: '#eee',
+                bd: 'none',
+                bd_bottom: 'none',
+                pd_left: '1.6em',
+                pd_right: '5em',
+                height: '3.4em',
+              }}
+            />
+            <StyledSerchImg
+              // onClick={onClickHandler}
+              src={searchIcon}
+            />
+          </StyledSerchBox>
 
+          <StyledFilterBox>
+            <StyledFilter
+              name="sort"
+              onChange={onChangeHandeler}
+              width={'60px'}
+            >
+              <option select="true">
+                정렬
+              </option>
+              <option value="new">최신 순</option>
+              <option value="hot">인기 순</option>
+            </StyledFilter>
+            <span onClick={()=>{navigate('/tradePosting')}}>
+              상품 등록하기
+            </span>
+          </StyledFilterBox>
+        </StyledSerchWrap>
+      </StyledSerchFilterBox>
       <TradeFullBox>
         <CardList>
           {items.map((item) => {
-            return <TradeCard key={item.tradeNo} id={item.tradeNo} tradeImg={item.tradeImg} title={item.title} status={item.status} nick={item.nick} />;
+            return <TradeCard key={item.tradeNo} id={item.tradeNo} tradeImg={item.tradeImg} title={item.title} status={item.status} nick={item.nick} price={item.price} />;
           })}
         </CardList>
       </TradeFullBox>
