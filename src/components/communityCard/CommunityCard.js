@@ -25,20 +25,15 @@ const CommunityCard = ({ data, modalHandler }) => {
   const dispatch = useDispatch();
 
   // console.log(data);
-  console.log(data.nick);
+  // console.log(data.nick);
 
-  const updateHandler = () => {
-    
-
-  }
+  const updateHandler = () => {};
 
   return (
-
     <CommunityCardWrap>
       <IconWrap>
         {window.localStorage.getItem("nick") === data.nick ? (
           <>
-            <IconBox length={"24px"} size={"24px"} url={"/img/pen.png"} hover={"blue"} />
             <IconBox
               onClick={() => {
                 dispatch(getCommunityDeleteThunk(data.communityNo));
@@ -47,43 +42,48 @@ const CommunityCard = ({ data, modalHandler }) => {
               size={"34px"}
               url={"/img/delete.png"}
               hover={"red"}
-              />
+            />
           </>
         ) : (
           ""
-          )}
+        )}
         <IconBox length={"24px"} size={"24px"} url={"/img/comment.png"} />
-        {data.reviewCount === 0 ? <NullCircle/> : <RepleCircle>{data.reviewCount}</RepleCircle>}
+        {data.reviewCount === 0 ? <NullCircle /> : <RepleCircle>{data.reviewCount}</RepleCircle>}
       </IconWrap>
 
       <CardContents>
         <ProfilePhoto url={data.communityImg} />
         <Names>
           <Dog>{data.breed}</Dog>
-          <User>{data.nick}</User>
+          <User>{data.nick.length > 4 ? data.nick.substring(0, 3) + "..." : data.nick}</User>
         </Names>
-        
+
         {data.communityImg ? (
-        <ContentImg alt="" src={data.communityImg}/>):
-        (
-          <DefaultImg/>
+          <ContentImg
+            alt=""
+            src={data.communityImg}
+            onClick={() => {
+              navigate(`/community/${data.communityNo}`);
+            }}
+          />
+        ) : (
+          <DefaultImg />
         )}
         {/* <ContentImg alt="" src={data.communityImg}/> */}
 
         <CategoryTitleWrap>
-          <Category>{data.category}없음</Category>
+          <Category>{data.category ? data.category : "없음"}</Category>
           <Title
             onClick={() => {
               navigate(`/community/${data.communityNo}`);
             }}
-            >
-            {data.title}
+          >
+            {data.title.length > 40 ? data.title.substring(0, 40) + "..." : data.title}
           </Title>
         </CategoryTitleWrap>
         {/* <Title onClick={detailHandler(data.communityNo)}>{data.title}</Title> */}
       </CardContents>
     </CommunityCardWrap>
-
   );
 };
 

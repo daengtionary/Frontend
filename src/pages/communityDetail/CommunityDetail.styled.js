@@ -8,11 +8,12 @@ export const StyledPostContainer = styled.div`
   border: 1px solid #d9d9d9;
   border-radius: 10px;
   height: auto;
+  min-height: 45vh;
   margin-top: ${props => props.marginTop};
 `;
 
 export const StyledTitle = styled.div`
-  height: 8%;
+  height: 13%;
   display: flex;
   align-items: center;
   padding: 0 15px;
@@ -20,17 +21,17 @@ export const StyledTitle = styled.div`
 `;
 export const StyledPostInfo = styled.div`
   display: flex;
-  height: 5%;
+  height: 7%;
   align-items: center;
   padding: 0 15px;
-  gap: 15%;
+  gap: 10%;
   border-bottom: 1px solid #d9d9d9;
   font-size: 12px;
 `;
 export const StyledContent = styled.div`
   box-sizing: border-box;
   width: 100%;
-  height: 87%;
+  height: 80%;
 
   p {
     margin: 0;
@@ -40,6 +41,29 @@ export const StyledContent = styled.div`
     height: 100%;
   }
 `;
+
+export const StyledImgList = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-bottom: 1px solid #d9d9d9;
+
+  img {
+    border-radius: 10px;
+    max-width: 80%;
+    margin: 20px 0;
+  }
+
+  div {
+    border-radius: 10px;
+    max-width: 80%;
+    height: 300px;
+    margin: 20px 0;
+  }
+`
 
 export const StyledShowRiples = styled.div`
   margin-top: 15px;

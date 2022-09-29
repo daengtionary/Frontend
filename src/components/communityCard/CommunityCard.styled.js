@@ -136,7 +136,7 @@ export const DefaultImg = styled.div`
 export const CategoryTitleWrap = styled.div`
   box-sizing: border-box;
   height: 100%;
-  width: 40%;
+  width: auto;
   display: flex;
   flex-direction: column;
 `
@@ -159,7 +159,7 @@ export const Category = styled.div`
 export const Title = styled.div`
   font-size: 15px;
   color: #797979;
-  width: 50%;
+  width: 100%;
   padding: 10px 0;
   cursor: pointer;
 `;
