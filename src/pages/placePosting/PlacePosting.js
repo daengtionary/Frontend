@@ -52,13 +52,13 @@ const PlacePosting = () => {
   const onChangePlaceInfo = (e) => {
     const { name, value } = e.target;
     if (name === "address") {
-      setPlaceInfo({ ...placeInfo, data: { ...placeInfo.data, address: addrRef.current.value + " " + value } });
+      setPlaceInfo({ ...placeInfo, data: { ...placeInfo.data, address: addrRef.current.value + ", " + value } });
     } else {
       setPlaceInfo({ ...placeInfo, data: { ...placeInfo.data, [name]: value } });
     }
   };
 
-  const uploadHandler = (e) => {
+  const uploadHandler = () => {
     dispatch(addPlaceThunk(placeInfo));
     alert("등록이 완료 되었습니다.");
     navigate("/place");
@@ -106,15 +106,7 @@ const PlacePosting = () => {
               <StyledImgNum>다른 이미지</StyledImgNum>
               <StyledImgInput src={editIcon} uploaded={true} onClick={onClickImgInput} />
             </div> */}
-            <StyledInput
-              ref={imgRef}
-              onChange={onImgHandler}
-              type="file"
-              accept="image/png, image/jpg, image/jpeg"
-              multiple
-              placeholder={"이미지"}
-              display={"none"}
-            />
+            <StyledInput ref={imgRef} onChange={onImgHandler} type="file" accept="image/*" multiple placeholder={"이미지"} display={"none"} />
           </StyledInputField>
         </StyledInputBox>
         <StyledInputBox>
@@ -148,7 +140,7 @@ const PlacePosting = () => {
               style={{
                 position: "absolute",
                 width: "7em",
-                height: "3em",
+                height: "50px",
                 ft_size: "1em",
                 color: "#757575",
                 bd_color: "#757575",
@@ -159,7 +151,7 @@ const PlacePosting = () => {
                 bd_color: "#ccc",
                 pd_left: "20px",
                 pd_right: "20px",
-                top: "10.5px",
+                top: "0",
                 left: "524px",
                 ft_weight: "500",
               }}
@@ -270,7 +262,7 @@ const StyledImgInput = styled.img`
   padding: 3px;
   border-radius: 20px;
   cursor: pointer;
-  margin: 0 1.4em;
+  margin: 0 1.4em 0 0;
 
   object-fit: contain;
 `;
@@ -284,7 +276,7 @@ const StyledInput = styled.input`
   outline: none;
   border: 1px solid #ccc;
   border-radius: 10px;
-  margin: 0.6em 0;
+  margin: 0 0 1em 0;
 `;
 const StyledCategotyButton = styled.button`
   display: flex;
