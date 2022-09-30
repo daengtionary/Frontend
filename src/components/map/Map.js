@@ -8,8 +8,12 @@ const Map = ({ modalHandler, title, address }) => {
   const lat = 37.5023088;
   const lon = 127.044437;
 
+  console.log(title)
+  console.log(address.split(",").slice(0, -1))
+
+
   const businessName = title;
-  const businessAddress = address;
+  const businessAddress = address.split(" ").slice(0, -1).join(" ");
 
   useEffect(() => {
     let container = document.getElementById("map");
@@ -86,8 +90,8 @@ const Map = ({ modalHandler, title, address }) => {
         </StyledCloseBtm>
         <StyledMapWrap id="map"></StyledMapWrap>
         <StyledIcon></StyledIcon>
-        <StyledMapAddress>{address}</StyledMapAddress>
-        <StyledMapTitle>{title}</StyledMapTitle>
+        <StyledMapAddress>{businessAddress}</StyledMapAddress>
+        <StyledMapTitle>{businessName}</StyledMapTitle>
       </StyledMapContainer>
     </StyledModalBackground>
   );

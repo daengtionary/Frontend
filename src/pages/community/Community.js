@@ -6,7 +6,6 @@ import SearchBar from "../../components/searchBar/SearchBar";
 import {
   StyledCommunityContainer,
   StyledCommunityWrap,
-  StyledSideBar,
   StyledContentsLayout,
   StyledCards,
   StyledButtonWrap,
