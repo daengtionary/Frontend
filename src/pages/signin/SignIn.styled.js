@@ -8,7 +8,6 @@ export const SignInBox = styled.div`
   width: 100%;
   height: 100%;
   margin: 140px 0;
-  
 `;
 
 // SignIn
@@ -21,6 +20,10 @@ export const SignInLoginBox = styled.div`
   height: 350px;
   border-radius: 10px;
   box-shadow: 2px 2px 0px 3px lightgray;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 800px;
+  }
 `;
 
 export const SignInLoginContainer = styled.form`
