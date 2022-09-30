@@ -5,7 +5,12 @@ export const DetailContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 60px;
 `;
+
+export const DetailMainImg = styled.img`
+  object-fit: fill;
+`
 
 export const MainBanner = styled.div`
   background: ${(props) => props.background};
@@ -14,17 +19,18 @@ export const MainBanner = styled.div`
 `;
 
 export const StyledSwiper = styled(Swiper)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* display: flex; */
+  /* align-items: center;
+  justify-content: center; */
   width: 80%;
   height: 36em;
   border-radius: 10px;
   z-index: 0;
 
   img {
-    width: 100%;
-    height: auto;
+    /* width: auto;
+    height: 100%; */
+    object-fit: contain;
   }
 `;
 
