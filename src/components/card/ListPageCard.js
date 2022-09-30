@@ -22,7 +22,7 @@ const ListPageCard = ({ data, onClick }) => {
           {data?.address}
         </StyledCardText>
         <StyledCardText color="#999" margin="6px 0" fontSize=".8em" fontWeight="400" height="10em">
-          “믿을 수 있는” 으뜸 동물병원 . 2차병원 출신 의료진들이 고급 의료 서비스를 제공합니다.
+          {data?.content}
         </StyledCardText>
         {/* <CardText
           color="#000"

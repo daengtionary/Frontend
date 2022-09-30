@@ -33,6 +33,7 @@ import {
   ProfileImg,
   Nick,
   Star,
+  DetailMainImg,
   StarNum,
 } from "./Detail.styled";
 import "swiper/swiper-bundle.min.css";
@@ -59,11 +60,15 @@ const Detail = () => {
 
   let data = useSelector((state) => state.detail.detail);
   console.log(data);
-  console.log(data.star);
+  console.log(data.imgResponseDtoList);
+  console.log(data.mapDetailSubResponseDto);
+
 
 
   const { id } = useParams();
   console.log(id);
+
+  const payload = {id: id, };
 
   useEffect(() => {
     dispatch(getDetailThunk(id));
@@ -74,33 +79,33 @@ const Detail = () => {
       <StyledSwiper
         className="swiper-container"
         spaceBetween={0}
-        slidesPerView={2}
+        slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
         autoplay={{ delay: 9000, disableOnInteraction: false }}
         loop={true}
         centeredSlides={true}
       >
-        {data.imgUrls &&
-          data.imgUrls.map((el, i) => {
+        {data.imgResponseDtoList &&
+          data.imgResponseDtoList.map((el, i) => {
             return (
-              <SwiperSlide key={i}>
-                <img src={el} alt="" />
+              <SwiperSlide key={i} style={{display: 'flex', justifyContent:'center'}}>
+                  <DetailMainImg src={el.mapImgUrl} alt={`${data.mapDetailSubResponseDto?.title}${i}`} />
               </SwiperSlide>
             );
           })}
       </StyledSwiper>
 
       <BusinessTitle>
-        <span>{data.title}</span>
+        <span>{data.mapDetailSubResponseDto?.title}</span>
       </BusinessTitle>
 
       <StarRating>
         <div>
-          {showStars(data.mapStar)}
+          {showStars(data.mapDetailSubResponseDto?.mapStar)}
         </div>
         <div>
-          {data.mapStar}
+          {data.mapDetailSubResponseDto?.mapStar}
         </div>
       </StarRating>
 
@@ -112,7 +117,7 @@ const Detail = () => {
           />
           {/* <HiOutlineLocationMarker size={24} /> */}
         </span>
-        <span>{data.address}</span>
+        <span>{data.mapDetailSubResponseDto?.address}</span>
       </MapAddress>
 
       <BusinessInfo>
@@ -120,7 +125,7 @@ const Detail = () => {
           <DescriptionTitle>병원정보</DescriptionTitle>
           <StyledDescriptionContents>
             <Description>
-              <p>{data.content}</p>
+              <p>{data.mapDetailSubResponseDto?.content}</p>
             </Description>
             <Infotmations>
               <span>
@@ -144,44 +149,6 @@ const Detail = () => {
         </BusinessDescription>
       </BusinessInfo>
 
-      {/* <ReservationWrap>
-        <CalendarWrap>
-          <Calendar onChange={setCalendar} value={calendar} />
-        </CalendarWrap>
-
-        <TimeWrap>
-          <ResevationTop>예약시간</ResevationTop>
-          <ResevationBottom>
-            <TimeBox id="select">
-              <StyledTimeRow>
-                <div value="10:00">10:00</div>
-                <div value="11:00">11:00</div>
-                <div value="12:00">12:00</div>
-                <div value="01:00">1:00</div>
-              </StyledTimeRow>
-              <StyledTimeRow>
-                <div value="02:00">2:00</div>
-                <div value="03:00">3:00</div>
-                <div value="04:00">4:00</div>
-                <div value="05:00">5:00</div>
-              </StyledTimeRow>
-              <StyledTimeRow>
-                <div value="06:00">6:00</div>
-                <div value="07:00">7:00</div>
-                <div value="08:00">8:00</div>
-                <div>blank</div>
-              </StyledTimeRow>
-              <StyledTimeRow>
-                <div>blank</div>
-                <div>blank</div>
-                <div>blank</div>
-                <div>blank</div>
-              </StyledTimeRow>
-            </TimeBox>
-          </ResevationBottom>
-        </TimeWrap>
-      </ReservationWrap> */}
-
       <ReviewWrap>
         {data.mapReviewList?.map((el) => {
           return (
@@ -198,8 +165,8 @@ const Detail = () => {
       {mapModal && (
         <Map
           modalHandler={modalHandler}
-          title={data.title}
-          address={data.address}
+          title={data.mapDetailSubResponseDto?.title}
+          address={data.mapDetailSubResponseDto?.address}
         />
       )}
     </DetailContainer>

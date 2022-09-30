@@ -5,7 +5,7 @@ import { api } from '../../shared/api';
 export const getDetailThunk = createAsyncThunk("GET_DETAIL", async (payload, thunkAPI) => {
   try {
     console.log(payload);
-    const resp = await api.get(`hospital/${payload}`);
+    const resp = await api.get(`hospital/${payload}?pagenum=0&pagesize=5`);
 
     return (console.log(resp), thunkAPI.fulfillWithValue(resp.data.data))
   } catch (err) {

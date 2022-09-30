@@ -17,7 +17,7 @@ export const addPlaceThunk = createAsyncThunk("placeSlice/addPlaceThunk", async 
 
   for (const keyValue of formdata) console.log(keyValue);
   const resData = await api_auth
-    .post(`/${payload.data.category}/create`, formdata)
+    .post(`/${payload.data.category}/create`, formdata, { "Content-Type": "image/*" })
     .then((res) => res)
     .catch((err) => console.log(err));
   console.log(resData);
@@ -26,19 +26,26 @@ export const addPlaceThunk = createAsyncThunk("placeSlice/addPlaceThunk", async 
 
 const initialState = {
   placeInfoRes: {},
+  isPosted: false,
 };
 
 export const placeSlice = createSlice({
   name: "place",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    resetPosted(state) {
+      state.isPosted = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(addPlaceThunk.fulfilled, (state, action) => {
       state.placeInfoRes = action.payload;
+      state.isPosted = true;
+
       console.log(action.payload);
     });
   },
 });
 
-export const {} = placeSlice.actions;
+export const { resetPosted } = placeSlice.actions;
 export default placeSlice.reducer;

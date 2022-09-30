@@ -11,6 +11,7 @@ import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
 import { getListThunk, reset, resetLoad, searchListThunk, firstListThunk, resetEnd, pageUp, setChecked } from "../../redux/modules/listSlice";
+import { resetPosted } from "../../redux/modules/placeSlice";
 import searchIcon from "../../static/image/search.png";
 
 const List = () => {
@@ -27,6 +28,8 @@ const List = () => {
   console.log(checked);
   const pathName = useSelector((state) => state.list.pathName);
   console.log(pathName);
+  const posted = useSelector((state) => state.place.isPosted);
+  console.log(posted);
   const location = useLocation();
   const { pathname, search } = location;
 
@@ -93,11 +96,7 @@ const List = () => {
       window.scrollTo(0, 0);
       dispatch(setChecked(0));
     });
-    // dispatch(getAllListThunk());
-    // if (listEnd === false && pageNum < page) {
-    // console.log(data);
-    // if (data) return;
-    if (listEnd === false) {
+    if (!listEnd) {
       if ((pathName && pathName === "place") || pathName === "/place") {
         console.log(page);
         dispatch(
@@ -112,6 +111,8 @@ const List = () => {
             nick: "",
           })
         );
+      } else if (pathName === "/cafe") {
+        alert("애견카페 카테고리는 준비 중입니다. ㅜㅜ");
       } else {
         dispatch(
           searchListThunk({
@@ -126,9 +127,10 @@ const List = () => {
           })
         );
       }
+      dispatch(resetPosted());
     }
     // }
-  }, [checked, pageNum, filter, ready]);
+  }, [checked, pageNum, filter, posted]);
   // setTimeout(() => setDataList(data), 10);
 
   useEffect(
@@ -246,11 +248,9 @@ const List = () => {
             <StyledSerchImg onClick={onClickHandler} src={searchIcon} style={{ width: "2em" }} />
           </StyledSerchBox>
           <StyledFilterBox>
-            <StyledFilter name="address" onChange={filterHandler} width={"60px"}>
-              <option disabled selected value="전체">
-                지역
-              </option>
-              <option value=" ">전체</option>
+            <StyledFilter name="address" value={address || " "} onChange={filterHandler} width={"60px"}>
+              <option value="">위치</option>
+              <option value="">전체</option>
               <option value="서울">서울</option>
               <option value="부산">부산</option>
               <option value="인천">인천</option>
@@ -391,9 +391,9 @@ const StyledButtonWrap = styled.div`
 `;
 
 export const StyledFilterBox = styled.div`
-  span{
+  span {
     font-size: 14px;
-    :hover{
+    :hover {
       cursor: pointer;
     }
   }
