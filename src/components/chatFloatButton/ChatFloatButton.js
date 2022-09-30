@@ -19,7 +19,7 @@ const ChatFloatButton = () => {
   //   if (memberNo) {
   //     // SSE 구독 요청
   //     eventSource.current = new EventSource(
-  //       `http://${process.env.REACT_APP_CHAT_API_IP}/member/subscribe/${memberNo}`,
+  //       `https://${process.env.REACT_APP_CHAT_API_IP}/member/subscribe/${memberNo}`,
   //       {
   //         headers: {
   //           Authorization: `Bearer ${sessionStorage.getItem("authorization")}`,

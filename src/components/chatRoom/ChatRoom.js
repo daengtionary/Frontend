@@ -39,7 +39,7 @@ const ChatRoom = () => {
 
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
-    const webSocket = new SockJS(`http://${process.env.REACT_APP_CHAT_API_IP}/ws/chat`);
+    const webSocket = new SockJS(`https://${process.env.REACT_APP_REST_API_IP}/ws/chat`);
     stompClient.current = Stomp.over(webSocket);
 
     // // STOMPJS console log 지워주는 부분
