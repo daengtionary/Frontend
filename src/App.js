@@ -20,7 +20,7 @@ import Community from "./pages/community/Community";
 import CommunityDetail from "./pages/communityDetail/CommunityDetail";
 
 import Matching from "./pages/matching/Matching";
-import MatchingRoom from "./pages/matching/MatchingRoom";
+import MatchingDetail from "./pages/matching/MatchingDetail";
 import PlacePosting from "./pages/placePosting/PlacePosting";
 
 // Shared
@@ -60,7 +60,7 @@ function App() {
         <Route exact path={"chat"} element={<ChatModal />} />
         <Route exact path={"chat/:roomNo"} element={<ChatRoom />} />
         <Route exact path={"matching"} element={<Matching />} />
-        <Route exact path={"matchingRoom"} element={<MatchingRoom />} />
+        <Route exact path={"matchingDetail/:id"} element={<MatchingDetail/>} />
         <Route exact path={"dog-walk"} element={<DogWalk />} />
         <Route exact path={"placeposting"} element={<PlacePosting />} />
       </Routes>
