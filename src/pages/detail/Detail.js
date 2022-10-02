@@ -78,7 +78,7 @@ const Detail = () => {
     <DetailContainer>
       <StyledSwiper
         className="swiper-container"
-        spaceBetween={0}
+        spaceBetween={100}
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
@@ -95,6 +95,11 @@ const Detail = () => {
             );
           })}
       </StyledSwiper>
+      
+
+      <BusinessTitle size={10}>
+        <span>{data.mapDetailSubResponseDto?.address.split(" ").at(0)}</span>
+      </BusinessTitle>
 
       <BusinessTitle>
         <span>{data.mapDetailSubResponseDto?.title}</span>
@@ -117,7 +122,7 @@ const Detail = () => {
           />
           {/* <HiOutlineLocationMarker size={24} /> */}
         </span>
-        <span>{data.mapDetailSubResponseDto?.address}</span>
+        <span>{data.mapDetailSubResponseDto?.address.split(",").at(0)}</span>
       </MapAddress>
 
       <BusinessInfo>
@@ -132,18 +137,21 @@ const Detail = () => {
                 <TbPhoneCall size={30} />
               </span>{" "}
               <span>전화번호</span>
+              <span style={{color:"#767676"}}>준비중입니다...</span>
             </Infotmations>
             <Infotmations>
               <span>
                 <BiCar size={30} />
               </span>{" "}
               <span>주차정보</span>
+              <span style={{color:"#767676"}}>준비중입니다...</span>
             </Infotmations>
             <Infotmations>
               <span>
                 <FiClock size={30} />
               </span>{" "}
               <span>진료시간</span>
+              <span style={{color:"#767676"}}>준비중입니다...</span>
             </Infotmations>
           </StyledDescriptionContents>
         </BusinessDescription>

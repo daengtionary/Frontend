@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCommunityDeleteThunk } from "../../redux/modules/communitySlice";
+import jwtDecode from "jwt-decode";
 import {
   CommunityCardWrap,
   IconWrap,
@@ -18,21 +19,21 @@ import {
   ContentImg,
   CategoryTitleWrap,
   DefaultImg,
+  StyledUserInfo,
 } from "./CommunityCard.styled";
 
-const CommunityCard = ({ data, modalHandler }) => {
+const CommunityCard = ({ data }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // console.log(data);
-  // console.log(data.nick);
-
-  const updateHandler = () => {};
+  const token = window.sessionStorage.getItem("authorization");
+  const decoded = token && jwtDecode(token);
+  const userEmail = decoded.sub;
 
   return (
     <CommunityCardWrap>
       <IconWrap>
-        {window.localStorage.getItem("nick") === data.nick ? (
+        {data.email === userEmail ? (
           <>
             <IconBox
               onClick={() => {
@@ -52,12 +53,13 @@ const CommunityCard = ({ data, modalHandler }) => {
       </IconWrap>
 
       <CardContents>
-        <ProfilePhoto url={data.communityImg} />
-        <Names>
-          <Dog>{data.breed}</Dog>
-          <User>{data.nick.length > 4 ? data.nick.substring(0, 3) + "..." : data.nick}</User>
-        </Names>
-
+        <StyledUserInfo>
+          <ProfilePhoto url={data.image ? data?.image : "/img/dogIconGray.png"} />
+          <Names>
+            <Dog>{data?.breed?.length > 4 ? data.breed.substring(0, 3) + "..." : data.breed}</Dog>
+            <User>{data?.nick?.length > 4 ? data.nick.substring(0, 3) + "..." : data.nick}</User>
+          </Names>
+        </StyledUserInfo>
         {data.communityImg ? (
           <ContentImg
             alt=""
@@ -67,7 +69,11 @@ const CommunityCard = ({ data, modalHandler }) => {
             }}
           />
         ) : (
-          <DefaultImg />
+          <DefaultImg
+            onClick={() => {
+              navigate(`/community/${data.communityNo}`);
+            }}
+          />
         )}
         {/* <ContentImg alt="" src={data.communityImg}/> */}
 
@@ -78,7 +84,7 @@ const CommunityCard = ({ data, modalHandler }) => {
               navigate(`/community/${data.communityNo}`);
             }}
           >
-            {data.title.length > 40 ? data.title.substring(0, 40) + "..." : data.title}
+            {data.title.length > 20 ? data.title.substring(0, 20) + "..." : data.title}
           </Title>
         </CategoryTitleWrap>
         {/* <Title onClick={detailHandler(data.communityNo)}>{data.title}</Title> */}

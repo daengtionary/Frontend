@@ -2,30 +2,51 @@ import styled from "styled-components";
 
 export const StyledCommunityPostForm = styled.form`
   width: 100%;
-  height: 50vh;
+  height: 60vh;
   border: 1px solid #797979;
   border-radius: 10px;
+
+  @media screen and (max-width: 425px){
+    height: 85%;
+    
+  }
 `;
 export const StyledCategory = styled.div`
   display: flex;
   height: 10%;
   align-items: center;
+
+  @media screen and (max-width: 425px) {
+    height: 5%;
+  }
 `;
 export const StyledUserName = styled.div`
   display: flex;
   height: 10%;
   align-items: center;
+
+  @media screen and (max-width: 425px) {
+    height: 5%;
+  }
 `;
 export const StyledTitle = styled.div`
   display: flex;
   height: 10%;
   align-items: center;
+
+  @media screen and (max-width: 425px) {
+    height: 5%;
+  }
 `;
 
 export const StyledImgFile = styled.div`
   display: flex;
   height: 10%;
   align-items: center;
+
+  @media screen and (max-width: 425px) {
+    height: 5%;
+  }
 `;
 
 
@@ -33,6 +54,9 @@ export const StyledContent = styled.div`
   display: flex;
   height: 60%;
   align-items: flex-start;
+  @media screen and (max-width: 425px) {
+    height: 80%;
+  }
 `;
 
 export const StyledLabel = styled.div`
@@ -73,22 +97,13 @@ export const StyledFileInput = styled.input`
   align-items: center;
   height: 90%;
   
-`
-
-export const StyledSelect = styled.select`
-  border: 1px solid #f1f1f1;
-  width: 100px;
-  border-radius: 10px;
-  height: 90%;
-  padding: 0 10px
-`
-
+  `
 export const StyledInput = styled.input`
-  
-  border: none;
-  width: 100%;
-  height: 80%;
+    border: none;
+    width: 100%;
+    height: 80%;
 `
+
 
 export const StyledTextArea = styled.textarea`
   box-sizing: border-box;
@@ -113,4 +128,19 @@ export const StyledButtonWrap = styled.div`
     background-color: #6563FF;
     color: #fff;
   }
+
+  @media screen and (max-width: 425px) {
+    button {
+    width: 100%;
+    height: 45px;
+  }
+  }
+`
+
+export const StyledSelect = styled.select`
+  border: 1px solid #f1f1f1;
+  width: 100px;
+  border-radius: 10px;
+  height: 90%;
+  padding: 0 10px
 `

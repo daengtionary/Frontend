@@ -9,6 +9,7 @@ export const ModalBackground = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 11;
 `;
 
 export const PostModalContainer = styled.div`
@@ -19,6 +20,14 @@ export const PostModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 15px 25px 0 25px;
+
+  @media screen and (max-width: 425px){
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0px;
+    padding: 0 10px;
+
+  }
 `
 
 export const CloseBtm = styled.div`
@@ -29,5 +38,9 @@ export const CloseBtm = styled.div`
   button {
     border: none;
     background-color: white;
+  }
+
+  @media screen and (max-width: 425px){
+    margin: 10px 0 20px 0;
   }
 `

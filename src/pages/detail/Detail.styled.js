@@ -6,6 +6,11 @@ export const DetailContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 60px;
+  
+  @media screen and (max-width: 425px){ 
+    /* border: 1px solid red; */
+    margin-top: 20px;
+  }
 `;
 
 export const DetailMainImg = styled.img`
@@ -32,6 +37,11 @@ export const StyledSwiper = styled(Swiper)`
     height: 100%; */
     object-fit: contain;
   }
+
+  @media screen and (max-width: 425px){
+    width: 90vw;
+    height: 25vh;
+  }
 `;
 
 export const BusinessTitle = styled.div`
@@ -40,6 +50,12 @@ export const BusinessTitle = styled.div`
 
   span {
     font-size: 28px;
+    font-size: ${props => `${props.size}px`};
+  }
+
+  @media screen and (max-width: 425px){
+    width: 90vw;
+    margin: 5px 0 0 0 ;
   }
 `
 export const MapAddress = styled.div`
@@ -58,6 +74,12 @@ export const MapAddress = styled.div`
     cursor: pointer;
   }
 
+  @media screen and (max-width: 425px){
+    width: 90vw;
+    margin-bottom: 20px;
+    border-bottom: none;
+    
+  }
 `
 export const MapMark = styled.img`
   width: 24px;
@@ -70,15 +92,24 @@ export const BusinessInfo = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 40px;
+
+  @media screen and (max-width: 425px){
+    width: 90vw; 
+  }
 `
 
 export const BusinessDescription = styled.div`
   width: 100%;
   box-sizing: border-box;
+
 `
 
 export const DescriptionTitle = styled.h3`
   margin-bottom: 30px;
+  @media screen and (max-width: 425px){
+    /* border: 1px solid red; */
+    margin-bottom: 10px;
+  }
 `
 export const StyledDescriptionContents = styled.div`
   border: 1px solid #dbdbdb;
@@ -103,6 +134,10 @@ export const Infotmations = styled.div`
     width: 62px;
     height: 62px;
     margin-right: 30px;
+  }
+
+  span:nth-child(3){
+    margin-left: 20px;
   }
 `
 
@@ -141,6 +176,11 @@ export const StarRating = styled.div`
   align-items: center;
   margin-bottom: 10px;
 
+  @media screen and (max-width: 425px){
+    width: 90vw;
+    margin: 5px 0 0 0 ;
+    font-size: 22px;
+  }
 `
 
 export const StarIcon = styled.img`

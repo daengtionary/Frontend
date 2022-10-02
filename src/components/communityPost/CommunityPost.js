@@ -150,7 +150,7 @@ const CommunityPost = ({ modalHandler }) => {
 
       <StyledImgFile>
         <StyledLabel borderTop={"1px solid #797979"}>
-          <label>사진등록</label>
+          <label>사진</label>
         </StyledLabel>
         <StyledPosts borderTop={"1px solid #797979"}>
           <div>

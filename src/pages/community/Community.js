@@ -26,11 +26,7 @@ import { TbListNumbers } from "react-icons/tb";
 const Community = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const obsRef = useRef(null); //옵저버 요소
-  // const preventRef = useRef(true); //옵저버 중복 실행 방지
-  // const endRef = useRef(false); //모든 글 로드 확인
 
-  const [page, setPage] = useState(0); // 현재 페이지
   const [postModal, setPostModal] = useState(false);
   
   const pageNum = useSelector((state) => state.community.pageNum);
@@ -41,25 +37,16 @@ const Community = () => {
   console.log(data);
   // console.log(test);
 
+  // const filterButton = [
+  //   { name: "#전체", path: "/place" },
+  //   { name: "#동물병원", path: "/hospital" },
+  //   { name: "#애견호텔", path: "/room" },
+  //   { name: "#애견카페", path: "/cafe" },
+  // ];
+
+
   console.log("listEnd:", listEnd);
   console.log(pageNum);
-
-  // const [list, setList] = useState(true);
-  // const [post, setPost] = useState(false);
-
-  //   useEffect(()=> { //옵저버 생성
-  //     const observer = new IntersectionObserver(observerHandler, { threshold : 0.5 });
-  //     if(obsRef.current) observer.observe(obsRef.current);
-  //     return () => { observer.disconnect(); }
-  // }, [])
-
-  //   const observerHandler = ((entries) => { //옵저버 콜백함수
-  //     const target = entries[0];
-  //     if(!endRef.current && target.isIntersecting && preventRef.current){ //옵저버 중복 실행 방지
-  //       preventRef.current = false; //옵저버 중복 실행 방지
-  //       setPage(prev => prev+1 ); //페이지 값 증가
-  //     }
-  // })
 
   useEffect(
     throttle(() => {
@@ -73,12 +60,8 @@ const Community = () => {
 
   const handleScroll = debounce((e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.target.documentElement;
-    // console.log("1", scrollTop);
-    // console.log("2", scrollHeight);
-    // console.log("3", scrollTop + clientHeight - scrollHeight);
     if (scrollTop + clientHeight >= scrollHeight - 50) {
       dispatch(pageUp(1));
-      // setPage(page => page +1)
     }
   }, 200);
 
@@ -89,14 +72,13 @@ const Community = () => {
 
 
   const userNick = window.localStorage.getItem("nick");
-  console.log("로그인한 닉네임 :", userNick);
+
 
   // 토큰 변수 할당
   let token = window.sessionStorage.getItem("authorization");
 
   // 토큰 decode
   let decoded = token && jwtDecode(token);
-  // console.log(decoded)
 
   const modalHandler = () => {
     // 토큰 만료시간
@@ -120,32 +102,11 @@ const Community = () => {
       <StyledCommunityTop>
         <TopLayout>
           <h3>댕과사전 커뮤니티</h3>
-
-          <Input
-            // _onKeyPress={onKeyPressHandler}
-            // _onChange={onChangeHandler}
-            placeholder={"궁금한 후기를 검색하세요"}
-            style={{
-              width: "40%",
-              mg_left: "3.6em;",
-              bd_radius: "3em",
-              bg_color: "#eee",
-              bd: "none",
-              bd_bottom: "none",
-              pd_left: "1.6em",
-              pd_right: "5em",
-              height: "3.4em",
-            }}
-          />
-          <StyledSerchImg
-            // onClick={onClickHandler}
-            src={"/img/search.png"}
-          />
-          {/* <SearchBar /> */}
+          <SearchBar />
         </TopLayout>
       </StyledCommunityTop>
 
-      <StyledContentsLayout marginTop={"70px"}>
+      <StyledContentsLayout marginTop={"70"}>
         <StyledButtonWrap>
           <button onClick={modalHandler}>글쓰기</button>
         </StyledButtonWrap>
@@ -156,7 +117,7 @@ const Community = () => {
           <StyledCards>
             {data &&
               data?.map((el) => {
-                return <CommunityCard modalHandler={modalHandler} key={el.communityNo} data={el} userNick={userNick} />;
+                return <CommunityCard modalHandler={modalHandler} key={el.communityNo} data={el}/>;
               })}
           </StyledCards>
         </StyledCommunityWrap>
