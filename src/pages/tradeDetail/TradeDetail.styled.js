@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const TradeDetailAll = styled.div`
   display: flex;
@@ -60,7 +60,7 @@ export const ItemNameInfoText = styled.div`
     margin-top: auto;
     margin-bottom: 15px;
   }
-  .won{
+  .won {
     color: gray;
     font-size: 22px;
   }
@@ -77,24 +77,24 @@ export const ItemDetailInfoText = styled.div`
   height: auto;
   font-size: 17px;
   font-weight: 500;
-  .sellInfo{
+  .sellInfo {
     font-size: 17px;
     font-weight: 700;
     color: gray;
     position: absolute;
     left: 30%;
-  };
-`
+  }
+`;
 
 export const ButtonWrap = styled.div`
   width: 100%;
   display: flex;
-  position:absolute;
+  position: absolute;
   justify-content: end;
   bottom: -5%;
   right: 8%;
-  
-  img{
+
+  img {
     position: relative;
     width: 33px;
     height: 33px;

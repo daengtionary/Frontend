@@ -16,9 +16,9 @@ import {
   StyleShowImageBox,
   StyleShowImage,
   StylePreviewBox,
-} from "./TradePosting.styled";
+} from "./MatcingPosting.styled";
 import { useDispatch } from "react-redux";
-import { postingTrade } from "../../redux/modules/tradeSlice";
+import {postingTrade} from "../../redux/modules/tradeSlice";
 import React from "react";
 
 //리액트 아이콘
@@ -38,15 +38,15 @@ const TradePosting = () => {
 
   const postingData = {
     data: {
-      title: title,
-      address: "전국",
-      stuffStatus: status,
-      content: detail,
-      price: price,
-      postStatus: "판매중",
-      exchange: "교환불가",
+      "title": title,
+      "address": "전국",
+      "stuffStatus": status,
+      "content": detail,
+      "price": price,
+      "postStatus": "판매중",
+      "exchange":"교환불가"
     },
-    imgUrl: fileImage,
+    imgUrl: fileImage
   };
 
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ const TradePosting = () => {
 
   //이미지 상대경로 저장, 요청 이미지 저장
   const uploadImage = useCallback(
-    event => {
+    (event) => {
       let sendImages = [...fileImage];
       let imageUrlLists = [...showImages];
       const imageLists = event.target.files;
@@ -77,13 +77,13 @@ const TradePosting = () => {
   console.log(fileImage);
 
   // X버튼 클릭 시 이미지 삭제
-  const handleDeleteImage = id => {
+  const handleDeleteImage = (id) => {
     setShowImages(showImages.filter((_, index) => index !== id));
     setFileImage(fileImage.filter((_, index) => index !== id));
   };
 
   const checkOnlyOne = useCallback(
-    checkThis => {
+    (checkThis) => {
       const checkboxes = document.getElementsByName("status");
       for (let i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i] !== checkThis) {
@@ -102,26 +102,27 @@ const TradePosting = () => {
   );
 
   const onSubmitHandler = () => {
-    console.log(postingData);
-    dispatch(postingTrade(postingData))
-      .unwrap()
-      .then(res => {
-        alert(res.message);
-        navigate("/trade");
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    console.log(postingData)
+    // dispatch(postingMatching(postingData))
+    // .unwrap()
+    // .then((res) => {
+    //   alert(res.message);
+    //   navigate("/matching")
+    // })
+    // .catch((error) =>{
+    //   console.log(error)
+    // })
   };
+
 
   return (
     <>
-      <StyleTradePostingForm>
-        <StyleTradePageTopTitle>
-          <span>중고상품 등록하기</span>
-        </StyleTradePageTopTitle>
+      <StyleTradePostingForm >
+      <StyleTradePageTopTitle>
+        <span>댕 매칭 등록하기</span>
+      </StyleTradePageTopTitle>
         <StyleTradePostingImageBox>
-          <span>상품 이미지</span>
+          <span>이미지</span>
           <StyleTradeUplodeLabel onChange={uploadImage} htmlFor="input-file">
             <TbCameraPlus className="camera" />
             <input type="file" multiple={true} accept="image/*" id="input-file" />
@@ -142,21 +143,21 @@ const TradePosting = () => {
           <Input
             type={"text"}
             value={title}
-            _onChange={e => setTitle(e.target.value)}
+            _onChange={(e) => setTitle(e.target.value)}
             style={{
               width: "50%",
               height: "40px",
               pd_left: "10px",
               mg_right: "0px",
               bd: "1px solid lightGray ",
-              bd_bottom: "1px solid lightGray ",
+              bd_bottom:"1px solid lightGray ",
               bd_radius: "10px",
             }}
             placeholder={"제목을 입력해주세요"}
           />
         </StyleTradeItemTitleBox>
         <StyleTradePlaceBox>
-          <span>거래지역</span>
+          <span>주소</span>
           <StyleTradePlaceSpanBox>
             <Button
               text="지역설정"
@@ -183,54 +184,53 @@ const TradePosting = () => {
           </StyleTradePlaceSpanBox>
         </StyleTradePlaceBox>
         <StyleTradeStatusBox>
-          <span className="statusSpan">상태</span>
+          <span className="statusSpan">시간</span>
           <StyleTradeCheckBoxWrap>
             <span>
-              <input type={"checkbox"} name="status" value="Used" onChange={e => checkOnlyOne(e.target)} />
+              <input type={"checkbox"} name="status" value="Used" onChange={(e) => checkOnlyOne(e.target)} />
               중고상품
             </span>
             <span>
-              <input type={"checkbox"} name="status" value="almostNew" onChange={e => checkOnlyOne(e.target)} />
+              <input type={"checkbox"} name="status" value="almostNew" onChange={(e) => checkOnlyOne(e.target)} />
               거의새것
             </span>
             <span>
-              <input type={"checkbox"} name="status" value="new" onChange={e => checkOnlyOne(e.target)} />
+              <input type={"checkbox"} name="status" value="new" onChange={(e) => checkOnlyOne(e.target)} />
               새상품
             </span>
           </StyleTradeCheckBoxWrap>
         </StyleTradeStatusBox>
         <StyleTradePriceBox>
-          <span>가격</span>
+          <span>날짜</span>
           <Input
             type={"text"}
             value={price}
-            _onChange={e => setPrice(e.target.value)}
+            _onChange={(e) => setPrice(e.target.value)}
             style={{
               width: "20%",
               height: "40px",
               pd_left: "10px",
               mg_right: "0px",
               bd: "1px solid lightGray ",
-              bd_bottom: "1px solid lightGray ",
+              bd_bottom:"1px solid lightGray ",
               bd_radius: "10px",
             }}
-            placeholder={"가격을 입력해주세요"}
+            placeholder={"날짜를 선택해주세요"}
           />
-          <span className="won">원</span>
         </StyleTradePriceBox>
         <StyleTradeDetailBox>
           <span>설명</span>
           <Input
             type={"text"}
             value={detail}
-            _onChange={e => setDetail(e.target.value)}
+            _onChange={(e) => setDetail(e.target.value)}
             style={{
               width: "50%",
               height: "150px",
               pd_left: "10px",
               mg_right: "0px",
               bd: "1px solid lightGray ",
-              bd_bottom: "1px solid lightGray ",
+              bd_bottom:"1px solid lightGray ",
               bd_radius: "10px",
             }}
             placeholder={"상품에 대해 설명해주세요"}

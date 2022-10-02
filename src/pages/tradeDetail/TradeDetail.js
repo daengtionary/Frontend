@@ -50,8 +50,9 @@ const TradeDetail = () => {
   //채팅 룸 생성
   const onClickChat = async () => {
     try {
-      const response = await chatApis.addRoom(+id);
-      Navigate(`/chat/${response.data.data.chatRoomNo}`);
+      const response = await chatApis.addRoom(+id)
+      Navigate(`/chat`)
+      console.log(response)
     } catch (error) {}
   };
 
