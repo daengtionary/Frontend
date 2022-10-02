@@ -18,7 +18,7 @@ import {
   StylePreviewBox,
 } from "../tradePosting/TradePosting.styled";
 import { useDispatch } from "react-redux";
-import {postingTrade} from "../../redux/modules/tradeSlice";
+import {postingMatching} from "../../redux/modules/matchingSlice";
 import React from "react";
 
 //리액트 아이콘

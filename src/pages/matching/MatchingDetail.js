@@ -50,14 +50,14 @@ const TradeDetail = () => {
   //   dispatch(getMatchingDetail(id));
   // }, [dispatch]);
 
-  //채팅 룸 생성
-  // const onClickChat = async () => {
-  //   try {
-  //     const response = await chatApis.addMatchingRoom
-  //     console.log(response)
-  //     Navigate(`/chat`)
-  //   } catch (error) {}
-  // };
+  // 매칭 룸 생성
+  const onClickMatching = async () => {
+    try {
+      const response = await chatApis.addMatching
+      console.log(response)
+      Navigate(`/chat`)
+    } catch (error) {}
+  };
 
   return (
     
@@ -108,7 +108,7 @@ const TradeDetail = () => {
             <ButtonWrap>
               <AddWishButton><img src={heart} alt="jjim"/>찜하기</AddWishButton>
               <ChatStartButton 
-              // onClick={ onClickChat}
+              onClick={ onClickMatching}
               ><img src={commentIcon} alt="comment"/>댕톡</ChatStartButton>
             </ButtonWrap>
           </ItemTitleBox>

@@ -56,7 +56,7 @@ const ChatModal = () => {
 
   return (
     <FloatWrap>
-      <Dim />
+      <Dim onClick={()=>{navigate('/')}} />
       <Wrap>
         <LeftWrap isRoom={roomNo}>
           <Title>

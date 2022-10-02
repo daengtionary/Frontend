@@ -106,10 +106,7 @@ const Trade = () => {
               src={searchIcon}
             />
           </StyledSerchBox>
-        </StyledSerchWrap>
-      </StyledSerchFilterBox>
-      <TradeFullBox>
-        <StyledFilterBox>
+          <StyledFilterBox>
           <span
             className="postItem"
             onClick={() => {
@@ -119,6 +116,10 @@ const Trade = () => {
             상품 등록하기
           </span>
         </StyledFilterBox>
+        </StyledSerchWrap>
+      </StyledSerchFilterBox>
+      <TradeFullBox>
+
         <CardList>
           {items.map(item => {
             return (

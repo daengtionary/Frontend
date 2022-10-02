@@ -49,10 +49,12 @@ const TradeDetail = () => {
   //채팅 룸 생성
   const onClickChat = async () => {
     try {
-      const response = await chatApis.addRoom(+id)
+      const response = await chatApis.addRoom(+id);
         console.log(response)   
         navigate('/chat')   
-    } catch (error) {}
+    } catch (error) {
+      console(error)
+    }
   };
 
   return (
@@ -60,7 +62,7 @@ const TradeDetail = () => {
       {item.length !== 0 ? (
         <TradeDetailFullBox>
           <ImgBox>
-            <StyledSwiper
+            <StyledSwiper className='swipe'
               spaceBetween={0}
               slidesPerView={1}
               navigation

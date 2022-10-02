@@ -9,6 +9,7 @@ import searchIcon from '../../static/image/search.png';
 import { StyledSerchWrap, StyledSerchBox, StyledSerchImg, StyledFilter, StyledFilterBox } from '../animalhospital/List';
 import { StyledSerchFilterBox } from '../trade/Trade.styled';
 import Input from '../../elements/input/Input';
+import Button from '../../elements/button/Button';
 import { useNavigate } from 'react-router-dom';
 
 const Matching = () => {
@@ -46,7 +47,7 @@ const Matching = () => {
           </StyledSerchBox>
 
           <StyledFilterBox>
-            <StyledFilter
+            {/* <StyledFilter
               name="sort"
               width={'60px'}
             >
@@ -55,10 +56,25 @@ const Matching = () => {
               </option>
               <option value="new">최신 순</option>
               <option value="hot">인기 순</option>
-            </StyledFilter>
-            <span onClick={()=>{navigate('/MatchingPosting')}}>
-              글 작성
-            </span>
+            </StyledFilter> */}
+            <Button
+            _onClick={()=>{navigate('/matchingPosting')}}
+            text={"글쓰기"}
+            style={{
+              width: "auto",
+              height: "auto",
+              color: "#fff",
+              bg_color: "#6563ff",
+              mg_left: "5px",
+              mg_right: "5px",
+              bd_radius: "10px",
+              bd_color: "#ccc",
+              pd_top: "8px",
+              pd_bottom: "8px",
+              pd_left: "20px",
+              pd_right: "20px",
+            }}
+          />
           </StyledFilterBox>
         </StyledSerchWrap>
       </StyledSerchFilterBox>

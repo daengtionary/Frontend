@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyleTradePageTopTitle = styled.div`
   width: 65%;
@@ -14,6 +14,16 @@ export const StyleTradePageTopTitle = styled.div`
     font-weight: 600;
     font-size: 23px;
   }
+  @media screen and (max-width: 768px) {
+    width: 400px;
+    height: 50px;
+    margin-top: 0px;
+    display: flex;
+    justify-content: center;
+    span {
+      position: relative;
+    }
+  }
 `;
 
 export const StyleTradePostingForm = styled.div`
@@ -21,6 +31,11 @@ export const StyleTradePostingForm = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 768px) {
+    width: 400px;
+    height: auto;
+    display: flex;
+  }
 `;
 
 export const StyleTradePostingImageBox = styled.div`
@@ -46,6 +61,9 @@ export const StyleTradePostingImageBox = styled.div`
     border-radius: 10px;
     background-color: #f1f1f5;
   }
+  @media screen and (max-width: 768px) {
+    width: 400px;
+  }
 `;
 
 export const StyleTradeUplodeLabel = styled.label`
@@ -63,6 +81,13 @@ export const StyleTradeUplodeLabel = styled.label`
   .camera {
     font-size: 80px;
     color: white;
+  }
+  @media screen and (max-width: 768px) {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    top: 15%;
+    left: 0px;
   }
 `;
 
@@ -83,15 +108,43 @@ export const StylePreviewBox = styled.div`
     left: 3px;
     color: gray;
   }
+  @media screen and (max-width: 768px) {
+    width: 200px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    top: -5%;
+    left: 200px;
+    .cancelSpanBox {
+      display: flex;
+      flex-direction: row;
+      font-size: 10px;
+    }
+    .cancelIcon {
+      position: relative;
+      top: 0px;
+      left: 28px;
+      font-size: 24px;
+      color: gray;
+    }
+  }
 `;
 
 export const StyleShowImageBox = styled.div`
   width: 120px;
   height: 120px;
+  @media screen and (max-width: 768px) {
+    width: 70px;
+    height: 100px;
+  }
 `;
 export const StyleShowImage = styled.img`
-  width: 120px;
-  height: 120px;
+  width: 70px;
+  height: 70px;
+  @media screen and (max-width: 768px) {
+    width: 70px;
+    height: 70px;
+  }
 `;
 
 export const StyleTradeItemTitleBox = styled.div`
@@ -113,6 +166,23 @@ export const StyleTradeItemTitleBox = styled.div`
     left: 180px;
     top: 35%;
   }
+
+  @media screen and (max-width: 768px) {
+    width: 400px;
+    height: 100px;
+    span {
+    position: absolute;
+    left: 5%;
+    font-weight: 600;
+  }
+  input {
+    position: absolute;
+    left: 100px;
+    width: 150px;
+    top: 35%;
+  }
+  }
+
 `;
 
 export const StyleTradePlaceBox = styled.div`
@@ -128,6 +198,15 @@ export const StyleTradePlaceBox = styled.div`
     left: 0%;
     font-weight: 600;
   }
+  @media screen and (max-width: 768px) {
+    width: 400px;
+    height: 100px;
+    span {
+      position: absolute;
+      left: 5%;
+      font-weight: 600;
+    }
+  }
 `;
 
 export const StyleTradeStatusBox = styled.div`
@@ -138,12 +217,21 @@ export const StyleTradeStatusBox = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-
   .statusSpan {
     position: absolute;
     left: 0%;
     font-weight: 600;
   }
+  @media screen and (max-width: 768px) {
+    width: 400px;
+    height: 100px;
+    .statusSpan {
+      position: absolute;
+      left: 5%;
+      font-weight: 600;
+    }
+  }
+  
 `;
 
 export const StyleTradeCheckBoxWrap = styled.div`
@@ -152,6 +240,9 @@ export const StyleTradeCheckBoxWrap = styled.div`
   display: flex;
   align-items: center;
   gap: 0 22px;
+  @media screen and (max-width: 768px) {
+    left: 100px;
+  }
 `;
 
 export const StyleTradePriceBox = styled.div`
@@ -162,18 +253,45 @@ export const StyleTradePriceBox = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  input {
+  div {
+    display: flex;
     position: absolute;
     left: 180px;
+    width: 50%;
+    align-items: center;
   }
   span {
-    position: absolute;
-    left: 0%;
     font-weight: 600;
   }
   .won {
+    font-weight: 400;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 400px;
+    height: 100px;
+    span {
+      position: absolute;
+      left: 5%;
+      font-weight: 600;
+    }
+
+    div {
+    display: flex;
     position: absolute;
-    left: 40%;
+    left: 100px;
+    width: 300px;
+    align-items: center;
+  }
+
+  input{
+      width: 150px;
+      left: 5%;
+    }
+  }
+  .won {
+    font-weight: 400;
+    left: 170px;
   }
 `;
 
@@ -194,6 +312,20 @@ export const StyleTradeDetailBox = styled.div`
     left: 0%;
     font-weight: 600;
   }
+  @media screen and (max-width: 768px) {
+    width: 400px;
+    height: 100px;
+    span {
+      position: absolute;
+      left: 5%;
+      font-weight: 600;
+    }
+    input {
+    position: absolute;
+    left: 100px;
+    width: 300px;
+  }
+  }
 `;
 
 export const StyleTradePlaceSpanBox = styled.div`
@@ -202,6 +334,9 @@ export const StyleTradePlaceSpanBox = styled.div`
   align-items: center;
   position: absolute;
   left: 180px;
+  @media screen and (max-width: 768px) {
+    left: 100px;
+  }
 `;
 
 export const StyleSubmitButton = styled.button`

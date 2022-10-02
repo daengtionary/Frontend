@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
-
-
 export const ChatRoomAll = styled.div`
+  z-index: 99;
   position: fixed;
   top: 60%;
   left: 80%;
@@ -16,13 +15,16 @@ export const ChatRoomAll = styled.div`
   background-color: #fff;
   border-radius: 24px;
   @media screen and (max-width: 768px) {
-    width: 100%;
+    top: 50%;
+    left: 50%;
+    width:  100%;
     height: 100%;
-    border-radius: 0;
+    border-radius: 0%;
   }
 ` 
 
 export const ChatRoomFullBox = styled.div`
+  z-index: 99;
   width: 100%;
   height: 80%;
   overflow-y: auto;
@@ -33,6 +35,7 @@ export const ChatInputWrap = styled.div`
   border-radius: 15px;
   display: flex;
   justify-content: center;
+  height: 30px;
   @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
     margin: 0 10px 10px 10px;
   }
@@ -43,14 +46,16 @@ export const ChatInputForm = styled.form`
   display: flex;
   flex-direction: row;
   width: 100%;
+  height: 15px;
 `
 
 export const ChatInput = styled.input`
   padding-left: 15px;
   border: none;
   width: 100%;
-  height: 30px;
+  height: 15px;
   border-radius: 15px;
+  background-color: #F1F1F5;
   &:focus {
     outline: none;
   }
@@ -61,8 +66,13 @@ export const ChatInput = styled.input`
   }
 `;
 export const SendButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.m};
   width:100px;
+  height: 55px;
+  border-radius: 15px;
+  background-color: #F1F1F5;
+  outline: none;
+  border: none;
+  color: gray;
 `;
 export const ExitButton = styled.button`
   width: 100px;

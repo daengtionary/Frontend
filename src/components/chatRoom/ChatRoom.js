@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 //스타일 컴포넌트
 import { ChatInputWrap, ChatInput, SendButton, ExitButton, ChatRoomFullBox, ChatRoomAll, ChatInputForm } from "./ChatRoom.styled";
-import { Dim, Title } from "../chatModal/ChatModal.styled";
+import { Dim, Title, FloatWrap } from "../chatModal/ChatModal.styled";
 
 import { addMessage, getRoomListDB, readMessage, updateRoomMessage } from "../../redux/modules/chatSlice";
 import { chatApis } from "../../shared/api";
@@ -69,7 +69,7 @@ const ChatRoom = () => {
           },
           { Authorization: `Bearer ${sessionStorage.getItem("authorization")}` }
         );
-        stompClient.current.send(`/pub/chat/message`, { nick }, JSON.stringify({ type: "ENTER", roomNo: roomNo, sender: nick, roomKey: roomKey }));
+        stompClient.current.send(`/pub/chat/message`, { nick }, JSON.stringify({ type: "ENTER", roomNo: roomNo, sender: nick}));
       }
     );
   };
@@ -93,7 +93,6 @@ const ChatRoom = () => {
       message: message,
       type: "TALK",
       sender: nick,
-      roomKey: roomKey,
     };
 
     stompClient.current.send(`/pub/chat/message`, { Authorization: `Bearer ${sessionStorage.getItem("authorization")}` }, JSON.stringify(messageObj));
@@ -125,8 +124,10 @@ const ChatRoom = () => {
   // };
 
   return (
-    <>
-      <Dim>
+    <FloatWrap>
+      <Dim 
+      // onClick={()=>{navigate('/')}} 
+      >
         <ChatRoomAll>
           <Title>
             댕톡
@@ -144,7 +145,7 @@ const ChatRoom = () => {
           </ChatInputWrap>
         </ChatRoomAll>
       </Dim>
-    </>
+      </FloatWrap>
   );
 };
 

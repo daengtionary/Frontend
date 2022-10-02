@@ -48,15 +48,14 @@ const ChatFloatButton = () => {
     <>
       {memberNo && isChatModalOn && (
         <FloatWrap>
-          {/* <Link to={`/chat`}> */}
-
+          <Link to={`/chat`}>
             <ChatButtonWrap>
               <ChatButton>
                 {notification && <NewNoti />}
                 <SmileChatSVG />
               </ChatButton>
             </ChatButtonWrap>
-          {/* </Link> */}
+          </Link>
         </FloatWrap>
       )}
     </>

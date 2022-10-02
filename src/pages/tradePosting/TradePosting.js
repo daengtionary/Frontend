@@ -118,7 +118,7 @@ const TradePosting = () => {
     <>
       <StyleTradePostingForm>
         <StyleTradePageTopTitle>
-          <span>중고상품 등록하기</span>
+          <span>상품 등록하기</span>
         </StyleTradePageTopTitle>
         <StyleTradePostingImageBox>
           <span>상품 이미지</span>
@@ -129,7 +129,7 @@ const TradePosting = () => {
           <StylePreviewBox>
             {showImages.map((image, id) => (
               <StyleShowImageBox key={id}>
-                <span>
+                <span className="cancelSpanBox">
                   미리보기{id + 1} <MdOutlineCancel className="cancelIcon" onClick={() => handleDeleteImage(id)} />
                 </span>
                 <StyleShowImage src={image} alt={`${image}-${id}`} />
@@ -155,7 +155,7 @@ const TradePosting = () => {
             placeholder={"제목을 입력해주세요"}
           />
         </StyleTradeItemTitleBox>
-        <StyleTradePlaceBox>
+        {/* <StyleTradePlaceBox>
           <span>거래지역</span>
           <StyleTradePlaceSpanBox>
             <Button
@@ -181,7 +181,7 @@ const TradePosting = () => {
               }}
             />
           </StyleTradePlaceSpanBox>
-        </StyleTradePlaceBox>
+        </StyleTradePlaceBox> */}
         <StyleTradeStatusBox>
           <span className="statusSpan">상태</span>
           <StyleTradeCheckBoxWrap>
@@ -201,6 +201,7 @@ const TradePosting = () => {
         </StyleTradeStatusBox>
         <StyleTradePriceBox>
           <span>가격</span>
+          <div>
           <Input
             type={"text"}
             value={price}
@@ -216,7 +217,9 @@ const TradePosting = () => {
             }}
             placeholder={"가격을 입력해주세요"}
           />
+          &nbsp;
           <span className="won">원</span>
+          </div>
         </StyleTradePriceBox>
         <StyleTradeDetailBox>
           <span>설명</span>
