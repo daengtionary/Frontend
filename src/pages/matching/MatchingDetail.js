@@ -4,7 +4,8 @@ import { Navigate, useParams } from 'react-router-dom';
 import { chatApis } from '../../shared/api';
 import { useSelector,useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getTradeDetail } from '../../redux/modules/tradeSlice';
+
+import { getMatchingDetail } from '../../redux/modules/tradeSlice';
 import {
   TradeDetailAll,
   TradeDetailFullBox,
@@ -17,6 +18,7 @@ import {
   ImgBox,
   ItemNameInfoText,
   ItemDetailInfoText,
+
 } from '../tradeDetail/TradeDetail.styled'
 
 //아이콘
@@ -39,27 +41,28 @@ const TradeDetail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const item = useSelector((state) => state.trade.getTradeDetail);
-  console.log(item)
+
+  // const item = useSelector((state) => state.trade.getMatchingDetail);
+  // console.log(item)
 
 
   // useEffect(() => {
   //   dispatch(getMatchingDetail(id));
   // }, [dispatch]);
+
   //채팅 룸 생성
-  const onClickChat = async () => {
-    try {
-      const response = await chatApis.addMatchingRoom();
-      console.log(response)
-      alert(response.message)
-      Navigate('/chat');
-    } catch (error) {}
-  };
+  // const onClickChat = async () => {
+  //   try {
+  //     const response = await chatApis.addMatchingRoom
+  //     console.log(response)
+  //     Navigate(`/chat`)
+  //   } catch (error) {}
+  // };
 
   return (
     
     <TradeDetailAll>
-    {item.length !== 0?(
+    {/* {item.length !== 0?( */}
       <TradeDetailFullBox>
         <ImgBox>
           <StyledSwiper
@@ -104,11 +107,14 @@ const TradeDetail = () => {
             </ItemDetailInfoText>
             <ButtonWrap>
               <AddWishButton><img src={heart} alt="jjim"/>찜하기</AddWishButton>
-              <ChatStartButton onClick={onClickChat}><img src={commentIcon} alt="comment"/>댕톡</ChatStartButton>
+              <ChatStartButton 
+              // onClick={ onClickChat}
+              ><img src={commentIcon} alt="comment"/>댕톡</ChatStartButton>
             </ButtonWrap>
           </ItemTitleBox>
         </ItemContentBox>
-      </TradeDetailFullBox>):['']}
+      </TradeDetailFullBox>
+      {/* ):['']} */}
     </TradeDetailAll>
   );
 };

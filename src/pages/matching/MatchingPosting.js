@@ -103,7 +103,7 @@ const MatchingPosting = () => {
 
   const onSubmitHandler = () => {
     console.log(postingData)
-    // dispatch(postingTrade(postingData))
+    // dispatch(postingMatching(postingData))
     // .unwrap()
     // .then((res) => {
     //   alert(res.message);
@@ -215,7 +215,7 @@ const MatchingPosting = () => {
               bd_bottom:"1px solid lightGray ",
               bd_radius: "10px",
             }}
-            placeholder={"가격을 입력해주세요"}
+            placeholder={"날짜를 선택해주세요"}
           />
         </StyleTradePriceBox>
         <StyleTradeDetailBox>

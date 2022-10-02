@@ -28,8 +28,10 @@ export const StyledMatchingCardBox = styled.div`
     }
   }
 `;
+
 export const StyledMatchingCardImgBox = styled.div`
   height: 18em;
+
   flex: 1 1;
   margin: 0 1.5em;
   overflow: hidden;
@@ -37,6 +39,7 @@ export const StyledMatchingCardImgBox = styled.div`
 `;
 
 export const StyledMatchingCardImg = styled.div`
+  /* width: 60%; */
   height: 100%;
   border-radius: 20px;
   margin: 0 auto;
@@ -64,7 +67,8 @@ export const StyledMatchingCardText = styled.div`
   display: flex;
   align-items: center;
   justify-content: ${(props) => (props.justify ? props.justify : "")};
-`;
+`
+
 export const StyledMatchingHeartButton = styled.div`
   position: absolute;
   font-size: 1.6em;

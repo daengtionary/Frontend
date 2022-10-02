@@ -25,7 +25,7 @@ export const MatchingCard = () => {
           {/* {data?.title} */} 집 근처 공원 산책 가실 분
         </StyledMatchingCardText>
         <StyledMatchingCardText color="#000" margin="6px 0" fontSize=".5em" fontWeight="400">
-          {/* 별점⭐⭐⭐⭐{"⭐".repeat(data?.star)} */} 별
+        날짜
         </StyledMatchingCardText>
         <StyledMatchingCardText color="#999" margin="6px 0" fontSize=".7em" fontWeight="700">
           {/* {data?.address}  */} 주소 풀
@@ -37,10 +37,12 @@ export const MatchingCard = () => {
         <StyledMatchingHeartButton>❤️</StyledMatchingHeartButton>
 
         {/* {console.log(data.mapImgUrl)} */}
+
       </StyledMatchingCardTextBox>
     </StyledMatchingCardBox>
   );
 };
-
 export default MatchingCard;
+
+
 
