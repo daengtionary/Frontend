@@ -41,25 +41,26 @@ const Trade = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(
-      getTrade({
+    dispatch(clearTradeItem())
+  },[])
+
+  useEffect(() => {
+   async function fetchTrade(){ 
+     await dispatch(getTrade({
         page: page,
         size: '12',
         sort: tradeSort,
         direction: 'asc',
       })
-    );
-    return () => {
-      clearTradeItem();
-    };
+    )};
+    fetchTrade();
   }, [page]);
 
 
   const onChangeHandeler = useCallback(
     (e) => {
       if (tradeSort !== e.target.value) {
-        setTradeSort(e.target.value);
-        dispatch(clearTradeItem);
+        setTradeSort(e.target.value);       
         dispatch(
           getTrade({
             page: page,
