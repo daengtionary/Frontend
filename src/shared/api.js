@@ -30,7 +30,7 @@ export const api = axios.create({
 });
 
 export const chatApi = axios.create({
-  baseURL: `http://${process.env.REACT_APP_CHAT_API_IP}`,
+  baseURL: `https://${process.env.REACT_APP_REST_API_IP}`,
   headers: {
     "content-type": "application/json;charset=UTF-8",
   },
