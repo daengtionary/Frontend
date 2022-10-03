@@ -217,7 +217,7 @@ const List = () => {
               placeholder={"어떤 장소를 찾으세요?"}
               style={{
                 width: "40%",
-                mg_left: "3.6em;",
+                mg_left: "2em;",
                 bd_radius: "3em",
                 bg_color: "#eee",
                 bd: "none",
@@ -459,7 +459,7 @@ export const StyledFilter = styled.select`
 export const StyledSerchImg = styled.img`
   width: 2em;
   position: absolute;
-  right: 84px;
+  right: 112px;
   cursor: pointer;
   padding: 6px 20px 6px 0;
   @media screen and (max-width: 768px) {

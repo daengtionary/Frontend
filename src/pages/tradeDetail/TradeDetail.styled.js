@@ -29,8 +29,9 @@ export const ImgBox = styled.div`
   @media screen and (max-width: 768px) {
     width: 360px;
     height: 400px;
-    .swipe{
+    .swipe {
       height: auto;
+      border-radius: 20px 20px 0 0;
     }
   }
 `;
@@ -42,7 +43,7 @@ export const ItemDetailImg = styled.img`
   @media screen and (max-width: 768px) {
     width: 360px;
     height: 400px;
-    border-radius: 20px 20px 0 0 ;
+    border-radius: 20px 20px 0 0;
   }
 `;
 
@@ -98,18 +99,18 @@ export const ItemNameInfoText = styled.div`
     border-radius: 0 0 20px 20px;
     padding-left: 10px;
     .won {
-    font-size: 19px;
-    color: black;
-  }
-  .price {
-    font-weight: 500;
-    font-size: 20px;
-  }
-  .itemName {
-    font-size: 17px;
-    font-weight: 500;
-    color: #b8c2c6;
-  }
+      font-size: 19px;
+      color: black;
+    }
+    .price {
+      font-weight: 500;
+      font-size: 20px;
+    }
+    .itemName {
+      font-size: 17px;
+      font-weight: 500;
+      color: #b8c2c6;
+    }
   }
 `;
 
@@ -138,12 +139,12 @@ export const ItemDetailInfoText = styled.div`
     gap: 3px 10px;
     padding-left: 10px;
     .sellInfo {
-    font-size: 17px;
-    font-weight: 700;
-    color: #b8c2c6;
-    position: absolute;
-    left: 40%;
-  }
+      font-size: 17px;
+      font-weight: 700;
+      color: #b8c2c6;
+      position: absolute;
+      left: 40%;
+    }
   }
 `;
 

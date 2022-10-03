@@ -154,13 +154,12 @@ const MyPage = () => {
     <StyledMyPageWrap>
       <StyledMyPageProfileWrap>
         <StyledMyPageProfileTitle width={"55em"}>댕과사전 마이페이지</StyledMyPageProfileTitle>
-        <StyledMyPageNavWrap>
+        {/* <StyledMyPageNavWrap>
           <StyledMyPageNavButton color={"#000"} background={"#cccccc80"}>
             프로필
           </StyledMyPageNavButton>
           <StyledMyPageNavButton>찜 목록</StyledMyPageNavButton>
-          {/* <MyPageNavButton>내가 쓴 글</MyPageNavButton> */}
-        </StyledMyPageNavWrap>
+        </StyledMyPageNavWrap> */}
         <StyledMyPageProfileBox>
           <StyledMyPageProfileTitle>나의 정보</StyledMyPageProfileTitle>
           <StyledMyPageProfileContent>
