@@ -76,7 +76,7 @@ const StyledCardImgBox = styled.div`
   border-radius: 20px;
   @media screen and (max-width: 768px) {
     background-color: #eee;
-    width: 22em;
+    width: 21em;
     height: 12em;
     margin-bottom: 0.6em;
   }
@@ -90,7 +90,7 @@ const StyledCardImg = styled.div`
   transition: transform 0.2s;
   @media screen and (max-width: 768px) {
     background: ${(props) => (props.background ? `url(${props.background}) center / cover no-repeat` : " linear-gradient(#ccc, #cccccc50)")};
-    width: 22em;
+    width: 21em;
     height: 12em;
   }
 `;

@@ -210,7 +210,7 @@ const List = () => {
       <StyledOptionWrap>
         <StyledSerchWrap>
           <StyledSerchBox>
-            <h2 style={{ whiteSpace: "nowrap" }}>지금 가장 핫한</h2>
+            <h2 style={{ whiteSpace: "nowrap" }}>&nbsp;지금 가장 핫한</h2>
             <Input
               _onKeyPress={onKeyPressHandler}
               _onChange={onChangeHandler}
@@ -381,7 +381,7 @@ export const StyledListWrap = styled.div`
   /* justify-content: center; */
   position: relative;
   @media screen and (max-width: 768px) {
-    padding: 1em;
+    padding: 1em 1.5em;
   }
 `;
 
@@ -409,15 +409,15 @@ export const StyledSerchBox = styled.div`
   padding-top: 3px;
   position: relative;
   width: 50%;
-  span{
-      width: 200px;
-      font-size: 30px;
-      font-weight: 500;
-    }
+  span {
+    width: 200px;
+    font-size: 30px;
+    font-weight: 500;
+  }
   @media screen and (max-width: 768px) {
     width: 100%;
     justify-content: space-between;
-    span{
+    span {
       width: 130px;
       font-size: 24px;
       font-weight: 500;
@@ -453,7 +453,7 @@ export const StyledFilterBox = styled.div`
     /* white-space: pre-wrap; */
     display: ${(props) => props.r_display};
     position: ${(props) => props.position};
-    right: 55px;
+    right: 58px;
   }
 `;
 
@@ -463,7 +463,8 @@ export const StyledFilter = styled.select`
   margin-right: 20px;
   padding: 5px 5px;
   @media screen and (max-width: 768px) {
-    margin-right: 5px;
+    padding: 5px 3px;
+    margin-right: 0px;
   }
 `;
 export const StyledSerchImg = styled.img`
