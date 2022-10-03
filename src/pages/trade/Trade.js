@@ -84,15 +84,17 @@ const Trade = () => {
   return (
     <TradeAll>
       <StyledSerchFilterBox>
-        <StyledSerchWrap>
+        <StyledSerchWrap style={{borderBottom: "none"}}>
           <StyledSerchBox>
-            <h2>중고 장터</h2>
+            <span>
+              애견장터
+            </span>
             <Input
               // _onKeyPress={onKeyPressHandler}
               // _onChange={onChangeHandler}
               placeholder={'어떤 물건을 찾으세요?'}
               style={{
-                width: '40%',
+                width: '45%',
                 mg_left: '3.6em;',
                 bd_radius: '3em',
                 bg_color: '#eee',

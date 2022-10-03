@@ -409,9 +409,19 @@ export const StyledSerchBox = styled.div`
   padding-top: 3px;
   position: relative;
   width: 50%;
+  span{
+      width: 200px;
+      font-size: 30px;
+      font-weight: 500;
+    }
   @media screen and (max-width: 768px) {
     width: 100%;
     justify-content: space-between;
+    span{
+      width: 130px;
+      font-size: 24px;
+      font-weight: 500;
+    }
   }
 `;
 export const StyledSerchIcon = styled.div`

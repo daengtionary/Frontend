@@ -15,6 +15,7 @@ const ChatFloatButton = () => {
   const memberNo = window.localStorage.getItem("memberNo");
   console.log(memberNo);
   const eventSource = useRef();
+  
 
   // useEffect(() => {
   //   if (memberNo) {
