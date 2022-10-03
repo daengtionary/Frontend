@@ -10,27 +10,21 @@ const CLEAN_UP_MESSAGE = "CLEAN_UP_MESSAGE";
 const SET_NOTIFICATION = "SET_NOTIFICATION";
 const READ_MESSAGE = "READ_MESSAGE";
 
-const getRoomList = createAction(GET_ROOM_LIST, (roomList) => ({ roomList }));
-const getMessageList = createAction(GET_MESSAGE_LIST, (messageList) => ({
+const getRoomList = createAction(GET_ROOM_LIST, roomList => ({ roomList }));
+const getMessageList = createAction(GET_MESSAGE_LIST, messageList => ({
   messageList,
 }));
-export const addMessage = createAction(ADD_MESSAGE, (messageObj) => ({
+export const addMessage = createAction(ADD_MESSAGE, messageObj => ({
   messageObj,
 }));
-export const updateRoomMessage = createAction(
-  UPDATE_ROOM_MESSAGE,
-  (messageObj) => ({
-    messageObj,
-  })
-);
+export const updateRoomMessage = createAction(UPDATE_ROOM_MESSAGE, messageObj => ({
+  messageObj,
+}));
 export const cleanUpMessage = createAction(CLEAN_UP_MESSAGE, () => ({}));
-export const setNotification = createAction(
-  SET_NOTIFICATION,
-  (notification) => ({
-    notification,
-  })
-);
-export const readMessage = createAction(READ_MESSAGE, (index) => ({ index }));
+export const setNotification = createAction(SET_NOTIFICATION, notification => ({
+  notification,
+}));
+export const readMessage = createAction(READ_MESSAGE, index => ({ index }));
 
 const initialState = {
   roomList: [],
@@ -40,15 +34,15 @@ const initialState = {
 
 // 채팅 페이지에서 채팅 리스트 데이터 받아오기
 export const getRoomListDB = () => {
-  return async (dispatch) => {
+  return async dispatch => {
     const response = await chatApis.getRoomList();
     dispatch(getRoomList(response.data));
   };
 };
 
 // 채팅방에서 채팅 내역 받아오기
-export const getMessageListDB = (roomNo) => {
-  return async (dispatch) => {
+export const getMessageListDB = roomNo => {
+  return async dispatch => {
     const response = await chatApis.getMessageList(roomNo);
     dispatch(getMessageList(response.data));
   };
@@ -58,20 +52,20 @@ export default handleActions(
   {
     // 채팅방 목록
     [GET_ROOM_LIST]: (state, { payload }) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.roomList = payload.roomList;
       }),
 
     // 채팅 메시지 내역
     [GET_MESSAGE_LIST]: (state, { payload }) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.messageList = payload.messageList;
       }),
 
     // 채팅 메시지 추가
     [ADD_MESSAGE]: (state, { payload }) =>
-      produce(state, (draft) => {
-      draft.messageList.data.push(payload.messageObj);
+      produce(state, draft => {
+        draft.messageList.data.push(payload.messageObj);
       }),
 
     // // 채팅 리스트의 메시지 갱신
@@ -84,19 +78,19 @@ export default handleActions(
 
     // 메시지 지우기
     [CLEAN_UP_MESSAGE]: (state, { payload }) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.messageList = initialState.messageList;
       }),
 
     // 알림 표시
     [SET_NOTIFICATION]: (state, { payload }) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.notification = payload.notification;
       }),
 
     // 알림 개수 초기화
     [READ_MESSAGE]: (state, { payload }) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         if (draft.roomList[payload.index]?.unreadCnt) {
           draft.roomList[payload.index].unreadCnt = 0;
         }

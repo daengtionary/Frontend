@@ -8,6 +8,10 @@ export const FooterContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 50px;
+
+  @media screen and (max-width: 768px){
+    display: none;
+  }
 `;
 
 export const FooterBox = styled.div`
@@ -17,9 +21,8 @@ export const FooterBox = styled.div`
   width: 1200px;
 `;
 
-export const Logo = styled.div`
-  width: 77px;
-  height: 44px;
+export const Logo = styled.img`
+  height: 70px;
   color: #797979;
   font-size: 36px;
   font-weight: bold;

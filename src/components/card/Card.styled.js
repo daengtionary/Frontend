@@ -16,13 +16,11 @@ export const StyledCardBox = styled.div`
     > div:nth-child(2) > div {
       transform: scale(1.1);
     }
-    /* div > div {
-      :first-child {
-        :last-child {
-          transform: scale(1.1);
-        }
-      }
-    } */
+  }
+  @media screen and (max-width: 768px) {
+    width: 11.5em;
+    height: 18em;
+    margin-bottom: 0.8em;
   }
 `;
 export const StyledRankBadge = styled.div`
@@ -45,14 +43,32 @@ export const StyledCardImgBox = styled.div`
   flex: 3 3;
   /* margin: 0 1.5em; */
   overflow: hidden;
-  border-radius: 20px 20px 0 0;
+  border-radius: 20px;
+  transition: all 0.2s;
+
+  :hover {
+    border-radius: 20px 20px 0 0;
+  }
+  @media screen and (max-width: 768px) {
+    width: 11.5em;
+    height: 10em;
+    border-radius: 20px 20px 0 0;
+  }
 `;
 export const StyledCardImg = styled.div`
   border-radius: 20px 20px 0 0;
   background: ${(props) => `url(${props.background}) center / cover no-repeat `};
   min-height: 100%;
   width: 18em;
-  transition: transform 0.2s;
+  transition: all 0.2s;
+  :hover {
+    border-radius: 20px 20px 0 0;
+  }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 10em;
+    border-radius: 20px 20px 0 0;
+  }
 `;
 export const StyledCardTextBox = styled.div`
   width: 18em;
@@ -74,6 +90,9 @@ export const StyledCardText = styled.div`
   border-radius: ${(props) => (props.borderRadius ? props.borderRadius : "")};
   height: 1.8em;
   line-height: 1.8em;
+  @media screen and (max-width: 768px) {
+    font-size: 1.1em;
+  }
 `;
 export const StyledTitleBox = styled.div`
   display: flex;

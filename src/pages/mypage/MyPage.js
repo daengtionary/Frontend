@@ -31,7 +31,10 @@ const MyPage = () => {
   let now = new Date();
   console.log(now, "현재 시간");
   const checkToken = () => {
-    if (expTime <= now || token === null) {
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate("/signin");
+    } else if (expTime <= now || token === null) {
       token && window.sessionStorage.removeItem("authorization");
       alert("로그인이 만료 되었습니다. 다시 로그인해 주세요!");
       navigate("/signin");
@@ -151,13 +154,12 @@ const MyPage = () => {
     <StyledMyPageWrap>
       <StyledMyPageProfileWrap>
         <StyledMyPageProfileTitle width={"55em"}>댕과사전 마이페이지</StyledMyPageProfileTitle>
-        <StyledMyPageNavWrap>
+        {/* <StyledMyPageNavWrap>
           <StyledMyPageNavButton color={"#000"} background={"#cccccc80"}>
             프로필
           </StyledMyPageNavButton>
           <StyledMyPageNavButton>찜 목록</StyledMyPageNavButton>
-          {/* <MyPageNavButton>내가 쓴 글</MyPageNavButton> */}
-        </StyledMyPageNavWrap>
+        </StyledMyPageNavWrap> */}
         <StyledMyPageProfileBox>
           <StyledMyPageProfileTitle>나의 정보</StyledMyPageProfileTitle>
           <StyledMyPageProfileContent>
@@ -292,13 +294,13 @@ const MyPage = () => {
                         deleteDogHandler(dog.dogNo);
                       }}
                     />
-                    <button
+                    {/* <button
                       onClick={() => {
                         deleteDogImgHandler(dog.dogNo);
                       }}
                     >
                       사진삭제
-                    </button>
+                    </button> */}
                     <StyledMyPageDogImgBox>
                       <StyledMyPageDogImg src={`${dog.image}`} />
                       <StyledMyPageDogImgDot
@@ -406,6 +408,10 @@ const StyledMyPageProfileContent = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  @media screen and (max-width: 768px) {
+    width: 50%;
+    flex-direction: column;
+  }
 `;
 const StyledMyPageEmail = styled.div`
   align-self: flex-start;
@@ -459,6 +465,10 @@ export const StyledEditButton = styled.div`
   top: ${(props) => (props.top ? props.top : "64%")};
   right: ${(props) => (props.right ? props.right : "4%")};
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    top: 77%;
+    right: 25%;
+  }
 `;
 const StyledSelectDog = styled.div`
   width: 50%;
@@ -501,6 +511,9 @@ const StyledSwiper = styled(Swiper)`
   width: 70%;
   height: 120%;
   padding: 2em 6em 4em 6em;
+  @media screen and (max-width: 768px) {
+    padding: 2em 3em 4em 3em;
+  }
 `;
 const StyledSwiperSlide = styled(SwiperSlide)`
   display: flex;

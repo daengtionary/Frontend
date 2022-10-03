@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useMatch } from "react-router-dom";
+import { Link, useMatch, useLocation, Outlet } from "react-router-dom";
 import { FloatWrap, ChatButtonWrap, ChatButton, NewNoti } from "./ChatFloatButton.styled";
 
 import { setNotification } from "../../redux/modules/chatSlice";
@@ -8,12 +8,14 @@ import { SmileChatSVG } from "../../elements/svg/SVG";
 
 // 우측 하단 채팅 플로팅 버튼
 const ChatFloatButton = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const isChatModalOn = useMatch("/chat/*");
   const notification = useSelector((state) => state.chat.notification);
   const memberNo = window.localStorage.getItem("memberNo");
   console.log(memberNo);
   const eventSource = useRef();
+  
 
   // useEffect(() => {
   //   if (memberNo) {

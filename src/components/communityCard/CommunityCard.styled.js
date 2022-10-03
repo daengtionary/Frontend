@@ -3,17 +3,36 @@ import styled from "styled-components";
 const red = `invert(24%) sepia(100%) saturate(5885%) hue-rotate(357deg) brightness(102%) contrast(129%);`;
 
 export const CommunityCardWrap = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   border: 1px solid #797979;
   box-sizing: border-box;
   border-radius: 10px;
   margin-bottom: 20px;
+  
+  &:hover {
+    box-shadow: 3px 3px 3px #6563ff50;
+  }
+
+  @media screen and (max-width: 768px) {
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid #dbdbdb;
+    height: 350px;
+  }
 `;
 export const CardContents = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 35px;
   height: 120px;
+  cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const IconWrap = styled.div`
@@ -21,10 +40,17 @@ export const IconWrap = styled.div`
   justify-content: end;
   margin: 15px 0 0 0;
   gap: 5px;
+
+  @media screen and (max-width: 768px) {
+    margin: 0;
+    gap: 0px;
+  }
 `;
+
 export const IconBox = styled.span`
   width: ${(props) => props.length};
   height: ${(props) => props.length};
+  cursor: pointer;
 
   background-image: url(${(props) => props.url});
   background-repeat: no-repeat;
@@ -72,6 +98,11 @@ export const CommnetIcon = styled.span`
 export const NullCircle = styled.div`
   width: 14px;
   height: 14px;
+
+  @media screen and (max-width: 768px) {
+    width: 0px;
+    height: 0px;
+  }
 `
 
 export const RepleCircle = styled.div`
@@ -88,7 +119,20 @@ export const RepleCircle = styled.div`
   position: relative;
   left: -15px;
   top: -5px;
+
+  @media screen and (max-width: 768px){
+    left: -10px;
+  }
 `;
+
+export const StyledUserInfo = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 768px){
+    margin-bottom: 10px;
+  }
+`
 
 export const ProfilePhoto = styled.div`
   border-radius: 50%;
@@ -101,13 +145,24 @@ export const ProfilePhoto = styled.div`
   margin: 0 20px;
 
   background-image: url(${props => props.url});
-  background-size: 100px;
+  background-size: 57px;
   background-repeat: no-repeat;
   background-position: center;
+
+  @media screen and (max-width: 768px) {
+    width: 35px;
+    height: 35px;
+    margin: 0;
+    background-size: 35px;
+  }
 `;
 
 export const Names = styled.div`
   margin: 0 20px 0 0;
+
+  @media screen and (max-width: 768px) {
+    margin: 0 0 0 10px;
+  }
 `;
 
 export const ContentImg = styled.img`
@@ -116,6 +171,12 @@ export const ContentImg = styled.img`
   height: 100%;
   border-radius: 15px;
   margin-right: 15px;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 15px;
+  }
 `
 
 export const DefaultImg = styled.div`
@@ -130,6 +191,13 @@ export const DefaultImg = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-color: #F1F1F5;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    min-height: 200px;
+    margin-bottom: 15px;
+    background-size: 100px;
+  }
   
 `
 
@@ -139,6 +207,13 @@ export const CategoryTitleWrap = styled.div`
   width: auto;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: 768px){
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
 `
 
 export const Category = styled.div`
@@ -154,6 +229,13 @@ export const Category = styled.div`
   width: 40px;
   margin-bottom: 20px;
 
+  @media screen and (max-width: 768px){
+    height: 20px;
+    width: 30px;
+    font-size: 14px;
+    margin: 0;
+    border-radius: 15px;
+  }
 `;
 
 export const Title = styled.div`
@@ -162,6 +244,11 @@ export const Title = styled.div`
   width: 100%;
   padding: 10px 0;
   cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    width: 80%;
+    /* border: 1px solid red; */
+  }
 `;
 export const Dog = styled.div`
   color: #797979;

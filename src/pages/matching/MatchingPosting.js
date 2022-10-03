@@ -1,5 +1,5 @@
-import { useState, useCallback, useRef } from 'react';
-import Button from '../../elements/button/Button';
+import { useState, useCallback, useRef } from "react";
+import Button from "../../elements/button/Button";
 import {
   StyleTradePostingForm,
   StyleTradePostingImageBox,
@@ -16,39 +16,37 @@ import {
   StyleShowImageBox,
   StyleShowImage,
   StylePreviewBox,
-} from './TradePosting.styled';
-import { useDispatch } from 'react-redux';
-import { postingTrade } from '../../redux/modules/tradeSlice';
-import React from 'react';
-import jwtDecode from 'jwt-decode';
+} from "../tradePosting/TradePosting.styled";
+import { useDispatch } from "react-redux";
+import {postingMatching} from "../../redux/modules/matchingSlice";
+import React from "react";
 
 //리액트 아이콘
-import { TbCameraPlus } from 'react-icons/tb';
-import { MdOutlineCancel } from 'react-icons/md';
-import Input from '../../elements/input/Input';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { TbCameraPlus } from "react-icons/tb";
+import { MdOutlineCancel } from "react-icons/md";
+import Input from "../../elements/input/Input";
+import { useNavigate } from "react-router-dom";
 
-const TradePosting = () => {
+const MatchingPosting = () => {
   const [showImages, setShowImages] = useState([]);
   const [fileImage, setFileImage] = useState([]);
-  const [title, setTitle] = useState('');
-  const [place, setPlace] = useState('');
-  const [status, setStatus] = useState('');
-  const [price, setPrice] = useState('');
-  const [detail, setDetail] = useState('');
+  const [title, setTitle] = useState("");
+  const [place, setPlace] = useState("");
+  const [status, setStatus] = useState("");
+  const [price, setPrice] = useState("");
+  const [detail, setDetail] = useState("");
 
   const postingData = {
     data: {
-      title: title,
-      address: '전국',
-      stuffStatus: status,
-      content: detail,
-      price: price,
-      postStatus: '판매중',
-      exchange: '교환불가',
+      "title": title,
+      "address": "전국",
+      "stuffStatus": status,
+      "content": detail,
+      "price": price,
+      "postStatus": "판매중",
+      "exchange":"교환불가"
     },
-    imgUrl: fileImage,
+    imgUrl: fileImage
   };
 
   const dispatch = useDispatch();
@@ -86,17 +84,17 @@ const TradePosting = () => {
 
   const checkOnlyOne = useCallback(
     (checkThis) => {
-      const checkboxes = document.getElementsByName('status');
+      const checkboxes = document.getElementsByName("status");
       for (let i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i] !== checkThis) {
           checkboxes[i].checked = false;
         }
         if (checkboxes[0].checked === true) {
-          setStatus('Used');
+          setStatus("Used");
         } else if (checkboxes[1].checked === true) {
-          setStatus('AlmostNew');
+          setStatus("AlmostNew");
         } else if (checkboxes[2].checked === true) {
-          setStatus('New');
+          setStatus("New");
         }
       }
     },
@@ -104,48 +102,27 @@ const TradePosting = () => {
   );
 
   const onSubmitHandler = () => {
-    console.log(postingData);
-    dispatch(postingTrade(postingData))
-      .unwrap()
-      .then((res) => {
-        alert(res.message);
-        navigate('/trade');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    console.log(postingData)
+    // dispatch(postingMatching(postingData))
+    // .unwrap()
+    // .then((res) => {
+    //   alert(res.message);
+    //   navigate("/matching")
+    // })
+    // .catch((error) =>{
+    //   console.log(error)
+    // })
   };
 
-  let token = window.sessionStorage.getItem("authorization");
-  // 토큰 decode 하는 부분
-  let decoded = token && jwtDecode(token);
-  console.log(decoded);
-  // 토큰 만료시간
-  let exp = token && Number(decoded.exp + "000");
-  let expTime = new Date(exp);
-  console.log(expTime, "만료 시간");
-  let now = new Date();
-  console.log(now, "현재 시간");
-  const checkToken = () => {
-    if (expTime <= now || token === null) {
-      token && window.sessionStorage.removeItem("authorization");
-      alert("로그인이 필요합니다!");
-      navigate("/signin");
-    } 
-  };
-
-  useEffect(() => {
-    checkToken();
-  }, []);
 
   return (
     <>
-      <StyleTradePostingForm>
-        <StyleTradePageTopTitle>
-          <span>상품 등록하기</span>
-        </StyleTradePageTopTitle>
+      <StyleTradePostingForm >
+      <StyleTradePageTopTitle>
+        <span>댕친구 등록하기</span>
+      </StyleTradePageTopTitle>
         <StyleTradePostingImageBox>
-          <span>상품 이미지</span>
+          <span>이미지 업로드 </span>
           <StyleTradeUplodeLabel onChange={uploadImage} htmlFor="input-file">
             <TbCameraPlus className="camera" />
             <input type="file" multiple={true} accept="image/*" id="input-file" />
@@ -153,7 +130,7 @@ const TradePosting = () => {
           <StylePreviewBox>
             {showImages.map((image, id) => (
               <StyleShowImageBox key={id}>
-                <span className="cancelSpanBox">
+                <span>
                   미리보기{id + 1} <MdOutlineCancel className="cancelIcon" onClick={() => handleDeleteImage(id)} />
                 </span>
                 <StyleShowImage src={image} alt={`${image}-${id}`} />
@@ -164,22 +141,22 @@ const TradePosting = () => {
         <StyleTradeItemTitleBox>
           <span>제목</span>
           <Input
-            type={'text'}
+            type={"text"}
             value={title}
             _onChange={(e) => setTitle(e.target.value)}
             style={{
-              width: '50%',
-              height: '40px',
-              pd_left: '10px',
-              mg_right: '0px',
-              bd: '1px solid lightGray ',
-              bd_bottom: '1px solid lightGray ',
-              bd_radius: '10px',
+              width: "50%",
+              height: "40px",
+              pd_left: "10px",
+              mg_right: "0px",
+              bd: "1px solid lightGray ",
+              bd_bottom:"1px solid lightGray ",
+              bd_radius: "10px",
             }}
-            placeholder={'제목을 입력해주세요'}
+            placeholder={"제목을 입력해주세요"}
           />
         </StyleTradeItemTitleBox>
-        {/* <StyleTradePlaceBox>
+        <StyleTradePlaceBox>
           <span>거래지역</span>
           <StyleTradePlaceSpanBox>
             <Button
@@ -205,59 +182,55 @@ const TradePosting = () => {
               }}
             />
           </StyleTradePlaceSpanBox>
-        </StyleTradePlaceBox> */}
+        </StyleTradePlaceBox>
         <StyleTradeStatusBox>
           <span className="statusSpan">상태</span>
           <StyleTradeCheckBoxWrap>
             <span>
-              <input type={'checkbox'} name="status" value="Used" onChange={(e) => checkOnlyOne(e.target)} />
+              <input type={"checkbox"} name="status" value="Used" onChange={(e) => checkOnlyOne(e.target)} />
               중고상품
             </span>
             <span>
-              <input type={'checkbox'} name="status" value="almostNew" onChange={(e) => checkOnlyOne(e.target)} />
+              <input type={"checkbox"} name="status" value="almostNew" onChange={(e) => checkOnlyOne(e.target)} />
               거의새것
             </span>
             <span>
-              <input type={'checkbox'} name="status" value="new" onChange={(e) => checkOnlyOne(e.target)} />
+              <input type={"checkbox"} name="status" value="new" onChange={(e) => checkOnlyOne(e.target)} />
               새상품
             </span>
           </StyleTradeCheckBoxWrap>
         </StyleTradeStatusBox>
-        <StyleTradePriceBox>
+        {/* <StyleTradePriceBox>
           <span>가격</span>
-          <div>
-            <Input
-              type={'text'}
-              value={price}
-              _onChange={(e) => setPrice(e.target.value)}
-              style={{
-                width: '20%',
-                height: '40px',
-                pd_left: '10px',
-                mg_right: '0px',
-                bd: '1px solid lightGray ',
-                bd_bottom: '1px solid lightGray ',
-                bd_radius: '10px',
-              }}
-              placeholder={'가격을 입력해주세요'}
-            />
-            &nbsp;
-            <span className="won">원</span>
-          </div>
+          <Input
+            type={"text"}
+            value={price}
+            _onChange={(e) => setPrice(e.target.value)}
+            style={{
+              width: "20%",
+              height: "40px",
+              pd_left: "10px",
+              mg_right: "0px",
+              bd: "1px solid lightGray ",
+              bd_bottom:"1px solid lightGray ",
+              bd_radius: "10px",
+            }}
+            placeholder={"날짜를 선택해주세요"}
+          />
         </StyleTradePriceBox>
-        {/* <StyleTradeDetailBox>
+        <StyleTradeDetailBox>
           <span>설명</span>
           <Input
             type={"text"}
             value={detail}
-            _onChange={e => setDetail(e.target.value)}
+            _onChange={(e) => setDetail(e.target.value)}
             style={{
               width: "50%",
               height: "150px",
               pd_left: "10px",
               mg_right: "0px",
               bd: "1px solid lightGray ",
-              bd_bottom: "1px solid lightGray ",
+              bd_bottom:"1px solid lightGray ",
               bd_radius: "10px",
             }}
             placeholder={"상품에 대해 설명해주세요"}
@@ -269,4 +242,4 @@ const TradePosting = () => {
   );
 };
 
-export default TradePosting;
+export default MatchingPosting;
