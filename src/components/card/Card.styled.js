@@ -13,13 +13,16 @@ export const StyledCardBox = styled.div`
     border-radius: 20px;
     transition: box-shadow 0.2s;
     box-shadow: 2px 2px 5px gray;
+    > div {
+      border-radius: 20px 20px 0 0;
+    }
     > div:nth-child(2) > div {
       transform: scale(1.1);
     }
   }
   @media screen and (max-width: 768px) {
-    width: 11.5em;
-    height: 18em;
+    width: 11em;
+    height: 16em;
     margin-bottom: 0.8em;
   }
 `;
@@ -47,12 +50,11 @@ export const StyledCardImgBox = styled.div`
   transition: all 0.2s;
 
   :hover {
-    border-radius: 20px 20px 0 0;
   }
   @media screen and (max-width: 768px) {
-    width: 11.5em;
+    width: 11em;
     height: 10em;
-    border-radius: 20px 20px 0 0;
+    border-radius: 20px;
   }
 `;
 export const StyledCardImg = styled.div`
@@ -90,9 +92,9 @@ export const StyledCardText = styled.div`
   border-radius: ${(props) => (props.borderRadius ? props.borderRadius : "")};
   height: 1.8em;
   line-height: 1.8em;
-  @media screen and (max-width: 768px) {
-    font-size: 1.1em;
-  }
+  /* @media screen and (max-width: 768px) {
+    font-size: ${(props) => props.fontSize};
+  } */
 `;
 export const StyledTitleBox = styled.div`
   display: flex;
