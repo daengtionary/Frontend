@@ -136,7 +136,7 @@ const Main = () => {
           <StyledMainBanner
             backgroundImg={banner_02}
             onClick={() => {
-             alert("준비중입니다:)");
+              alert("준비중입니다:)");
             }}
           />
         </SwiperSlide>
@@ -151,11 +151,11 @@ const Main = () => {
               key={i}
               type={"button"}
               _onClick={() => {
-                if(mainButton.category ==="matching"){
-                  alert("준비중입니다.")               
-                }else{
-                navigate("/" + mainButton.category);
-                dispatch(reset());
+                if (mainButton.category === "matching") {
+                  alert("준비중입니다.");
+                } else {
+                  navigate("/" + mainButton.category);
+                  dispatch(reset());
                 }
               }}
               img={mainButton.img}
@@ -168,6 +168,15 @@ const Main = () => {
                 mg_bottom: "14px",
                 bd_radius: "50%",
                 bd_color: "transparent",
+                media: {
+                  width: "6em",
+                  height: "6em",
+                  mg_left: "30px",
+                  mg_right: "30px",
+                  mg_bottom: "14px",
+                  bd_radius: "50%",
+                  bd_color: "transparent",
+                },
               }}
             />
             <div>{mainButton.name}</div>
@@ -242,13 +251,13 @@ const Main = () => {
           /> 
         ))} */}
       </StyledMainCardWrap>
-      <StyledMenuTitle margin={"3em 0 2em 0"}>댕과사전 이용후기</StyledMenuTitle>
+      {/* <StyledMenuTitle margin={"3em 0 2em 0"}>댕과사전 이용후기</StyledMenuTitle>
       <StyledMainCommentWrap>
         {mainCommentList.map((commentList, i) => (
           <Comment key={i} text={commentList.text} info={commentList.info} />
         ))}
       </StyledMainCommentWrap>
-      <ChatFloatButton />
+      <ChatFloatButton /> */}
     </StyledMainWrap>
   );
 };
@@ -262,6 +271,9 @@ const StyledMainWrap = styled.div`
   align-items: center;
 
   /* padding: 0 10%; */
+  @media screen and (max-width: 768px) {
+    padding: 1em 1em;
+  }
 `;
 export const StyledSwiper = styled(Swiper)`
   background: #ff000020;
@@ -270,11 +282,16 @@ export const StyledSwiper = styled(Swiper)`
   justify-content: center;
   width: 100vw;
   height: 36em;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 12em;
+    border-radius: 20px;
+  }
 `;
 export const StyledMainBanner = styled.div`
   background: ${(props) => `url(${props.backgroundImg}) center / cover no-repeat `};
   width: 100%;
-  height: 36em;
+  height: 100%;
   cursor: pointer;
 `;
 const StyledMainButtonWrap = styled.div`
@@ -282,10 +299,12 @@ const StyledMainButtonWrap = styled.div`
   flex-direction: row;
   justify-content: center;
 
-  /* width: 50%;
-  height: auto; */
-
   margin: 80px 0 40px 0;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    border-radius: 20px;
+    margin: 50px 0 20px 0;
+  }
 `;
 const StyledMainButtonBox = styled.div`
   display: flex;
@@ -298,6 +317,10 @@ const StyledMainButtonBox = styled.div`
   > div button {
     transform: scale(1);
   }
+  @media screen and (max-width: 768px) {
+    width: 22%;
+    margin: 0 5px;
+  }
 `;
 const StyledMainHotTrend = styled.div``;
 const StyledMainHotButtonbWrap = styled.div`
@@ -308,12 +331,20 @@ const StyledMainHotButtonbWrap = styled.div`
 const StyledMainCardWrap = styled.div`
   display: flex;
   flex-direction: row;
+  /* flex-wrap: wrap; */
   justify-content: center;
 
   width: 70%;
   height: 26em;
 
   margin: 60px 0;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    flex-wrap: wrap;
+    height: auto;
+    gap: 0 5px;
+    margin: 30px 0 0 0;
+  }
 `;
 const StyledMainCommentWrap = styled.div`
   display: flex;

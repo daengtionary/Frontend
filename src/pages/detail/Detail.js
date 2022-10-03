@@ -44,7 +44,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetailThunk } from "../../redux/modules/detailSlice";
 import { useParams } from "react-router-dom";
 
-import { showStars } from "../../shared/showStars" 
+import { showStars } from "../../shared/showStars";
 
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
@@ -63,12 +63,10 @@ const Detail = () => {
   console.log(data.imgResponseDtoList);
   console.log(data.mapDetailSubResponseDto);
 
-
-
   const { id } = useParams();
   console.log(id);
 
-  const payload = {id: id, };
+  const payload = { id: id };
 
   useEffect(() => {
     dispatch(getDetailThunk(id));
@@ -89,8 +87,8 @@ const Detail = () => {
         {data.imgResponseDtoList &&
           data.imgResponseDtoList.map((el, i) => {
             return (
-              <SwiperSlide key={i} style={{display: 'flex', justifyContent:'center'}}>
-                  <DetailMainImg src={el.mapImgUrl} alt={`${data.mapDetailSubResponseDto?.title}${i}`} />
+              <SwiperSlide key={i} style={{ display: "flex", justifyContent: "center" }}>
+                <DetailMainImg src={el.mapImgUrl} alt={`${data.mapDetailSubResponseDto?.title}${i}`} />
               </SwiperSlide>
             );
           })}
@@ -101,20 +99,13 @@ const Detail = () => {
       </BusinessTitle>
 
       <StarRating>
-        <div>
-          {showStars(data.mapDetailSubResponseDto?.mapStar)}
-        </div>
-        <div>
-          {data.mapDetailSubResponseDto?.mapStar}
-        </div>
+        <div>{showStars(data.mapDetailSubResponseDto?.mapStar)}</div>
+        <div>{data.mapDetailSubResponseDto?.mapStar}</div>
       </StarRating>
 
       <MapAddress>
         <span onClick={modalHandler}>
-          <MapMark
-            alt="mapMark"
-            src={`${process.env.PUBLIC_URL}/img/mapLocation.png`}
-          />
+          <MapMark alt="mapMark" src={`${process.env.PUBLIC_URL}/img/mapLocation.png`} />
           {/* <HiOutlineLocationMarker size={24} /> */}
         </span>
         <span>{data.mapDetailSubResponseDto?.address}</span>
@@ -162,13 +153,7 @@ const Detail = () => {
         })}
       </ReviewWrap>
 
-      {mapModal && (
-        <Map
-          modalHandler={modalHandler}
-          title={data.mapDetailSubResponseDto?.title}
-          address={data.mapDetailSubResponseDto?.address}
-        />
-      )}
+      {mapModal && <Map modalHandler={modalHandler} title={data.mapDetailSubResponseDto?.title} address={data.mapDetailSubResponseDto?.address} />}
     </DetailContainer>
   );
 };

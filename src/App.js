@@ -29,10 +29,11 @@ import ScrollToTop from "./shared/ScrollToTop";
 import TopButton from "./shared/TopButton";
 import ChatRoom from "./components/chatRoom/ChatRoom";
 import DogWalk from "./pages/dogWalk/DogWalk";
+import styled from "styled-components";
 
 function App() {
   return (
-    <>
+    <Wrap>
       <ScrollToTop />
       <Header />
 
@@ -65,8 +66,23 @@ function App() {
         <Route exact path={"placeposting"} element={<PlacePosting />} />
       </Routes>
       <Footer />
-    </>
+    </Wrap>
   );
 }
 
 export default App;
+
+const Wrap = styled.div`
+  @media screen and (max-width: 768px) {
+    width: 425px;
+    /* background: rgba(0, 139, 139, 0.281); */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    > div {
+      width: 100%;
+    }
+  }
+`;
