@@ -13,7 +13,7 @@ const ListPageCard = ({ data, onClick }) => {
         <StyledCardText width={"15%"} color="#6563ff" margin="6px 0" fontSize="1em" fontWeight="400">
           {data?.address?.slice(0, 2)}
         </StyledCardText>
-        <StyledCardText width={"85%"} color="#000" margin="6px 0" fontSize="1.5em" fontWeight="700">
+        <StyledCardText width={"85%"} m_fontSize={"1.2em"} color="#000" margin="6px 0" fontSize="1.5em" fontWeight="700">
           {data?.title}
         </StyledCardText>
         <StyledCardText width={"30%"} color="#000" margin="6px 0" fontSize=".7em" fontWeight="400">
@@ -76,8 +76,9 @@ const StyledCardImgBox = styled.div`
   border-radius: 20px;
   @media screen and (max-width: 768px) {
     background-color: #eee;
-    width: 24em;
+    width: 22em;
     height: 12em;
+    margin-bottom: 0.6em;
   }
 `;
 const StyledCardImg = styled.div`
@@ -89,7 +90,7 @@ const StyledCardImg = styled.div`
   transition: transform 0.2s;
   @media screen and (max-width: 768px) {
     background: ${(props) => (props.background ? `url(${props.background}) center / cover no-repeat` : " linear-gradient(#ccc, #cccccc50)")};
-    width: 24em;
+    width: 22em;
     height: 12em;
   }
 `;
@@ -122,6 +123,7 @@ const StyledCardText = styled.div`
   @media screen and (max-width: 768px) {
     width: ${(props) => props.width};
     display: ${(props) => props.md_display};
+    font-size: ${(props) => props.m_fontSize};
   }
 `;
 const StyledHeartButton = styled.div`

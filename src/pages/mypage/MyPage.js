@@ -31,7 +31,10 @@ const MyPage = () => {
   let now = new Date();
   console.log(now, "현재 시간");
   const checkToken = () => {
-    if (expTime <= now || token === null) {
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate("/signin");
+    } else if (expTime <= now || token === null) {
       token && window.sessionStorage.removeItem("authorization");
       alert("로그인이 만료 되었습니다. 다시 로그인해 주세요!");
       navigate("/signin");
@@ -151,13 +154,12 @@ const MyPage = () => {
     <StyledMyPageWrap>
       <StyledMyPageProfileWrap>
         <StyledMyPageProfileTitle width={"55em"}>댕과사전 마이페이지</StyledMyPageProfileTitle>
-        <StyledMyPageNavWrap>
+        {/* <StyledMyPageNavWrap>
           <StyledMyPageNavButton color={"#000"} background={"#cccccc80"}>
             프로필
           </StyledMyPageNavButton>
           <StyledMyPageNavButton>찜 목록</StyledMyPageNavButton>
-          {/* <MyPageNavButton>내가 쓴 글</MyPageNavButton> */}
-        </StyledMyPageNavWrap>
+        </StyledMyPageNavWrap> */}
         <StyledMyPageProfileBox>
           <StyledMyPageProfileTitle>나의 정보</StyledMyPageProfileTitle>
           <StyledMyPageProfileContent>

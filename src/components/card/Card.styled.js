@@ -18,7 +18,7 @@ export const StyledCardBox = styled.div`
     }
   }
   @media screen and (max-width: 768px) {
-    width: 12em;
+    width: 11.5em;
     height: 18em;
     margin-bottom: 0.8em;
   }
@@ -44,10 +44,15 @@ export const StyledCardImgBox = styled.div`
   /* margin: 0 1.5em; */
   overflow: hidden;
   border-radius: 20px;
+  transition: all 0.2s;
+
+  :hover {
+    border-radius: 20px 20px 0 0;
+  }
   @media screen and (max-width: 768px) {
-    width: 12em;
+    width: 11.5em;
     height: 10em;
-    border-radius: 20px;
+    border-radius: 20px 20px 0 0;
   }
 `;
 export const StyledCardImg = styled.div`
@@ -55,11 +60,14 @@ export const StyledCardImg = styled.div`
   background: ${(props) => `url(${props.background}) center / cover no-repeat `};
   min-height: 100%;
   width: 18em;
-  transition: transform 0.2s;
+  transition: all 0.2s;
+  :hover {
+    border-radius: 20px 20px 0 0;
+  }
   @media screen and (max-width: 768px) {
     width: 100%;
     height: 10em;
-    border-radius: 20px;
+    border-radius: 20px 20px 0 0;
   }
 `;
 export const StyledCardTextBox = styled.div`
