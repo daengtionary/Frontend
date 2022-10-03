@@ -10,6 +10,9 @@ export const List = styled.div`
     justify-content: space-between;
     align-items: center;
   }
+  :hover{
+    background-color : aliceblue;
+  }
 `;
 export const Nickname = styled.div`
   font-size: 16px;

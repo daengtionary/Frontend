@@ -28,7 +28,7 @@ const ChatRoomList = () => {
               ) : (
                 <Nickname>{room.chatRoomMembers[0].nick}</Nickname>
               )}
-              <Date>{room.lastDate?.split(" ")[3].substring(0, 5)}</Date>
+              <Date>{room.lastDate?.split('요일')[1]}</Date>
             </span>
             <span>
               <Message>{room.lastMessage}</Message>
