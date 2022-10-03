@@ -49,7 +49,7 @@ export const getCommunityPostThunk = createAsyncThunk("GET_COMMUNITY_POST", asyn
 
     const resp = await api_auth.post("/community/create", formData, { "Content-Type": "multipart/form-data" });
     console.log(resp);
-    return thunkAPI.fulfillWithValue(resp.data.data);
+    return thunkAPI.fulfillWithValue(resp.data);
   } catch (err) {
     return thunkAPI.rejectWithValue(err.code);
   }
@@ -85,6 +85,7 @@ const initialState = {
   editedPost: [],
   pageNum: 0,
   isEnd: false,
+  isPosted : false,
 };
 
 const communitySlice = createSlice({
@@ -97,6 +98,9 @@ const communitySlice = createSlice({
         state.pageNum = state.pageNum + action.payload;
       }
     },
+    resetPosted(state) {
+      state.isPosted = false
+    }
   },
   extraReducers: {
     /** 게시글 전체 조회 */
@@ -139,6 +143,7 @@ const communitySlice = createSlice({
     [getCommunityPostThunk.fulfilled]: (state, action) => {
       console.log(action.payload);
       state.posts = action.payload;
+      state.isPosting = !state.isPosting;
     },
     [getCommunityPostThunk.rejected]: (state, action) => {
       state.error = action.payload;
@@ -146,5 +151,5 @@ const communitySlice = createSlice({
   },
 });
 
-export const { pageUp } = communitySlice.actions;
+export const { pageUp, resetPosted } = communitySlice.actions;
 export default communitySlice.reducer;
