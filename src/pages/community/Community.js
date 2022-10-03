@@ -28,11 +28,11 @@ const Community = () => {
   const navigate = useNavigate();
 
   const [postModal, setPostModal] = useState(false);
+  const [postCheck, setPostCheck] = useState(1)
   
   const pageNum = useSelector((state) => state.community.pageNum);
   const listEnd = useSelector((state) => state.community.isEnd);
 
-  const isPost = useSelector((state) => state.community.isPosted)
   
   const data = useSelector((state) => state.community.community);
   // const test = useSelector((state) => state);
@@ -69,9 +69,12 @@ const Community = () => {
 
   useEffect(() => {
     dispatch(getCommunityPostListThunk(pageNum));
+  }, [pageNum]);
+
+  useEffect(()=>{
     dispatch(resetPosted())
-    // alert("확인용")
-  }, [pageNum, isPost, postModal]);
+    dispatch(getCommunityPostListThunk(0))
+  }, [postCheck])
 
 
   const userNick = window.localStorage.getItem("nick");
@@ -124,7 +127,7 @@ const Community = () => {
               })}
           </StyledCards>
         </StyledCommunityWrap>
-        {postModal && <PostModal modalHandler={modalHandler} nick={userNick} />}
+        {postModal && <PostModal modalHandler={modalHandler} nick={userNick} postCheck={postCheck} setPostCheck={setPostCheck}/>}
       </StyledContentsLayout>
       {!listEnd ? null : <h3 style={{ textAlign: "center" }}>데이터가 모두 로딩 되었습니다.</h3>}
     </StyledCommunityContainer>

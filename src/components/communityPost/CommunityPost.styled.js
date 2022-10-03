@@ -8,7 +8,6 @@ export const StyledCommunityPostForm = styled.form`
 
   @media screen and (max-width: 768px){
     height: 85%;
-    
   }
 `;
 export const StyledCategory = styled.div`
