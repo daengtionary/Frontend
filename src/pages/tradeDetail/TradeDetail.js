@@ -38,10 +38,11 @@ SwiperCore.use([Pagination, Autoplay, Navigation]);
 const TradeDetail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const item = useSelector((state) => state.trade.getTradeDetail);
   console.log(item);
+  const memberNo = item.memberNo 
 
   useEffect(() => {
     dispatch(getTradeDetail(id));
@@ -51,7 +52,7 @@ const TradeDetail = () => {
   const onClickChat = async () => {
     checkToken();
     try {
-      const response = await chatApis.addRoom(+id);
+      const response = await chatApis.addRoom(memberNo);
         console.log(response)   
         navigate('/chat')   
     } catch (error) {

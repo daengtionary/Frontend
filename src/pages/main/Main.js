@@ -23,6 +23,7 @@ import communityButtonImg from "../../static/image/커뮤니티.jpg";
 import banner_01 from "../../static/image/베너01_.jpg";
 import banner_02 from "../../static/image/댕매칭.jpg";
 import banner_03 from "../../static/image/이용방법.jpg";
+import banner_04 from "../../static/image/이벤트배너.jpg";
 import medal_01 from "../../static/image/메달1_.png";
 import medal_02 from "../../static/image/메달2.png";
 import medal_03 from "../../static/image/메달3.png";
@@ -129,6 +130,14 @@ const Main = () => {
         loop={true}
         centeredSlides={true}
       >
+        <SwiperSlide>
+          <StyledMainBanner
+            backgroundImg={banner_04}
+            onClick={() => {
+              window.open("https://forms.gle/sEkZEHdnQrwfUKH7A");
+            }}
+          />
+        </SwiperSlide>
         <SwiperSlide>
           <StyledMainBanner backgroundImg={banner_01} />
         </SwiperSlide>
