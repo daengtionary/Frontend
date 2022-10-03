@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledDetailWrap = styled.div`
   width: 60%;
   
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     /* border: 1px solid blue; */
     width: 90%;
   }
@@ -16,7 +16,7 @@ export const StyledPostContainer = styled.div`
   min-height: 45vh;
   margin-top: ${props => props.marginTop};
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     border: none;
     border-radius: 0px;
     margin-top: 30px;
@@ -31,7 +31,7 @@ export const StyledTitle = styled.div`
   padding: 10px 15px;
   border-bottom: 1px solid #d9d9d9;
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     padding: 0 0 10px 0;
     font-size: 20px;
   }
@@ -49,7 +49,7 @@ export const StyledPostInfo = styled.div`
     padding: 5px 0;
   }
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     padding: 10px 0;
     color: #797979;
     border-bottom: none;
@@ -72,7 +72,7 @@ export const StyledContent = styled.div`
     height: 100%;
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     /* border: 1px solid cyan; */
     height: 80%;
     p {
@@ -107,7 +107,7 @@ export const StyledImgList = styled.div`
     margin: 20px 0;
   }
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     margin: 0 0 0 0;
     border-bottom: none;
 
@@ -133,7 +133,7 @@ export const StyledRiple = styled.form`
   box-sizing: border-box;
   justify-content: space-between;
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     height: 50px;
     background-color: #f1f1f5;
     border-radius: 10px;
@@ -146,7 +146,7 @@ export const StyledWriteRiple = styled.textarea`
   font-size: 16px;
   border: 1px solid #d9d9d9;
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     background-color: #f1f1f5;
     /* border-radius: 10px; */
     border-top-left-radius: 10px;
@@ -163,7 +163,7 @@ export const StyledRipleBtn = styled.button`
   color: #fff;
   border: none;
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     width: 10%;
     background-color: #f1f1f5;
     font-size: 0%;
@@ -195,7 +195,7 @@ export const StyledBottomBtn = styled.div`
     cursor: pointer;
   }
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     display: none;
   }
 `;

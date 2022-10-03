@@ -49,7 +49,7 @@ export const StyledSerchImg = styled.img`
 export const StyledPageTitle = styled.div`
   display: none;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     display: flex;
     width: 100%;
     padding: 15px 15px 0 15px;
@@ -68,7 +68,7 @@ export const StyledCommunityContainer = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     
   }
 `
@@ -94,7 +94,7 @@ export const StyledCommunityWrap = styled.div`
   justify-content: center;
   box-sizing: border-box;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     /* border: 1px solid blue; */
   }
 ` 

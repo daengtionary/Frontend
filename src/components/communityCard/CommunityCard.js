@@ -38,7 +38,9 @@ const CommunityCard = ({ data }) => {
           <>
             <IconBox
               onClick={() => {
-                dispatch(getCommunityDeleteThunk(data.communityNo));
+                alert("삭제되었습니다!")
+                dispatch(getCommunityDeleteThunk(data.communityNo))
+                window.location.reload();
               }}
               length={"24px"}
               size={"34px"}

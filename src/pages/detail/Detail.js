@@ -78,7 +78,7 @@ const Detail = () => {
     <DetailContainer>
       <StyledSwiper
         className="swiper-container"
-        spaceBetween={200}
+        spaceBetween={100}
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}

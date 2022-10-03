@@ -7,7 +7,7 @@ export const DetailContainer = styled.div`
   align-items: center;
   margin-top: 60px;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     /* border: 1px solid red; */
     margin-top: 20px;
   }
@@ -24,10 +24,10 @@ export const MainBanner = styled.div`
 `;
 
 export const StyledSwiper = styled(Swiper)`
-  /* display: flex; */
-  /* align-items: center;
-  justify-content: center; */
-  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80vw;
   height: 36em;
   border-radius: 10px;
   z-index: 0;
@@ -38,8 +38,11 @@ export const StyledSwiper = styled(Swiper)`
     object-fit: contain;
   }
 
-  @media screen and (max-width: 425px) {
-    width: 90vw;
+  @media screen and (max-width: 768px) {
+    justify-content: flex-start;
+    /* border: 1px solid red; */
+    /* width: 80vw; */
+    width: 90%;
     height: 25vh;
   }
 `;
@@ -54,7 +57,7 @@ export const BusinessTitle = styled.div`
     font-size: ${(props) => `${props.size}px`};
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     width: 90vw;
     margin: 5px 0 0 0;
   }
@@ -129,7 +132,7 @@ export const MapTooltip = styled.div`
     }
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     animation: none;
     &::after,
     &::before {
@@ -155,7 +158,7 @@ export const MapAddress = styled.div`
     cursor: pointer;
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     width: 90vw;
     margin-bottom: 20px;
     border-bottom: none;
@@ -173,7 +176,7 @@ export const BusinessInfo = styled.div`
   justify-content: space-between;
   margin-bottom: 40px;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     width: 90vw;
   }
 `;
@@ -185,7 +188,7 @@ export const BusinessDescription = styled.div`
 
 export const DescriptionTitle = styled.h3`
   margin-bottom: 30px;
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     /* border: 1px solid red; */
     margin-bottom: 10px;
   }
@@ -250,7 +253,7 @@ export const StarRating = styled.div`
   align-items: center;
   margin-bottom: 10px;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     width: 90vw;
     margin: 5px 0 0 0;
     font-size: 22px;

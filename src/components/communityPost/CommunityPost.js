@@ -105,6 +105,7 @@ const CommunityPost = ({ modalHandler }) => {
     console.log(haveToSend);
     dispatch(getCommunityPostThunk(haveToSend));
     modalHandler();
+    alert("게시글 등록 완료!")
     window.location.reload()
     // navigate("/");
     // navigate("/community");

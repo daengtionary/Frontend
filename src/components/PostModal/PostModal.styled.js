@@ -21,7 +21,7 @@ export const PostModalContainer = styled.div`
   flex-direction: column;
   padding: 15px 25px 0 25px;
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     width: 100vw;
     height: 100vh;
     border-radius: 0px;
@@ -40,7 +40,7 @@ export const CloseBtm = styled.div`
     background-color: white;
   }
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     margin: 10px 0 20px 0;
   }
 `
