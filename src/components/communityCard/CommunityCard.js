@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getCommunityDeleteThunk } from "../../redux/modules/communitySlice";
+
+
 import jwtDecode from "jwt-decode";
 import {
   CommunityCardWrap,
@@ -72,13 +74,8 @@ const CommunityCard = ({ data }) => {
 
           />
         ) : (
-          <DefaultImg
-            onClick={() => {
-              navigate(`/community/${data.communityNo}`);
-            }}
-          />
+          <DefaultImg/>
         )}
-        {/* <ContentImg alt="" src={data.communityImg}/> */}
 
         <CategoryTitleWrap>
           <Category>{data.category ? data.category : "없음"}</Category>
@@ -90,7 +87,6 @@ const CommunityCard = ({ data }) => {
             {data.title.length > 20 ? data.title.substring(0, 20) + "..." : data.title}
           </Title>
         </CategoryTitleWrap>
-        {/* <Title onClick={detailHandler(data.communityNo)}>{data.title}</Title> */}
       </CardContents>
     </CommunityCardWrap>
   );
