@@ -55,8 +55,9 @@ const ChatModal = () => {
   }, []);
 
   return (
+    <>
     <FloatWrap>
-      <Dim />
+      <Dim onClick={()=>{navigate('/')}} />
       <Wrap>
         <LeftWrap isRoom={roomNo}>
           <Title>
@@ -68,9 +69,9 @@ const ChatModal = () => {
             roomId={roomNo} />
           </ListWrap>
         </LeftWrap>
-       
       </Wrap>
     </FloatWrap>
+    </>
   );
 };
 

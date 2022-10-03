@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useMatch } from "react-router-dom";
+import { Link, useMatch, useLocation, Outlet } from "react-router-dom";
 import { FloatWrap, ChatButtonWrap, ChatButton, NewNoti } from "./ChatFloatButton.styled";
 
 import { setNotification } from "../../redux/modules/chatSlice";
@@ -8,6 +8,7 @@ import { SmileChatSVG } from "../../elements/svg/SVG";
 
 // 우측 하단 채팅 플로팅 버튼
 const ChatFloatButton = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const isChatModalOn = useMatch("/chat/*");
   const notification = useSelector((state) => state.chat.notification);
@@ -19,7 +20,7 @@ const ChatFloatButton = () => {
   //   if (memberNo) {
   //     // SSE 구독 요청
   //     eventSource.current = new EventSource(
-  //       `http://${process.env.REACT_APP_CHAT_API_IP}/member/subscribe/${memberNo}`,
+  //       `https://${process.env.REACT_APP_CHAT_API_IP}/member/subscribe/${memberNo}`,
   //       {
   //         headers: {
   //           Authorization: `Bearer ${sessionStorage.getItem("authorization")}`,

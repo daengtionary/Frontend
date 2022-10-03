@@ -2,7 +2,8 @@ import React, { useEffect, useLayoutEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CommunityDetailRipleCard from "../../components/communityDetialRipleCard/CommunityDetailRipleCard";
-import { StyledCommunityContainer, StyledCommunityWrap } from "../community/Community.styled";
+import { StyledCommunityContainer, StyledCommunityWrap, StyledPageTitle } from "../community/Community.styled";
+import { IoIosArrowBack } from "react-icons/io";
 import {
   StyledImgList,
   StyledDetailWrap,
@@ -24,25 +25,17 @@ const CommunityDetail = () => {
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state.community.communityDetail);
-  console.log("커뮤니티 디테일:", data);
-  console.log(data.communityDetatilResponseDto);
-
-  // const test = useSelector((state)=>console.log(state))
 
   let { id } = useParams();
-  console.log(id);
  
-
   useLayoutEffect(() => {
     dispatch(getCommunityDetailThunk(Number(id)));
   }, [dispatch]);
 
   const OnCommentSubmitHandler = (e) => {
-    alert("댓글 기능은 아직 구현중입니다.");
+    alert("댓글 기능은 아직 구현중입니다. ㅜㅜ");
     e.preventdefault();
   };
-
-  console.log("랜더링 전에 이게 나와야해 :", data.imgList);
 
   /** 날짜 포맷팅 함수*/
   const showDate = (date) => {
@@ -51,37 +44,48 @@ const CommunityDetail = () => {
 
   return (
     <StyledCommunityContainer id="super">
+      <StyledPageTitle>
+        <div><IoIosArrowBack onClick={() => {
+          navigate("/community");
+        }}/></div>
+        <div>
+          커뮤니티
+        </div>
+      </StyledPageTitle>
       <StyledCommunityWrap>
         <StyledDetailWrap>
           <StyledPostContainer marginTop={"60px"}>
-            <StyledTitle>{data.communityDetatilResponseDto?.title}</StyledTitle>
+
+            <StyledTitle>
+              {data.communityDetatilResponseDto?.title > 30 ? data.communityDetatilResponseDto?.title.substring(0, 30) + "..." : data.communityDetatilResponseDto?.title}
+            </StyledTitle>
             <StyledPostInfo>
               <div>분류 : {data.communityDetatilResponseDto?.category}</div>
               <div>작성자 : {data.communityDetatilResponseDto?.nick}</div>
-              <div>견종 : {data.communityDetatilResponseDto?.breed}</div>
-              <div>작성일 : {data.communityDetatilResponseDto?.createdAt}</div>
+              <div>견종 : {data.communityDetatilResponseDto?.breed ? data.communityDetatilResponseDto?.breed : "견종정보없음"}</div>
+              <div>작성일 : {showDate(data.communityDetatilResponseDto?.createdAt)}</div>
             </StyledPostInfo>
-
-            {/* {console.log("랜더링 됨", data?.imgList)} */}
 
             <StyledContent>
               <StyledImgList>
-                {data.imgResponseDtoList ? (
-                  data.imgResponseDtoList?.map((el, i) => {
-                    return <img key={i} alt="" src={el?.mapImgUrl} style={{ backgroundColor: "gray" }} />;
+                {data?.imgResponseDtoList ? (
+                  data?.imgResponseDtoList?.map((el, i) => {
+                    return <img key={i} alt={`${data.communityDetatilResponseDto?.title}${i}`} src={el?.mapImgUrl} style={{ backgroundColor: "gray" }} />;
                   })
                 ) : (
-                  <div>이미지 없음</div>
+                  // <div>이미지 없음</div>
+                  null
                 )}
-                {/* {data.imgList?.map((el)=>{
-                return (
-                  <img alt="" src={el} style={{backgroundColor:'gray'}}/>
-                  )
-                })} */}
+
               </StyledImgList>
-              <p>{data.content}</p>
+              <p>{data.communityDetatilResponseDto?.content}</p>
             </StyledContent>
           </StyledPostContainer>
+
+          {/* <div>
+            <button>글 수정</button>
+            <button>글 삭제</button>
+          </div> */}
 
           <StyledRiple onSubmit={OnCommentSubmitHandler}>
             <StyledWriteRiple placeholder="000글자 이내로 작성해주세요" />
@@ -91,7 +95,7 @@ const CommunityDetail = () => {
           <StyledShowRiples>
             <CommunityDetailRipleCard data={data.reviewList} />
           </StyledShowRiples>
-
+          
           <StyledBottomBtn>
             <button onClick={() => navigate("/community")}>목록으로</button>
           </StyledBottomBtn>

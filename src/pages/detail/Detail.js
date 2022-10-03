@@ -34,6 +34,7 @@ import {
   Nick,
   Star,
   DetailMainImg,
+  MapTooltip,
   StarNum,
 } from "./Detail.styled";
 import "swiper/swiper-bundle.min.css";
@@ -60,9 +61,7 @@ const Detail = () => {
 
   let data = useSelector((state) => state.detail.detail);
   console.log(data);
-  console.log(data.imgResponseDtoList);
-  console.log(data.mapDetailSubResponseDto);
-
+  
   const { id } = useParams();
   console.log(id);
 
@@ -72,11 +71,14 @@ const Detail = () => {
     dispatch(getDetailThunk(id));
   }, [dispatch]);
 
+  console.log(data.mapDetailSubResponseDto?.category === "room");
+  console.log(data.mapDetailSubResponseDto?.category === "hospital");
+
   return (
     <DetailContainer>
       <StyledSwiper
         className="swiper-container"
-        spaceBetween={0}
+        spaceBetween={200}
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
@@ -94,6 +96,10 @@ const Detail = () => {
           })}
       </StyledSwiper>
 
+      <BusinessTitle size={10} margin={"10px 0 0 0"}>
+        <span>{data.mapDetailSubResponseDto?.address.split(" ").at(0)}</span>
+      </BusinessTitle>
+
       <BusinessTitle>
         <span>{data.mapDetailSubResponseDto?.title}</span>
       </BusinessTitle>
@@ -103,17 +109,24 @@ const Detail = () => {
         <div>{data.mapDetailSubResponseDto?.mapStar}</div>
       </StarRating>
 
+
       <MapAddress>
+        <div style={{display:"flex"}}>
+
         <span onClick={modalHandler}>
           <MapMark alt="mapMark" src={`${process.env.PUBLIC_URL}/img/mapLocation.png`} />
           {/* <HiOutlineLocationMarker size={24} /> */}
         </span>
-        <span>{data.mapDetailSubResponseDto?.address}</span>
+        <span>{data.mapDetailSubResponseDto?.address.split(",").at(0)}주소</span>
+        </div>
+      <MapTooltip className="task-tooltip">
+          여기를 클릭해 지도정보를 살펴보세요
+      </MapTooltip>
       </MapAddress>
 
       <BusinessInfo>
         <BusinessDescription>
-          <DescriptionTitle>병원정보</DescriptionTitle>
+          <DescriptionTitle>{data.mapDetailSubResponseDto?.category === "hospital" ? "병원정보" : "호텔정보"}</DescriptionTitle>
           <StyledDescriptionContents>
             <Description>
               <p>{data.mapDetailSubResponseDto?.content}</p>
@@ -123,18 +136,21 @@ const Detail = () => {
                 <TbPhoneCall size={30} />
               </span>{" "}
               <span>전화번호</span>
+              <span style={{ color: "#767676" }}>준비중...</span>
             </Infotmations>
             <Infotmations>
               <span>
                 <BiCar size={30} />
               </span>{" "}
               <span>주차정보</span>
+              <span style={{ color: "#767676" }}>준비중...</span>
             </Infotmations>
             <Infotmations>
               <span>
                 <FiClock size={30} />
               </span>{" "}
-              <span>진료시간</span>
+              <span>{data.mapDetailSubResponseDto?.category === "hospital" ? "진료시간" : "영업시간"}</span>
+              <span style={{ color: "#767676" }}>준비중...</span>
             </Infotmations>
           </StyledDescriptionContents>
         </BusinessDescription>

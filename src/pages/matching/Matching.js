@@ -1,46 +1,87 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import Button from '../../elements/button/Button';
-import { StyledMatchingAll,
-   StyledMatchingWrapBox,
-   StyledButtonWrap,
-   StyledInputButtonWrap 
-  } from './Matching.styled';
+import { StyledMatchingAll } from './Matching.styled';
 
 import { chatApis } from '../../shared/api';
 import { useState } from 'react';
-
+import MatchingCard from "../../components/card/MatchingCard"
+import searchIcon from '../../static/image/search.png';
+import { StyledSerchWrap, StyledSerchBox, StyledSerchImg, StyledFilter, StyledFilterBox } from '../animalhospital/List';
+import { StyledSerchFilterBox } from '../trade/Trade.styled';
+import Input from '../../elements/input/Input';
+import Button from '../../elements/button/Button';
+import { useNavigate } from 'react-router-dom';
 
 const Matching = () => {
+  const id = window.localStorage.getItem('nick');
 
-  const id = window.localStorage.getItem("nick")
-  const [roomName,setRoomName] = useState('')
-  const [view, setView] = useState(false)
-    // const dispatch = useDispatch();
-    
-    const addMatchingRoom = async () => {
-      try {
-        const response = await chatApis.addMatchingRoom(id);
-        // Navigate(`/chat/${response.data.data.chatNo}`);
-      } catch (error) {}
-      setRoomName('')
-    };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <StyledMatchingAll>
-      <StyledMatchingWrapBox>
-        <StyledButtonWrap>
-          <Button text={'방 만들기'} _onClick={()=>{setView(!view)}} />
-          <Button text={'댕 친구 랜덤 매칭'} />
-          <Button text={'댕 친구 대기방 보러가기 '} />
-        </StyledButtonWrap>
-        {view &&
-        <StyledInputButtonWrap>
-        <input type={"text"} value={roomName} onChange={(e)=>{setRoomName(e.target.value)}}/>
-        <Button text={'생성하기'} _onClick={addMatchingRoom}/>
-        </StyledInputButtonWrap>
-        }
-      </StyledMatchingWrapBox>
+      <StyledSerchFilterBox>
+        <StyledSerchWrap>
+          <StyledSerchBox>
+            <h2>지금 가장 핫한</h2>
+            <Input
+              // _onKeyPress={onKeyPressHandler}
+              // _onChange={onChangeHandler}
+              placeholder={'어떤 물건을 찾으세요?'}
+              style={{
+                width: '40%',
+                mg_left: '3.6em;',
+                bd_radius: '3em',
+                bg_color: '#eee',
+                bd: 'none',
+                bd_bottom: 'none',
+                pd_left: '1.6em',
+                pd_right: '5em',
+                height: '3.4em',
+              }}
+            />
+            <StyledSerchImg
+              // onClick={onClickHandler}
+              src={searchIcon}
+            />
+          </StyledSerchBox>
+
+          <StyledFilterBox>
+            {/* <StyledFilter
+              name="sort"
+              width={'60px'}
+            >
+              <option select="true">
+                정렬
+              </option>
+              <option value="new">최신 순</option>
+              <option value="hot">인기 순</option>
+            </StyledFilter> */}
+            <Button
+            _onClick={()=>{navigate('/matchingPosting')}}
+            text={"글쓰기"}
+            style={{
+              width: "auto",
+              height: "auto",
+              color: "#fff",
+              bg_color: "#6563ff",
+              mg_left: "5px",
+              mg_right: "5px",
+              bd_radius: "10px",
+              bd_color: "#ccc",
+              pd_top: "8px",
+              pd_bottom: "8px",
+              pd_left: "20px",
+              pd_right: "20px",
+            }}
+          />
+          </StyledFilterBox>
+        </StyledSerchWrap>
+      </StyledSerchFilterBox>
+      <MatchingCard/>
+      <MatchingCard/>
+      <MatchingCard/>
+      <MatchingCard/>
     </StyledMatchingAll>
   );
 };

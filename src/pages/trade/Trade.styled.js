@@ -1,39 +1,60 @@
 import styled from "styled-components";
 
-export const TradeAll = styled.div `
-width: 100%;
-align-items: center;
-display: flex;
-flex-direction: column;
-justify-content: center;
-`
+export const TradeAll = styled.div`
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @media screen and (max-width: 768px) {
+    width: 425px;
+    height: auto;
+  }
+`;
 
 export const StyledSerchFilterBox = styled.div`
-width: 73%;
-`
-
+  width: 73%;
+  @media screen and (max-width: 768px) {
+    width: 75%;
+  }
+`;
 
 export const TradeTopBox = styled.div`
-display: block;
-position: relative;
-`
+  display: block;
+  position: relative;
+`;
 
-export const TopFilterBox = styled.div`
-display: flex;
-position: absolute;
-right: 14%;
-`
 
 export const TradeFullBox = styled.div`
-margin-top:  30px;
-width: 80%;
+  width: 73%;
+  .postItem {
+    float: right;
+    margin-right: 4.5%;
+  }
+  @media screen and (max-width: 768px) {
+    width: 75%;
+  }
+`;
+
+export const StyledTradeFilterBox = styled.div`
+  span {
+    font-size: 14px;
+    :hover {
+      cursor: pointer;
+    }
+  }
+  justify-content: right;
+  display: flex;
 `;
 
 export const CardList = styled.div`
-margin-top: 30px;
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-gap: 60px 90px;
-justify-content: center;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 60px 90px;
+  justify-content: center;
+  @media screen and (max-width: 768px) {
+    gap: 20px 40px;
+  }
 `;

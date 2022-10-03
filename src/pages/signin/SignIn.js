@@ -15,6 +15,7 @@ import Input from "../../elements/input/Input";
 
 import styled from "styled-components";
 import {
+  SignInAll,
   SignInBox,
   SignInLoginBox,
   SignInLoginContainer,
@@ -28,7 +29,7 @@ import {
 
 const SignIn = () => {
   const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-  const REDIRECT_URI ="http://fragohahbr.s3-website.ap-northeast-2.amazonaws.com/kakao/callback";
+  const REDIRECT_URI = "https://daengtionary.site/kakao/callback";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,11 +37,10 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const emailRegExp =
-    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
   const signInAccount = useCallback(
-    async (event) => {
+    async event => {
       event.preventDefault();
       if (email === "") {
         alert("계정을 입력해주세요");
@@ -48,32 +48,32 @@ const SignIn = () => {
         alert("이메일 형식에 맞지 않습니다");
       } else {
         dispatch(signUserThunk({ email, password }))
-        .unwrap()
-        .then(res=>{
-          alert(res.message);
-          navigate('/')
-        })
-        .catch(error=>{
-          console.log(error)
-          alert("로그인에 실패하였습니다");
-        })
-        }
-      },
+          .unwrap()
+          .then(res => {
+            alert(res.message);
+            navigate("/");
+          })
+          .catch(error => {
+            console.log(error);
+            alert("로그인에 실패하였습니다");
+          });
+      }
+    },
     [email, password]
   );
 
   return (
-    <Fragment>
+    <SignInAll>
       <SignInBox>
         <SignInLoginTitle>로그인</SignInLoginTitle>
         <SignInLoginBox>
-          <SignInLoginContainer onSubmit={(event) => signInAccount(event)}>
+          <SignInLoginContainer onSubmit={event => signInAccount(event)}>
             <SignInLoginDataGroup>
               <SignInLoginEmail>
                 <Input
                   type={"text"}
                   value={email}
-                  _onChange={(e) => setEmail(e.target.value)}
+                  _onChange={e => setEmail(e.target.value)}
                   style={{
                     width: "100%",
                     height: "40px",
@@ -88,7 +88,7 @@ const SignIn = () => {
                 <Input
                   type={"password"}
                   value={password}
-                  _onChange={(e) => setPassword(e.target.value)}
+                  _onChange={e => setPassword(e.target.value)}
                   style={{
                     width: "100%",
                     height: "40px",
@@ -107,9 +107,9 @@ const SignIn = () => {
                 style={{
                   width: "100%",
                   height: "40px",
-                  bg_color: "#000",
+                  bg_color: "#9493FF",
                   color: "#fff",
-                  bd_color: "#000",
+                  bd_color: "#9493FF",
                   ft_size: "13px",
                   bd_radius: "7px",
                 }}
@@ -150,7 +150,7 @@ const SignIn = () => {
           </SignInSignUpContainer>
         </SignInLoginBox>
       </SignInBox>
-    </Fragment>
+    </SignInAll>
   );
 };
 export default SignIn;

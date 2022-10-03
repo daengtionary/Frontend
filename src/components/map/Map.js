@@ -1,16 +1,24 @@
 /* global kakao */
 import React, { useEffect } from "react";
 import { BsXLg } from "react-icons/bs";
-import { StyledMapContainer, StyledMapWrap, StyledModalBackground, StyledCloseBtm, StyledMapTitle, StyledMapAddress, StyledIcon } from "./Map.styled";
+import {
+  StyledMapContainer,
+  StyledMapWrap,
+  StyledModalBackground,
+  StyledMapInfo,
+  StyledCloseBtm,
+  StyledMapTitle,
+  StyledMapAddress,
+  StyledIcon,
+} from "./Map.styled";
 const { kakao } = window;
 
 const Map = ({ modalHandler, title, address }) => {
   const lat = 37.5023088;
   const lon = 127.044437;
 
-  console.log(title)
-  console.log(address.split(",").slice(0, -1))
-
+  console.log(title);
+  console.log(address.split(",").slice(0, -1));
 
   const businessName = title;
   const businessAddress = address.split(" ").slice(0, -1).join(" ");
@@ -89,8 +97,11 @@ const Map = ({ modalHandler, title, address }) => {
           </button>
         </StyledCloseBtm>
         <StyledMapWrap id="map"></StyledMapWrap>
-        <StyledIcon></StyledIcon>
-        <StyledMapAddress>{businessAddress}</StyledMapAddress>
+        <StyledMapInfo>
+          <StyledIcon></StyledIcon>
+          <StyledMapAddress>{businessAddress}</StyledMapAddress>
+        </StyledMapInfo>
+        <StyledMapInfo></StyledMapInfo>
         <StyledMapTitle>{businessName}</StyledMapTitle>
       </StyledMapContainer>
     </StyledModalBackground>

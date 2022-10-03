@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const HeaderFullBox = styled.div`
   width: 100vw;
@@ -9,8 +9,14 @@ export const HeaderFullBox = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  font-size: 15px;
   box-shadow: 0 0 3px black;
+  @media screen and (max-width: 768px) {
+    width: 425px;
+    height: auto;
+    min-height: 60px;
+    border-radius: 0;
+    box-shadow: 0 0 0px white;
+  }
 `;
 
 export const HeaderLogoBox = styled.div`
@@ -22,7 +28,17 @@ export const HeaderLogoBox = styled.div`
   position: absolute;
   left: 10%;
   font-size: 30px;
+  :hover {
+    cursor: pointer;
+  }
   background: ${(props) => `url(${props.backgroundImg}) center / contain no-repeat`};
+  @media screen and (max-width: 768px) {
+    left: 5%;
+    font-size: 15px;
+    width: 100px;
+     height: 50px;
+
+  }
 `;
 
 export const HeaderTextBox = styled.div`
@@ -34,6 +50,11 @@ export const HeaderTextBox = styled.div`
   text-align: center;
   position: absolute;
   right: 10%;
+  @media screen and (max-width: 768px) {
+    width: 170px;
+    right: 5%;
+    text-align: right;
+  }
 `;
 
 export const HeaderLoginText = styled.span`
@@ -43,6 +64,16 @@ export const HeaderLoginText = styled.span`
   height: 30px;
   margin: auto;
   line-height: 30px;
+
+  :hover {
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 13px;
+    width: 60px;
+    margin: 1 1 1 1;
+  }
 `;
 
 export const HeaderMypageText = styled.span`
@@ -52,4 +83,12 @@ export const HeaderMypageText = styled.span`
   height: 30px;
   margin: auto;
   line-height: 30px;
+  :hover {
+    cursor: pointer;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 13px;
+    width: 60px;
+    margin: 1 1 1 1;
+  }
 `;
