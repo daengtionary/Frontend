@@ -37,6 +37,7 @@ const Button = ({ type, text, style, _onClick, checked, id, img }) => {
       position={style?.position}
       top={style?.top}
       left={style?.left}
+      media={style?.media}
     >
       {img && <img src={img} />}
       {text}

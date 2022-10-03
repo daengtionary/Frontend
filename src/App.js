@@ -41,10 +41,8 @@ function App() {
           <Route exact path={'/chat/:roomNo'} element={<ChatRoom />} />
         </Routes>
         <Header />
-
         {/* <ChatFloatButton /> */}
         <TopButton />
-
         <Routes>
           <Route exact path={'/signIn'} element={<SignIn />} />
           <Route exact path={'/signUp'} element={<SignUp />} />

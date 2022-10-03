@@ -93,6 +93,10 @@ const StyledTopBtn = styled.button`
   -khtml-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+  @media screen and (max-width: 768px) {
+    bottom: 3em;
+    right: 3em;
+  }
 `;
 const StyledTopBtnImg = styled.img`
   padding: ${(props) => (props.padding ? props.padding : "0")};

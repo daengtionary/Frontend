@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { api } from '../../shared/api';
+import { api } from "../../shared/api";
 
 /** 게시물 상세 조회 */
 export const getDetailThunk = createAsyncThunk("GET_DETAIL", async (payload, thunkAPI) => {
@@ -7,7 +7,7 @@ export const getDetailThunk = createAsyncThunk("GET_DETAIL", async (payload, thu
     console.log(payload);
     const resp = await api.get(`hospital/${payload}?pagenum=0&pagesize=5`);
 
-    return (console.log(resp), thunkAPI.fulfillWithValue(resp.data.data))
+    return console.log(resp), thunkAPI.fulfillWithValue(resp.data.data);
   } catch (err) {
     return thunkAPI.rejectWithValue(err.code);
   }
@@ -34,7 +34,6 @@ const detailSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-
     /** 게시물 상세 조회 */
     [getDetailThunk.fulfilled]: (state, action) => {
       console.log(action.payload);

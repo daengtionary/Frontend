@@ -8,6 +8,10 @@ export const FooterContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 50px;
+
+  @media screen and (max-width: 425px){
+    display: none;
+  }
 `;
 
 export const FooterBox = styled.div`

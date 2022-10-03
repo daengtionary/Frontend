@@ -8,7 +8,7 @@ import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
 import { setChecked } from "../../redux/modules/listSlice";
 import { addPlaceThunk } from "../../redux/modules/placeSlice";
-import dogIcon_gray from "../../static/image/dogIcon_gray.png";
+import imgAddIcon from "../../static/image/이미지추가.png";
 import editIcon from "../../static/image/수정하기.png";
 
 const PlacePosting = () => {
@@ -23,6 +23,12 @@ const PlacePosting = () => {
   console.log(placeImg);
   const [placeInfo, setPlaceInfo] = useState({ data: { title: "", category: "hospital", address: "", content: "" }, imgUrl: [] });
   console.log(placeInfo);
+  const [checked, setChecked] = useState([true, false]);
+  const onClickSetCheck = (i) => {
+    const checkArr = new Array(checked.length).fill(false);
+    checkArr[i] = true;
+    setChecked(checkArr);
+  };
 
   const onClickImgInput = () => {
     imgRef.current.click();
@@ -118,12 +124,24 @@ const PlacePosting = () => {
         <StyledInputBox>
           <StyledInputTitle>분류</StyledInputTitle>
           <StyledInputField>
-            <StyledCategotyButton name="category" value={"hospital"} onClick={onChangePlaceInfo}>
-              애견병원
-            </StyledCategotyButton>
-            <StyledCategotyButton name="category" value={"room"} onClick={onChangePlaceInfo}>
-              애견호텔
-            </StyledCategotyButton>
+            {[
+              { value: "hospital", text: "애견병원" },
+              { value: "room", text: "애견호텔" },
+            ].map((cate, i) => (
+              <StyledCategotyButton
+                key={i}
+                name="category"
+                value={cate.value}
+                checked={checked[i]}
+                onClick={(e) => {
+                  onChangePlaceInfo(e);
+                  onClickSetCheck(i);
+                }}
+              >
+                {cate.text}
+              </StyledCategotyButton>
+            ))}
+
             {/* <StyledCategotyButton name="category" value={"cafe"} onClick={() => alert("준비 중 입니다.")}>
               애견카페
             </StyledCategotyButton> */}
@@ -256,7 +274,7 @@ const StyledImgNum = styled.div`
 const StyledImgInput = styled.img`
   width: ${(props) => (props.width ? props.width : "12em")};
   height: ${(props) => (props.height ? props.height : "12em")};
-  background: ${(props) => (props.uploaded ? "none" : `url(${dogIcon_gray}) center / contain no-repeat`)};
+  background: ${(props) => (props.uploaded ? "none" : `url(${imgAddIcon}) center / contain no-repeat`)};
   background-color: ${(props) => (props.uploaded ? "none" : "#f1f1f5")};
   border: 2px #9493ff solid;
   padding: 3px;

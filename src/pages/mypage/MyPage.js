@@ -292,13 +292,13 @@ const MyPage = () => {
                         deleteDogHandler(dog.dogNo);
                       }}
                     />
-                    <button
+                    {/* <button
                       onClick={() => {
                         deleteDogImgHandler(dog.dogNo);
                       }}
                     >
                       사진삭제
-                    </button>
+                    </button> */}
                     <StyledMyPageDogImgBox>
                       <StyledMyPageDogImg src={`${dog.image}`} />
                       <StyledMyPageDogImgDot
@@ -406,6 +406,10 @@ const StyledMyPageProfileContent = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  @media screen and (max-width: 768px) {
+    width: 50%;
+    flex-direction: column;
+  }
 `;
 const StyledMyPageEmail = styled.div`
   align-self: flex-start;
@@ -459,6 +463,10 @@ export const StyledEditButton = styled.div`
   top: ${(props) => (props.top ? props.top : "64%")};
   right: ${(props) => (props.right ? props.right : "4%")};
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    top: 77%;
+    right: 25%;
+  }
 `;
 const StyledSelectDog = styled.div`
   width: 50%;
@@ -501,6 +509,9 @@ const StyledSwiper = styled(Swiper)`
   width: 70%;
   height: 120%;
   padding: 2em 6em 4em 6em;
+  @media screen and (max-width: 768px) {
+    padding: 2em 3em 4em 3em;
+  }
 `;
 const StyledSwiperSlide = styled(SwiperSlide)`
   display: flex;
