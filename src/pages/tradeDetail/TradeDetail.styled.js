@@ -42,7 +42,7 @@ export const ItemDetailImg = styled.img`
   @media screen and (max-width: 768px) {
     width: 360px;
     height: 400px;
-    border-radius: 20px 20px 0 0 ;
+    border-radius:  0 0 0 0 ;
   }
 `;
 

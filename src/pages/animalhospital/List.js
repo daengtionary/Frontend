@@ -412,6 +412,11 @@ export const StyledSerchBox = styled.div`
   @media screen and (max-width: 768px) {
     width: 100%;
     justify-content: space-between;
+    span{
+      width: 130px;
+      font-size: 24px;
+      font-weight: 500;
+    }
   }
 `;
 export const StyledSerchIcon = styled.div`
