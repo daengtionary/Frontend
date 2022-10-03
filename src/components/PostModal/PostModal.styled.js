@@ -22,7 +22,8 @@ export const PostModalContainer = styled.div`
   padding: 15px 25px 0 25px;
 
   @media screen and (max-width: 768px){
-    width: 100vw;
+    /* width: 100vw; */
+    width: 80%;
     height: 100vh;
     border-radius: 0px;
     padding: 0 10px;

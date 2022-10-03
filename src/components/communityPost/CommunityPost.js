@@ -21,7 +21,7 @@ import {
   StyledUserNick,
 } from "./CommunityPost.styled";
 
-const CommunityPost = ({ modalHandler }) => {
+const CommunityPost = ({ modalHandler, postCheck, setPostCheck }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const imgRef = useRef();
@@ -88,7 +88,7 @@ const CommunityPost = ({ modalHandler }) => {
     });
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     // console.log(e);
 
@@ -103,10 +103,15 @@ const CommunityPost = ({ modalHandler }) => {
     };
 
     console.log(haveToSend);
-    dispatch(getCommunityPostThunk(haveToSend));
-    modalHandler();
-    alert("게시글 등록 완료!")
-    window.location.reload()
+    const response = await dispatch(getCommunityPostThunk(haveToSend)).unwrap()
+    console.log(response)
+    if (response.state === 200 ) {
+      modalHandler();
+      const newPostCheck = postCheck + 1
+      setPostCheck(newPostCheck)
+      alert("게시글 등록 완료!")
+    }
+    // window.location.reload()
     // navigate("/");
     // navigate("/community");
   };

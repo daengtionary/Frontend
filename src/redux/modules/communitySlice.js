@@ -99,7 +99,7 @@ const communitySlice = createSlice({
       }
     },
     resetPosted(state) {
-      state.isPosted = false
+      state.community = initialState.community
     }
   },
   extraReducers: {
