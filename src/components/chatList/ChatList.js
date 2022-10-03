@@ -73,12 +73,12 @@ const ChatList = () => {
   return (
     <MessageWrap>
       {messageList.data?.map((chat, index) => {
-        const date = chat.date.split("년")[1].substring(1, 8)
+        const date = chat.date?.split("년")[1].substring(1, 8)
         console.log(date)
         const isMe = chat?.sender === user;
         return (
           <div key={chat.messageNo} >
-            {chat.date.split("년")[1].substring(1, 8) !==
+            {chat.date?.split("년")[1].substring(1, 8) !==
               messageList.data[index - 1]?.date.split("년")[1].substring(1, 8) && (
               <ChatListDate>
                 {chat.date.split("년")[1].substring(1, 8)}

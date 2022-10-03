@@ -31,7 +31,6 @@ const ChatModal = () => {
   let token = window.sessionStorage.getItem("authorization");
   // 토큰 decode 하는 부분
   let decoded = token && jwtDecode(token);
-  console.log(decoded);
   // 토큰 만료시간
   let exp = token && Number(decoded.exp + "000");
   let expTime = new Date(exp);

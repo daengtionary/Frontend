@@ -31,9 +31,6 @@ const ChatRoom = () => {
   console.log(roomKey);
   const targetNick = location.state.targetNick;
 
-  // const onClickClose = () => {
-  //   navigate("/");
-  // };
 
   const onClickBack = () => {
     navigate("/chat");
@@ -41,11 +38,11 @@ const ChatRoom = () => {
 
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
-    const webSocket = new SockJS(`http://${process.env.REACT_APP_CHAT_API_IP}/wss/chat`);
+    const webSocket = new SockJS(`https://${process.env.REACT_APP_REST_API_IP}/wss/chat`);
     stompClient.current = Stomp.over(webSocket);
 
-    // // STOMPJS console log 지워주는 부분
-    // stompClient.current.debug = null;
+    // STOMPJS console log 지워주는 부분
+    stompClient.current.debug = null;
 
     stompClient.current.connect(
       {
