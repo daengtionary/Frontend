@@ -25,15 +25,9 @@ const CommunityDetail = () => {
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state.community.communityDetail);
-  console.log("커뮤니티 디테일:", data);
-  console.log(data.communityDetatilResponseDto);
-
-  // const test = useSelector((state)=>console.log(state))
 
   let { id } = useParams();
-  console.log(id);
  
-
   useLayoutEffect(() => {
     dispatch(getCommunityDetailThunk(Number(id)));
   }, [dispatch]);
@@ -42,8 +36,6 @@ const CommunityDetail = () => {
     alert("댓글 기능은 아직 구현중입니다. ㅜㅜ");
     e.preventdefault();
   };
-
-  console.log("랜더링 전에 이게 나와야해 :", data.imgList);
 
   /** 날짜 포맷팅 함수*/
   const showDate = (date) => {

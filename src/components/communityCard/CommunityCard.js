@@ -28,7 +28,8 @@ const CommunityCard = ({ data }) => {
 
   const token = window.sessionStorage.getItem("authorization");
   const decoded = token && jwtDecode(token);
-  const userEmail = decoded.sub;
+  const userEmail = decoded?.sub;
+  console.log(userEmail)
 
   return (
     <CommunityCardWrap>
@@ -52,7 +53,9 @@ const CommunityCard = ({ data }) => {
         {data.reviewCount === 0 ? <NullCircle /> : <RepleCircle>{data.reviewCount}</RepleCircle>}
       </IconWrap>
 
-      <CardContents>
+      <CardContents onClick={() => {
+              navigate(`/community/${data.communityNo}`);
+            }}>
         <StyledUserInfo>
           <ProfilePhoto url={data.image ? data?.image : "/img/dogIconGray.png"} />
           <Names>
@@ -64,9 +67,7 @@ const CommunityCard = ({ data }) => {
           <ContentImg
             alt=""
             src={data.communityImg}
-            onClick={() => {
-              navigate(`/community/${data.communityNo}`);
-            }}
+
           />
         ) : (
           <DefaultImg

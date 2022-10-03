@@ -28,7 +28,7 @@ export const StyledTitle = styled.div`
   height: 13%;
   display: flex;
   align-items: center;
-  padding: 0 15px;
+  padding: 10px 15px;
   border-bottom: 1px solid #d9d9d9;
 
   @media screen and (max-width: 425px){
@@ -44,6 +44,10 @@ export const StyledPostInfo = styled.div`
   gap: 10%;
   border-bottom: 1px solid #d9d9d9;
   font-size: 12px;
+
+  div {
+    padding: 5px 0;
+  }
 
   @media screen and (max-width: 425px){
     padding: 10px 0;

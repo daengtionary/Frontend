@@ -17,7 +17,7 @@ import { StyledModalBackground } from "../../components/map/Map.styled";
 import jwtDecode from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getCommunityPostListThunk, pageUp } from "../../redux/modules/communitySlice";
+import { getCommunityPostListThunk, pageUp, resetPosted } from "../../redux/modules/communitySlice";
 import PostModal from "../../components/PostModal/PostModal";
 import Input from "../../elements/input/Input";
 import { debounce, throttle } from "lodash";
@@ -31,6 +31,8 @@ const Community = () => {
   
   const pageNum = useSelector((state) => state.community.pageNum);
   const listEnd = useSelector((state) => state.community.isEnd);
+
+  const isPost = useSelector((state) => state.community.isPosted)
   
   const data = useSelector((state) => state.community.community);
   // const test = useSelector((state) => state);
@@ -67,8 +69,9 @@ const Community = () => {
 
   useEffect(() => {
     dispatch(getCommunityPostListThunk(pageNum));
+    dispatch(resetPosted())
     // alert("확인용")
-  }, [pageNum]);
+  }, [pageNum, isPost, postModal]);
 
 
   const userNick = window.localStorage.getItem("nick");

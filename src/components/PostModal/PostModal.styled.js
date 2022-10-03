@@ -14,7 +14,7 @@ export const ModalBackground = styled.div`
 
 export const PostModalContainer = styled.div`
   width: 60vw;
-  height: 65vh;
+  height: 70vh;
   border-radius: 10px;
   background-color: white;
   display: flex;

@@ -1,7 +1,9 @@
 import { initial } from "lodash";
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getCommunityPostThunk, getCommunityPostListThunk} from "../../redux/modules/communitySlice";
+import { useNavigate, useParams } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
+import { getCommunityPostThunk, getCommunityPostListThunk } from "../../redux/modules/communitySlice";
 import {
   StyledCommunityPostForm,
   StyledCategory,
@@ -21,8 +23,9 @@ import {
 
 const CommunityPost = ({ modalHandler }) => {
   const dispatch = useDispatch();
-  const imgRef = useRef()
-  const userNick = window.localStorage.getItem('nick')
+  const navigate = useNavigate();
+  const imgRef = useRef();
+  const userNick = window.localStorage.getItem("nick");
 
   const initialState = {
     data: {
@@ -41,7 +44,6 @@ const CommunityPost = ({ modalHandler }) => {
   const [img, setImg] = useState([]);
 
   const onChangeImgHandler = (event) => {
-
     // const { files } = event.target
     // console.log(files);
     // console.log(typeof(files));
@@ -49,7 +51,7 @@ const CommunityPost = ({ modalHandler }) => {
     // const formdata = new FormData();
     // console.log(formdata);
     // files ? formdata.append("image", files) : alert("사진을 추가해주세요.");
-    
+
     // formdata.getAll('image')
     // for (const keyValue of formdata) console.log(keyValue);
 
@@ -59,20 +61,18 @@ const CommunityPost = ({ modalHandler }) => {
     const images = event.target.files;
     console.log("선택한 이미지들 :", images);
     if (images.length > 3) {
-      alert("이미지는 3개까지만 첨부 가능합니다.")
+      alert("이미지는 3개까지만 첨부 가능합니다.");
     } else {
       // 최대갯수로 받은 이미지
       const imagesMax = [...images].slice(0, maxFileNum);
       console.log(imagesMax);
       setImg(imagesMax);
-  
+
       // 이미지 미리보기로 보여줄려면 url이 필요함
       for (let i = 0; i < imagesMax.length; i++) {
         img.push(URL.createObjectURL(imagesMax[i]));
       }
-
     }
-
   };
 
   const onChangeDataHandler = (event) => {
@@ -88,8 +88,6 @@ const CommunityPost = ({ modalHandler }) => {
     });
   };
 
-
-
   const onSubmitHandler = (e) => {
     e.preventDefault();
     // console.log(e);
@@ -102,15 +100,16 @@ const CommunityPost = ({ modalHandler }) => {
       },
 
       imgUrl: img,
-    }
+    };
 
-    console.log(haveToSend)
-    dispatch(
-      getCommunityPostThunk(haveToSend)
-    );
-    modalHandler()
+    console.log(haveToSend);
+    dispatch(getCommunityPostThunk(haveToSend));
+    modalHandler();
+    window.location.reload()
+    // navigate("/");
+    // navigate("/community");
   };
-  
+
   // console.log(post);
 
   return (

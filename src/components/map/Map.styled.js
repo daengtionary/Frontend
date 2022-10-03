@@ -10,7 +10,7 @@ export const StyledModalBackground = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 11;
+  z-index: 110;
 
   @media screen and (max-width: 425px){
     

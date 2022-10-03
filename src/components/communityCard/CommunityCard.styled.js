@@ -10,6 +10,10 @@ export const CommunityCardWrap = styled.div`
   box-sizing: border-box;
   border-radius: 10px;
   margin-bottom: 20px;
+  
+  &:hover {
+    box-shadow: 3px 3px 3px #6563ff50;
+  }
 
   @media screen and (max-width: 425px) {
     border: none;
@@ -23,7 +27,8 @@ export const CardContents = styled.div`
   align-items: center;
   margin-bottom: 35px;
   height: 120px;
-  
+  cursor: pointer;
+
   @media screen and (max-width: 425px) {
     flex-direction: column;
     align-items: flex-start;
@@ -45,6 +50,7 @@ export const IconWrap = styled.div`
 export const IconBox = styled.span`
   width: ${(props) => props.length};
   height: ${(props) => props.length};
+  cursor: pointer;
 
   background-image: url(${(props) => props.url});
   background-repeat: no-repeat;

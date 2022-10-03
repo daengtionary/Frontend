@@ -101,7 +101,7 @@ export const StyledFileInput = styled.input`
 export const StyledInput = styled.input`
     border: none;
     width: 100%;
-    height: 80%;
+    height: 60%;
 `
 
 
@@ -141,6 +141,6 @@ export const StyledSelect = styled.select`
   border: 1px solid #f1f1f1;
   width: 100px;
   border-radius: 10px;
-  height: 90%;
+  height: 60%;
   padding: 0 10px
 `

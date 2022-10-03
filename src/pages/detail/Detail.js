@@ -34,6 +34,7 @@ import {
   Nick,
   Star,
   DetailMainImg,
+  MapTooltip,
   StarNum,
 } from "./Detail.styled";
 import "swiper/swiper-bundle.min.css";
@@ -44,7 +45,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetailThunk } from "../../redux/modules/detailSlice";
 import { useParams } from "react-router-dom";
 
-import { showStars } from "../../shared/showStars" 
+import { showStars } from "../../shared/showStars";
 
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
@@ -60,25 +61,26 @@ const Detail = () => {
 
   let data = useSelector((state) => state.detail.detail);
   console.log(data);
-  console.log(data.imgResponseDtoList);
-  console.log(data.mapDetailSubResponseDto);
-
-
+  console.log(data?.imgResponseDtoList);
+  console.log(data?.mapDetailSubResponseDto);
 
   const { id } = useParams();
   console.log(id);
 
-  const payload = {id: id, };
+  const payload = { id: id };
 
   useEffect(() => {
     dispatch(getDetailThunk(id));
   }, [dispatch]);
 
+  console.log(data.mapDetailSubResponseDto?.category === "room");
+  console.log(data.mapDetailSubResponseDto?.category === "hospital");
+
   return (
     <DetailContainer>
       <StyledSwiper
         className="swiper-container"
-        spaceBetween={100}
+        spaceBetween={200}
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
@@ -89,15 +91,14 @@ const Detail = () => {
         {data.imgResponseDtoList &&
           data.imgResponseDtoList.map((el, i) => {
             return (
-              <SwiperSlide key={i} style={{display: 'flex', justifyContent:'center'}}>
-                  <DetailMainImg src={el.mapImgUrl} alt={`${data.mapDetailSubResponseDto?.title}${i}`} />
+              <SwiperSlide key={i} style={{ display: "flex", justifyContent: "center" }}>
+                <DetailMainImg src={el.mapImgUrl} alt={`${data.mapDetailSubResponseDto?.title}${i}`} />
               </SwiperSlide>
             );
           })}
       </StyledSwiper>
-      
 
-      <BusinessTitle size={10}>
+      <BusinessTitle size={10} margin={"10px 0 0 0"}>
         <span>{data.mapDetailSubResponseDto?.address.split(" ").at(0)}</span>
       </BusinessTitle>
 
@@ -106,28 +107,28 @@ const Detail = () => {
       </BusinessTitle>
 
       <StarRating>
-        <div>
-          {showStars(data.mapDetailSubResponseDto?.mapStar)}
-        </div>
-        <div>
-          {data.mapDetailSubResponseDto?.mapStar}
-        </div>
+        <div>{showStars(data.mapDetailSubResponseDto?.mapStar)}</div>
+        <div>{data.mapDetailSubResponseDto?.mapStar}</div>
       </StarRating>
 
+
       <MapAddress>
+        <div style={{display:"flex"}}>
+
         <span onClick={modalHandler}>
-          <MapMark
-            alt="mapMark"
-            src={`${process.env.PUBLIC_URL}/img/mapLocation.png`}
-          />
+          <MapMark alt="mapMark" src={`${process.env.PUBLIC_URL}/img/mapLocation.png`} />
           {/* <HiOutlineLocationMarker size={24} /> */}
         </span>
-        <span>{data.mapDetailSubResponseDto?.address.split(",").at(0)}</span>
+        <span>{data.mapDetailSubResponseDto?.address.split(",").at(0)}주소</span>
+        </div>
+      <MapTooltip className="task-tooltip">
+          여기를 클릭해 지도정보를 살펴보세요
+      </MapTooltip>
       </MapAddress>
 
       <BusinessInfo>
         <BusinessDescription>
-          <DescriptionTitle>병원정보</DescriptionTitle>
+          <DescriptionTitle>{data.mapDetailSubResponseDto?.category === "hospital" ? "병원정보" : "호텔정보"}</DescriptionTitle>
           <StyledDescriptionContents>
             <Description>
               <p>{data.mapDetailSubResponseDto?.content}</p>
@@ -137,21 +138,21 @@ const Detail = () => {
                 <TbPhoneCall size={30} />
               </span>{" "}
               <span>전화번호</span>
-              <span style={{color:"#767676"}}>준비중입니다...</span>
+              <span style={{ color: "#767676" }}>준비중...</span>
             </Infotmations>
             <Infotmations>
               <span>
                 <BiCar size={30} />
               </span>{" "}
               <span>주차정보</span>
-              <span style={{color:"#767676"}}>준비중입니다...</span>
+              <span style={{ color: "#767676" }}>준비중...</span>
             </Infotmations>
             <Infotmations>
               <span>
                 <FiClock size={30} />
               </span>{" "}
-              <span>진료시간</span>
-              <span style={{color:"#767676"}}>준비중입니다...</span>
+              <span>{data.mapDetailSubResponseDto?.category === "hospital" ? "진료시간" : "영업시간"}</span>
+              <span style={{ color: "#767676" }}>준비중...</span>
             </Infotmations>
           </StyledDescriptionContents>
         </BusinessDescription>
@@ -170,13 +171,7 @@ const Detail = () => {
         })}
       </ReviewWrap>
 
-      {mapModal && (
-        <Map
-          modalHandler={modalHandler}
-          title={data.mapDetailSubResponseDto?.title}
-          address={data.mapDetailSubResponseDto?.address}
-        />
-      )}
+      {mapModal && <Map modalHandler={modalHandler} title={data.mapDetailSubResponseDto?.title} address={data.mapDetailSubResponseDto?.address} />}
     </DetailContainer>
   );
 };
