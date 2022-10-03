@@ -31,7 +31,10 @@ const MyPage = () => {
   let now = new Date();
   console.log(now, "현재 시간");
   const checkToken = () => {
-    if (expTime <= now || token === null) {
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate("/signin");
+    } else if (expTime <= now || token === null) {
       token && window.sessionStorage.removeItem("authorization");
       alert("로그인이 만료 되었습니다. 다시 로그인해 주세요!");
       navigate("/signin");

@@ -18,18 +18,18 @@ import { resetPosted } from "../../redux/modules/placeSlice";
 const List = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const data = useSelector(state => state.list.getList);
+  const data = useSelector((state) => state.list.getList);
   // const searchData = useSelector((state) => state.list.searchListThunk);
-  const pageNum = useSelector(state => state.list.pageNum);
-  const ready = useSelector(state => state.list.isLoad);
+  const pageNum = useSelector((state) => state.list.pageNum);
+  const ready = useSelector((state) => state.list.isLoad);
   console.log(ready);
-  const listEnd = useSelector(state => state.list.isEnd);
+  const listEnd = useSelector((state) => state.list.isEnd);
   console.log(listEnd);
-  const checked = useSelector(state => state.list.isChecked);
+  const checked = useSelector((state) => state.list.isChecked);
   console.log(checked);
-  const pathName = useSelector(state => state.list.pathName);
+  const pathName = useSelector((state) => state.list.pathName);
   console.log(pathName);
-  const posted = useSelector(state => state.place.isPosted);
+  const posted = useSelector((state) => state.place.isPosted);
   console.log(posted);
   const location = useLocation();
   const { pathname, search } = location;
@@ -112,7 +112,7 @@ const List = () => {
     []
   );
 
-  const handleScroll = debounce(e => {
+  const handleScroll = debounce((e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.target.documentElement;
     // console.log("1", scrollTop);
     // console.log("2", scrollHeight);
@@ -127,7 +127,7 @@ const List = () => {
     }
   }, 200);
   const [searchText, setSearchText] = useState("");
-  const onChangeHandler = e => {
+  const onChangeHandler = (e) => {
     const { value } = e.target;
     console.log(value);
     setSearchText(value);
@@ -164,12 +164,12 @@ const List = () => {
       );
     }
   };
-  const onKeyPressHandler = e => {
+  const onKeyPressHandler = (e) => {
     if (e.key === "Enter") {
       onClickSearchHandler();
     }
   };
-  const filterHandler = e => {
+  const filterHandler = (e) => {
     const { name, value } = e.target;
     console.log(e);
     dispatch(reset());
@@ -281,10 +281,10 @@ const List = () => {
                   mg_right: "5px",
                   bd_radius: "20px",
                   bd_color: "#ccc",
-                  pd_top: "8px",
-                  pd_bottom: "8px",
-                  pd_left: "14px",
-                  pd_right: "14px",
+                  pd_top: "5px",
+                  pd_bottom: "5px",
+                  pd_left: "8px",
+                  pd_right: "8px",
                   hv_color: "#767676",
                   hv_bd_color: "#767676",
                   hv_ft_weight: "700",
@@ -293,8 +293,8 @@ const List = () => {
                   // f_bd_color: "#000",
                   // f_ft_weight: "700",
                   media: {
-                    mg_left: "2px",
-                    mg_right: "2px",
+                    mg_left: "3px",
+                    mg_right: "3px",
                   },
                 }}
               />
@@ -448,7 +448,7 @@ export const StyledFilterBox = styled.div`
 `;
 
 export const StyledFilter = styled.select`
-  width: ${props => (props.width ? props.width : "")};
+  width: ${(props) => (props.width ? props.width : "")};
   border: none;
   margin-right: 20px;
   padding: 5px 5px;

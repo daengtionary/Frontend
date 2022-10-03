@@ -18,7 +18,7 @@ export const StyledCardBox = styled.div`
     }
   }
   @media screen and (max-width: 768px) {
-    width: 12em;
+    width: 11.5em;
     height: 18em;
     margin-bottom: 0.8em;
   }
@@ -45,7 +45,7 @@ export const StyledCardImgBox = styled.div`
   overflow: hidden;
   border-radius: 20px;
   @media screen and (max-width: 768px) {
-    width: 12em;
+    width: 11.5em;
     height: 10em;
     border-radius: 20px;
   }
