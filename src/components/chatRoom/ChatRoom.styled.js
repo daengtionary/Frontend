@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const ChatRoomAll = styled.div`
-  z-index: 99;
   position: fixed;
   top: 60%;
   left: 80%;
@@ -24,7 +23,6 @@ export const ChatRoomAll = styled.div`
 ` 
 
 export const ChatRoomFullBox = styled.div`
-  z-index: 99;
   width: 100%;
   height: 80%;
   overflow-y: auto;

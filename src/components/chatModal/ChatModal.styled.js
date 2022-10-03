@@ -16,9 +16,6 @@ export const Dim = styled.div`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.6);
-  :hover {
-    cursor: pointer;
-  }
 `;
 export const Wrap = styled.div`
   z-index: 99;
