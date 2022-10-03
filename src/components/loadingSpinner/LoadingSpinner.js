@@ -1,33 +1,29 @@
-import { FaHourglass } from "react-icons/fa";
 import styled from "styled-components";
+import loadingImg from "../../static/image/로딩-이미지.jpg";
 
 const LoadingSpinner = () => {
   return (
-    <FloatWrap>
-      <Wrap>
-        <Spinner>
-          <FaHourglass />
-        </Spinner>
-      </Wrap>
-    </FloatWrap>
+    <Wrap>
+      <Spinner>
+        <SpinnerImg src={loadingImg} />
+      </Spinner>
+    </Wrap>
   );
 };
-const FloatWrap = styled.div`
-  z-index: 999;
-  position: fixed;
-`;
 const Wrap = styled.div`
+  z-index: 1000;
+
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  max-width: 1360px;
-  max-height: 1160px;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
+  /* max-width: 1360px;
+  max-height: 1160px; */
+  /* transform: translate(-50%, -50%); */
+  background-color: #00000080;
   display: flex;
-  border-radius: 24px;
+
   @media screen and (max-width: 768px) {
     width: 100%;
     height: 100%;
@@ -35,17 +31,25 @@ const Wrap = styled.div`
   }
 `;
 const Spinner = styled.div`
-  z-index: 1000;
+  width: 20%;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  overflow: hidden;
   margin: auto;
-  font-size: 60px;
-  color: ${({ theme }) => theme.colors.orange};
-  animation: rotate 2.5s infinite;
+  text-align: center;
+  animation: rotate 1.5s infinite;
   transform: rotate(0deg);
   @keyframes rotate {
     100% {
       transform: rotate(360deg);
     }
   }
+`;
+const SpinnerImg = styled.img`
+  width: 100%;
+  height: 100%;
+  transform: scale(1.1);
 `;
 
 export default LoadingSpinner;

@@ -61,9 +61,7 @@ const Detail = () => {
 
   let data = useSelector((state) => state.detail.detail);
   console.log(data);
-  console.log(data?.imgResponseDtoList);
-  console.log(data?.mapDetailSubResponseDto);
-
+  
   const { id } = useParams();
   console.log(id);
 
