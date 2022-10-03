@@ -200,7 +200,7 @@ const MatchingPosting = () => {
             </span>
           </StyleTradeCheckBoxWrap>
         </StyleTradeStatusBox>
-        <StyleTradePriceBox>
+        {/* <StyleTradePriceBox>
           <span>가격</span>
           <Input
             type={"text"}
@@ -235,7 +235,7 @@ const MatchingPosting = () => {
             }}
             placeholder={"상품에 대해 설명해주세요"}
           />
-        </StyleTradeDetailBox>
+        </StyleTradeDetailBox> */}
         <StyleSubmitButton onClick={onSubmitHandler}>등록하기</StyleSubmitButton>
       </StyleTradePostingForm>
     </>

@@ -24,26 +24,31 @@ export const TradeTopBox = styled.div`
   position: relative;
 `;
 
-// export const TopFilterBox = styled.div`
-//   display: flex;
-//   position: absolute;
-//   right: 14%;
-// `;
 
 export const TradeFullBox = styled.div`
-  margin-top: 20px;
-  width: 80%;
+  width: 73%;
   .postItem {
     float: right;
     margin-right: 4.5%;
   }
   @media screen and (max-width: 768px) {
-    margin-top: 10px;
+    width: 75%;
   }
 `;
 
+export const StyledTradeFilterBox = styled.div`
+  span {
+    font-size: 14px;
+    :hover {
+      cursor: pointer;
+    }
+  }
+  justify-content: right;
+  display: flex;
+`;
+
 export const CardList = styled.div`
-  margin-top: 60px;
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

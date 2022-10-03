@@ -35,10 +35,9 @@ export const HeaderLogoBox = styled.div`
   @media screen and (max-width: 768px) {
     left: 5%;
     font-size: 15px;
-    background-image{
-      width: 15px;
-      height: 15px;
-    }
+    width: 100px;
+     height: 50px;
+
   }
 `;
 

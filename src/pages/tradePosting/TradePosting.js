@@ -221,7 +221,7 @@ const TradePosting = () => {
           <span className="won">원</span>
           </div>
         </StyleTradePriceBox>
-        <StyleTradeDetailBox>
+        {/* <StyleTradeDetailBox>
           <span>설명</span>
           <Input
             type={"text"}
@@ -238,7 +238,7 @@ const TradePosting = () => {
             }}
             placeholder={"상품에 대해 설명해주세요"}
           />
-        </StyleTradeDetailBox>
+        </StyleTradeDetailBox> */}
         <StyleSubmitButton onClick={onSubmitHandler}>등록하기</StyleSubmitButton>
       </StyleTradePostingForm>
     </>

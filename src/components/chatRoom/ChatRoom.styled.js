@@ -53,7 +53,7 @@ export const ChatInput = styled.input`
   padding-left: 15px;
   border: none;
   width: 100%;
-  height: 15px;
+  height: 30px;
   border-radius: 15px;
   background-color: #F1F1F5;
   &:focus {
@@ -67,12 +67,15 @@ export const ChatInput = styled.input`
 `;
 export const SendButton = styled.button`
   width:100px;
-  height: 55px;
+  height: 30px;
   border-radius: 15px;
   background-color: #F1F1F5;
   outline: none;
   border: none;
   color: gray;
+  @media screen and (max-width: 768px) {
+    height: 55px;
+  }
 `;
 export const ExitButton = styled.button`
   width: 100px;

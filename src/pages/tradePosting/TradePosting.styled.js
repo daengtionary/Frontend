@@ -340,7 +340,17 @@ export const StyleTradePlaceSpanBox = styled.div`
 `;
 
 export const StyleSubmitButton = styled.button`
-  width: 100px;
-  height: 30px;
+  width: 200px;
+  height: 40px;
   margin: auto;
+  background-color: #9493FF;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 16px;
+  border: 0px;
+
+  :hover{
+    cursor: pointer;
+  }
+
 `;
