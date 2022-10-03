@@ -14,6 +14,9 @@ export const TradeAll = styled.div`
 
 export const StyledSerchFilterBox = styled.div`
   width: 73%;
+  margin-top: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
   @media screen and (max-width: 768px) {
     width: 75%;
   }
@@ -37,6 +40,7 @@ export const TradeFullBox = styled.div`
 `;
 
 export const StyledTradeFilterBox = styled.div`
+  margin-top: 20px;
   span {
     font-size: 14px;
     :hover {

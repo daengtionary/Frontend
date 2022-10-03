@@ -84,7 +84,7 @@ const Trade = () => {
   return (
     <TradeAll>
       <StyledSerchFilterBox>
-        <StyledSerchWrap>
+        <StyledSerchWrap style={{borderBottom: "none"}}>
           <StyledSerchBox>
             <span>
               애견장터
