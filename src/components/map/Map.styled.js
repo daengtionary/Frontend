@@ -7,14 +7,12 @@ export const StyledModalBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.5);;
   position: fixed;
   top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 110;
 
-  @media screen and (max-width: 768px){
-    
-  }
 `
 
 export const StyledMapContainer = styled.div`
@@ -27,7 +25,7 @@ export const StyledMapContainer = styled.div`
   padding: 25px;
   
   @media screen and (max-width: 768px){
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     border-radius: 0px;
   }

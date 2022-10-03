@@ -111,12 +111,7 @@ const CommunityPost = ({ modalHandler, postCheck, setPostCheck }) => {
       setPostCheck(newPostCheck)
       alert("게시글 등록 완료!")
     }
-    // window.location.reload()
-    // navigate("/");
-    // navigate("/community");
   };
-
-  // console.log(post);
 
   return (
     <StyledCommunityPostForm onSubmit={onSubmitHandler}>
