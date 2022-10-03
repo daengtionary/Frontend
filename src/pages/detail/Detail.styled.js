@@ -8,7 +8,6 @@ export const DetailContainer = styled.div`
   margin-top: 60px;
 
   @media screen and (max-width: 768px) {
-    /* border: 1px solid red; */
     margin-top: 20px;
   }
 `;
@@ -58,7 +57,7 @@ export const BusinessTitle = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    width: 90vw;
+    width: 90%;
     margin: 5px 0 0 0;
   }
 `;
@@ -159,7 +158,7 @@ export const MapAddress = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    width: 90vw;
+    width: 90%;
     margin-bottom: 20px;
     border-bottom: none;
   }
@@ -177,7 +176,7 @@ export const BusinessInfo = styled.div`
   margin-bottom: 40px;
 
   @media screen and (max-width: 768px) {
-    width: 90vw;
+    width: 90%;
   }
 `;
 
@@ -254,7 +253,7 @@ export const StarRating = styled.div`
   margin-bottom: 10px;
 
   @media screen and (max-width: 768px) {
-    width: 90vw;
+    width: 90%;
     margin: 5px 0 0 0;
     font-size: 22px;
   }
