@@ -21,9 +21,8 @@ export const FooterBox = styled.div`
   width: 1200px;
 `;
 
-export const Logo = styled.div`
-  width: 77px;
-  height: 44px;
+export const Logo = styled.img`
+  height: 70px;
   color: #797979;
   font-size: 36px;
   font-weight: bold;
