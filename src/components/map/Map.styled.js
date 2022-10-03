@@ -12,7 +12,7 @@ export const StyledModalBackground = styled.div`
   align-items: center;
   z-index: 110;
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     
   }
 `
@@ -26,7 +26,7 @@ export const StyledMapContainer = styled.div`
   flex-direction: column;
   padding: 25px;
   
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     width: 100vw;
     height: 100vh;
     border-radius: 0px;
@@ -38,7 +38,7 @@ export const StyledMapWrap = styled.div`
   width: 100%;
   height: 50vh;
   
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     margin: 20px 0;
     height: 75vh;
   }
@@ -53,7 +53,7 @@ export const StyledCloseBtm = styled.div`
     background-color: white;
   }
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     margin-top: 20px;
   }
 `
@@ -69,7 +69,7 @@ export const StyledIcon = styled.div`
   background-image: url("/img/mapLocation.png");
   background-size: 20px;
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
   }
   
 `

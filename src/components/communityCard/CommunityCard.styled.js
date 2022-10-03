@@ -15,7 +15,7 @@ export const CommunityCardWrap = styled.div`
     box-shadow: 3px 3px 3px #6563ff50;
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     border: none;
     border-radius: 0px;
     border-bottom: 1px solid #dbdbdb;
@@ -29,7 +29,7 @@ export const CardContents = styled.div`
   height: 120px;
   cursor: pointer;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -41,7 +41,7 @@ export const IconWrap = styled.div`
   margin: 15px 0 0 0;
   gap: 5px;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     margin: 0;
     gap: 0px;
   }
@@ -99,7 +99,7 @@ export const NullCircle = styled.div`
   width: 14px;
   height: 14px;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     width: 0px;
     height: 0px;
   }
@@ -120,7 +120,7 @@ export const RepleCircle = styled.div`
   left: -15px;
   top: -5px;
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     left: -10px;
   }
 `;
@@ -129,7 +129,7 @@ export const StyledUserInfo = styled.div`
   display: flex;
   align-items: center;
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     margin-bottom: 10px;
   }
 `
@@ -149,7 +149,7 @@ export const ProfilePhoto = styled.div`
   background-repeat: no-repeat;
   background-position: center;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     width: 35px;
     height: 35px;
     margin: 0;
@@ -160,7 +160,7 @@ export const ProfilePhoto = styled.div`
 export const Names = styled.div`
   margin: 0 20px 0 0;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     margin: 0 0 0 10px;
   }
 `;
@@ -172,7 +172,7 @@ export const ContentImg = styled.img`
   border-radius: 15px;
   margin-right: 15px;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     width: 100%;
     height: 200px;
     margin-bottom: 15px;
@@ -192,7 +192,7 @@ export const DefaultImg = styled.div`
   background-position: center;
   background-color: #F1F1F5;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     width: 100%;
     min-height: 200px;
     margin-bottom: 15px;
@@ -208,7 +208,7 @@ export const CategoryTitleWrap = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -229,7 +229,7 @@ export const Category = styled.div`
   width: 40px;
   margin-bottom: 20px;
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     height: 20px;
     width: 30px;
     font-size: 14px;
@@ -245,7 +245,7 @@ export const Title = styled.div`
   padding: 10px 0;
   cursor: pointer;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     width: 80%;
     /* border: 1px solid red; */
   }

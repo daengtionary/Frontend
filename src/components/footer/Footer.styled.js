@@ -9,7 +9,7 @@ export const FooterContainer = styled.div`
   align-items: center;
   margin-top: 50px;
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     display: none;
   }
 `;

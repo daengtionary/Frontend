@@ -6,7 +6,7 @@ export const StyledCommunityPostForm = styled.form`
   border: 1px solid #797979;
   border-radius: 10px;
 
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 768px){
     height: 85%;
     
   }
@@ -16,7 +16,7 @@ export const StyledCategory = styled.div`
   height: 10%;
   align-items: center;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     height: 5%;
   }
 `;
@@ -25,7 +25,7 @@ export const StyledUserName = styled.div`
   height: 10%;
   align-items: center;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     height: 5%;
   }
 `;
@@ -34,7 +34,7 @@ export const StyledTitle = styled.div`
   height: 10%;
   align-items: center;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     height: 5%;
   }
 `;
@@ -44,7 +44,7 @@ export const StyledImgFile = styled.div`
   height: 10%;
   align-items: center;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     height: 5%;
   }
 `;
@@ -54,7 +54,7 @@ export const StyledContent = styled.div`
   display: flex;
   height: 60%;
   align-items: flex-start;
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     height: 80%;
   }
 `;
@@ -129,7 +129,7 @@ export const StyledButtonWrap = styled.div`
     color: #fff;
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     button {
     width: 100%;
     height: 45px;
