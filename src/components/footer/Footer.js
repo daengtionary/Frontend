@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     <FooterContainer>
       <FooterBox>
-        <Logo>Logo</Logo>
+        <Logo alt="logo" src="img/logo_.jpg"></Logo>
         <ListWrap>
           <ListBox>
             <Ulist>
