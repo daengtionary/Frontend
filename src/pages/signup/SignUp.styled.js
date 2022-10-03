@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const SignUpBox = styled.div`
   display: flex;
@@ -8,7 +8,12 @@ export const SignUpBox = styled.div`
   width: 100%;
   height: auto;
   margin-top: 100px;
-  margin-bottom: ${(props) => props.mg_bottom};
+  margin-bottom: ${props => props.mg_bottom};
+  @media screen and (max-width: 768px) {
+    width: 425px;
+    height: auto;
+    margin-top: 50px;
+  }
 `;
 export const SignUpBoxContainer = styled.div`
   box-sizing: border-box;
@@ -18,7 +23,12 @@ export const SignUpBoxContainer = styled.div`
   flex-direction: column;
   gap: 6px;
   border-radius: 10px;
-  box-shadow: 2px 2px 0px 3px lightgray;
+  box-shadow: 10px 10px 15px 2px lightgray;
+  @media screen and (max-width: 768px) {
+    width: 425px;
+    height: auto;
+    box-shadow: 0 0 0 0;
+  }
 `;
 export const SignUpTitle = styled.span`
   width: 400px;
@@ -119,24 +129,25 @@ export const GoToSignIn = styled.span`
   left: 40px;
   bottom: 0px;
   color: gray;
-  :hover{
+  :hover {
     color: black;
     cursor: pointer;
   }
-`
+`;
 export const AdminCheckBoxGroub = styled.div`
   box-sizing: border-box;
-  width:  80%;
+  width: 80%;
   margin-top: 14px;
   margin-bottom: 10px;
   display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-`
+  justify-content: center;
+  color: #6563ff;
+  font-size: 18px;
+`;
 
 export const SignUpDataAgreementGroup = styled.div`
   box-sizing: border-box;
-  width:  60%;
+  width: 60%;
   margin-top: 14px;
   margin-bottom: 10px;
 `;

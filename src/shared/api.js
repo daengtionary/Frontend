@@ -30,7 +30,7 @@ export const api = axios.create({
 });
 
 export const chatApi = axios.create({
-  baseURL: `https://${SERVER_IP}`,
+  baseURL: `http://${process.env.REACT_APP_CHAT_API_IP}`,
   headers: {
     "content-type": "application/json;charset=UTF-8",
   },
@@ -50,6 +50,6 @@ export const chatApis = {
   getMessageList: (roomId) => chatApi.get("/chat/messages/" + roomId),
   addRoom: (memberNo) => chatApi.post("/chat/room/personal", { memberNo }),
   exitRoom: (roomId) => chatApi.get(`chat/room/exit/${roomId}`),
-  addMatchingRoom: () => chatApi.post("/chat/room/group"),
+  addMatching: () => chatApi.post("/chat/room/into"),
 };
 

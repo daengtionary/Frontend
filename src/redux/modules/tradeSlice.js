@@ -60,8 +60,8 @@ export const tradeSlice = createSlice({
       state.getTrade = [...state.getTrade, ...action.payload];
     });
     builder.addCase(postingTrade.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.posts = action.payload;
+      state.isLoaded = true;
     });
     builder.addCase(getTradeDetail.fulfilled, (state, action) => {
       state.getTradeDetail = action.payload;
