@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const HeaderFullBox = styled.div`
-  width: 100vw;
+  width: 100%;
   height: auto;
   max-height: 150px;
   min-height: 100px;
@@ -9,7 +9,8 @@ export const HeaderFullBox = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  box-shadow: 0 0 3px black;
+  border-bottom: 1px solid lightgray;
+  box-shadow:0 0 3px black;
   @media screen and (max-width: 768px) {
     width: 425px;
     height: auto;

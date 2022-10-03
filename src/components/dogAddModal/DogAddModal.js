@@ -277,10 +277,10 @@ const StyledCloseButton = styled.div`
   right: 1.8em;
   cursor: pointer;
   padding: 5px 5px;
-  /* @media screen and (max-width: 768px) {
-    top: 1.8em;
+  @media screen and (max-width: 768px) {
+    top: 4.2em;
     right: 1.8em;
-  } */
+  }
 `;
 export const StyledGenderButtonWrap = styled.div`
   display: flex;

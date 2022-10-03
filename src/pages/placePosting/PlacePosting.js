@@ -96,7 +96,7 @@ const PlacePosting = () => {
       </StyledPageTitle>
       <StyledPostingWrap>
         <StyledInputBox>
-          <StyledInputTitle>상품 이미지</StyledInputTitle>
+          <StyledInputTitle>이미지 등록</StyledInputTitle>
           <StyledInputField>
             {placeImg.length !== 0 ? (
               placeImg.map((img, i) => (
@@ -172,6 +172,13 @@ const PlacePosting = () => {
                 top: "0",
                 left: "524px",
                 ft_weight: "500",
+                media: {
+                  width: "5em",
+                  height: "50px",
+                  pd_left: "0px",
+                  pd_right: "0px",
+                  left: "288px",
+                },
               }}
             />
           </StyledInputField>
@@ -212,6 +219,9 @@ const StylePlacePostWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    padding: 1em 1.5em;
+  }
 `;
 const StyledPageTitle = styled.div`
   display: flex;
@@ -221,22 +231,36 @@ const StyledPageTitle = styled.div`
   margin-bottom: 1em;
 
   width: 77.1em;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const StyledPostingWrap = styled.div`
   display: flex;
   flex-direction: column;
 
   width: 77em;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const StyledInputBox = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 4em;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    margin-bottom: 1em;
+  }
 `;
 const StyledInputTitle = styled.div`
   display: flex;
   font-weight: 700;
+  margin: 0 0 1em 0;
   flex: 1 1;
+  @media screen and (max-width: 768px) {
+    margin: 1em 0;
+  }
 `;
 const StyledInputField = styled.div`
   display: flex;
@@ -283,6 +307,11 @@ const StyledImgInput = styled.img`
   margin: 0 1.4em 0 0;
 
   object-fit: contain;
+  @media screen and (max-width: 768px) {
+    margin: ${(props) => (props.width ? "0" : "0 1em 0 0")};
+    width: ${(props) => (props.width ? "24em" : "10em")};
+    height: ${(props) => (props.height ? "12em" : "10em")};
+  }
 `;
 const StyledInput = styled.input`
   display: ${(props) => (props.display ? props.display : "")};
@@ -295,6 +324,9 @@ const StyledInput = styled.input`
   border: 1px solid #ccc;
   border-radius: 10px;
   margin: 0 0 1em 0;
+  @media screen and (max-width: 768px) {
+    width: ${(props) => (props.width ? "66%" : "90%")};
+  }
 `;
 const StyledCategotyButton = styled.button`
   display: flex;

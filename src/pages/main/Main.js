@@ -272,7 +272,7 @@ const StyledMainWrap = styled.div`
 
   /* padding: 0 10%; */
   @media screen and (max-width: 768px) {
-    padding: 1em 1em;
+    padding: 1em 1.5em;
   }
 `;
 export const StyledSwiper = styled(Swiper)`

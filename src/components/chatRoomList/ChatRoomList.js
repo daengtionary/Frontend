@@ -13,7 +13,6 @@ const ChatRoomList = () => {
   return (
     <>
       {roomList.data?.map((room, index) => {
-        console.log(room.roomKey);
         return (
           <List
             onClick={() =>
@@ -29,7 +28,7 @@ const ChatRoomList = () => {
               ) : (
                 <Nickname>{room.chatRoomMembers[0].nick}</Nickname>
               )}
-              <Date>{room.lastDate.split(" ")[3].substring(0, 5)}</Date>
+              <Date>{room.lastDate?.split(" ")[3].substring(0, 5)}</Date>
             </span>
             <span>
               <Message>{room.lastMessage}</Message>

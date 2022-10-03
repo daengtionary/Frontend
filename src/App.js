@@ -1,5 +1,6 @@
 // Packages import
 import { Routes, Route, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 // Pages
 import Main from "./pages/main/Main";
@@ -32,6 +33,8 @@ import DogWalk from "./pages/dogWalk/DogWalk";
 import styled from "styled-components";
 
 function App() {
+
+
   return (
     <>
       <Midea>
@@ -40,9 +43,10 @@ function App() {
           <Route exact path={"/chat"} element={<ChatModal />} />
           <Route exact path={"/chat/:roomNo"} element={<ChatRoom />} />
         </Routes>
+
         <Header />
         {/* <ChatFloatButton /> */}
-        <TopButton />
+        <TopButton/>
         <Routes>
           <Route exact path={"/signIn"} element={<SignIn />} />
           <Route exact path={"/signUp"} element={<SignUp />} />
