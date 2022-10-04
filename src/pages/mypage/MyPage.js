@@ -530,7 +530,7 @@ const StyledMyPageDogImgInput = styled.input`
 `;
 export const StyledEditButton = styled.div`
   padding: 5px 10px 5px 7px;
-  font-size: 0.2em;
+  font-size: 0.3em;
   font-weight: 700;
   color: #9493ff;
   border: 1.5px solid #9493ff;
@@ -540,8 +540,11 @@ export const StyledEditButton = styled.div`
   right: ${(props) => (props.right ? props.right : "4%")};
   cursor: pointer;
   @media screen and (max-width: 768px) {
+    /* top: 43em;
+    right: 37em; */
     top: 77%;
     right: 25%;
+    font-size: 14px;
   }
 `;
 const StyledSelectDog = styled.div`
