@@ -219,6 +219,10 @@ const StyledModalWrap = styled.div`
   left: 0;
   z-index: 10;
   text-align: center;
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+    height: 100vh;
+  }
 `;
 const StyledAddBox = styled.div`
   display: flex;
@@ -233,6 +237,8 @@ const StyledAddBox = styled.div`
   background: #fff;
   width: 25em;
   position: relative;
+  @media screen and (max-width: 768px) {
+  }
 `;
 const StyledMyPageDogImgBox = styled.div`
   display: flex;
