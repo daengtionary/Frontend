@@ -15,7 +15,7 @@ const Card = ({ rank, data, _onClick }) => {
       <StyledCardTextBox>
         <StyledTitleBox>
           <StyledCardText border={"2px solid #6563FF"} borderRadius={"20px"} fontSize={".9em"} fontWeight={"700"} color={"#6563FF"}>
-            {data && shopAddress ? shopAddress : data?.status ? data?.status : data?.nick}
+            {data && shopAddress ? shopAddress : data?.postStatus ? data?.postStatus : data?.nick}
           </StyledCardText>
           <StyledCardText fontSize={"1em"} fontWeight={"700"}>
             {data?.title}
