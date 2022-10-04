@@ -217,13 +217,13 @@ const List = () => {
               placeholder={"어떤 장소를 찾으세요?"}
               style={{
                 width: "40%",
-                mg_left: "2em;",
+                mg_left: "1em;",
                 bd_radius: "3em",
                 bg_color: "#eee",
                 bd: "none",
                 bd_bottom: "none",
                 pd_left: "1.4em",
-                pd_right: "5em",
+                pd_right: "4em",
                 height: "3.4em",
               }}
             />
@@ -301,7 +301,7 @@ const List = () => {
             ))}
           </div>
           <StyledFilterBox display={"none"} r_display={"block"} position={"absolute"}>
-            <StyledFilter name="address" value={address || ""} onChange={filterHandler} width={"60px"}>
+            <StyledFilter name="address" value={address || ""} onChange={filterHandler} width={"50px"}>
               <option disabled value="">
                 지역
               </option>
@@ -340,8 +340,6 @@ const List = () => {
               color: "#fff",
               bd_radius: "50%",
               bg_color: "#6563ff",
-              mg_left: "5px",
-              mg_right: "5px",
               bd_color: "#ccc",
               pd_top: "3px",
               pd_bottom: "3px",
@@ -381,7 +379,7 @@ export const StyledListWrap = styled.div`
   /* justify-content: center; */
   position: relative;
   @media screen and (max-width: 768px) {
-    padding: 1em 1.5em;
+    padding: 1em 2em;
   }
 `;
 
@@ -453,7 +451,8 @@ export const StyledFilterBox = styled.div`
     /* white-space: pre-wrap; */
     display: ${(props) => props.r_display};
     position: ${(props) => props.position};
-    right: 58px;
+    top: 114px;
+    right: 66px;
   }
 `;
 
@@ -463,18 +462,19 @@ export const StyledFilter = styled.select`
   margin-right: 20px;
   padding: 5px 5px;
   @media screen and (max-width: 768px) {
-    padding: 5px 3px;
+    padding: 0;
     margin-right: 0px;
   }
 `;
 export const StyledSerchImg = styled.img`
   width: 2em;
   position: absolute;
-  right: 112px;
+  right: 124px;
   cursor: pointer;
-  padding: 6px 20px 6px 0;
+  padding: 6px 30px 6px 0;
   @media screen and (max-width: 768px) {
     right: 0;
+    padding: 6px 16px 6px 0;
   }
 `;
 export const StyledListCardWrap = styled.div`
