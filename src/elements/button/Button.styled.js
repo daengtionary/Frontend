@@ -57,6 +57,7 @@ export const StyledButton = styled.button`
     bottom: ${(props) => (props.media?.bottom ? props.media?.bottom : props.bottom)};
     right: ${(props) => (props.media?.right ? props.media?.right : props.right)};
     z-index: ${(props) => (props.media?.z_index ? props.media?.z_index : props.z_index)};
+    transform: ${(props) => (props.media?.transform ? props.media?.transform : props.transform)};
     img {
       width: 6.5em;
       height: 6.5em;

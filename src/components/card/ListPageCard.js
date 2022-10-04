@@ -13,14 +13,14 @@ const ListPageCard = ({ data, onClick }) => {
         <StyledCardText width={"15%"} color="#6563ff" margin="6px 0" fontSize="1em" fontWeight="400">
           {data?.address?.slice(0, 2) && data?.address?.slice(0, 2) !== ", " && data?.address?.slice(0, 2) !== "," ? data?.address?.slice(0, 2) : "전국"}
         </StyledCardText>
-        <StyledCardText width={"85%"} m_fontSize={"1.2em"} color="#000" margin="6px 0" fontSize="1.5em" fontWeight="700">
+        <StyledCardText width={"78%"} m_fontSize={"1em"} color="#000" margin="6px 0" fontSize="1.5em" fontWeight="700">
           {data?.title}
         </StyledCardText>
-        <StyledCardText width={"30%"} color="#000" margin="6px 0" fontSize=".7em" fontWeight="400">
-          별점⭐⭐⭐⭐{"⭐".repeat(data?.star)}
+        <StyledCardText width={"30%"} m_fontSize={".5em"} color="#000" margin="6px 0" fontSize=".7em" fontWeight="400">
+          별점 ⭐⭐⭐⭐{"⭐".repeat(data?.star)}
         </StyledCardText>
-        <StyledCardText width={"70%"} color="#797979" margin="6px 0" fontSize=".8em" fontWeight="400">
-          {data?.address ? data?.address : "전국"}
+        <StyledCardText width={"70%"} m_fontSize={".7em"} color="#797979" margin="6px 0" fontSize=".8em" fontWeight="400">
+          {data?.address ? data?.address : "주소 미지정"}
         </StyledCardText>
         <StyledCardText whiteSpace={"normal"} md_display={"none"} color="#797979" margin="12px 0 6px 0" fontSize="1em" fontWeight="400" height="10em">
           {data?.content}
@@ -76,7 +76,7 @@ const StyledCardImgBox = styled.div`
   border-radius: 20px;
   @media screen and (max-width: 768px) {
     background-color: #eee;
-    width: 21em;
+    width: 20em;
     height: 12em;
     margin-bottom: 0.6em;
   }
@@ -89,7 +89,7 @@ const StyledCardImg = styled.div`
   transition: transform 0.2s;
   @media screen and (max-width: 768px) {
     background: ${(props) => (props.background ? `url(${props.background}) center / cover no-repeat` : " linear-gradient(#ccc, #cccccc50)")};
-    width: 21em;
+    width: 20em;
     height: 12em;
   }
 `;
@@ -106,8 +106,8 @@ const StyledCardTextBox = styled.div`
   @media screen and (max-width: 768px) {
     flex-direction: row;
     flex-wrap: wrap;
-    width: 100%;
-    padding: 0 0 0 1em;
+    max-width: 96%;
+    padding: 0 1em 0 0.5em;
   }
 `;
 const StyledCardText = styled.div`
@@ -121,7 +121,7 @@ const StyledCardText = styled.div`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical; */
   display: block;
-  justify-content: ${(props) => (props.justify ? props.justify : "")};
+  /* justify-content: ${(props) => (props.justify ? props.justify : "")}; */
   max-width: 34.5rem;
   min-height: 1em;
   word-break: break-all;
@@ -132,6 +132,7 @@ const StyledCardText = styled.div`
     width: ${(props) => props.width};
     display: ${(props) => props.md_display};
     font-size: ${(props) => props.m_fontSize};
+    text-align: left;
   }
 `;
 const StyledHeartButton = styled.div`
@@ -141,7 +142,7 @@ const StyledHeartButton = styled.div`
   right: 1em;
   @media screen and (max-width: 768px) {
     font-size: 1.2em;
-    top: 0.6em;
-    right: 0.6em;
+    top: 6px;
+    right: 8px;
   }
 `;

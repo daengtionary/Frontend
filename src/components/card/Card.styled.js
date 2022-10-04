@@ -22,8 +22,8 @@ export const StyledCardBox = styled.div`
     }
   }
   @media screen and (max-width: 768px) {
-    width: 11em;
-    height: 16em;
+    width: 10.5em;
+    height: 15em;
     margin-bottom: 0.8em;
   }
 `;
@@ -54,7 +54,7 @@ export const StyledCardImgBox = styled.div`
     /* border-bottom: 1px solid #797979; */
   }
   @media screen and (max-width: 768px) {
-    width: 11em;
+    width: 10.5em;
     height: 10em;
     border-radius: 20px;
   }
@@ -97,6 +97,9 @@ export const StyledCardText = styled.div`
   line-height: 1.8em;
   @media screen and (max-width: 768px) {
     font-size: ${(props) => props.m_fontSize};
+    min-width: 24px;
+    max-width: 100px;
+    padding: 0 5px;
   }
 `;
 export const StyledTitleBox = styled.div`
