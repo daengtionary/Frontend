@@ -540,11 +540,11 @@ export const StyledEditButton = styled.div`
   right: ${(props) => (props.right ? props.right : "4%")};
   cursor: pointer;
   @media screen and (max-width: 768px) {
-    top: 43em;
-    right: 37em;
-    /* top: 77%;
-    right: 25%; */
-    font-size: 0.3em;
+    /* top: 43em;
+    right: 37em; */
+    top: 77%;
+    right: 25%;
+    font-size: 14px;
   }
 `;
 const StyledSelectDog = styled.div`
