@@ -43,13 +43,21 @@ export const postingMatching = createAsyncThunk('trade/postingTrade', async (pay
 const initialState = {
   getMatching: [],
   isLoaded: false,
-  getMatchingDetail: []
+  getMatchingDetail: [],
+  isEnd: false,
+  pageNum: 0,
 };
 
 export const matchingSlice = createSlice({
   name: 'getMatching',
   initialState: initialState,
   reducers: {
+    pageUp(state, action) {
+      console.log(action.payload);
+      if (state.isEnd === false) {
+        state.pageNum = state.pageNum + action.payload;
+      }
+    },
     clearMatchingItem: (state, action) => {
       state.getMatching = [];
     },
@@ -58,6 +66,9 @@ export const matchingSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getMatching.fulfilled, (state, action) => {
       state.getMatching = [...state.getMatching, ...action.payload];
+      if (action.payload.length < 5) {
+        state.isEnd = true;
+      }
     });
     builder.addCase(postingMatching.fulfilled, (state, action) => {
       console.log(action.payload);
@@ -70,5 +81,5 @@ export const matchingSlice = createSlice({
   },
 });
 
-export const { clearMatchingItem } = matchingSlice.actions;
+export const { clearMatchingItem, pageUp } = matchingSlice.actions;
 export default matchingSlice.reducer;

@@ -65,6 +65,7 @@ export const ItemTitleBox = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  
   @media screen and (max-width: 768px) {
     width: 400px;
     height: 400px;
@@ -76,20 +77,26 @@ export const ItemNameInfoText = styled.div`
   border-bottom: 2px solid lightgray;
   display: flex;
   flex-direction: column;
+  
   .itemName {
     margin-top: 5px;
     font-size: 28px;
     font-weight: 700;
+    max-height: 40px;
+    overflow: hidden;
   }
   .price {
     font-weight: 700;
     font-size: 35px;
     margin-top: auto;
     margin-bottom: 15px;
+    max-height: 50px;
+    overflow: hidden;
   }
   .won {
     color: gray;
     font-size: 22px;
+    max-height: 25px;
   }
   @media screen and (max-width: 768px) {
     width: 348px;
@@ -110,6 +117,8 @@ export const ItemNameInfoText = styled.div`
       font-size: 17px;
       font-weight: 500;
       color: #b8c2c6;
+      max-height: 21px;
+    overflow: hidden;
     }
   }
 `;
@@ -131,6 +140,8 @@ export const ItemDetailInfoText = styled.div`
     color: #b8c2c6;
     position: absolute;
     left: 30%;
+    max-height: 25px;
+    overflow: hidden;
   }
   @media screen and (max-width: 768px) {
     width: 350px;
