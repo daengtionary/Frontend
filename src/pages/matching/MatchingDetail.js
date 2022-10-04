@@ -40,10 +40,10 @@ SwiperCore.use([Pagination, Autoplay, Navigation]);
 const TradeDetail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const item = useSelector((state)=> state.matching.getMatchingDetail)
+  
 
 
-  // const item = useSelector((state) => state.trade.getMatchingDetail);
-  // console.log(item)
 
 
   // useEffect(() => {
@@ -75,12 +75,6 @@ const TradeDetail = () => {
             centeredSlides={true}
             style={{backgroundColor:'white'}}
           >         
-            <SwiperSlide>
-              <ItemDetailImg src={dogIcon} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ItemDetailImg src={dogIcon} />
-            </SwiperSlide>
             <SwiperSlide>
               <ItemDetailImg src={dogIcon} />
             </SwiperSlide>
