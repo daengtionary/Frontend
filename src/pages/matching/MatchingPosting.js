@@ -11,12 +11,13 @@ import {
   StyleTradeDetailBox,
   StyleSubmitButton,
   StyleTradeCheckBoxWrap,
-  StyleTradePlaceSpanBox,
   StyleTradeUplodeLabel,
   StyleShowImageBox,
   StyleShowImage,
   StylePreviewBox,
-} from "../tradePosting/TradePosting.styled";
+  StyledInputField,
+  StyledInput
+} from "./MatchingPosting.styled"
 import { useDispatch } from "react-redux";
 import {postingMatching} from "../../redux/modules/matchingSlice";
 import React from "react";
@@ -31,26 +32,26 @@ const MatchingPosting = () => {
   const [showImages, setShowImages] = useState([]);
   const [fileImage, setFileImage] = useState([]);
   const [title, setTitle] = useState("");
-  const [place, setPlace] = useState("");
-  const [status, setStatus] = useState("");
-  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
   const [detail, setDetail] = useState("");
+  const [placeInfo, setPlaceInfo] = useState ('')
+  // const [placeInfo, setPlaceInfo] = useState({ data: { title: "", category: "hospital", address: "", content: "" }, imgUrl: [] });
+  const [maxCount, setMaxcount] = useState()
 
   const postingData = {
     data: {
       "title": title,
-      "address": "전국",
-      "stuffStatus": status,
+      "address": placeInfo,
       "content": detail,
-      "price": price,
-      "postStatus": "판매중",
-      "exchange":"교환불가"
+      "category": category,
+      "maxCount": maxCount
     },
     imgUrl: fileImage
   };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+   const addrRef = useRef();
 
   //이미지 상대경로 저장, 요청 이미지 저장
   const uploadImage = useCallback(
@@ -90,28 +91,56 @@ const MatchingPosting = () => {
           checkboxes[i].checked = false;
         }
         if (checkboxes[0].checked === true) {
-          setStatus("Used");
+          setCategory("산책");
         } else if (checkboxes[1].checked === true) {
-          setStatus("AlmostNew");
+          setCategory("애견카페");
         } else if (checkboxes[2].checked === true) {
-          setStatus("New");
+          setCategory("자유");
         }
       }
     },
-    [status]
+    [category]
   );
+
+  const findAddr = () => {
+    new window.daum.Postcode({
+      oncomplete: (data) => {
+        var addr = "";
+
+        if (data.userSelectedType === "R") {
+          addr = data.roadAddress;
+        } else {
+          addr = data.jibunAddress;
+        }
+
+        console.log(addr);
+        console.log(addrRef);
+        addrRef.current.value = addr;
+        setPlaceInfo({ ...placeInfo, data: { ...placeInfo.data, address: addr } });
+      },
+    }).open();
+  };
+
+  const onChangePlaceInfo = (e) => {
+    const { name, value } = e.target;
+    if (name === "address") {
+      setPlaceInfo({ ...placeInfo, data: { ...placeInfo.data, address: addrRef.current.value + ", " + value } }.data.address);
+    } else {
+      setPlaceInfo({ ...placeInfo, data: { ...placeInfo.data, [name]: value }.data.address });
+    }
+  };
 
   const onSubmitHandler = () => {
     console.log(postingData)
-    // dispatch(postingMatching(postingData))
-    // .unwrap()
-    // .then((res) => {
-    //   alert(res.message);
-    //   navigate("/matching")
-    // })
-    // .catch((error) =>{
-    //   console.log(error)
-    // })
+    dispatch(postingMatching(postingData))
+    .unwrap()
+    .then((res) => {
+      alert(res.message);
+      navigate("/matching")
+    })
+    .catch((error) =>{
+      console.log(error)
+    })
   };
 
 
@@ -130,7 +159,7 @@ const MatchingPosting = () => {
           <StylePreviewBox>
             {showImages.map((image, id) => (
               <StyleShowImageBox key={id}>
-                <span>
+                <span className="cancelSpanBox">
                   미리보기{id + 1} <MdOutlineCancel className="cancelIcon" onClick={() => handleDeleteImage(id)} />
                 </span>
                 <StyleShowImage src={image} alt={`${image}-${id}`} />
@@ -156,68 +185,81 @@ const MatchingPosting = () => {
             placeholder={"제목을 입력해주세요"}
           />
         </StyleTradeItemTitleBox>
-        <StyleTradePlaceBox>
-          <span>거래지역</span>
-          <StyleTradePlaceSpanBox>
-            <Button
-              text="지역설정"
-              style={{
-                bd_color: "lightGray",
-                bd_radius: "10px",
-                bg_color: "white",
-                color: "gray",
-                width: "100px",
-                mg_right: "5%",
-              }}
-            />
-            <Button
-              text="지역설정 안함"
-              style={{
-                bd_color: "lightGray",
-                bd_radius: "10px",
-                bg_color: "white",
-                color: "gray",
-                width: "100px",
-                mg_left: "5%",
-              }}
-            />
-          </StyleTradePlaceSpanBox>
-        </StyleTradePlaceBox>
         <StyleTradeStatusBox>
           <span className="statusSpan">상태</span>
           <StyleTradeCheckBoxWrap>
             <span>
               <input type={"checkbox"} name="status" value="Used" onChange={(e) => checkOnlyOne(e.target)} />
-              중고상품
+              산책
             </span>
             <span>
               <input type={"checkbox"} name="status" value="almostNew" onChange={(e) => checkOnlyOne(e.target)} />
-              거의새것
+              애견카페
             </span>
             <span>
               <input type={"checkbox"} name="status" value="new" onChange={(e) => checkOnlyOne(e.target)} />
-              새상품
+              자유
             </span>
           </StyleTradeCheckBoxWrap>
         </StyleTradeStatusBox>
-        {/* <StyleTradePriceBox>
-          <span>가격</span>
-          <Input
-            type={"text"}
-            value={price}
-            _onChange={(e) => setPrice(e.target.value)}
-            style={{
-              width: "20%",
-              height: "40px",
-              pd_left: "10px",
-              mg_right: "0px",
-              bd: "1px solid lightGray ",
-              bd_bottom:"1px solid lightGray ",
-              bd_radius: "10px",
-            }}
-            placeholder={"날짜를 선택해주세요"}
-          />
+        <StyleTradePriceBox>
+          <span>최대 인원</span>
+          <div>
+            <Input
+              type={'text'}
+              value={maxCount}
+              _onChange={(e) => setMaxcount(e.target.value)}
+              style={{
+                width: '20%',
+                height: '40px',
+                pd_left: '10px',
+                mg_right: '0px',
+                bd: '1px solid lightGray ',
+                bd_bottom: '1px solid lightGray ',
+                bd_radius: '10px',
+              }}
+              placeholder={'최대 인원 수'}
+            />
+            &nbsp;
+            <span className="won">명</span>
+          </div>
         </StyleTradePriceBox>
+        <StyleTradePlaceBox>
+          <span>거래지역</span>
+          <StyledInputField column={true}>
+            <StyledInput className="addrName" ref={addrRef} name="address" readOnly width={"30em"} />
+            <StyledInput className="detailAddrName" name="address" placeholder="상세주소를 입력해주세요:)" onChange={onChangePlaceInfo} />
+            <Button
+              _onClick={findAddr}
+              text={"주소 검색"}
+              style={{
+                position: "absolute",
+                width: "6em",
+                height: "1.8em",
+                ft_size: "1em",
+                color: "#757575",
+                bd_color: "#757575",
+                bg_color: "#fff",
+                mg_left: "1px",
+                mg_right: "1px",
+                bd_radius: "10px",
+                pd_left: "10px",
+                pd_right: "10px",
+                left: "65.2%",
+                top: "0px",
+                ft_weight: "500",
+                media: {
+                  width: "5em",
+                  height: "1.8em",
+                  pd_left: "0px",
+                  pd_right: "0px",
+                  left: "320px",
+                  top: "0px",
+                },
+              }}
+            />
+          </StyledInputField>
+        </StyleTradePlaceBox>
         <StyleTradeDetailBox>
           <span>설명</span>
           <Input
@@ -235,7 +277,7 @@ const MatchingPosting = () => {
             }}
             placeholder={"상품에 대해 설명해주세요"}
           />
-        </StyleTradeDetailBox> */}
+        </StyleTradeDetailBox>
         <StyleSubmitButton onClick={onSubmitHandler}>등록하기</StyleSubmitButton>
       </StyleTradePostingForm>
     </>

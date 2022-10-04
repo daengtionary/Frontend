@@ -61,26 +61,6 @@ const Trade = () => {
     fetchTrade();
   }, [page]);
 
-  // const onChangeHandeler = useCallback(
-  //   (e) => {
-  //     if (tradeSort !== e.target.value) {
-  //       setTradeSort(e.target.value);
-  //       dispatch(
-  //         getTrade({
-  //           page: page,
-  //           size: "12",
-  //           sort: tradeSort,
-  //           direction: "asc",
-  //         })
-  //       );
-  //     } else {
-  //       alert("현재 선택된 정렬입니다.");
-  //     }
-  //   },
-  //   [page, tradeSort]
-  // );
-  // console.log(tradeSort);
-
   return (
     <TradeAll>
       <StyledSerchFilterBox>
@@ -92,7 +72,7 @@ const Trade = () => {
             <Input
               // _onKeyPress={onKeyPressHandler}
               // _onChange={onChangeHandler}
-              placeholder={'어떤 물건을 찾으세요?'}
+              placeholder={'검색은 현재 준비중입니다'}
               style={{
                 width: '140px',
                 bd_radius: '3em',
