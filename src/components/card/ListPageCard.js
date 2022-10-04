@@ -11,7 +11,7 @@ const ListPageCard = ({ data, onClick }) => {
       </StyledCardImgBox>
       <StyledCardTextBox>
         <StyledCardText width={"15%"} color="#6563ff" margin="6px 0" fontSize="1em" fontWeight="400">
-          {data?.address?.slice(0, 2)}
+          {data?.address?.slice(0, 2) && data?.address?.slice(0, 2) !== ", " && data?.address?.slice(0, 2) !== "," ? data?.address?.slice(0, 2) : "전국"}
         </StyledCardText>
         <StyledCardText width={"85%"} m_fontSize={"1.2em"} color="#000" margin="6px 0" fontSize="1.5em" fontWeight="700">
           {data?.title}
@@ -20,9 +20,9 @@ const ListPageCard = ({ data, onClick }) => {
           별점⭐⭐⭐⭐{"⭐".repeat(data?.star)}
         </StyledCardText>
         <StyledCardText width={"70%"} color="#797979" margin="6px 0" fontSize=".8em" fontWeight="400">
-          {data?.address}
+          {data?.address ? data?.address : "전국"}
         </StyledCardText>
-        <StyledCardText md_display={"none"} color="#797979" margin="6px 0" fontSize="1em" fontWeight="400" height="10em">
+        <StyledCardText whiteSpace={"normal"} md_display={"none"} color="#797979" margin="12px 0 6px 0" fontSize="1em" fontWeight="400" height="10em">
           {data?.content}
         </StyledCardText>
         <StyledHeartButton>
@@ -68,8 +68,8 @@ const StyledCardBox = styled.div`
 `;
 const StyledCardImgBox = styled.div`
   /* background: ${(props) => `url(${props.background}) no-repeat top center`}; */
+  min-width: 46%;
   height: 18em;
-  /* width: 18em; */
   flex: 1 1;
   margin: 0 1.5em;
   overflow: hidden;
@@ -82,7 +82,6 @@ const StyledCardImgBox = styled.div`
   }
 `;
 const StyledCardImg = styled.div`
-  /* width: 60%; */
   height: 100%;
   border-radius: 20px;
   margin: 0 auto;
@@ -102,6 +101,8 @@ const StyledCardTextBox = styled.div`
   padding: 0 1.5em;
   /* height: 18em; */
   position: relative;
+  max-width: 46%;
+
   @media screen and (max-width: 768px) {
     flex-direction: row;
     flex-wrap: wrap;
@@ -116,10 +117,17 @@ const StyledCardText = styled.div`
   margin: ${(props) => props.margin};
   text-align: ${(props) => (props.textAlign ? props.textAlign : "")};
   height: ${(props) => (props.height ? props.height : "")};
-  word-break: keep-all;
-  display: flex;
-  align-items: center;
+  /* display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; */
+  display: block;
   justify-content: ${(props) => (props.justify ? props.justify : "")};
+  max-width: 34.5rem;
+  min-height: 1em;
+  word-break: break-all;
+  white-space: ${(props) => (props.whiteSpace ? props.whiteSpace : "nowrap")};
+  overflow: hidden;
+  text-overflow: ellipsis;
   @media screen and (max-width: 768px) {
     width: ${(props) => props.width};
     display: ${(props) => props.md_display};

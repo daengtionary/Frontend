@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import nullImg from "../../static/image/로딩-이미지.jpg";
 
 export const StyledCardBox = styled.div`
   /* width: 20em; */
@@ -50,6 +51,7 @@ export const StyledCardImgBox = styled.div`
   transition: transform 0.2s, border-radius 0.2s;
 
   :hover {
+    /* border-bottom: 1px solid #797979; */
   }
   @media screen and (max-width: 768px) {
     width: 11em;
@@ -59,7 +61,7 @@ export const StyledCardImgBox = styled.div`
 `;
 export const StyledCardImg = styled.div`
   border-radius: 20px 20px 0 0;
-  background: ${(props) => `url(${props.background}) center / cover no-repeat `};
+  background: ${(props) => (props.background ? `url(${props.background}) center / cover no-repeat ` : `url(${nullImg}) center / contain no-repeat `)};
   min-height: 100%;
   width: 18em;
   transition: transform 0.2s, border-radius 0.2s;
@@ -73,11 +75,12 @@ export const StyledCardImg = styled.div`
   }
 `;
 export const StyledCardTextBox = styled.div`
-  width: 18em;
+  width: 100%;
   padding: 0.5em 0;
   /* flex: 1 1; */
 `;
 export const StyledCardText = styled.div`
+  max-width: 200px;
   display: inline-block;
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
@@ -92,12 +95,18 @@ export const StyledCardText = styled.div`
   border-radius: ${(props) => (props.borderRadius ? props.borderRadius : "")};
   height: 1.8em;
   line-height: 1.8em;
-  /* @media screen and (max-width: 768px) {
-    font-size: ${(props) => props.fontSize};
-  } */
+  @media screen and (max-width: 768px) {
+    font-size: ${(props) => props.m_fontSize};
+  }
 `;
 export const StyledTitleBox = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  word-break: keep-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
 `;
