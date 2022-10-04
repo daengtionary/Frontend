@@ -7,7 +7,7 @@ export const getCommunityPostListThunk = createAsyncThunk("GET_COMMUNITY_POST_LI
     console.log(payload);
     // const resp = await api.get(`/community?orderby=new&size=10&page=0`);
     // const resp = await api.get(`/community?page=0&size=10&sort=new&direction=asc`);
-    const resp = await api.get(`/community?sort=new&pagenum=${payload}&pagesize=10`);
+    const resp = await api.get(`/community?sort=new&pagenum=${payload}&pagesize=5`);
 
     console.log(resp);
 
@@ -107,7 +107,7 @@ const communitySlice = createSlice({
     [getCommunityPostListThunk.fulfilled]: (state, action) => {
       console.log(action.payload);
       state.community = [...state.community, ...action.payload];
-      if (action.payload.length < 10) {
+      if (action.payload.length < 5) {
         state.isEnd = true;
       }
     },
