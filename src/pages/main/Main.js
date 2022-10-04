@@ -23,6 +23,7 @@ import communityButtonImg from "../../static/image/커뮤니티.jpg";
 import banner_01 from "../../static/image/베너01_.jpg";
 import banner_02 from "../../static/image/댕매칭.jpg";
 import banner_03 from "../../static/image/이용방법.jpg";
+import banner_04 from "../../static/image/이벤트배너.jpg";
 import medal_01 from "../../static/image/메달1_.png";
 import medal_02 from "../../static/image/메달2.png";
 import medal_03 from "../../static/image/메달3.png";
@@ -130,6 +131,14 @@ const Main = () => {
         centeredSlides={true}
       >
         <SwiperSlide>
+          <StyledMainBanner
+            backgroundImg={banner_04}
+            onClick={() => {
+              window.open("https://forms.gle/sEkZEHdnQrwfUKH7A");
+            }}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
           <StyledMainBanner backgroundImg={banner_01} />
         </SwiperSlide>
         <SwiperSlide>
@@ -234,7 +243,9 @@ const Main = () => {
               // console.log(category)
             )
           : category === "room"
-          ? dataList.map((data, i) => <Card key={i} rank={rankMedalList[i]} _onClick={() => alert("준비 중 입니다..")} data={data} category={data.category} />)
+          ? dataList.map((data, i) => (
+              <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/detail/${data.mapNo}`)} data={data} category={data.category} />
+            ))
           : category === "trade"
           ? dataList.map((data, i) => (
               <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/tradeDetail/${data.tradeNo}`)} data={data} category={data.category} />
