@@ -243,7 +243,9 @@ const Main = () => {
               // console.log(category)
             )
           : category === "room"
-          ? dataList.map((data, i) => <Card key={i} rank={rankMedalList[i]} _onClick={() => alert("준비 중 입니다..")} data={data} category={data.category} />)
+          ? dataList.map((data, i) => (
+              <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/detail/${data.mapNo}`)} data={data} category={data.category} />
+            ))
           : category === "trade"
           ? dataList.map((data, i) => (
               <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/tradeDetail/${data.tradeNo}`)} data={data} category={data.category} />
