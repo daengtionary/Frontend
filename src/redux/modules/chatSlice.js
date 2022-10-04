@@ -68,13 +68,6 @@ export default handleActions(
         draft.messageList.data.push(payload.messageObj);
       }),
 
-    // // 채팅 리스트의 메시지 갱신
-    // [UPDATE_ROOM_MESSAGE]: (state, { payload }) =>
-    //   produce(state, (draft) => {
-    //     draft.roomList[payload.messageObj.index].message =
-    //       payload.messageObj.message;
-    //     draft.roomList[payload.messageObj.index].date = payload.messageObj.date;
-    //   }),
 
     // 메시지 지우기
     [CLEAN_UP_MESSAGE]: (state, { payload }) =>

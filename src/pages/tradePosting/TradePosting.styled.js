@@ -139,8 +139,8 @@ export const StyleShowImageBox = styled.div`
   }
 `;
 export const StyleShowImage = styled.img`
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 100px;
   @media screen and (max-width: 768px) {
     width: 70px;
     height: 70px;
@@ -344,13 +344,15 @@ export const StyleSubmitButton = styled.button`
   height: 40px;
   margin: auto;
   background-color: #9493FF;
-  border-radius: 12px;
+  border-radius: 20px;
   font-weight: 500;
   font-size: 16px;
   border: 0px;
+  color: white;
 
   :hover{
     cursor: pointer;
+    color: black;
   }
 
 `;

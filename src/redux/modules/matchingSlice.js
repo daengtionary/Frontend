@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api, api_auth } from '../../shared/api';
 
-export const getMatching = createAsyncThunk('trade/getTrade', async (payload, thunkAPI) => {
+export const getMatching = createAsyncThunk('matching/getmatching', async (payload, thunkAPI) => {
   const resData = await api
 //전체조회
     .get(
@@ -13,15 +13,15 @@ export const getMatching = createAsyncThunk('trade/getTrade', async (payload, th
 });
 
 //상세조회
-export const getMatchingDetail = createAsyncThunk('trade/getTradeDetail', async (payload, thunkAPI) => {
+export const getMatchingDetail = createAsyncThunk('matching/getmatchingDetail', async (payload, thunkAPI) => {
   const resData = await api
-    .get( `/trade/${payload}`)
+    .get( `/friend/${payload}`)
     .then((res) => res)
     .catch((err) => console.log(err));
   return thunkAPI.fulfillWithValue(resData.data.data);
 });
 
-export const postingMatching = createAsyncThunk('trade/postingTrade', async (payload, thunkAPI) => {
+export const postingMatching = createAsyncThunk('matching/postMatching', async (payload, thunkAPI) => {
   const formData = new FormData();
   formData.append(
     'data',
@@ -34,7 +34,7 @@ export const postingMatching = createAsyncThunk('trade/postingTrade', async (pay
   formData.append('imgUrl', payload.imgUrl[2]);
   console.log(payload);
   const resData = await api_auth
-    .post('/trade/create', formData, { 'Content-Type': 'multipart/form-data' })
+    .post('/friend/create', formData)
     .then((res) => res)
     .catch((err) => console.log(err));
   return thunkAPI.fulfillWithValue(resData.data);
