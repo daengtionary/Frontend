@@ -221,7 +221,7 @@ const StyledModalWrap = styled.div`
   text-align: center;
   @media screen and (max-width: 768px) {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
   }
 `;
 const StyledAddBox = styled.div`
