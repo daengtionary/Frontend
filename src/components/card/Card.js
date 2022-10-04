@@ -1,8 +1,9 @@
 import { StyledCardBox, StyledCardImg, StyledCardImgBox, StyledCardText, StyledCardTextBox, StyledRankBadge, StyledTitleBox } from "./Card.styled";
 
 const Card = ({ rank, data, _onClick }) => {
-  const shopAddress = data.address?.slice(0, 2);
+  const shopAddress = data.address?.slice(0, 2) && data.address?.slice(0, 2) !== ", " ? data.address?.slice(0, 2) : "전국";
   console.log(shopAddress);
+  console.log(data);
   return (
     <StyledCardBox onClick={_onClick}>
       <StyledRankBadge rank={rank}></StyledRankBadge>
@@ -14,10 +15,18 @@ const Card = ({ rank, data, _onClick }) => {
       </StyledCardImgBox>
       <StyledCardTextBox>
         <StyledTitleBox>
-          <StyledCardText border={"2px solid #6563FF"} borderRadius={"20px"} fontSize={".9em"} fontWeight={"700"} color={"#6563FF"}>
-            {data && shopAddress ? shopAddress : data?.postStatus ? data?.postStatus : data?.nick}
+          <StyledCardText
+            width={"10%"}
+            border={"2px solid #6563FF"}
+            borderRadius={"20px"}
+            fontSize={".9em"}
+            m_fontSize={".7em"}
+            fontWeight={"700"}
+            color={"#6563FF"}
+          >
+            {data && shopAddress && !data.postStatus ? shopAddress : data?.postStatus ? data?.postStatus : data?.nick}
           </StyledCardText>
-          <StyledCardText fontSize={"1em"} fontWeight={"700"}>
+          <StyledCardText width={"70%"} fontSize={"1em"} m_fontSize={".7em"} fontWeight={"700"}>
             {data?.title}
           </StyledCardText>
         </StyledTitleBox>

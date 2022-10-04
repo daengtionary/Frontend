@@ -134,7 +134,8 @@ export const listSlice = createSlice({
       state.pageNum = action.payload.page;
       if (state.pageNum === 0) {
         state.getList = [...action.payload.data];
-      } else if (action.payload.page * action.payload.data.length >= state.getList.length) {
+        // } else if (action.payload.page * action.payload.data.length >= state.getList.length) {
+      } else if (action.payload.page * 4 >= state.getList.length) {
         // console.log(action.payload.page * action.payload.data.length, state.getList.length);
         state.getList = [...state.getList, ...action.payload.data];
       }
