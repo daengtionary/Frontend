@@ -23,10 +23,10 @@ const ChatRoomList = () => {
             key={room.roomNo}
           >
             <span>
-              {nick === room.chatRoomMembers[0].nick ? (
-                <Nickname>{room.chatRoomMembers[1].nick}</Nickname>
+              {nick === room.chatRoomMembers[0]?.nick ? (
+                <Nickname>{room.chatRoomMembers[1]?.nick}</Nickname>
               ) : (
-                <Nickname>{room.chatRoomMembers[0].nick}</Nickname>
+                <Nickname>{room.chatRoomMembers[0]?.nick}</Nickname>
               )}
               <Date>{room.lastDate?.split('요일')[1]}</Date>
             </span>

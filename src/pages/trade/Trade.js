@@ -5,9 +5,9 @@ import { getTrade, clearTradeItem } from '../../redux/modules/tradeSlice';
 import { useCallback } from 'react';
 
 // 스타일 컴포넌트
-import { TradeAll, TradeFullBox, CardList, StyledSerchFilterBox, StyledTradeFilterBox } from './Trade.styled';
+import { TradeAll, TradeFullBox, CardList, StyledSerchFilterBox, StyledTradeFilterBox, StyledSerchImg } from './Trade.styled';
 
-import { StyledSerchWrap, StyledSerchBox, StyledSerchImg } from '../animalhospital/List';
+import { StyledSerchWrap, StyledSerchBox } from '../animalhospital/List';
 
 import { useNavigate } from 'react-router-dom';
 import Input from '../../elements/input/Input';

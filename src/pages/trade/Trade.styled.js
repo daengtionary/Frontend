@@ -62,3 +62,14 @@ export const CardList = styled.div`
     gap: 20px 40px;
   }
 `;
+
+export const StyledSerchImg = styled.img`
+  width: 2em;
+  position: absolute;
+  right: 40px;
+  cursor: pointer;
+  padding: 6px 20px 6px 0;
+  @media screen and (max-width: 768px) {
+    right: 0;
+  }
+`;

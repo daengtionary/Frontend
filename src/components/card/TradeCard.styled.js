@@ -43,6 +43,8 @@ export const ItemNameSpan = styled.span`
   font-size: 15px;
   font-weight: 600;
   margin-left: 2px;
+  max-height: 21px;
+  overflow: hidden;
 `;
 
 export const ItemPriceSpan = styled.span`
