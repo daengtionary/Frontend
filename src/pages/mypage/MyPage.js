@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
 import { useRef, useState } from "react";
-import { TbCameraPlus, TbGenderFemale, TbGenderMale } from "react-icons/tb";
+import { TbAlignJustified, TbCameraPlus, TbGenderFemale, TbGenderMale } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -50,7 +50,7 @@ const MyPage = () => {
   console.log(data);
   //버튼에 dispatch 달아서 특정 강아지 정보만 가져오도록하자
   const dogData = data.dogs;
-  console.log(dogData.length);
+  console.log(dogData);
   const dogList = useSelector((state) => state.myPage.myDogInfo);
   console.log(dogList);
   const myDogList = useSelector((state) => state.myPage.myDogList);
@@ -64,16 +64,19 @@ const MyPage = () => {
     {
       name: "name",
       placeholder: "강아지이름",
+      length: 8,
       defaultValue: dogList.name,
     },
     {
       name: "breed",
       placeholder: "강이지종류",
+      length: 12,
       defaultValue: dogList.breed,
     },
     {
       name: "weight",
       placeholder: "몸무게(kg)",
+      length: 4,
       defaultValue: dogList.weight + " kg",
     },
     // {
@@ -153,7 +156,7 @@ const MyPage = () => {
   return (
     <StyledMyPageWrap>
       <StyledMyPageProfileWrap>
-        <StyledMyPageProfileTitle width={"55em"}>댕과사전 마이페이지</StyledMyPageProfileTitle>
+        <StyledMyPageProfileTitle width={"55em"}>마이페이지</StyledMyPageProfileTitle>
         {/* <StyledMyPageNavWrap>
           <StyledMyPageNavButton color={"#000"} background={"#cccccc80"}>
             프로필
@@ -199,6 +202,7 @@ const MyPage = () => {
                   bd_bottom: "#ccc",
                   bd: "1px solid transparent",
                   lineHeight: "50px",
+                  // pd_right: "4em",
                 }}
               />
             ) : (
@@ -210,6 +214,7 @@ const MyPage = () => {
                 placeholder={"닉네임"}
                 _onChange={onChangeProfile}
                 type="text"
+                _maxLength={8}
                 style={{
                   bg_color: "#f5f5f8",
                   mg_top: "1.6em",
@@ -220,6 +225,7 @@ const MyPage = () => {
                   bd_bottom: "#ccc",
                   bd: "1px solid transparent",
                   lineHeight: "50px",
+                  // pd_right: "4em",
                 }}
               />
             )}
@@ -275,18 +281,17 @@ const MyPage = () => {
             />
           ) : null}
           {/*/////////////////////////////*/}
-          {dogData.length !== 0 ? (
+          {dogData.length === 1 ? (
             <StyledSwiper
               spaceBetween={36}
               slidesPerView={1}
-              navigation
               pagination={{ clickable: true }}
               // autoplay={{ delay: 3000, disableOnInteraction: false }}
-              loop={true}
+              loop={false}
               centeredSlides={true}
               initialSlide={0}
             >
-              {dogData.map((dog, i) => (
+              {dogData?.map((dog, i) => (
                 <SwiperSlide key={dog.dogNo}>
                   <StyledDogInfoSlide>
                     <StyledDeleteButton
@@ -303,7 +308,7 @@ const MyPage = () => {
                     </button> */}
                     <StyledMyPageDogImgBox>
                       <StyledMyPageDogImg src={`${dog.image}`} />
-                      <StyledMyPageDogImgDot
+                      {/* <StyledMyPageDogImgDot
                       // onClick={onClickDogInput}
                       >
                         <TbCameraPlus
@@ -321,11 +326,80 @@ const MyPage = () => {
                           type="file"
                           accept="image/*"
                         />
-                      </StyledMyPageDogImgDot>
+                      </StyledMyPageDogImgDot> */}
                     </StyledMyPageDogImgBox>
                     <StyledDogInfoSlideText>{dog.name}</StyledDogInfoSlideText>
                     <StyledDogInfoSlideText>{dog.breed}</StyledDogInfoSlideText>
-                    <StyledDogInfoSlideText>{dog.weight} kg</StyledDogInfoSlideText>
+                    <StyledDogInfoSlideText>{dog.weight !== 0 ? dog.weight + " kg" : "모름"}</StyledDogInfoSlideText>
+                    {dog.gender === "암컷" ? (
+                      <StyledGenderButtonWrap style={{ width: "100%" }}>
+                        <StyledGenderButton style={{ color: "#6563FF", border: "2px solid #6563ff" }}>
+                          <TbGenderFemale color={"##"} size={18} />
+                          여아
+                        </StyledGenderButton>
+                      </StyledGenderButtonWrap>
+                    ) : (
+                      <StyledGenderButtonWrap style={{ width: "100%" }}>
+                        <StyledGenderButton style={{ color: "#6563FF", border: "2px solid #6563ff" }}>
+                          <TbGenderMale color={"#6563FF"} size={18} />
+                          남아
+                        </StyledGenderButton>
+                      </StyledGenderButtonWrap>
+                    )}
+                  </StyledDogInfoSlide>
+                </SwiperSlide>
+              ))}
+            </StyledSwiper>
+          ) : dogData.length !== 0 ? (
+            <StyledSwiper
+              spaceBetween={36}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+              // autoplay={{ delay: 3000, disableOnInteraction: false }}
+              loop={true}
+              centeredSlides={true}
+              initialSlide={0}
+            >
+              {dogData?.map((dog, i) => (
+                <SwiperSlide key={dog.dogNo}>
+                  <StyledDogInfoSlide>
+                    <StyledDeleteButton
+                      onClick={() => {
+                        deleteDogHandler(dog.dogNo);
+                      }}
+                    />
+                    {/* <button
+                      onClick={() => {
+                        deleteDogImgHandler(dog.dogNo);
+                      }}
+                    >
+                      사진삭제
+                    </button> */}
+                    <StyledMyPageDogImgBox>
+                      <StyledMyPageDogImg src={`${dog.image}`} />
+                      {/* <StyledMyPageDogImgDot
+                      // onClick={onClickDogInput}
+                      >
+                        <TbCameraPlus
+                          style={{
+                            position: "absolute",
+                            top: "2.5px",
+                            right: "2.5px",
+                          }}
+                          size="14"
+                          color="#fff"
+                        />
+                        <StyledMyPageDogImgInput
+                          ref={dogImgRef}
+                          // onChange={onImgHandler}
+                          type="file"
+                          accept="image/*"
+                        />
+                      </StyledMyPageDogImgDot> */}
+                    </StyledMyPageDogImgBox>
+                    <StyledDogInfoSlideText>{dog.name}</StyledDogInfoSlideText>
+                    <StyledDogInfoSlideText>{dog.breed}</StyledDogInfoSlideText>
+                    <StyledDogInfoSlideText>{dog.weight !== 0 ? dog.weight + " kg" : "모름"}</StyledDogInfoSlideText>
                     {dog.gender === "암컷" ? (
                       <StyledGenderButtonWrap style={{ width: "100%" }}>
                         <StyledGenderButton style={{ color: "#6563FF", border: "2px solid #6563ff" }}>

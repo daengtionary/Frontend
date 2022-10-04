@@ -15,7 +15,7 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const dogImgRef = useRef();
-  const [dogProfile, setDogProfile] = useState({});
+  const [dogProfile, setDogProfile] = useState({ name: "", breed: "", weight: "0", gender: "" });
   const [myDogImg, setMyDogImg] = useState("");
   const [checked, setChecked] = useState([false, false]);
   const genderButtonList = [
@@ -91,13 +91,17 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
     for (const keyValue of formdata) console.log(keyValue);
     console.log(dogProfile.weight.replace(/[^0-9]/g, ""));
     // formdata전송
-    const addDogconfirm = file && window.confirm("강아지 프로필을 추가하시겠습니까?");
-    if (addDogconfirm === true) {
-      dispatch(addDogThunk(formdata));
-      onModalHandler();
-      alert("등록완료!");
-    } else if (addDogconfirm === false) {
-      return;
+    if (dogProfile.name !== "" && dogProfile.breed !== "" && dogProfile.gender !== "") {
+      const addDogconfirm = file && window.confirm("강아지 프로필을 추가하시겠습니까?");
+      if (addDogconfirm === true) {
+        dispatch(addDogThunk(formdata));
+        onModalHandler();
+        alert("등록완료!");
+      } else if (addDogconfirm === false) {
+        return;
+      }
+    } else {
+      alert("빈칸을 모두 입력해주세요!");
     }
     // dispatch(addDog(formdata));
   };
@@ -130,11 +134,11 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
         {dogProfileInputList.map((inputList, i) => (
           <div key={i} style={{ width: "80%" }}>
             <Input
-              // key={i}
-
               key={inputList.defaultValue}
               // defaultValue={inputList.defaultValue}
               placeholder={inputList.placeholder}
+              type="text"
+              _maxLength={inputList.length}
               _onChange={onChangeDogProfile}
               name={inputList.name}
               style={{
