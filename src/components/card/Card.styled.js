@@ -47,7 +47,7 @@ export const StyledCardImgBox = styled.div`
   /* margin: 0 1.5em; */
   overflow: hidden;
   border-radius: 20px;
-  transition: all 0.2s;
+  transition: transform 0.2s, border-radius 0.2s;
 
   :hover {
   }
@@ -62,7 +62,7 @@ export const StyledCardImg = styled.div`
   background: ${(props) => `url(${props.background}) center / cover no-repeat `};
   min-height: 100%;
   width: 18em;
-  transition: all 0.2s;
+  transition: transform 0.2s, border-radius 0.2s;
   :hover {
     border-radius: 20px 20px 0 0;
   }
