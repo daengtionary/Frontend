@@ -417,7 +417,7 @@ const StyledMenuTitle = styled.h2`
 const StyledMainCommentCard = styled.div``;
 
 export const ItemDetailImg = styled.img`
-  width: 90%;
+  width: 100%;
   height: 90%;
   @media screen and (max-width: 768px) {
     width: 400px;
@@ -426,6 +426,9 @@ export const ItemDetailImg = styled.img`
 `;
 
 const StyleGuide = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 1400px;
   height: 900px;
   .swipe {
@@ -443,6 +446,7 @@ const StyleGuide = styled.div`
 `;
 
 const Dim = styled.div`
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
