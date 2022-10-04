@@ -71,7 +71,7 @@ export const StyledMatchingCardText = styled.div`
 
 export const StyledMatchingHeartButton = styled.div`
   position: absolute;
-  font-size: 1.6em;
+  font-size: 30px;
   top: 0;
   right: 1em;
 `;

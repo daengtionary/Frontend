@@ -94,15 +94,13 @@ const TradeDetail = () => {
               centeredSlides={true}
               style={{ backgroundColor: 'white' }}
             >
-              <SwiperSlide>
-                <ItemDetailImg src={item.tradeImgUrl[0]} />
+          {item.tradeImgUrl?.map((el, i) =>{
+            return (
+              <SwiperSlide key = {i}>
+                <ItemDetailImg src={el} />
               </SwiperSlide>
-              <SwiperSlide>
-                <ItemDetailImg src={item.tradeImgUrl[1]} />
-              </SwiperSlide>
-              <SwiperSlide>
-                <ItemDetailImg src={item.tradeImgUrl[2]} />
-              </SwiperSlide>
+            );
+          })}
             </StyledSwiper>
           </ImgBox>
           <ItemContentBox>

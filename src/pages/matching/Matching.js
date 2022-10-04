@@ -54,6 +54,7 @@ const Matching = () => {
   }, [pageNum]);
 
   return (
+    <>
     <StyledMatchingAll>
       <StyledSerchFilterBox>
         <StyledSerchWrap>
@@ -80,7 +81,6 @@ const Matching = () => {
               src={searchIcon}
             />
           </StyledSerchBox>
-
           <StyledFilterBox>
             <Button
               _onClick={() => {
@@ -121,8 +121,9 @@ const Matching = () => {
           />
         );
       })}
-      {!listEnd ? null : <h3 style={{ textAlign: "center" }}>데이터가 모두 로딩 되었습니다.</h3>}
     </StyledMatchingAll>
+    {!listEnd ? null : <h3 style={{ textAlign: "center" }}>데이터가 모두 로딩 되었습니다.</h3>}
+  </>
   );
 };
 
