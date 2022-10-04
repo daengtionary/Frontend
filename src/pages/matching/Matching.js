@@ -1,9 +1,8 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import {useEffect, useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { StyledMatchingAll } from './Matching.styled';
 
-import { chatApis } from '../../shared/api';
-import { useState } from 'react';
+// import { chatApis } from '../../shared/api';
 import MatchingCard from "../../components/card/MatchingCard"
 import searchIcon from '../../static/image/search.png';
 import { StyledSerchWrap, StyledSerchBox, StyledSerchImg, StyledFilter, StyledFilterBox } from '../animalhospital/List';
@@ -11,12 +10,52 @@ import { StyledSerchFilterBox } from '../trade/Trade.styled';
 import Input from '../../elements/input/Input';
 import Button from '../../elements/button/Button';
 import { useNavigate } from 'react-router-dom';
+import { getMatching, clearMatchingItem } from '../../redux/modules/matchingSlice';
 
 const Matching = () => {
-  const id = window.localStorage.getItem('nick');
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+    const [page, setPage] = useState(0);
+    const [fetch, setFetch] = useState('');
+  
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const items = useSelector((state) => state.matching.getMatching);
+    console.log(items)
+  
+    const handleScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight - 1;
+      const scrollTop = document.documentElement.scrollTop;
+      const clientHeight = document.documentElement.clientHeight;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        setPage((page) => page + 1);
+      }
+    };
+  
+    useEffect(() => {
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+  
+    useEffect(() => {
+      dispatch(clearMatchingItem);
+    }, []);
+  
+  
+    useEffect(() => {
+      async function fetchMatching() {
+         await dispatch(
+          getMatching({
+            pagenum: page,
+            size: '4',
+          })                
+        );       
+      }
+      fetchMatching();
+    }, [page]);
+
+
 
   return (
     <StyledMatchingAll>
@@ -47,16 +86,6 @@ const Matching = () => {
           </StyledSerchBox>
 
           <StyledFilterBox>
-            {/* <StyledFilter
-              name="sort"
-              width={'60px'}
-            >
-              <option select="true">
-                정렬
-              </option>
-              <option value="new">최신 순</option>
-              <option value="hot">인기 순</option>
-            </StyledFilter> */}
             <Button
             _onClick={()=>{navigate('/matchingPosting')}}
             text={"글쓰기"}
@@ -78,10 +107,22 @@ const Matching = () => {
           </StyledFilterBox>
         </StyledSerchWrap>
       </StyledSerchFilterBox>
-      <MatchingCard/>
-      <MatchingCard/>
-      <MatchingCard/>
-      <MatchingCard/>
+      {items.map((item) =>{
+        return (
+          <MatchingCard 
+          key={item.friendNo}
+          id={item.friendNo}
+          limit={item.maxCount}
+          member={item.member}
+          roomNo={item.roomNo}
+          title={item.title}
+          address={item.address}
+          content={item.content}
+          status={item.status}
+          count={item.count}
+          />
+        )
+      })}
     </StyledMatchingAll>
   );
 };

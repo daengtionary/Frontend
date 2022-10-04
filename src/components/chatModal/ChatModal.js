@@ -28,26 +28,26 @@ const ChatModal = () => {
   const navigate = useNavigate();
   const roomNo = window.localStorage.getItem("memberNo");
 
-  let token = window.sessionStorage.getItem("authorization");
-  // 토큰 decode 하는 부분
-  let decoded = token && jwtDecode(token);
-  // 토큰 만료시간
-  let exp = token && Number(decoded.exp + "000");
-  let expTime = new Date(exp);
-  console.log(expTime, "만료 시간");
-  let now = new Date();
-  console.log(now, "현재 시간");
-  const checkToken = () => {
-    if (expTime <= now || token === null) {
-      token && window.sessionStorage.removeItem("authorization");
-      alert("로그인이 필요합니다!");
-      navigate("/signin");
-    } 
-  };
+  // let token = window.sessionStorage.getItem("authorization");
+  // // 토큰 decode 하는 부분
+  // let decoded = token && jwtDecode(token);
+  // // 토큰 만료시간
+  // let exp = token && Number(decoded.exp + "000");
+  // let expTime = new Date(exp);
+  // console.log(expTime, "만료 시간");
+  // let now = new Date();
+  // console.log(now, "현재 시간");
+  // const checkToken = () => {
+  //   if (expTime <= now || token === null) {
+  //     token && window.sessionStorage.removeItem("authorization");
+  //     alert("로그인이 필요합니다!");
+  //     navigate("/signin");
+  //   } 
+  // };
 
-  useEffect(() => {
-    checkToken();
-  }, []);
+  // useEffect(() => {
+  //   checkToken();
+  // }, []);
 
 
   useEffect(() => {
@@ -77,9 +77,9 @@ const ChatModal = () => {
   return (
     <>
     <FloatWrap>
-      <Dim onClick={()=>{navigate('/')}} />
+      <Dim />
       <Wrap>
-        <LeftWrap isRoom={roomNo}>
+        <LeftWrap>
           <Title>
             댕톡
             <img src={cencel} alt="exit" onClick={()=>{navigate('/');}}/>
