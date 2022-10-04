@@ -5,9 +5,9 @@ import { getTrade, clearTradeItem } from '../../redux/modules/tradeSlice';
 import { useCallback } from 'react';
 
 // 스타일 컴포넌트
-import { TradeAll, TradeFullBox, CardList, StyledSerchFilterBox, StyledTradeFilterBox, StyledSerchImg } from './Trade.styled';
+import { TradeAll, TradeFullBox, CardList, StyledSerchFilterBox, StyledTradeFilterBox, StyledSerchImg, StyledSerchBox } from './Trade.styled';
 
-import { StyledSerchWrap, StyledSerchBox } from '../animalhospital/List';
+import { StyledSerchWrap } from '../animalhospital/List';
 
 import { useNavigate } from 'react-router-dom';
 import Input from '../../elements/input/Input';
@@ -94,8 +94,7 @@ const Trade = () => {
               // _onChange={onChangeHandler}
               placeholder={'어떤 물건을 찾으세요?'}
               style={{
-                width: '45%',
-                mg_left: '3.6em;',
+                width: '140px',
                 bd_radius: '3em',
                 bg_color: '#eee',
                 bd: 'none',

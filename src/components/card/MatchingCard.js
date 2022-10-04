@@ -25,22 +25,22 @@ export const MatchingCard = ({id, limit, member, roomNo, title, address, categor
          {title}
         </StyledMatchingCardText>
         <StyledMatchingCardText color="#000" margin="6px 0" fontSize=".9em" fontWeight="400">
-        최대  {limit}명까지
+        최대 : {limit}명까지
         </StyledMatchingCardText>
         <StyledMatchingCardText color="#000" margin="6px 0" fontSize=".9em" fontWeight="400">
-        현재  {count}명
+        현재 : {count}명
         </StyledMatchingCardText>
         <StyledMatchingCardText color="#000" margin="6px 0" fontSize=".9em" fontWeight="400">
-        매칭 현황  {status}
+        매칭 현황  :  {status}
         </StyledMatchingCardText>
         <StyledMatchingCardText color="#999" margin="6px 0" fontSize="1em" fontWeight="700">
-        {address}
+        주소 : {address}
         </StyledMatchingCardText>
         <StyledMatchingCardText color="#999" margin="6px 0" fontSize=".9em" fontWeight="400" height="10em">
-        {content}
+        상세설명: {content}
         </StyledMatchingCardText>
 
-        <StyledMatchingHeartButton>{category}</StyledMatchingHeartButton>
+        <StyledMatchingHeartButton>{category} 카테고리</StyledMatchingHeartButton>
 
         {/* {console.log(data.mapImgUrl)} */}
 
