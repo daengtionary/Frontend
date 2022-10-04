@@ -81,7 +81,7 @@ const SignIn = () => {
                     bd: "0px",
                     bd_bottom: "gray",
                   }}
-                  placeholder={"아이디를 입력하세요"}
+                  placeholder={"이메일을 입력하세요"}
                 />
               </SignInLoginEmail>
               <SignInLoginPassword>
