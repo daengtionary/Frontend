@@ -8,7 +8,7 @@ import ChatFloatButton from "../components/chatFloatButton/ChatFloatButton";
 import arrowIcon from "../static/image/arrowIcon.png";
 import commentIcon from "../static/image/commentIcon.png";
 
-const TopButton = () => {
+const TopButton = ({setModalOn, modalOn}) => {
   const [isTopButtonOn, setIsTopButtonOn] = useState(false);
 
   useEffect(
@@ -39,9 +39,9 @@ const TopButton = () => {
         hvScale={"scale(1.3)"}
         rotate={"rotate(-90deg)"}
       />
-      <Link to={`/chat`}>
-        <StyledTopBtnImg src={commentIcon} padding={"6px"} width={"28px"} height={"28px"} scale={"scaleX(-1)"} hvScale={"scaleX(-1.3) scaleY(1.3)"} />
-      </Link>
+      {/* <Link to={`/chat`}> */}
+        <StyledTopBtnImg src={commentIcon} padding={"6px"} width={"28px"} height={"28px"} scale={"scaleX(-1)"} hvScale={"scaleX(-1.3) scaleY(1.3)"} onClick={()=>setModalOn(!modalOn)}/>
+      {/* </Link> */}
     </StyledTopBtn>
   ) : (
     <StyledTopBtn height={"50px"}>
@@ -54,9 +54,7 @@ const TopButton = () => {
         // scale={"scaleX(0)"}
         rotate={"rotate(-90deg)"}
       />
-      <Link to={`/chat`}>
-        <StyledTopBtnImg src={commentIcon} padding={"6px"} width={"28px"} height={"28px"} scale={"scaleX(-1)"} hvScale={"scaleX(-1.3) scaleY(1.3)"} />
-      </Link>
+        <StyledTopBtnImg src={commentIcon} padding={"6px"} width={"28px"} height={"28px"} scale={"scaleX(-1)"} hvScale={"scaleX(-1.3) scaleY(1.3)"} onClick={()=>setModalOn(!modalOn)}/>
     </StyledTopBtn>
   );
 };

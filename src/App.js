@@ -35,21 +35,21 @@ import styled from "styled-components";
 function App() {
 
   const [modalOn, setModalOn] = useState(false)
+  const [roomOn, setRoomOn] = useState(false)
 
   return (
     <>
       <Midea>
         <ScrollToTop />
+        {modalOn&&<ChatModal setModalOn ={setModalOn} modalOn ={modalOn} setRoomOn ={setRoomOn} roomOn ={roomOn}></ChatModal >}
+        {/* {roomOn&&<ChatRoom setRoomOn ={setRoomOn} roomOn ={roomOn}></ChatRoom >} */}
+
         <Routes>
-          <Route exact path={"/chat"} element={<ChatModal />} />
-          <Route exact path={"/chat/:roomNo"} element={<ChatRoom />} />
+          <Route exact path={`/chat/:roomNo`} element ={<ChatRoom/>}/>
         </Routes>
-        {/* {modalOn&&<ChatModal></ChatModal>}
-        <button onClick={()=>{setModalOn(!modalOn)}}>채팅모달버튼</button> */}
 
         <Header />
-        {/* <ChatFloatButton /> */}
-        <TopButton/>
+        <TopButton setModalOn ={setModalOn} modalOn ={modalOn}/>
         {/* 내일은 탑 버튼에 modalOn을 내려줘보고 버튼으로 테스트해볼 예정 */}
         <Routes>
           <Route exact path={"/signIn"} element={<SignIn />} />
