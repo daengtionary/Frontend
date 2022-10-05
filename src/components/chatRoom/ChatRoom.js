@@ -60,7 +60,8 @@ const ChatRoom = () => {
             dispatch(
               updateRoomMessage({
                 ...messageFromServer,
-                index: location.state.index ?? 0,
+                // index: location.state.index ?? 0,
+                roomNo: roomNo ?? 0,
               })
             );
           },
@@ -107,7 +108,10 @@ const ChatRoom = () => {
     return () => {
       // 언마운트 시 연결 해제
       if (stompClient.current) socketDisconnect();
-      dispatch(readMessage(location.state.index));
+      dispatch(readMessage(
+        // location.state.index
+        roomNo
+        ));
     };
   }, [roomNo]);
 

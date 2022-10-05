@@ -23,9 +23,8 @@ import cencel from "../../static/image/cencel.png";
 
 
 // 채팅 모달
-const ChatModal = () => {
+const ChatModal = ({setModalOn, modalOn, setRoomOn, roomOn}) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const roomNo = window.localStorage.getItem("memberNo");
 
   // let token = window.sessionStorage.getItem("authorization");
@@ -82,11 +81,11 @@ const ChatModal = () => {
         <LeftWrap>
           <Title>
             댕톡
-            <img src={cencel} alt="exit" onClick={()=>{navigate('/');}}/>
+            <img src={cencel} alt="exit" onClick={()=>{setModalOn(!modalOn)}}/>
           </Title>
           <ListWrap>
             <ChatRoomList 
-            roomId={roomNo} />
+            setRoomOn={setRoomOn} roomOn={roomOn} />
           </ListWrap>
         </LeftWrap>
       </Wrap>

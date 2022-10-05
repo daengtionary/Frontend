@@ -107,7 +107,7 @@ const TradeDetail = () => {
                 );
               })}
               <span>
-                현재 인원 <span className="sellInfo">{item.count + 1}</span>
+                현재 인원 <span className="sellInfo">{item.count}</span>
               </span>
               {console.log(item.member?.nick)}
               <span>
