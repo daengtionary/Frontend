@@ -42,11 +42,11 @@ function App() {
       <Midea>
         <ScrollToTop />
         {modalOn&&<ChatModal setModalOn ={setModalOn} modalOn ={modalOn} setRoomOn ={setRoomOn} roomOn ={roomOn}></ChatModal >}
-        {/* {roomOn&&<ChatRoom setRoomOn ={setRoomOn} roomOn ={roomOn}></ChatRoom >} */}
+        {roomOn&&<ChatRoom setRoomOn ={setRoomOn} roomOn ={roomOn}></ChatRoom >}
 
-        <Routes>
+        {/* <Routes>
           <Route exact path={`/chat/:roomNo`} element ={<ChatRoom/>}/>
-        </Routes>
+        </Routes> */}
 
         <Header />
         <TopButton setModalOn ={setModalOn} modalOn ={modalOn}/>
