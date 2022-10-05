@@ -1,5 +1,5 @@
 // Packages import
-import { Route, useLocation, Routes } from 'react-router-dom';
+import { Route, useLocation, Routes} from 'react-router-dom';
 import { useState } from 'react';
 
 // Pages
@@ -12,7 +12,6 @@ import Detail from './pages/detail/Detail';
 import Service from './pages/service/Service';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import ChatFloatButton from './components/chatFloatButton/ChatFloatButton';
 import ChatModal from './components/chatModal/ChatModal';
 import Trade from './pages/trade/Trade';
 import TradeDetail from './pages/tradeDetail/TradeDetail';
@@ -42,7 +41,7 @@ function App() {
         <ScrollToTop />
 
         {modalOn && <ChatModal modalOn={modalOn} setModalOn={setModalOn} />}
-        <Routes>{background && <Route exact path={"/chat"} element={<ChatRoom />} />}</Routes>
+        <Routes>{background && <Route exact path={'/chat'} element={<ChatRoom />} />}</Routes>
 
         <Header />
         <TopButton modalOn={modalOn} setModalOn={setModalOn} />
@@ -63,14 +62,14 @@ function App() {
           <Route exact path={'/tradePosting'} element={<TradePosting />} />
           <Route exact path={'/tradeDetail/:id'} element={<TradeDetail />} />
           <Route exact path={'/kakao/callback'} element={<Kakao />} />
-          <Route exact path={'/'} element={<Main />} />
+          <Route exact index element={<Main />} />
           <Route exact path={'*'} element={<Main />} />
           <Route exact path={'/matching'} element={<Matching />} />
           <Route exact path={'/matchingDetail/:id'} element={<MatchingDetail />} />
           <Route exact path={'/matchingPosting'} element={<MatchingPosting />} />
           <Route exact path={'/dog-walk'} element={<DogWalk />} />
           <Route exact path={'/placeposting'} element={<PlacePosting />} />
-          <Route exact path={"/chat"} element={<ChatRoom />} />
+          <Route exact path={'/chat'} element={<ChatRoom />} />
         </Routes>
         <Footer />
       </Midea>
@@ -85,7 +84,6 @@ const Midea = styled.div`
     width: 425px;
     height: 100%;
     border-radius: 0;
-    /* background-color: #cc00ff50; */
     box-shadow: 0px 0px 10px #ccc;
   }
 `;

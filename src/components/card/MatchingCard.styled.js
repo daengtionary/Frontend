@@ -97,7 +97,6 @@ export const StyledMatchingCardText = styled.div`
     display: flex; 
     font-size: 15px;
     text-align: left;
-    background-color: aliceblue;
     max-width: 80%;
     overflow: hidden;
     font-weight: 500;

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import heartIcon from "../../static/image/heart.png";
 
 const ListPageCard = ({ data, onClick }) => {
-  // const navigate = useNavigate();
   return (
     <StyledCardBox onClick={onClick}>
       <StyledCardImgBox>
