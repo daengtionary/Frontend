@@ -16,10 +16,10 @@ import {
   StyleShowImage,
   StylePreviewBox,
   StyledInputField,
-  StyledInput
-} from "./MatchingPosting.styled"
+  StyledInput,
+} from "./MatchingPosting.styled";
 import { useDispatch } from "react-redux";
-import {postingMatching} from "../../redux/modules/matchingSlice";
+import { postingMatching } from "../../redux/modules/matchingSlice";
 import React from "react";
 
 //리액트 아이콘
@@ -34,24 +34,26 @@ const MatchingPosting = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [detail, setDetail] = useState("");
-  const [placeInfo, setPlaceInfo] = useState ('')
+  const [placeInfo, setPlaceInfo] = useState("");
   // const [placeInfo, setPlaceInfo] = useState({ data: { title: "", category: "hospital", address: "", content: "" }, imgUrl: [] });
-  const [maxCount, setMaxcount] = useState()
+  const [maxCount, setMaxcount] = useState();
 
   const postingData = {
     data: {
-      "title": title,
-      "address": placeInfo,
-      "content": detail,
-      "category": category,
-      "maxCount": maxCount
+      title: title,
+      address: placeInfo,
+      content: detail,
+      category: category,
+      maxCount: maxCount,
     },
-    imgUrl: fileImage
+    imgUrl: fileImage,
   };
+  console.log(placeInfo);
+  console.log(postingData);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-   const addrRef = useRef();
+  const addrRef = useRef();
 
   //이미지 상대경로 저장, 요청 이미지 저장
   const uploadImage = useCallback(
@@ -116,7 +118,7 @@ const MatchingPosting = () => {
         console.log(addr);
         console.log(addrRef);
         addrRef.current.value = addr;
-        setPlaceInfo({ ...placeInfo, data: { ...placeInfo.data, address: addr } });
+        setPlaceInfo(addr);
       },
     }).open();
   };
@@ -131,25 +133,24 @@ const MatchingPosting = () => {
   };
 
   const onSubmitHandler = () => {
-    console.log(postingData)
+    console.log(postingData);
     dispatch(postingMatching(postingData))
-    .unwrap()
-    .then((res) => {
-      alert(res.message);
-      navigate("/matching")
-    })
-    .catch((error) =>{
-      console.log(error)
-    })
+      .unwrap()
+      .then((res) => {
+        alert(res.message);
+        navigate("/matching");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-
 
   return (
     <>
-      <StyleTradePostingForm >
-      <StyleTradePageTopTitle>
-        <span>댕친구 등록하기</span>
-      </StyleTradePageTopTitle>
+      <StyleTradePostingForm>
+        <StyleTradePageTopTitle>
+          <span>댕친구 등록하기</span>
+        </StyleTradePageTopTitle>
         <StyleTradePostingImageBox>
           <span>이미지 업로드 </span>
           <StyleTradeUplodeLabel onChange={uploadImage} htmlFor="input-file">
@@ -179,7 +180,7 @@ const MatchingPosting = () => {
               pd_left: "10px",
               mg_right: "0px",
               bd: "1px solid lightGray ",
-              bd_bottom:"1px solid lightGray ",
+              bd_bottom: "1px solid lightGray ",
               bd_radius: "10px",
             }}
             placeholder={"제목을 입력해주세요"}
@@ -206,19 +207,19 @@ const MatchingPosting = () => {
           <span>최대 인원</span>
           <div>
             <Input
-              type={'text'}
+              type={"text"}
               value={maxCount}
               _onChange={(e) => setMaxcount(e.target.value)}
               style={{
-                width: '20%',
-                height: '40px',
-                pd_left: '10px',
-                mg_right: '0px',
-                bd: '1px solid lightGray ',
-                bd_bottom: '1px solid lightGray ',
-                bd_radius: '10px',
+                width: "20%",
+                height: "40px",
+                pd_left: "10px",
+                mg_right: "0px",
+                bd: "1px solid lightGray ",
+                bd_bottom: "1px solid lightGray ",
+                bd_radius: "10px",
               }}
-              placeholder={'최대 인원 수'}
+              placeholder={"최대 인원 수"}
             />
             &nbsp;
             <span className="won">명</span>
@@ -272,7 +273,7 @@ const MatchingPosting = () => {
               pd_left: "10px",
               mg_right: "0px",
               bd: "1px solid lightGray ",
-              bd_bottom:"1px solid lightGray ",
+              bd_bottom: "1px solid lightGray ",
               bd_radius: "10px",
             }}
             placeholder={"상품에 대해 설명해주세요"}
