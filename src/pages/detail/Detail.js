@@ -5,8 +5,6 @@ import Map from "../../components/map/Map";
 import { TbPhoneCall } from "react-icons/tb";
 import { BiCar } from "react-icons/bi";
 import { FiClock } from "react-icons/fi";
-import { HiOutlineLocationMarker } from "react-icons/hi";
-import { BsStarFill, BsStar } from "react-icons/bs";
 import {
   StyledSwiper,
   DetailContainer,
@@ -16,26 +14,17 @@ import {
   BusinessDescription,
   ReviewWrap,
   StarRating,
-  StarIcon,
   BusinessInfo,
   Description,
   Infotmations,
   DescriptionTitle,
   StyledDescriptionContents,
-  ReservationWrap,
-  CalendarWrap,
-  TimeWrap,
-  ResevationTop,
-  ResevationBottom,
-  TimeBox,
-  StyledTimeRow,
   ReviewCard,
   ProfileImg,
   Nick,
   Star,
   DetailMainImg,
   MapTooltip,
-  StarNum,
 } from "./Detail.styled";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
@@ -44,7 +33,6 @@ import "swiper/components/pagination/pagination.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailThunk } from "../../redux/modules/detailSlice";
 import { useParams } from "react-router-dom";
-
 import { showStars } from "../../shared/showStars";
 
 SwiperCore.use([Pagination, Autoplay, Navigation]);
@@ -52,20 +40,12 @@ SwiperCore.use([Pagination, Autoplay, Navigation]);
 const Detail = () => {
   const dispatch = useDispatch();
   const [mapModal, setMapModal] = useState(false);
-
-  const [calendar, setCalendar] = useState(new Date());
-
   const modalHandler = () => {
     setMapModal(!mapModal);
   };
 
   let data = useSelector((state) => state.detail.detail);
-  console.log(data);
-  
   const { id } = useParams();
-  console.log(id);
-
-  const payload = { id: id };
 
   useEffect(() => {
     dispatch(getDetailThunk(id));
@@ -109,19 +89,14 @@ const Detail = () => {
         <div>{data.mapDetailSubResponseDto?.mapStar}</div>
       </StarRating>
 
-
       <MapAddress>
-        <div style={{display:"flex"}}>
-
-        <span onClick={modalHandler}>
-          <MapMark alt="mapMark" src={`${process.env.PUBLIC_URL}/img/mapLocation.png`} />
-          {/* <HiOutlineLocationMarker size={24} /> */}
-        </span>
-        <span>{data.mapDetailSubResponseDto?.address.split(",").at(0)}주소</span>
+        <div style={{ display: "flex" }}>
+          <span onClick={modalHandler}>
+            <MapMark alt="mapMark" src={`${process.env.PUBLIC_URL}/img/mapLocation.png`} />
+          </span>
+          <span>{data.mapDetailSubResponseDto?.address.split(",").at(0)}주소</span>
         </div>
-      <MapTooltip className="task-tooltip">
-          여기를 클릭해 지도정보를 살펴보세요
-      </MapTooltip>
+        <MapTooltip className="task-tooltip">여기를 클릭해 지도정보를 살펴보세요</MapTooltip>
       </MapAddress>
 
       <BusinessInfo>

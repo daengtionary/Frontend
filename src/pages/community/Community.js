@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import CommunityCard from "../../components/communityCard/CommunityCard";
-import CommunityPost from "../../components/communityPost/CommunityPost";
 import SearchBar from "../../components/searchBar/SearchBar";
-
 import {
   StyledCommunityContainer,
   StyledCommunityWrap,
@@ -11,44 +9,25 @@ import {
   StyledButtonWrap,
   StyledCommunityTop,
   TopLayout,
-  StyledSerchImg,
 } from "./Community.styled";
-import { StyledModalBackground } from "../../components/map/Map.styled";
 import jwtDecode from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCommunityPostListThunk, pageUp, resetPosted } from "../../redux/modules/communitySlice";
 import PostModal from "../../components/PostModal/PostModal";
-import Input from "../../elements/input/Input";
 import { debounce, throttle } from "lodash";
-import { TbListNumbers } from "react-icons/tb";
 
 const Community = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [postModal, setPostModal] = useState(false);
-  const [postCheck, setPostCheck] = useState(1)
-  
+  const [postCheck, setPostCheck] = useState(1);
+
   const pageNum = useSelector((state) => state.community.pageNum);
   const listEnd = useSelector((state) => state.community.isEnd);
 
-  
   const data = useSelector((state) => state.community.community);
-  // const test = useSelector((state) => state);
-  console.log(data);
-  // console.log(test);
-
-  // const filterButton = [
-  //   { name: "#전체", path: "/place" },
-  //   { name: "#동물병원", path: "/hospital" },
-  //   { name: "#애견호텔", path: "/room" },
-  //   { name: "#애견카페", path: "/cafe" },
-  // ];
-
-
-  console.log("listEnd:", listEnd);
-  console.log(pageNum);
 
   useEffect(
     throttle(() => {
@@ -71,30 +50,23 @@ const Community = () => {
     dispatch(getCommunityPostListThunk(pageNum));
   }, [pageNum]);
 
-  useEffect(()=>{
-    dispatch(resetPosted())
-    dispatch(getCommunityPostListThunk(0))
-  }, [postCheck])
-
+  useEffect(() => {
+    dispatch(resetPosted());
+    dispatch(getCommunityPostListThunk(0));
+  }, [postCheck]);
 
   const userNick = window.localStorage.getItem("nick");
 
-
-  // 토큰 변수 할당
   let token = window.sessionStorage.getItem("authorization");
-
-  // 토큰 decode
   let decoded = token && jwtDecode(token);
 
   const modalHandler = () => {
-    // 토큰 만료시간
     let exp = token && Number(decoded.exp + "000");
     let expTime = new Date(exp);
     console.log("만료 시간:", expTime);
     let now = new Date();
     console.log("현재 시간:", now);
 
-    // 토큰 만료시간 여부 확인
     if (expTime <= now || token === null) {
       alert("로그인 해 주세요");
       navigate("/signin");
@@ -123,11 +95,11 @@ const Community = () => {
           <StyledCards>
             {data &&
               data?.map((el) => {
-                return <CommunityCard modalHandler={modalHandler} key={el.communityNo} data={el}/>;
+                return <CommunityCard modalHandler={modalHandler} key={el.communityNo} data={el} />;
               })}
           </StyledCards>
         </StyledCommunityWrap>
-        {postModal && <PostModal modalHandler={modalHandler} nick={userNick} postCheck={postCheck} setPostCheck={setPostCheck}/>}
+        {postModal && <PostModal modalHandler={modalHandler} nick={userNick} postCheck={postCheck} setPostCheck={setPostCheck} />}
       </StyledContentsLayout>
       {!listEnd ? null : <h3 style={{ textAlign: "center" }}>데이터가 모두 로딩 되었습니다.</h3>}
     </StyledCommunityContainer>

@@ -68,7 +68,6 @@ export const StyledLabel = styled.div`
   border-top-left-radius: ${(props) => props.topLeftRadius};
   border-bottom-left-radius: ${(props) => props.bottomLeftRadius};
   border-top: ${(props) => props.borderTop};
-  /* border-bottom: ${(props) => props.borderBottom}; */
   background-color: #f1f1f1;
 
   label { 

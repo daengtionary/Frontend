@@ -32,15 +32,11 @@ export const StyledSwiper = styled(Swiper)`
   z-index: 0;
 
   img {
-    /* width: auto;
-    height: 100%; */
     object-fit: contain;
   }
 
   @media screen and (max-width: 768px) {
     justify-content: flex-start;
-    /* border: 1px solid red; */
-    /* width: 80vw; */
     width: 90%;
     height: 25vh;
   }
@@ -78,7 +74,6 @@ export const MapTooltip = styled.div`
   z-index: 100;
   color: #505bf0;
   animation: jumpDown 1.5s linear 10;
-  /* animation: jumpDown1 1.5s linear infinite; */
 
   &::after {
     border-color: #eef3fd transparent;
@@ -125,7 +120,6 @@ export const MapTooltip = styled.div`
       top: 5px;
     }
     100% {
-      /* filter: hue-rotate(360deg); */
       left: 0px;
       top: 0px;
     }
@@ -144,7 +138,6 @@ export const MapAddress = styled.div`
   width: 80vw;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   color: gray;
   padding-bottom: 20px;
   margin-bottom: 50px;
@@ -188,7 +181,6 @@ export const BusinessDescription = styled.div`
 export const DescriptionTitle = styled.h3`
   margin-bottom: 30px;
   @media screen and (max-width: 768px) {
-    /* border: 1px solid red; */
     margin-bottom: 10px;
   }
 `;
@@ -295,7 +287,6 @@ export const TimeBox = styled.div`
   flex-direction: column;
   width: 100%;
   height: 80%;
-  /* border: 1px solid cyan; */
 `;
 export const StyledTimeRow = styled.div`
   display: flex;
