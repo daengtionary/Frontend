@@ -21,6 +21,7 @@ export const Nickname = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 20px;
+  color: black;
 `;
 export const Date = styled.div`
   margin-bottom: 20px;

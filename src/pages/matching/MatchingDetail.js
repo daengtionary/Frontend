@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { chatApis } from '../../shared/api';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -29,8 +29,8 @@ import commentIcon from '../../static/image/commentIcon.png';
 import dogIcon from '../../static/image/dogIcon.png';
 
 //스와이퍼
+import { StyledSwiper } from '../main/Main';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { StyledSwiper, StyledMainBanner } from '../main/Main.js';
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
@@ -42,6 +42,7 @@ SwiperCore.use([Pagination, Autoplay, Navigation]);
 const TradeDetail = () => {
   const [mapModal, setMapModal] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const item = useSelector((state) => state.matching.getMatchingDetail);
   console.log(item);
@@ -58,15 +59,13 @@ const TradeDetail = () => {
   // 매칭 룸 생성
   const onClickMatching = async () => {
     try {
-      if (item.count === 1){
-        const response = await chatApis.addMatching(friendNo);
-        console.log(response);
-        Navigate(`/chat`);
-      }else{
-        const response = await chatApis.intoMatching(friendNo);
-        console.log(response);
-        Navigate(`/chat`);
-      }
+      // if (item.count === 0) {
+      //   const response = await chatApis.addMatching(friendNo);
+      //   console.log(response);
+      // } else {
+        const response = await chatApis.intoMatching(friendNo)
+        alert(response.data.message);
+      // }
     } catch (error) {}
   };
 
@@ -86,41 +85,39 @@ const TradeDetail = () => {
             centeredSlides={true}
             style={{ backgroundColor: 'white' }}
           >
-            <SwiperSlide>
-              <ItemDetailImg src={dogIcon} />
-            </SwiperSlide>
+            {item.images?.map((image, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <ItemDetailImg src={image.friendImg} />
+                </SwiperSlide>
+              );
+            })}
           </StyledSwiper>
         </ImgBox>
         <ItemContentBox>
           <ItemTitleBox>
             <ItemNameInfoText>
-              <span className="category">{item.category}</span>
-              <span className="title">{item.address}</span>
-              <span className="place">총 모집인원 : {item.maxCount}</span>
+              <span>
+                카테고리<span className="info">#{item.category}</span>
+              </span>
             </ItemNameInfoText>
             <ItemDetailInfoText>
-              {item.tradeImgUrl?.map((el, i) => {
-                return (
-                  <SwiperSlide key={i}>
-                    <ItemDetailImg src={el} />
-                  </SwiperSlide>
-                );
-              })}
               <span>
-                현재 인원 <span className="sellInfo">{item.count}</span>
+                제목<span className="sellInfo">{item.title}</span>
               </span>
-              {console.log(item.member?.nick)}
               <span>
-                현재 멤버 <span className="sellInfo">{item.member?.nick}</span>
+                최대인원 <span className="sellInfo">{item.maxCount}</span>
               </span>
-              {/* <span>
-                현재 멤버 :
-                {item.member?.map((el,i)=> {
-                  return(
-                    <span className="sellInfo" key={i}>{el.nick}</span>    
-                )})}
-              </span> */}
-
+              <span>
+                모집현황 <span className="sellInfo">{item.status}</span>
+              </span>
+              <span>
+                닉네임 <span className="sellInfo">{item.member?.nick}</span>
+              </span>
+              <span>
+                상세 <span className="sellInfo">{item.content}</span>
+              </span>
+              
               <MapAddress>
                 <div style={{ display: 'flex' }}>
                   <span onClick={modalHandler}>
@@ -131,7 +128,6 @@ const TradeDetail = () => {
                 </div>
                 <MapTooltip className="task-tooltip">여기를 클릭해 지도정보를 살펴보세요</MapTooltip>
               </MapAddress>
-              <span style={{ fontSize: '15px' }}>{item.content}</span>
             </ItemDetailInfoText>
             <ButtonWrap>
               <AddWishButton>
