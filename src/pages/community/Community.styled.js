@@ -2,15 +2,9 @@ import styled from "styled-components";
 
 export const StyledCommunityTop = styled.div`
   width: 100%;
-  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
-  /* margin: 15px 0; */
-
-  @media screen and (max-width: 768px) {
-
-  }
-`
+`;
 
 export const TopLayout = styled.div`
   margin-top: 10px;
@@ -18,25 +12,16 @@ export const TopLayout = styled.div`
   display: flex;
   gap: 30px;
   align-items: center;
-  /* padding-bottom: 15px; */
   border-bottom: 1px solid #d9d9d9;
-  /* border: 1px solid red; */
 
   @media screen and (max-width: 768px) {
     margin: 0;
     width: 88%;
     display: flex;
-    /* justify-content: space-between; */
     gap: 10%;
     box-sizing: border-box;
-    /* border: 1px solid red; */
-
-    h3 {
-      /* margin: 10px 0; */
-    }
-
   }
-`
+`;
 
 export const StyledSerchImg = styled.img`
   width: 2em;
@@ -55,11 +40,8 @@ export const StyledPageTitle = styled.div`
     padding: 15px 15px 0 15px;
     gap: 37%;
     font-weight: bold;
-    
-
   }
-
-`
+`;
 
 export const StyledCommunityContainer = styled.div`
   width: 100%;
@@ -67,25 +49,19 @@ export const StyledCommunityContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-
-  @media screen and (max-width: 768px) {
-    
-  }
-`
+`;
 
 export const StyledContentsLayout = styled.div`
-  /* border: 1px solid red; */
   width: 100%;
   height: auto;
   display: flex;
   justify-content: center;
-  margin-top: ${props => props.marginTop + 'px'};
+  margin-top: ${(props) => props.marginTop + "px"};
 
   @media screen and (max-width: 768px) {
     margin-top: 10px;
   }
-
-`
+`;
 
 export const StyledCommunityWrap = styled.div`
   width: 100%;
@@ -93,18 +69,14 @@ export const StyledCommunityWrap = styled.div`
   display: flex;
   justify-content: center;
   box-sizing: border-box;
-
-  @media screen and (max-width: 768px) {
-    /* border: 1px solid blue; */
-  }
-` 
+`;
 
 export const StyledCards = styled.div`
   width: 60%;
   @media screen and (max-width: 768px) {
     width: 88%;
   }
-`
+`;
 
 export const StyledButtonWrap = styled.div`
   width: 60%;
@@ -125,20 +97,18 @@ export const StyledButtonWrap = styled.div`
     width: 88%;
 
     button {
-    width: 80px;
-    height: 30px;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    background-color: #6563ff;
-    color: #fff;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
+      width: 80px;
+      height: 30px;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background-color: #6563ff;
+      color: #fff;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
   }
-  }
-`
-
+`;

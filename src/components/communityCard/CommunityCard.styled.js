@@ -247,7 +247,6 @@ export const Title = styled.div`
 
   @media screen and (max-width: 768px) {
     width: 80%;
-    /* border: 1px solid red; */
   }
 `;
 export const Dog = styled.div`
