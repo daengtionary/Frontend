@@ -1,38 +1,38 @@
-import styled from 'styled-components';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
-import Card from '../../components/card/Card';
-import Comment from '../../components/comment/Comment';
-import Button from '../../elements/button/Button';
-import ChatFloatButton from '../../components/chatFloatButton/ChatFloatButton';
-import 'swiper/swiper-bundle.min.css';
-import 'swiper/swiper.min.css';
-import 'swiper/components/navigation/navigation.min.css';
-import 'swiper/components/pagination/pagination.min.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { mainCommunityThunk, mainListThunk, mainTradeThunk, resetMain } from '../../redux/modules/mainSlice';
-import { reset } from '../../redux/modules/listSlice';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { clearTradeItem } from '../../redux/modules/tradeSlice';
-import placeButtonImg from '../../static/image/플레이스.jpg';
-import matchButtonImg from '../../static/image/매칭.jpg';
-import tradeButtonImg from '../../static/image/장터.jpg';
-import communityButtonImg from '../../static/image/커뮤니티.jpg';
-import banner_01 from '../../static/image/베너01_.jpg';
-import banner_02 from '../../static/image/댕매칭.jpg';
-import banner_03 from '../../static/image/이용방법.jpg';
-import banner_04 from '../../static/image/이벤트배너.jpg';
-import medal_01 from '../../static/image/메달1_.png';
-import medal_02 from '../../static/image/메달2.png';
-import medal_03 from '../../static/image/메달3.png';
-import guide1 from '../../static/image/guide1.png';
-import guide2 from '../../static/image/guide2.png';
-import guide3 from '../../static/image/guide3.png';
-import guide4 from '../../static/image/guide4.png';
-import guide5 from '../../static/image/guide5.png';
-import guide6 from '../../static/image/guide6.png';
+import styled from "styled-components";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
+import Card from "../../components/card/Card";
+import Comment from "../../components/comment/Comment";
+import Button from "../../elements/button/Button";
+import ChatFloatButton from "../../components/chatFloatButton/ChatFloatButton";
+import "swiper/swiper-bundle.min.css";
+import "swiper/swiper.min.css";
+import "swiper/components/navigation/navigation.min.css";
+import "swiper/components/pagination/pagination.min.css";
+import { useDispatch, useSelector } from "react-redux";
+import { mainCommunityThunk, mainListThunk, mainTradeThunk, resetMain } from "../../redux/modules/mainSlice";
+import { reset } from "../../redux/modules/listSlice";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { clearTradeItem } from "../../redux/modules/tradeSlice";
+import placeButtonImg from "../../static/image/플레이스.jpg";
+import matchButtonImg from "../../static/image/매칭.jpg";
+import tradeButtonImg from "../../static/image/장터.jpg";
+import communityButtonImg from "../../static/image/커뮤니티.jpg";
+import banner_01 from "../../static/image/베너01_.jpg";
+import banner_02 from "../../static/image/댕매칭.jpg";
+import banner_03 from "../../static/image/이용방법.jpg";
+import banner_04 from "../../static/image/이벤트배너.jpg";
+import medal_01 from "../../static/image/메달1_.png";
+import medal_02 from "../../static/image/메달2.png";
+import medal_03 from "../../static/image/메달3.png";
+import guide1 from "../../static/image/guide1.png";
+import guide2 from "../../static/image/guide2.png";
+import guide3 from "../../static/image/guide3.png";
+import guide4 from "../../static/image/guide4.png";
+import guide5 from "../../static/image/guide5.png";
+import guide6 from "../../static/image/guide6.png";
 
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
@@ -52,38 +52,38 @@ const Main = () => {
 
   useEffect(() => {
     // mainHotButtonList.map((btn) => dispatch(mainListThunk(btn.category)));
-    dispatch(mainListThunk('/hospital'));
+    dispatch(mainListThunk("/hospital"));
   }, []);
 
   const mainButtonList = [
-    { name: '댕매칭', category: 'matching', img: matchButtonImg },
-    { name: '댕플레이스', category: 'place', img: placeButtonImg },
-    { name: '장터', category: 'trade', img: tradeButtonImg },
-    { name: '커뮤니티', category: 'community', img: communityButtonImg },
+    { name: "댕매칭", category: "matching", img: matchButtonImg },
+    { name: "댕플레이스", category: "place", img: placeButtonImg },
+    { name: "장터", category: "trade", img: tradeButtonImg },
+    { name: "커뮤니티", category: "community", img: communityButtonImg },
   ];
   // const mainCardList = ["인기 병원", "인기 숙소", "인기 장터", "인기 게시물"];
   const mainCommentList = [
     {
-      text: { star: 5, title: '제목', content: '내용' },
-      info: { dog: '포메라니안', name: '이*주' },
+      text: { star: 5, title: "제목", content: "내용" },
+      info: { dog: "포메라니안", name: "이*주" },
     },
     {
-      text: { star: 5, title: '제목2', content: '내용2' },
-      info: { dog: '포메라니안2', name: '이*주2' },
+      text: { star: 5, title: "제목2", content: "내용2" },
+      info: { dog: "포메라니안2", name: "이*주2" },
     },
     {
-      text: { star: 5, title: '제목3', content: '내용3' },
-      info: { dog: '포메라니안2', name: '이*주3' },
+      text: { star: 5, title: "제목3", content: "내용3" },
+      info: { dog: "포메라니안2", name: "이*주3" },
     },
   ];
   const [checked, setChecked] = useState([true, false, false, false]);
   const mainHotButtonList = [
-    { id: 0, text: '#동물병원', category: 'hospital' },
-    { id: 1, text: '#애견호텔', category: 'room' },
-    { id: 2, text: '#중고장터', category: 'trade' },
+    { id: 0, text: "#동물병원", category: "hospital" },
+    { id: 1, text: "#애견호텔", category: "room" },
+    { id: 2, text: "#중고장터", category: "trade" },
     // { id: 3, text: "#커뮤니티", category: "community" },
   ];
-  const [category, setCategory] = useState('hospital');
+  const [category, setCategory] = useState("hospital");
   console.log(category);
 
   const rankMedalList = [medal_01, medal_02, medal_03];
@@ -94,33 +94,33 @@ const Main = () => {
     setChecked(newArr);
     console.log(i);
     if (i === 0) {
-      setCategory('hospital');
+      setCategory("hospital");
       // dispatch(clearTradeItem());
       dispatch(mainListThunk(mainHotButtonList[i].category));
     } else if (i === 1) {
-      setCategory('room');
+      setCategory("room");
       // dispatch(clearTradeItem());
       dispatch(mainListThunk(mainHotButtonList[i].category));
     } else if (i === 2) {
-      setCategory('trade');
+      setCategory("trade");
       dispatch(
         mainTradeThunk({
-          category: 'trade',
+          category: "trade",
           page: 0,
-          size: '4',
-          sort: 'popular',
-          direction: 'dasc',
+          size: "4",
+          sort: "popular",
+          direction: "dasc",
         })
       );
     } else {
-      setCategory('community');
+      setCategory("community");
       dispatch(
         mainCommunityThunk({
-          category: 'community',
+          category: "community",
           page: 0,
-          size: '4',
-          sort: 'popular',
-          direction: 'dasc',
+          size: "4",
+          sort: "popular",
+          direction: "dasc",
         })
       );
     }
@@ -143,7 +143,7 @@ const Main = () => {
           <StyledMainBanner
             backgroundImg={banner_04}
             onClick={() => {
-              window.open('https://forms.gle/sEkZEHdnQrwfUKH7A');
+              window.open("https://forms.gle/sEkZEHdnQrwfUKH7A");
             }}
           />
         </SwiperSlide>
@@ -165,7 +165,6 @@ const Main = () => {
           }}
         >
           <StyledMainBanner backgroundImg={banner_03} />
-
         </SwiperSlide>
       </StyledSwiper>
       <StyledMainButtonWrap>
@@ -173,7 +172,7 @@ const Main = () => {
           <StyledMainButtonBox key={i}>
             <Button
               key={i}
-              type={'button'}
+              type={"button"}
               _onClick={() => {
                 // if (mainButton.category === "matching") {
                 //   alert("준비중입니다.");
@@ -184,22 +183,22 @@ const Main = () => {
               }}
               img={mainButton.img}
               style={{
-                width: '10em',
-                height: '10em',
-                bg_color: '#FEF8EC',
-                mg_left: '30px',
-                mg_right: '30px',
-                mg_bottom: '14px',
-                bd_radius: '50%',
-                bd_color: 'transparent',
+                width: "10em",
+                height: "10em",
+                bg_color: "#FEF8EC",
+                mg_left: "30px",
+                mg_right: "30px",
+                mg_bottom: "14px",
+                bd_radius: "50%",
+                bd_color: "transparent",
                 media: {
-                  width: '6em',
-                  height: '6em',
-                  mg_left: '30px',
-                  mg_right: '30px',
-                  mg_bottom: '14px',
-                  bd_radius: '50%',
-                  bd_color: 'transparent',
+                  width: "6em",
+                  height: "6em",
+                  mg_left: "30px",
+                  mg_right: "30px",
+                  mg_bottom: "14px",
+                  bd_radius: "50%",
+                  bd_color: "transparent",
                 },
               }}
             />
@@ -213,36 +212,36 @@ const Main = () => {
           <Button
             key={i}
             // id={hotButtonList.id}
-            type={'button'}
+            type={"button"}
             text={hotButtonList.text}
             checked={checked[i]}
             _onClick={() => onClickHandler(i)}
             style={{
-              width: 'auto',
-              height: 'auto',
-              color: '#ccc',
-              bg_color: '#fff',
-              mg_left: '5px',
-              mg_right: '5px',
-              bd_radius: '20px',
-              bd_color: '#ccc',
-              pd_top: '8px',
-              pd_bottom: '8px',
-              pd_left: '14px',
-              pd_right: '14px',
-              hv_color: '#767676',
-              hv_bd_color: '#767676',
-              f_color: '#000',
-              f_bd_color: '#000',
-              ft_weight: '700',
-              f_ft_weight: '700',
-              hv_ft_weight: '700',
+              width: "auto",
+              height: "auto",
+              color: "#ccc",
+              bg_color: "#fff",
+              mg_left: "5px",
+              mg_right: "5px",
+              bd_radius: "20px",
+              bd_color: "#ccc",
+              pd_top: "8px",
+              pd_bottom: "8px",
+              pd_left: "14px",
+              pd_right: "14px",
+              hv_color: "#767676",
+              hv_bd_color: "#767676",
+              f_color: "#000",
+              f_bd_color: "#000",
+              ft_weight: "700",
+              f_ft_weight: "700",
+              hv_ft_weight: "700",
             }}
           />
         ))}
       </StyledMainHotButtonbWrap>
       <StyledMainCardWrap>
-        {category === 'hospital'
+        {category === "hospital"
           ? // ? [1, 2, 3, 4].map(
             dataList.map(
               (data, i) => (
@@ -257,11 +256,11 @@ const Main = () => {
               )
               // console.log(category)
             )
-          : category === 'room'
+          : category === "room"
           ? dataList.map((data, i) => (
               <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/detail/${data.mapNo}`)} data={data} category={data.category} />
             ))
-          : category === 'trade'
+          : category === "trade"
           ? dataList.map((data, i) => (
               <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/tradeDetail/${data.tradeNo}`)} data={data} category={data.category} />
             ))
@@ -297,7 +296,7 @@ const Main = () => {
               autoplay={{ delay: 3000, disableOnInteraction: false }}
               loop={true}
               centeredSlides={true}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             >
               {guides?.map((guide, i) => {
                 return (
@@ -477,6 +476,6 @@ const Dim = styled.div`
       width: 80px;
       right: 11%;
       top: 30%;
-  }
+    }
   }
 `;
