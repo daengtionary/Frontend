@@ -1,4 +1,5 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
+import jwtDecode from "jwt-decode";
 import Button from "../../elements/button/Button";
 import {
   StyleTradePostingForm,
@@ -145,6 +146,27 @@ const MatchingPosting = () => {
       });
   };
 
+  let token = window.sessionStorage.getItem("authorization");
+  // 토큰 decode 하는 부분
+  let decoded = token && jwtDecode(token);
+  // 토큰 만료시간
+  let exp = token && Number(decoded.exp + "000");
+  let expTime = new Date(exp);
+  console.log(expTime, "만료 시간");
+  let now = new Date();
+  console.log(now, "현재 시간");
+  const checkToken = () => {
+    if (expTime <= now || token === null) {
+      token && window.sessionStorage.removeItem("authorization");
+      alert("로그인이 필요합니다!");
+      navigate("/signin");
+    } 
+  };
+
+  useEffect(() => {
+    checkToken();
+  }, []);
+
   return (
     <>
       <StyleTradePostingForm>
@@ -262,21 +284,22 @@ const MatchingPosting = () => {
           </StyledInputField>
         </StyleTradePlaceBox>
         <StyleTradeDetailBox>
-          <span>설명</span>
+          <span>상세설명</span>
           <Input
             type={"text"}
             value={detail}
+            maxLength={30}
             _onChange={(e) => setDetail(e.target.value)}
             style={{
               width: "50%",
-              height: "150px",
+              height: "50px",
               pd_left: "10px",
               mg_right: "0px",
               bd: "1px solid lightGray ",
               bd_bottom: "1px solid lightGray ",
-              bd_radius: "10px",
+              bd_radius: "10px",     
             }}
-            placeholder={"상품에 대해 설명해주세요"}
+            placeholder={"댕친구와 하고 싶은 일을 적어주세요:) (30자 제한)"}
           />
         </StyleTradeDetailBox>
         <StyleSubmitButton onClick={onSubmitHandler}>등록하기</StyleSubmitButton>

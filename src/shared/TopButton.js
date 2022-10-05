@@ -1,14 +1,11 @@
 import { throttle } from "lodash";
-import { useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import ChatFloatButton from "../components/chatFloatButton/ChatFloatButton";
 import arrowIcon from "../static/image/arrowIcon.png";
 import commentIcon from "../static/image/commentIcon.png";
 
-const TopButton = ({setModalOn, modalOn}) => {
+const TopButton = ({modalOn, setModalOn}) => {
   const [isTopButtonOn, setIsTopButtonOn] = useState(false);
 
   useEffect(
@@ -39,9 +36,7 @@ const TopButton = ({setModalOn, modalOn}) => {
         hvScale={"scale(1.3)"}
         rotate={"rotate(-90deg)"}
       />
-      {/* <Link to={`/chat`}> */}
-        <StyledTopBtnImg src={commentIcon} padding={"6px"} width={"28px"} height={"28px"} scale={"scaleX(-1)"} hvScale={"scaleX(-1.3) scaleY(1.3)"} onClick={()=>setModalOn(!modalOn)}/>
-      {/* </Link> */}
+        <StyledTopBtnImg src={commentIcon} padding={"6px"} width={"28px"} height={"28px"} scale={"scaleX(-1)"} hvScale={"scaleX(-1.3) scaleY(1.3)"}  onClick={()=>{setModalOn(!modalOn)}}/>
     </StyledTopBtn>
   ) : (
     <StyledTopBtn height={"50px"}>
@@ -53,8 +48,8 @@ const TopButton = ({setModalOn, modalOn}) => {
         hvScale={"scale(1.3)"}
         // scale={"scaleX(0)"}
         rotate={"rotate(-90deg)"}
-      />
-        <StyledTopBtnImg src={commentIcon} padding={"6px"} width={"28px"} height={"28px"} scale={"scaleX(-1)"} hvScale={"scaleX(-1.3) scaleY(1.3)"} onClick={()=>setModalOn(!modalOn)}/>
+      />   
+        <StyledTopBtnImg src={commentIcon} padding={"6px"} width={"28px"} height={"28px"} scale={"scaleX(-1)"} hvScale={"scaleX(-1.3) scaleY(1.3)"} onClick={()=>{setModalOn(!modalOn)}}/>
     </StyledTopBtn>
   );
 };

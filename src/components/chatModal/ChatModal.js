@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
-  useMatch,
   useNavigate,
   useParams,
 } from "react-router-dom";
@@ -23,30 +22,32 @@ import cencel from "../../static/image/cencel.png";
 
 
 // 채팅 모달
-const ChatModal = ({setModalOn, modalOn, setRoomOn, roomOn}) => {
+const ChatModal = ({modalOn, setModalOn}) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const roomNo = window.localStorage.getItem("memberNo");
 
-  // let token = window.sessionStorage.getItem("authorization");
-  // // 토큰 decode 하는 부분
-  // let decoded = token && jwtDecode(token);
-  // // 토큰 만료시간
-  // let exp = token && Number(decoded.exp + "000");
-  // let expTime = new Date(exp);
-  // console.log(expTime, "만료 시간");
-  // let now = new Date();
-  // console.log(now, "현재 시간");
-  // const checkToken = () => {
-  //   if (expTime <= now || token === null) {
-  //     token && window.sessionStorage.removeItem("authorization");
-  //     alert("로그인이 필요합니다!");
-  //     navigate("/signin");
-  //   } 
-  // };
+  let token = window.sessionStorage.getItem("authorization");
+  // 토큰 decode 하는 부분
+  let decoded = token && jwtDecode(token);
+  // 토큰 만료시간
+  let exp = token && Number(decoded.exp + "000");
+  let expTime = new Date(exp);
+  console.log(expTime, "만료 시간");
+  let now = new Date();
+  console.log(now, "현재 시간");
+  const checkToken = () => {
+    if (expTime <= now || token === null) {
+      token && window.sessionStorage.removeItem("authorization");
+      alert("로그인이 필요합니다!");
+      navigate("/signin");
+      setModalOn(false)
+    } 
+  };
 
-  // useEffect(() => {
-  //   checkToken();
-  // }, []);
+  useEffect(() => {
+    checkToken();
+  }, []);
 
 
   useEffect(() => {
@@ -85,7 +86,7 @@ const ChatModal = ({setModalOn, modalOn, setRoomOn, roomOn}) => {
           </Title>
           <ListWrap>
             <ChatRoomList 
-            setRoomOn={setRoomOn} roomOn={roomOn} />
+            roomId={roomNo} />
           </ListWrap>
         </LeftWrap>
       </Wrap>
