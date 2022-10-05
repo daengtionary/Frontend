@@ -286,15 +286,17 @@ const Main = () => {
       <ChatFloatButton /> */}
 
       {guideOn && (
-        <Dim>
-          <StyleGuide>
+        <Dim onClick={() => {
+          setGuideOn(!guideOn);
+        }}>
+          <StyleGuide onClick={(e) => e.stopPropagation()}>
             <StyledSwiper
               className="swipe"
               spaceBetween={0}
               slidesPerView={1}
               navigation
               pagination={{ clickable: true }}
-              autoplay={{ delay: 3000, disableOnInteraction: false }}
+              autoplay={{ delay: 15000, disableOnInteraction: false }}
               loop={true}
               centeredSlides={true}
               style={{ backgroundColor: "white" }}
