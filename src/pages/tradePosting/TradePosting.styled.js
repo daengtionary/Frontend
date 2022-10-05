@@ -131,16 +131,16 @@ export const StylePreviewBox = styled.div`
 `;
 
 export const StyleShowImageBox = styled.div`
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 200px;
   @media screen and (max-width: 768px) {
     width: 70px;
     height: 100px;
   }
 `;
 export const StyleShowImage = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   @media screen and (max-width: 768px) {
     width: 70px;
     height: 70px;
@@ -168,7 +168,7 @@ export const StyleTradeItemTitleBox = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    width: 400px;
+    width: 700px;
     height: 100px;
     span {
     position: absolute;

@@ -59,7 +59,7 @@ const Matching = () => {
         <StyledSerchWrap style={{borderBottom: "none"}}>
           <StyledSerchBox>
             <span>
-              애견장터
+              댕 매칭
             </span>
             <Input
               // _onKeyPress={onKeyPressHandler}
@@ -88,7 +88,7 @@ const Matching = () => {
         <StyledTradeFilterBox>
           <Button
             _onClick={() => {
-              navigate('/tradePosting');
+              navigate('/matchingPosting');
             }}
             text={'글 쓰기'}
             style={{
