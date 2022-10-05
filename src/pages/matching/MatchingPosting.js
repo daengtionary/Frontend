@@ -248,7 +248,7 @@ const MatchingPosting = () => {
           </div>
         </StyleTradePriceBox>
         <StyleTradePlaceBox>
-          <span>거래지역</span>
+          <span>주소</span>
           <StyledInputField column={true}>
             <StyledInput className="addrName" ref={addrRef} name="address" readOnly width={"30em"} />
             <StyledInput className="detailAddrName" name="address" placeholder="상세주소를 입력해주세요:)" onChange={onChangePlaceInfo} />
