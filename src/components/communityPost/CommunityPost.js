@@ -1,9 +1,6 @@
-import { initial } from "lodash";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-// import { Navigate } from "react-router-dom";
-import { getCommunityPostThunk, getCommunityPostListThunk } from "../../redux/modules/communitySlice";
+import { getCommunityPostThunk } from "../../redux/modules/communitySlice";
 import {
   StyledCommunityPostForm,
   StyledCategory,
@@ -23,8 +20,6 @@ import {
 
 const CommunityPost = ({ modalHandler, postCheck, setPostCheck }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const imgRef = useRef();
   const userNick = window.localStorage.getItem("nick");
 
   const initialState = {
@@ -36,36 +31,19 @@ const CommunityPost = ({ modalHandler, postCheck, setPostCheck }) => {
     imgUrl: [],
   };
 
-  const [uploadImg, setUploadImg] = useState("");
-
-  // 다차원 객체 state의 프로퍼티 값을 수정해야함
-
   const [post, setPost] = useState(initialState);
   const [img, setImg] = useState([]);
 
   const onChangeImgHandler = (event) => {
-    // const { files } = event.target
-    // console.log(files);
-    // console.log(typeof(files));
-
-    // const formdata = new FormData();
-    // console.log(formdata);
-    // files ? formdata.append("image", files) : alert("사진을 추가해주세요.");
-
-    // formdata.getAll('image')
-    // for (const keyValue of formdata) console.log(keyValue);
-
-    const maxFileNum = 3; // 최대 첨부가능한 갯수
+    const maxFileNum = 3;
 
     // 선택한 이미지들
     const images = event.target.files;
-    console.log("선택한 이미지들 :", images);
     if (images.length > 3) {
       alert("이미지는 3개까지만 첨부 가능합니다.");
     } else {
       // 최대갯수로 받은 이미지
       const imagesMax = [...images].slice(0, maxFileNum);
-      console.log(imagesMax);
       setImg(imagesMax);
 
       // 이미지 미리보기로 보여줄려면 url이 필요함
@@ -76,9 +54,7 @@ const CommunityPost = ({ modalHandler, postCheck, setPostCheck }) => {
   };
 
   const onChangeDataHandler = (event) => {
-    // console.log(event.target.name, ":", event.target.value);/
     const { name, value } = event.target;
-    console.log(name, ":", value);
     setPost({
       ...post,
       data: {
@@ -90,7 +66,6 @@ const CommunityPost = ({ modalHandler, postCheck, setPostCheck }) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    // console.log(e);
 
     const haveToSend = {
       data: {
@@ -98,13 +73,9 @@ const CommunityPost = ({ modalHandler, postCheck, setPostCheck }) => {
         content: post.data.content,
         category: post.data.category,
       },
-
       imgUrl: img,
     };
-
-    console.log(haveToSend);
     const response = await dispatch(getCommunityPostThunk(haveToSend)).unwrap()
-    console.log(response)
     if (response.state === 200 ) {
       modalHandler();
       const newPostCheck = postCheck + 1
