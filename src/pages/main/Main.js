@@ -154,8 +154,7 @@ const Main = () => {
           <StyledMainBanner
             backgroundImg={banner_02}
             onClick={() => {
-              // navigate("/matching");
-              alert("준비 중 입니다 :)");
+              navigate("/matching");
             }}
           />
         </SwiperSlide>
@@ -175,12 +174,8 @@ const Main = () => {
               key={i}
               type={"button"}
               _onClick={() => {
-                if (mainButton.category === "matching") {
-                  alert("준비 중 입니다 :)");
-                } else {
                   navigate("/" + mainButton.category);
                   dispatch(reset());
-                }
               }}
               img={mainButton.img}
               style={{

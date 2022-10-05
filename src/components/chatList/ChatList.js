@@ -22,9 +22,9 @@ import {
 
 
 // 채팅 > 채팅방 > 채팅 내역
-const ChatList = () => {
+const ChatList = ({id}) => {
   const dispatch = useDispatch();
-  const { roomNo } = useParams();
+  const  roomNo  = id;
   const scrollRef = useRef();
   const user = window.localStorage.getItem("nick");
 
