@@ -1,28 +1,21 @@
 import { useRef } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../elements/button/Button";
-import Input from "../../elements/input/Input";
-import { setChecked } from "../../redux/modules/listSlice";
 import { addPlaceThunk } from "../../redux/modules/placeSlice";
 import imgAddIcon from "../../static/image/이미지추가.png";
-import editIcon from "../../static/image/수정하기.png";
 
 const PlacePosting = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const status = useSelector((state) => state.place.placeInfoRes);
 
   const imgRef = useRef();
   const addrRef = useRef();
 
   const [placeImg, setPlaceImg] = useState([]);
-  console.log(placeImg);
   const [placeInfo, setPlaceInfo] = useState({ data: { title: "", category: "hospital", address: "", content: "" }, imgUrl: [] });
-  console.log(placeInfo);
   const [checked, setChecked] = useState([true, false]);
   const onClickSetCheck = (i) => {
     const checkArr = new Array(checked.length).fill(false);
@@ -34,19 +27,16 @@ const PlacePosting = () => {
     imgRef.current.click();
   };
 
-  // const reader = new FileReader();
   const onImgHandler = (e) => {
     const { files } = e.target;
-    console.log(files);
 
-    const imageList = []; //state 값으로 대체해도 됨
+    const imageList = [];
     let filesLength = files.length > 10 ? 10 : files.length;
 
     for (let i = 0; i < filesLength; i++) {
       let file = files[i];
       const reader = new FileReader();
       reader.onload = () => {
-        console.log(reader.result);
         imageList[i] = reader.result;
         setPlaceImg([...imageList]);
       };
@@ -81,8 +71,6 @@ const PlacePosting = () => {
           addr = data.jibunAddress;
         }
 
-        console.log(addr);
-        console.log(addrRef);
         addrRef.current.value = addr;
         setPlaceInfo({ ...placeInfo, data: { ...placeInfo.data, address: addr } });
       },
@@ -166,7 +154,6 @@ const PlacePosting = () => {
                 mg_left: "5px",
                 mg_right: "5px",
                 bd_radius: "10px",
-                bd_color: "#ccc",
                 pd_left: "20px",
                 pd_right: "20px",
                 top: "0",
@@ -183,12 +170,6 @@ const PlacePosting = () => {
             />
           </StyledInputField>
         </StyledInputBox>
-        {/* <StyledInputBox>
-          <StyledInputTitle>정보</StyledInputTitle>
-          <StyledInputField>
-            <Input placeholder={"상세정보"} />
-          </StyledInputField>
-        </StyledInputBox> */}
         <StyledInputBox>
           <StyledInputTitle>설명</StyledInputTitle>
           <StyledInputField>
@@ -317,7 +298,6 @@ const StyledInput = styled.input`
   display: ${(props) => (props.display ? props.display : "")};
   width: ${(props) => (props.width ? props.width : "38em")};
   height: 3em;
-  /* text-indent: 1em; */
   font-size: 1em;
   padding: 0 1em;
   outline: none;

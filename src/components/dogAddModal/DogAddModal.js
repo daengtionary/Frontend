@@ -6,14 +6,11 @@ import Input from "../../elements/input/Input";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addDogThunk } from "../../redux/modules/myPageSlice";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "../../elements/button/Button";
 import dogIcon from "../../static/image/dogIcon.png";
 
 const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const dogImgRef = useRef();
   const [dogProfile, setDogProfile] = useState({ name: "", breed: "", weight: "0", gender: "" });
   const [myDogImg, setMyDogImg] = useState("");
@@ -27,15 +24,9 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
     const newArr = Array(genderButtonList.length).fill(false);
     newArr[i] = true;
     setChecked(newArr);
-    // console.log(i, newArr, checked);
   };
 
   const onChangeDogProfile = (e) => {
-    // const newArr = Array(genderButtonList.length).fill(false);
-    // newArr[i] = true;
-    // setChecked(newArr);
-    // console.log(i, newArr, checked);
-    console.log(e.currentTarget.value);
     const { value, name } = e.target;
     if (name !== "gender" && name !== "weight") {
       setDogProfile({
@@ -53,7 +44,6 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
         [name]: e.currentTarget.value,
       });
     }
-    console.log(dogProfile);
   };
   const onClickDogInput = () => {
     dogImgRef.current.click();
@@ -62,7 +52,6 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
   const reader = new FileReader();
   const onImgHandler = (e) => {
     const { files } = e.target;
-    console.log(files[0]);
 
     files[0] && reader.readAsDataURL(files[0]);
 
@@ -76,10 +65,8 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
   };
   const uploadHandler = (e) => {
     const file = dogImgRef.current.files[0];
-    console.log(file);
 
     const formdata = new FormData();
-    console.log(formdata);
     file ? formdata.append("image", file) : alert("사진을 추가해주세요.");
     formdata.append(
       "data",
@@ -89,8 +76,6 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
     );
 
     for (const keyValue of formdata) console.log(keyValue);
-    console.log(dogProfile.weight.replace(/[^0-9]/g, ""));
-    // formdata전송
     if (dogProfile.name !== "" && dogProfile.breed !== "" && dogProfile.gender !== "") {
       const addDogconfirm = file && window.confirm("강아지 프로필을 추가하시겠습니까?");
       if (addDogconfirm === true) {
@@ -103,7 +88,6 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
     } else {
       alert("빈칸을 모두 입력해주세요!");
     }
-    // dispatch(addDog(formdata));
   };
 
   return (
@@ -128,14 +112,10 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
             <StyledMyPageDogImgInput ref={dogImgRef} onChange={onImgHandler} type="file" accept="image/*" />
           </StyledMyPageDogImgDot>
         </StyledMyPageDogImgBox>
-        {/* {dogData.map((dog, i) => (
-              <Button key={i} id={i} text={dog.name} _onClick={dogInfoHandler} />
-            ))} */}
         {dogProfileInputList.map((inputList, i) => (
           <div key={i} style={{ width: "80%" }}>
             <Input
               key={inputList.defaultValue}
-              // defaultValue={inputList.defaultValue}
               placeholder={inputList.placeholder}
               type="text"
               _maxLength={inputList.length}
@@ -173,17 +153,6 @@ const DogAddModal = ({ dogProfileInputList, onModalHandler }) => {
             </StyledGenderButton>
           ))}
         </StyledGenderButtonWrap>
-        {/* <StyledSelectDog onClick={() => setChecked(!checked)}>
-        <StyledCheckMark checkColor={checked} checkFontWeight={checked}>
-          <TbCircleCheck
-            style={{
-              marginRight: "2px",
-            }}
-          />
-          이 아이로 활동하기
-        </StyledCheckMark>
-      </StyledSelectDog> */}
-
         <Button
           text={"댕프로필 추가하기"}
           _onClick={() => {
@@ -313,9 +282,4 @@ export const StyledGenderButton = styled.button`
   font-size: 1em;
   border-radius: 20px;
   cursor: pointer;
-
-  /* &:hover {
-    color: #6563ff;
-    border: 2px solid #6563ff;
-  } */
 `;
