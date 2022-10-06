@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef,  } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+
 import { 
   MessageWrap,
   Message,
@@ -11,13 +11,10 @@ import {
   ChatListDate,
   Status
 } from "./ChatList.styled"
-import moment from "moment";
-import "moment/locale/ko";
 
 import {
   cleanUpMessage,
   getMessageListDB,
-  getRoomListDB,
 } from "../../redux/modules/chatSlice";
 
 
@@ -58,17 +55,6 @@ const ChatList = ({id}) => {
     };
   }, []);
 
-  // 채팅방 나간 경우 이전 메시지 숨김 처리.
-  // (() => {
-  //   let slicedList = [];
-  //   messageList.forEach((message) => {
-  //     slicedList = [...slicedList, message];
-  //     if (message.type === "STATUS" && message.senderName === user) {
-  //       slicedList = [];
-  //     }
-  //   });
-  //   messageList = slicedList;
-  // })();
 
   return (
     <MessageWrap>

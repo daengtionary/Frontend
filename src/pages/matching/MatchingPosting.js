@@ -165,7 +165,7 @@ const MatchingPosting = () => {
 
   useEffect(() => {
     checkToken();
-  }, []);
+  });
 
   return (
     <>

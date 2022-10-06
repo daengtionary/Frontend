@@ -17,11 +17,11 @@ const ChatRoomList = () => {
           <Link to="/chat" style={{ textDecoration: 'none' }} state={{ background: location, roomNo: room.roomNo, index: index }} key={room.roomNo}>
             <List>
               <span>
-                {nick === room.chatRoomMembers[0]?.nick ? (
+                {room.type === "group"? (<Nickname>{room.type}</Nickname>) : (nick === room.chatRoomMembers[0]?.nick ? (
                   <Nickname>{room.chatRoomMembers[1]?.nick}</Nickname>
                 ) : (
                   <Nickname>{room.chatRoomMembers[0]?.nick}</Nickname>
-                )}
+                ))}
                 <Date>{room.lastDate?.split('요일')[1]}</Date>
               </span>
               <span>
