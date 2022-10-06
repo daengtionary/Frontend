@@ -33,8 +33,7 @@ import DogWalk from "./pages/dogWalk/DogWalk";
 import styled from "styled-components";
 
 function App() {
-
-  const [modalOn, setModalOn] = useState(false)
+  const [modalOn, setModalOn] = useState(false);
 
   return (
     <>
@@ -49,7 +48,7 @@ function App() {
 
         <Header />
         {/* <ChatFloatButton /> */}
-        <TopButton/>
+        <TopButton />
         {/* 내일은 탑 버튼에 modalOn을 내려줘보고 버튼으로 테스트해볼 예정 */}
         <Routes>
           <Route exact path={"/signIn"} element={<SignIn />} />

@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../../shared/api";
 
 export const mainListThunk = createAsyncThunk("mainSlice/mainListThunk", async (payload, thunkAPI) => {
-  console.log(JSON.stringify(payload));
   const params = {
     title: "",
     content: "",
@@ -11,15 +10,11 @@ export const mainListThunk = createAsyncThunk("mainSlice/mainListThunk", async (
     pagenum: 0,
     pagesize: "4",
     sort: "popular",
-    // direction: "dasc",
   };
   const resData = await api
     .get(`${payload}/search`, { params })
-    // http://localhost:8080/trade?sort=new&page=0&size=10
     .then((res) => res)
     .catch((err) => console.log(err));
-  // console.log(params.get("c"));
-  console.log(resData.data.data);
   return thunkAPI.fulfillWithValue(resData.data.data);
 });
 export const mainTradeThunk = createAsyncThunk("mainSlice/mainTradeThunk", async (payload, thunkAPI) => {
@@ -54,15 +49,12 @@ export const mainSlice = createSlice({
     builder
       .addCase(mainListThunk.fulfilled, (state, action) => {
         state.mainList = [...action.payload];
-        console.log([...action.payload]);
       })
       .addCase(mainTradeThunk.fulfilled, (state, action) => {
         state.mainList = [...action.payload];
-        console.log([...action.payload]);
       })
       .addCase(mainCommunityThunk.fulfilled, (state, action) => {
         state.mainList = [...action.payload];
-        console.log([...action.payload]);
       });
   },
 });

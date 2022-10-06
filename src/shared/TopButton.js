@@ -1,10 +1,8 @@
 import { throttle } from "lodash";
-import { useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import ChatFloatButton from "../components/chatFloatButton/ChatFloatButton";
 import arrowIcon from "../static/image/arrowIcon.png";
 import commentIcon from "../static/image/commentIcon.png";
 
@@ -15,7 +13,7 @@ const TopButton = () => {
     throttle(() => {
       window.addEventListener("scroll", handleScroll);
       return () => {
-        window.removeEventListener("scroll", handleScroll); //clean up
+        window.removeEventListener("scroll", handleScroll);
       };
     }, 200),
     [isTopButtonOn]
@@ -51,7 +49,6 @@ const TopButton = () => {
         width={"0px"}
         height={"40px"}
         hvScale={"scale(1.3)"}
-        // scale={"scaleX(0)"}
         rotate={"rotate(-90deg)"}
       />
       <Link to={`/chat`}>

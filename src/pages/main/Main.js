@@ -2,20 +2,17 @@ import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import Card from "../../components/card/Card";
-import Comment from "../../components/comment/Comment";
 import Button from "../../elements/button/Button";
-import ChatFloatButton from "../../components/chatFloatButton/ChatFloatButton";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import { useDispatch, useSelector } from "react-redux";
-import { mainCommunityThunk, mainListThunk, mainTradeThunk, resetMain } from "../../redux/modules/mainSlice";
+import { mainCommunityThunk, mainListThunk, mainTradeThunk } from "../../redux/modules/mainSlice";
 import { reset } from "../../redux/modules/listSlice";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { clearTradeItem } from "../../redux/modules/tradeSlice";
+import { useNavigate } from "react-router-dom";
 import placeButtonImg from "../../static/image/플레이스.jpg";
 import matchButtonImg from "../../static/image/매칭.jpg";
 import tradeButtonImg from "../../static/image/장터.jpg";
@@ -39,19 +36,12 @@ SwiperCore.use([Pagination, Autoplay, Navigation]);
 const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
-  const { pathname, search } = location;
   const dataList = useSelector((state) => state.main.mainList);
-  const data = useSelector((state) => state.main);
   const [guideOn, setGuideOn] = useState(false);
-  console.log(dataList);
-  console.log(data);
-  console.log(pathname, search);
 
   const guides = [guide1, guide2, guide3, guide4, guide5, guide6];
 
   useEffect(() => {
-    // mainHotButtonList.map((btn) => dispatch(mainListThunk(btn.category)));
     dispatch(mainListThunk("/hospital"));
   }, []);
 
@@ -61,30 +51,13 @@ const Main = () => {
     { name: "장터", category: "trade", img: tradeButtonImg },
     { name: "커뮤니티", category: "community", img: communityButtonImg },
   ];
-  // const mainCardList = ["인기 병원", "인기 숙소", "인기 장터", "인기 게시물"];
-  const mainCommentList = [
-    {
-      text: { star: 5, title: "제목", content: "내용" },
-      info: { dog: "포메라니안", name: "이*주" },
-    },
-    {
-      text: { star: 5, title: "제목2", content: "내용2" },
-      info: { dog: "포메라니안2", name: "이*주2" },
-    },
-    {
-      text: { star: 5, title: "제목3", content: "내용3" },
-      info: { dog: "포메라니안2", name: "이*주3" },
-    },
-  ];
   const [checked, setChecked] = useState([true, false, false, false]);
   const mainHotButtonList = [
     { id: 0, text: "#동물병원", category: "hospital" },
     { id: 1, text: "#애견호텔", category: "room" },
     { id: 2, text: "#중고장터", category: "trade" },
-    // { id: 3, text: "#커뮤니티", category: "community" },
   ];
   const [category, setCategory] = useState("hospital");
-  console.log(category);
 
   const rankMedalList = [medal_01, medal_02, medal_03];
 
@@ -92,14 +65,11 @@ const Main = () => {
     const newArr = Array(mainHotButtonList.length).fill(false);
     newArr[i] = true;
     setChecked(newArr);
-    console.log(i);
     if (i === 0) {
       setCategory("hospital");
-      // dispatch(clearTradeItem());
       dispatch(mainListThunk(mainHotButtonList[i].category));
     } else if (i === 1) {
       setCategory("room");
-      // dispatch(clearTradeItem());
       dispatch(mainListThunk(mainHotButtonList[i].category));
     } else if (i === 2) {
       setCategory("trade");
@@ -125,8 +95,6 @@ const Main = () => {
       );
     }
   };
-  console.log(checked);
-  // console.log(JSON.stringify(checked));
 
   return (
     <StyledMainWrap>
@@ -154,7 +122,6 @@ const Main = () => {
           <StyledMainBanner
             backgroundImg={banner_02}
             onClick={() => {
-              // navigate("/matching");
               alert("준비 중 입니다 :)");
             }}
           />
@@ -212,7 +179,6 @@ const Main = () => {
         {mainHotButtonList.map((hotButtonList, i) => (
           <Button
             key={i}
-            // id={hotButtonList.id}
             type={"button"}
             text={hotButtonList.text}
             checked={checked[i]}
@@ -243,20 +209,9 @@ const Main = () => {
       </StyledMainHotButtonbWrap>
       <StyledMainCardWrap>
         {category === "hospital"
-          ? // ? [1, 2, 3, 4].map(
-            dataList.map(
-              (data, i) => (
-                <Card
-                  key={i}
-                  rank={rankMedalList[i]}
-                  _onClick={() => navigate(`/detail/${data.mapNo}`)}
-                  // _onClick={() => navigate(`/tradeDetail/${data.tradeNo}`)}
-                  data={data}
-                  category={data.category}
-                />
-              )
-              // console.log(category)
-            )
+          ? dataList.map((data, i) => (
+              <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/detail/${data.mapNo}`)} data={data} category={data.category} />
+            ))
           : category === "room"
           ? dataList.map((data, i) => (
               <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/detail/${data.mapNo}`)} data={data} category={data.category} />
@@ -268,22 +223,7 @@ const Main = () => {
           : dataList.map((data, i) => (
               <Card key={i} rank={rankMedalList[i]} _onClick={() => navigate(`/${category}/${data.communityNo}`)} data={data} category={data.category} />
             ))}
-        {/* {dataList.map((data, i) => (
-          <Card
-            key={i}
-            text={data.title}
-            data={data}
-            category={data.category}
-          /> 
-        ))} */}
       </StyledMainCardWrap>
-      {/* <StyledMenuTitle margin={"3em 0 2em 0"}>댕과사전 이용후기</StyledMenuTitle>
-      <StyledMainCommentWrap>
-        {mainCommentList.map((commentList, i) => (
-          <Comment key={i} text={commentList.text} info={commentList.info} />
-        ))}
-      </StyledMainCommentWrap>
-      <ChatFloatButton /> */}
 
       {guideOn && (
         <Dim>
@@ -329,7 +269,6 @@ const StyledMainWrap = styled.div`
   justify-content: center;
   align-items: center;
 
-  /* padding: 0 10%; */
   @media screen and (max-width: 768px) {
     padding: 1em 2em;
   }
@@ -370,7 +309,6 @@ const StyledMainButtonBox = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 14px;
-  /* width: 25%; */
   height: auto;
 
   > div button {
@@ -381,7 +319,6 @@ const StyledMainButtonBox = styled.div`
     margin: 0 5px;
   }
 `;
-const StyledMainHotTrend = styled.div``;
 const StyledMainHotButtonbWrap = styled.div`
   display: inline-block;
   margin: 10px 0;
@@ -390,7 +327,6 @@ const StyledMainHotButtonbWrap = styled.div`
 const StyledMainCardWrap = styled.div`
   display: flex;
   flex-direction: row;
-  /* flex-wrap: wrap; */
   justify-content: center;
 
   width: 70%;
@@ -405,17 +341,9 @@ const StyledMainCardWrap = styled.div`
     margin: 30px 0 0 0;
   }
 `;
-const StyledMainCommentWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 70%;
-`;
 const StyledMenuTitle = styled.h2`
   margin: ${(props) => props.margin};
 `;
-const StyledMainCommentCard = styled.div``;
-
 export const ItemDetailImg = styled.img`
   width: 100%;
   height: 90%;
@@ -424,7 +352,6 @@ export const ItemDetailImg = styled.img`
     height: 320px;
   }
 `;
-
 const StyleGuide = styled.div`
   display: flex;
   justify-content: center;
@@ -444,7 +371,6 @@ const StyleGuide = styled.div`
     }
   }
 `;
-
 const Dim = styled.div`
   text-align: center;
   display: flex;
