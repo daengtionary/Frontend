@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import TradeCard from '../../components/card/TradeCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTrade, clearTradeItem } from '../../redux/modules/tradeSlice';
-import { useCallback } from 'react';
 
 // 스타일 컴포넌트
 import { TradeAll, TradeFullBox, CardList, StyledSerchFilterBox, StyledTradeFilterBox, StyledSerchImg, StyledSerchBox } from './Trade.styled';
@@ -70,8 +69,6 @@ const Trade = () => {
               애견장터
             </span>
             <Input
-              // _onKeyPress={onKeyPressHandler}
-              // _onChange={onChangeHandler}
               placeholder={'검색은 현재 준비중입니다'}
               style={{
                 width: '140px',
@@ -85,7 +82,6 @@ const Trade = () => {
               }}
             />
             <StyledSerchImg
-              // onClick={onClickHandler}
               src={searchIcon}
             />
           </StyledSerchBox>
