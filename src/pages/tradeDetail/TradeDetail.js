@@ -42,7 +42,7 @@ const TradeDetail = () => {
 
   const item = useSelector((state) => state.trade.getTradeDetail);
   console.log(item);
-  const memberNo = item.memberNo 
+  const memberNo = item.memberNo;
 
   useEffect(() => {
     dispatch(getTradeDetail(id));
@@ -52,39 +52,42 @@ const TradeDetail = () => {
   const onClickChat = async () => {
     checkToken();
     try {
-      const response = await chatApis.addRoom(memberNo);
-        console.log(response)   
-        navigate('/chat')   
+      if (window.sessionStorage.length < 2) {
+        alert('로그인이 필요합니다.');
+      } else {
+        const response = await chatApis.addRoom(memberNo);
+        alert('채팅방 생성완료! 채팅 아이콘을 눌러 채팅을 시작해 보세요:)');
+      }
     } catch (error) {
-      console(error)
+      console(error);
     }
   };
 
-  let token = window.sessionStorage.getItem("authorization");
+  let token = window.sessionStorage.getItem('authorization');
   // 토큰 decode 하는 부분
   let decoded = token && jwtDecode(token);
   console.log(decoded);
   // 토큰 만료시간
-  let exp = token && Number(decoded.exp + "000");
+  let exp = token && Number(decoded.exp + '000');
   let expTime = new Date(exp);
-  console.log(expTime, "만료 시간");
+  console.log(expTime, '만료 시간');
   let now = new Date();
-  console.log(now, "현재 시간");
+  console.log(now, '현재 시간');
   const checkToken = () => {
     if (expTime <= now || token === null) {
-      token && window.sessionStorage.removeItem("authorization");
-      alert("로그인이 필요합니다!");
-      navigate("/signin");
-    } 
+      token && window.sessionStorage.removeItem('authorization');
+      alert('로그인이 필요합니다!');
+      navigate('/signin');
+    }
   };
-
 
   return (
     <TradeDetailAll>
       {item.length !== 0 ? (
         <TradeDetailFullBox>
           <ImgBox>
-            <StyledSwiper className='swipe'
+            <StyledSwiper
+              className="swipe"
               spaceBetween={0}
               slidesPerView={1}
               navigation
@@ -94,13 +97,13 @@ const TradeDetail = () => {
               centeredSlides={true}
               style={{ backgroundColor: 'white' }}
             >
-          {item.tradeImgUrl?.map((el, i) =>{
-            return (
-              <SwiperSlide key = {i}>
-                <ItemDetailImg src={el} />
-              </SwiperSlide>
-            );
-          })}
+              {item.tradeImgUrl?.map((el, i) => {
+                return (
+                  <SwiperSlide key={i}>
+                    <ItemDetailImg src={el} />
+                  </SwiperSlide>
+                );
+              })}
             </StyledSwiper>
           </ImgBox>
           <ItemContentBox>
