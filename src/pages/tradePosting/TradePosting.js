@@ -1,17 +1,14 @@
-import { useState, useCallback, useRef } from 'react';
-import Button from '../../elements/button/Button';
+import { useState, useCallback } from 'react';
+
 import {
   StyleTradePostingForm,
   StyleTradePostingImageBox,
   StyleTradePageTopTitle,
   StyleTradeItemTitleBox,
-  StyleTradePlaceBox,
   StyleTradeStatusBox,
   StyleTradePriceBox,
-  StyleTradeDetailBox,
   StyleSubmitButton,
   StyleTradeCheckBoxWrap,
-  StyleTradePlaceSpanBox,
   StyleTradeUplodeLabel,
   StyleShowImageBox,
   StyleShowImage,
@@ -33,17 +30,15 @@ const TradePosting = () => {
   const [showImages, setShowImages] = useState([]);
   const [fileImage, setFileImage] = useState([]);
   const [title, setTitle] = useState('');
-  const [place, setPlace] = useState('');
   const [status, setStatus] = useState('');
   const [price, setPrice] = useState('');
-  const [detail, setDetail] = useState('');
 
   const postingData = {
     data: {
       title: title,
       address: '전국',
       stuffStatus: status,
-      content: detail,
+      content: '없음',
       price: price,
       postStatus: '판매중',
       exchange: '교환불가',
@@ -75,9 +70,6 @@ const TradePosting = () => {
     [fileImage, showImages]
   );
 
-  console.log(showImages);
-  console.log(fileImage);
-
   // X버튼 클릭 시 이미지 삭제
   const handleDeleteImage = (id) => {
     setShowImages(showImages.filter((_, index) => index !== id));
@@ -92,11 +84,11 @@ const TradePosting = () => {
           checkboxes[i].checked = false;
         }
         if (checkboxes[0].checked === true) {
-          setStatus('Used');
+          setStatus('중고');
         } else if (checkboxes[1].checked === true) {
-          setStatus('AlmostNew');
+          setStatus('거의 새 것');
         } else if (checkboxes[2].checked === true) {
-          setStatus('New');
+          setStatus('새 물건');
         }
       }
     },
@@ -104,7 +96,6 @@ const TradePosting = () => {
   );
 
   const onSubmitHandler = () => {
-    console.log(postingData);
     dispatch(postingTrade(postingData))
       .unwrap()
       .then((res) => {
@@ -112,31 +103,31 @@ const TradePosting = () => {
         navigate('/trade');
       })
       .catch((error) => {
-        console.log(error);
+        alert(error.message)
       });
   };
 
-  let token = window.sessionStorage.getItem("authorization");
+  let token = window.sessionStorage.getItem('authorization');
   // 토큰 decode 하는 부분
   let decoded = token && jwtDecode(token);
-  console.log(decoded);
+
   // 토큰 만료시간
-  let exp = token && Number(decoded.exp + "000");
+  let exp = token && Number(decoded.exp + '000');
   let expTime = new Date(exp);
-  console.log(expTime, "만료 시간");
+
   let now = new Date();
-  console.log(now, "현재 시간");
+
   const checkToken = () => {
     if (expTime <= now || token === null) {
-      token && window.sessionStorage.removeItem("authorization");
-      alert("로그인이 필요합니다!");
-      navigate("/signin");
-    } 
+      token && window.sessionStorage.removeItem('authorization');
+      alert('로그인이 필요합니다!');
+      navigate('/signin');
+    }
   };
 
   useEffect(() => {
     checkToken();
-  }, []);
+  });
 
   return (
     <>
@@ -179,33 +170,7 @@ const TradePosting = () => {
             placeholder={'제목을 입력해주세요'}
           />
         </StyleTradeItemTitleBox>
-        {/* <StyleTradePlaceBox>
-          <span>거래지역</span>
-          <StyleTradePlaceSpanBox>
-            <Button
-              text="지역설정"
-              style={{
-                bd_color: "lightGray",
-                bd_radius: "10px",
-                bg_color: "white",
-                color: "gray",
-                width: "100px",
-                mg_right: "5%",
-              }}
-            />
-            <Button
-              text="지역설정 안함"
-              style={{
-                bd_color: "lightGray",
-                bd_radius: "10px",
-                bg_color: "white",
-                color: "gray",
-                width: "100px",
-                mg_left: "5%",
-              }}
-            />
-          </StyleTradePlaceSpanBox>
-        </StyleTradePlaceBox> */}
+
         <StyleTradeStatusBox>
           <span className="statusSpan">상태</span>
           <StyleTradeCheckBoxWrap>
@@ -245,24 +210,6 @@ const TradePosting = () => {
             <span className="won">원</span>
           </div>
         </StyleTradePriceBox>
-        {/* <StyleTradeDetailBox>
-          <span>설명</span>
-          <Input
-            type={"text"}
-            value={detail}
-            _onChange={e => setDetail(e.target.value)}
-            style={{
-              width: "50%",
-              height: "150px",
-              pd_left: "10px",
-              mg_right: "0px",
-              bd: "1px solid lightGray ",
-              bd_bottom: "1px solid lightGray ",
-              bd_radius: "10px",
-            }}
-            placeholder={"상품에 대해 설명해주세요"}
-          />
-        </StyleTradeDetailBox> */}
         <StyleSubmitButton onClick={onSubmitHandler}>등록하기</StyleSubmitButton>
       </StyleTradePostingForm>
     </>

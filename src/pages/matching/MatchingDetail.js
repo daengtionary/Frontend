@@ -1,4 +1,4 @@
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { chatApis } from '../../shared/api';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -26,11 +26,10 @@ import {
 //아이콘
 import heart from '../../static/image/heart.png';
 import commentIcon from '../../static/image/commentIcon.png';
-import dogIcon from '../../static/image/dogIcon.png';
 
 //스와이퍼
 import { StyledSwiper } from '../main/Main';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
@@ -42,7 +41,6 @@ SwiperCore.use([Pagination, Autoplay, Navigation]);
 const TradeDetail = () => {
   const [mapModal, setMapModal] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id } = useParams();
   const item = useSelector((state) => state.matching.getMatchingDetail);
   console.log(item);
@@ -77,7 +75,6 @@ const TradeDetail = () => {
 
   return (
     <TradeDetailAll>
-      {/* {item.length !== 0?( */}
       <TradeDetailFullBox>
         <ImgBox>
           <StyledSwiper
@@ -128,7 +125,6 @@ const TradeDetail = () => {
                 <div style={{ display: 'flex' }}>
                   <span onClick={modalHandler}>
                     <MapMark alt="mapMark" src={`${process.env.PUBLIC_URL}/img/mapLocation.png`} />
-                    {/* <HiOutlineLocationMarker size={24} /> */}
                   </span>
                   <span>{item.address}</span>
                 </div>

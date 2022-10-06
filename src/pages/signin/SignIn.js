@@ -1,5 +1,5 @@
 // React import
-import { useState, useCallback, useRef, Fragment } from "react";
+import { useState, useCallback } from "react";
 
 // Redux import
 import { useDispatch } from "react-redux/es/exports";
@@ -7,7 +7,6 @@ import { signUserThunk } from "../../redux/modules/userSlice";
 
 // Package import
 import { useNavigate } from "react-router-dom";
-// import { useMediaQuery } from 'react-responsive';
 
 // Component & Element import
 import Button from "../../elements/button/Button";

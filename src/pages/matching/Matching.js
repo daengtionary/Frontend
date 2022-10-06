@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyledMatchingAll } from './Matching.styled';
 
 // import { chatApis } from '../../shared/api';
 import MatchingCard from '../../components/card/MatchingCard';
@@ -17,8 +16,6 @@ const Matching = () => {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.matching.getMatching);
   const pageNum = useSelector((state) => state.matching.pageNum);
-  console.log(items);
-  const listEnd = useSelector((state) => state.community.isEnd);
 
   const handleScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight - 1;
@@ -62,8 +59,6 @@ const Matching = () => {
               댕 매칭
             </span>
             <Input
-              // _onKeyPress={onKeyPressHandler}
-              // _onChange={onChangeHandler}
               placeholder={'검색은 현재 준비중입니다'}
               style={{
                 width: '140px',
@@ -78,7 +73,6 @@ const Matching = () => {
             />
             <StyledSerchImg
             style={{right: '0'}}
-              // onClick={onClickHandler}
               src={searchIcon}
             />
           </StyledSerchBox>
