@@ -63,7 +63,7 @@ const TradeDetail = () => {
         }
        else{ await chatApis.addMatching(roomNo)
             chatApis.intoMatching(id)
-        alert("참여 완료! 채팅을 눌러 대화에 참여해보세요:)");}
+        alert("참여 완료! 채팅아이콘을 눌러 대화에 참여해보세요:)");}
       // }
     } catch (error) {}
   };
