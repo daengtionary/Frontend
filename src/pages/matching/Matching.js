@@ -34,20 +34,17 @@ const Matching = () => {
   }, []);
 
 
-  useEffect(()=>{
-    dispatch(
-      clearMatchingItem()
-    );
-  },[])
 
-  
   useEffect(() => {
-    dispatch(
-      getMatching({
-        pagenum: pageNum,
-        size: '4',
-      })
-    );
+    async function fetchMatching(){
+      await dispatch(
+        getMatching({
+          pagenum: pageNum,
+          size: '6',
+        })
+      );
+    }
+    fetchMatching() 
   }, [pageNum]);
 
   return (

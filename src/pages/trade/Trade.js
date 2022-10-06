@@ -16,7 +16,6 @@ import searchIcon from '../../static/image/search.png';
 
 const Trade = () => {
   const [page, setPage] = useState(0);
-  const [tradeSort, setTradeSort] = useState('new');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,10 +38,6 @@ const Trade = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(clearTradeItem);
-  }, []);
-
-  useEffect(() => {
     dispatch(clearTradeItem());
   }, []);
 
@@ -52,7 +47,7 @@ const Trade = () => {
         getTrade({
           page: page,
           size: '12',
-          sort: tradeSort,
+          sort: 'new',
           direction: 'asc',
         })
       );
