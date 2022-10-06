@@ -29,7 +29,7 @@
 
 
 ### STACK
-<div>
+<div align=center>
 <div>
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"/>
   <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white"/>
@@ -51,12 +51,13 @@
 ---
 
 ### DEV-Tool
-<div>
+<div align=center>
 <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white"/>
 <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/>
 <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white"/>
 <img src="https://img.shields.io/badge/Gether Town-6476df?style=for-the-badge&logoColor=white"/>
 </div>
+
 
 ---
 
