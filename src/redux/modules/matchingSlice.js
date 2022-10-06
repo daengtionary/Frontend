@@ -5,7 +5,7 @@ export const getMatching = createAsyncThunk('matching/getmatching', async (paylo
   const resData = await api
 //전체조회
     .get(
-      `/friend/?category&address&content&title&pagenum=${payload.pagenum}&pagesize=6`
+      `/friend/?category&address&content&title&pagenum=${payload.pagenum}&pagesize=${payload.size}`
     )
     .then((res) => res)
     .catch((err) => console.log(err));
@@ -66,9 +66,6 @@ export const matchingSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getMatching.fulfilled, (state, action) => {
       state.getMatching = [...state.getMatching, ...action.payload];
-      if (action.payload.length < 5) {
-        state.isEnd = true;
-      }
     });
     builder.addCase(postingMatching.fulfilled, (state, action) => {
       console.log(action.payload);

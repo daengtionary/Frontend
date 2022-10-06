@@ -43,7 +43,6 @@ const TradeDetail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const item = useSelector((state) => state.matching.getMatchingDetail);
-  console.log(item);
   const roomNo = item.roomNo
 
   const modalHandler = () => {
@@ -59,16 +58,11 @@ const TradeDetail = () => {
     try {
       if(window.sessionStorage.length < 2)
       {alert("로그인이 필요합니다.")}
-      // if (item.count === 0) {
-      //   const response = await chatApis.addMatching(friendNo);
-      //   console.log(response);
-      // } else {
         else if(item.status === "마감 완료"){
           alert("인원이 초과되었습니다.")
         }
-       else{ const response = await chatApis.addMatching(roomNo)
+       else{ await chatApis.addMatching(roomNo)
             chatApis.intoMatching(id)
-        console.log(response)
         alert("참여 완료! 채팅을 눌러 대화에 참여해보세요:)");}
       // }
     } catch (error) {}
