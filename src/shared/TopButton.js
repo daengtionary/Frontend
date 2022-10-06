@@ -12,7 +12,7 @@ const TopButton = ({modalOn, setModalOn}) => {
     throttle(() => {
       window.addEventListener("scroll", handleScroll);
       return () => {
-        window.removeEventListener("scroll", handleScroll); //clean up
+        window.removeEventListener("scroll", handleScroll);
       };
     }, 200),
     [isTopButtonOn]
@@ -46,7 +46,6 @@ const TopButton = ({modalOn, setModalOn}) => {
         width={"0px"}
         height={"40px"}
         hvScale={"scale(1.3)"}
-        // scale={"scaleX(0)"}
         rotate={"rotate(-90deg)"}
       />   
         <StyledTopBtnImg src={commentIcon} padding={"6px"} width={"28px"} height={"28px"} scale={"scaleX(-1)"} hvScale={"scaleX(-1.3) scaleY(1.3)"} onClick={()=>{setModalOn(!modalOn)}}/>

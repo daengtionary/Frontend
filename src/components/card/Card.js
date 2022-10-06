@@ -2,16 +2,11 @@ import { StyledCardBox, StyledCardImg, StyledCardImgBox, StyledCardText, StyledC
 
 const Card = ({ rank, data, _onClick }) => {
   const shopAddress = data.address?.slice(0, 2) && data.address?.slice(0, 2) !== ", " ? data.address?.slice(0, 2) : "전국";
-  console.log(shopAddress);
-  console.log(data);
   return (
     <StyledCardBox onClick={_onClick}>
       <StyledRankBadge rank={rank}></StyledRankBadge>
       <StyledCardImgBox>
-        <StyledCardImg background={data && data.tradeImg ? data.tradeImg : data.mapImgUrl ? data.mapImgUrl : data.communityImg}>
-          {/* {text} */}
-          {/* <CardImg>사진</CardImg> */}
-        </StyledCardImg>
+        <StyledCardImg background={data && data.tradeImg ? data.tradeImg : data.mapImgUrl ? data.mapImgUrl : data.communityImg}></StyledCardImg>
       </StyledCardImgBox>
       <StyledCardTextBox>
         <StyledTitleBox>
@@ -30,16 +25,6 @@ const Card = ({ rank, data, _onClick }) => {
             {data?.title}
           </StyledCardText>
         </StyledTitleBox>
-        {/* <StyledCardText>
-          {data && data.nick ? "작성자 " + data.nick : data.address}
-          </StyledCardText>
-        <StyledCardText>
-          {data && data.status
-            ? data.status
-            : data.mapInfo
-            ? data.mapInfo + " 운영"
-            : "조회수 " + data.view + " 회"}
-        </StyledCardText> */}
       </StyledCardTextBox>
     </StyledCardBox>
   );

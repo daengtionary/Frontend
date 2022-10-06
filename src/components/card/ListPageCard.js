@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import heartIcon from "../../static/image/heart.png";
 
@@ -66,7 +65,6 @@ const StyledCardBox = styled.div`
   }
 `;
 const StyledCardImgBox = styled.div`
-  /* background: ${(props) => `url(${props.background}) no-repeat top center`}; */
   min-width: 46%;
   height: 18em;
   flex: 1 1;
@@ -98,7 +96,6 @@ const StyledCardTextBox = styled.div`
   justify-content: flex-start;
   flex: 1 1;
   padding: 0 1.5em;
-  /* height: 18em; */
   position: relative;
   max-width: 46%;
 
@@ -116,11 +113,7 @@ const StyledCardText = styled.div`
   margin: ${(props) => props.margin};
   text-align: ${(props) => (props.textAlign ? props.textAlign : "")};
   height: ${(props) => (props.height ? props.height : "")};
-  /* display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical; */
   display: block;
-  /* justify-content: ${(props) => (props.justify ? props.justify : "")}; */
   max-width: 34.5rem;
   min-height: 1em;
   word-break: break-all;

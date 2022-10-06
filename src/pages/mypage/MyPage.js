@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
 import { useRef, useState } from "react";
-import { TbAlignJustified, TbCameraPlus, TbGenderFemale, TbGenderMale } from "react-icons/tb";
+import { TbGenderFemale, TbGenderMale } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -9,27 +9,19 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import Button from "../../elements/button/Button";
 import Input from "../../elements/input/Input";
-import { deleteDogImgThunk, deleteDogThunk, editNickThunk, myPageInfoThunk } from "../../redux/modules/myPageSlice";
+import { deleteDogThunk, editNickThunk, myPageInfoThunk } from "../../redux/modules/myPageSlice";
 import DogAddModal, { StyledGenderButton, StyledGenderButtonWrap } from "../../components/dogAddModal/DogAddModal";
 import DeleteButton from "../../static/image/delete.png";
 
 SwiperCore.use([Pagination, Autoplay, Navigation]);
 
-// import jwt from "jsonwebtoken";
-
 const MyPage = () => {
   const navigate = useNavigate();
-  // 토큰 변수 할당
   let token = window.sessionStorage.getItem("authorization");
-  // 토큰 decode 하는 부분
   let decoded = token && jwtDecode(token);
-  console.log(decoded);
-  // 토큰 만료시간
   let exp = token && Number(decoded.exp + "000");
   let expTime = new Date(exp);
-  console.log(expTime, "만료 시간");
   let now = new Date();
-  console.log(now, "현재 시간");
   const checkToken = () => {
     if (!token) {
       alert("로그인이 필요합니다.");
@@ -43,22 +35,11 @@ const MyPage = () => {
     }
   };
 
-  // console.log(window.sessionStorage.getItem("email"));
-  // console.log(window.sessionStorage.getItem("nick"));
   const dispatch = useDispatch();
   const data = useSelector((state) => state.myPage.myPageInfo);
-  console.log(data);
-  //버튼에 dispatch 달아서 특정 강아지 정보만 가져오도록하자
   const dogData = data.dogs;
-  console.log(dogData);
   const dogList = useSelector((state) => state.myPage.myDogInfo);
-  console.log(dogList);
   const myDogList = useSelector((state) => state.myPage.myDogList);
-
-  // // input에다 넣을 값??
-  // console.log(data && data.dogs[0]);
-  // const dogsdogs = data && Object.values(data.dogs[0]).slice(1, 5);
-  // console.log(dogsdogs);
 
   const dogProfileInputList = [
     {
@@ -79,21 +60,12 @@ const MyPage = () => {
       length: 4,
       defaultValue: dogList.weight + " kg",
     },
-    // {
-    //   name: "gender",
-    //   placeholder: "성별",
-    //   defaultValue: dogList.gender,
-    // },
   ];
   const [checked, setChecked] = useState(false);
   const [profile, setProfile] = useState({});
   const [buttonToggle, setButtonToggle] = useState(false);
   const [onModal, setOnModal] = useState(false);
-  console.log("모달", onModal);
-  // const [dogProfile, setDogProfile] = useState({});
-  // const [myDogImg, setMyDogImg] = useState("");
 
-  const dogImgRef = useRef();
   const nickRef = useRef();
 
   const onModalHandler = () => {
@@ -101,10 +73,8 @@ const MyPage = () => {
   };
   useEffect(() => {
     checkToken();
-    console.log(dogData);
-  }, [buttonToggle, onModal, myDogList]);
+  }, [buttonToggle, onModal, myDogList, profile]);
 
-  // console.log("프로필:", profile, "강아지프로필:", dogProfile);
   const onChangeProfile = (e) => {
     const { value, name } = e.target;
     value
@@ -113,7 +83,6 @@ const MyPage = () => {
           [name]: value,
         })
       : setProfile({
-          // email: window.sessionStorage.getItem("email"),
           nick: window.sessionStorage.getItem("nick"),
         });
   };
@@ -125,8 +94,8 @@ const MyPage = () => {
       const nickEditConfirm = window.confirm("닉네임을 수정하시겠습니까?");
       if (nickEditConfirm === true) {
         dispatch(editNickThunk(profile.nick));
-        checkToken();
         alert("닉네임이 수정되었습니다 :)");
+        checkToken();
       } else if (nickEditConfirm === false) {
         return;
       }
@@ -135,13 +104,9 @@ const MyPage = () => {
   const onKeyPressEditNick = (e) => {
     onClickEditNick();
   };
-  console.log(buttonToggle);
-  console.log(profile);
 
   const deleteDogHandler = (dogNo) => {
-    console.log(dogNo);
     const deleteDogconfirm = window.confirm("강아지 프로필을 삭제하시겠습니까?");
-    console.log(deleteDogconfirm);
     if (deleteDogconfirm === true) {
       dispatch(deleteDogThunk(dogNo));
       alert("삭제완료!");
@@ -149,26 +114,14 @@ const MyPage = () => {
       return;
     }
   };
-  const deleteDogImgHandler = (dogNo) => {
-    dispatch(deleteDogImgThunk(dogNo));
-  };
 
   return (
     <StyledMyPageWrap>
       <StyledMyPageProfileWrap>
         <StyledMyPageProfileTitle width={"55em"}>마이페이지</StyledMyPageProfileTitle>
-        {/* <StyledMyPageNavWrap>
-          <StyledMyPageNavButton color={"#000"} background={"#cccccc80"}>
-            프로필
-          </StyledMyPageNavButton>
-          <StyledMyPageNavButton>찜 목록</StyledMyPageNavButton>
-        </StyledMyPageNavWrap> */}
         <StyledMyPageProfileBox>
           <StyledMyPageProfileTitle>나의 정보</StyledMyPageProfileTitle>
           <StyledMyPageProfileContent>
-            {/* <MyPageEmail>
-              {data.email === null ? "이메일" : data?.email}
-            </MyPageEmail> */}
             <Input
               value={data.email === null ? "이메일" : data?.email}
               type="text"
@@ -202,7 +155,6 @@ const MyPage = () => {
                   bd_bottom: "#ccc",
                   bd: "1px solid transparent",
                   lineHeight: "50px",
-                  // pd_right: "4em",
                 }}
               />
             ) : (
@@ -225,53 +177,20 @@ const MyPage = () => {
                   bd_bottom: "#ccc",
                   bd: "1px solid transparent",
                   lineHeight: "50px",
-                  // pd_right: "4em",
                 }}
               />
             )}
-
-            {/* {ProfileInputList.map((inputList, i) => (
-            <Input
-              key={i}
-              name={"닉네임"}
-              defaultValue={inputList}
-              style={{
-                mg_top: "1.6em",
-                bd_color: "transparent",
-                bd_bottom: "#ccc",
-              }}
-              placeholder={inputList}
-              _onChange={onChangeProfile}
-              type="text"
-            />
-          ))} */}
-            {/* <EditButton top={"30%"}>수정 &#62;</EditButton> */}
             {!buttonToggle ? (
               <StyledEditButton onClick={onClickEditNick}>수정 &#62;</StyledEditButton>
             ) : (
               <StyledEditButton onClick={onClickEditNick}>완료 &#62;</StyledEditButton>
             )}
           </StyledMyPageProfileContent>
-          {/* <Button
-            text={"로그아웃"}
-            style={{
-              width: "50%",
-              height: "4em",
-              color: "#000",
-              bg_color: "#f5f5f8",
-              bd_color: "transparent",
-              bd_radius: "8px",
-              mg_top: "3em",
-              ft_size: ".8em",
-            }}
-          /> */}
         </StyledMyPageProfileBox>
         <StyledMyPageProfileBox>
           <StyledMyPageProfileTitle>나의 강아지</StyledMyPageProfileTitle>
-          {/*/////////////////////////////*/}
           {onModal ? (
             <DogAddModal
-              // myDogImg={myDogImg}
               dogData={dogData}
               checked={checked}
               dogProfileInputList={dogProfileInputList}
@@ -280,17 +199,8 @@ const MyPage = () => {
               checkToken={checkToken}
             />
           ) : null}
-          {/*/////////////////////////////*/}
           {dogData.length === 1 ? (
-            <StyledSwiper
-              spaceBetween={36}
-              slidesPerView={1}
-              pagination={{ clickable: true }}
-              // autoplay={{ delay: 3000, disableOnInteraction: false }}
-              loop={false}
-              centeredSlides={true}
-              initialSlide={0}
-            >
+            <StyledSwiper spaceBetween={36} slidesPerView={1} pagination={{ clickable: true }} loop={false} centeredSlides={true} initialSlide={0}>
               {dogData?.map((dog, i) => (
                 <SwiperSlide key={dog.dogNo}>
                   <StyledDogInfoSlide>
@@ -299,34 +209,8 @@ const MyPage = () => {
                         deleteDogHandler(dog.dogNo);
                       }}
                     />
-                    {/* <button
-                      onClick={() => {
-                        deleteDogImgHandler(dog.dogNo);
-                      }}
-                    >
-                      사진삭제
-                    </button> */}
                     <StyledMyPageDogImgBox>
                       <StyledMyPageDogImg src={`${dog.image}`} />
-                      {/* <StyledMyPageDogImgDot
-                      // onClick={onClickDogInput}
-                      >
-                        <TbCameraPlus
-                          style={{
-                            position: "absolute",
-                            top: "2.5px",
-                            right: "2.5px",
-                          }}
-                          size="14"
-                          color="#fff"
-                        />
-                        <StyledMyPageDogImgInput
-                          ref={dogImgRef}
-                          // onChange={onImgHandler}
-                          type="file"
-                          accept="image/*"
-                        />
-                      </StyledMyPageDogImgDot> */}
                     </StyledMyPageDogImgBox>
                     <StyledDogInfoSlideText>{dog.name}</StyledDogInfoSlideText>
                     <StyledDogInfoSlideText>{dog.breed}</StyledDogInfoSlideText>
@@ -351,15 +235,7 @@ const MyPage = () => {
               ))}
             </StyledSwiper>
           ) : dogData.length !== 0 ? (
-            <StyledSwiper
-              spaceBetween={36}
-              slidesPerView={1}
-              pagination={{ clickable: true }}
-              // autoplay={{ delay: 3000, disableOnInteraction: false }}
-              loop={true}
-              centeredSlides={true}
-              initialSlide={0}
-            >
+            <StyledSwiper spaceBetween={36} slidesPerView={1} pagination={{ clickable: true }} loop={true} centeredSlides={true} initialSlide={0}>
               {dogData?.map((dog, i) => (
                 <SwiperSlide key={dog.dogNo}>
                   <StyledDogInfoSlide>
@@ -368,34 +244,8 @@ const MyPage = () => {
                         deleteDogHandler(dog.dogNo);
                       }}
                     />
-                    {/* <button
-                      onClick={() => {
-                        deleteDogImgHandler(dog.dogNo);
-                      }}
-                    >
-                      사진삭제
-                    </button> */}
                     <StyledMyPageDogImgBox>
                       <StyledMyPageDogImg src={`${dog.image}`} />
-                      {/* <StyledMyPageDogImgDot
-                      // onClick={onClickDogInput}
-                      >
-                        <TbCameraPlus
-                          style={{
-                            position: "absolute",
-                            top: "2.5px",
-                            right: "2.5px",
-                          }}
-                          size="14"
-                          color="#fff"
-                        />
-                        <StyledMyPageDogImgInput
-                          ref={dogImgRef}
-                          // onChange={onImgHandler}
-                          type="file"
-                          accept="image/*"
-                        />
-                      </StyledMyPageDogImgDot> */}
                     </StyledMyPageDogImgBox>
                     <StyledDogInfoSlideText>{dog.name}</StyledDogInfoSlideText>
                     <StyledDogInfoSlideText>{dog.breed}</StyledDogInfoSlideText>
@@ -423,7 +273,6 @@ const MyPage = () => {
             "댕프로필이 없습니다. 댕프로필을 추가해주세요."
           )}
           <Button
-            // ref={dogImgRef}
             text={"댕프로필 추가하기"}
             _onClick={onModalHandler}
             style={{
@@ -450,7 +299,6 @@ const StyledMyPageWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* position: relative; */
 `;
 const StyledMyPageProfileWrap = styled.div`
   display: flex;
@@ -487,15 +335,6 @@ const StyledMyPageProfileContent = styled.div`
     flex-direction: column;
   }
 `;
-const StyledMyPageEmail = styled.div`
-  align-self: flex-start;
-  margin-top: 1.6em;
-  border-color: transparent;
-  border-bottom: 1px solid #ccc;
-  width: 100%;
-  line-height: 50px;
-  font-size: 13px;
-`;
 const StyledMyPageDogImgBox = styled.div`
   width: 6em;
   height: 6em;
@@ -515,19 +354,6 @@ const StyledMyPageDogImg = styled.img`
   border-radius: 50%;
   background-color: ${(props) => (props.background ? props.background : "none")};
 `;
-const StyledMyPageDogImgDot = styled.div`
-  position: absolute;
-  right: 10px;
-  bottom: 4px;
-  background: #6563ff;
-  width: 1.2em;
-  height: 1.2em;
-  border-radius: 50%;
-  cursor: pointer;
-`;
-const StyledMyPageDogImgInput = styled.input`
-  display: none;
-`;
 export const StyledEditButton = styled.div`
   padding: 5px 10px 5px 7px;
   font-size: 0.3em;
@@ -540,48 +366,12 @@ export const StyledEditButton = styled.div`
   right: ${(props) => (props.right ? props.right : "4%")};
   cursor: pointer;
   @media screen and (max-width: 768px) {
-    /* top: 43em;
-    right: 37em; */
     top: 77%;
     right: 25%;
     font-size: 14px;
   }
 `;
-const StyledSelectDog = styled.div`
-  width: 50%;
-  margin-top: 1em;
-  font-size: 0.6em;
-  text-align: left;
-  cursor: pointer;
-`;
-const StyledMyPageNavWrap = styled.div`
-  width: 77em;
-  display: flex;
-  flex-direction: row;
-  /* position: relative; */
-  /* left: -30%; */
-  /* top: -63em; */
-  margin-top: 1em;
-  white-space: nowrap;
-  border-bottom: 1px solid #ccc;
-`;
-const StyledMyPageNavButton = styled.div`
-  padding: 11px 110px 11px 10px;
-  /* margin-bottom: 5px; */
-  font-size: 0.8em;
-  color: ${(props) => props.color};
-  background: ${(props) => props.background};
-  border: none;
-  border-radius: 8px 8px 0 0;
-  cursor: pointer;
-`;
-const StyledCheckMark = styled.span`
-  color: ${(props) => (props.checkColor ? "#0066ff" : "#000")};
-  font-weight: ${(props) => (props.checkFontWeight ? "700" : "400")};
-  cursor: pointer;
-`;
 const StyledSwiper = styled(Swiper)`
-  /* background: #ff000050; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -591,10 +381,6 @@ const StyledSwiper = styled(Swiper)`
   @media screen and (max-width: 768px) {
     padding: 2em 3em 4em 3em;
   }
-`;
-const StyledSwiperSlide = styled(SwiperSlide)`
-  display: flex;
-  flex-direction: column;
 `;
 const StyledDogInfoSlide = styled.div`
   display: flex;
