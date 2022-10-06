@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const TradeDetailAll = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ export const ItemTitleBox = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  
+
   @media screen and (max-width: 768px) {
     width: 400px;
     height: 400px;
@@ -77,26 +77,15 @@ export const ItemNameInfoText = styled.div`
   border-bottom: 2px solid lightgray;
   display: flex;
   flex-direction: column;
-  
-  .itemName {
-    margin-top: 5px;
-    font-size: 28px;
-    font-weight: 700;
-    max-height: 40px;
-    overflow: hidden;
-  }
-  .price {
-    font-weight: 700;
+  .info {
+    color: #6563ff;
+    margin-left: 30px;
     font-size: 35px;
-    margin-top: auto;
-    margin-bottom: 15px;
-    max-height: 50px;
-    overflow: hidden;
+    margin-top: 20px;
   }
-  .won {
-    color: gray;
-    font-size: 22px;
-    max-height: 25px;
+  span {
+    font-weight: 500;
+    font-size: 35px;
   }
   @media screen and (max-width: 768px) {
     width: 348px;
@@ -105,20 +94,17 @@ export const ItemNameInfoText = styled.div`
     border: 1px solid gray;
     border-radius: 0 0 20px 20px;
     padding-left: 10px;
-    .won {
-      font-size: 19px;
-      color: black;
-    }
-    .price {
-      font-weight: 500;
+    .info {
+      color: #6563ff;
+      margin-left: 10px;
       font-size: 20px;
     }
-    .itemName {
-      font-size: 17px;
-      font-weight: 500;
-      color: #b8c2c6;
-      max-height: 21px;
-    overflow: hidden;
+    span {
+      font-size: large;
+      font-weight: 400;
+      font-size: 20px;
+      margin-top: 25.3px;
+      display: none;
     }
   }
 `;
@@ -129,33 +115,33 @@ export const ItemDetailInfoText = styled.div`
   gap: 10px 20px;
   flex-direction: column;
   justify-content: space-around;
-  margin-top: 50px;
+  margin-top: 40px;
   width: 420px;
   height: auto;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 500;
   .sellInfo {
-    font-size: 17px;
-    font-weight: 700;
-    color: #b8c2c6;
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
     position: absolute;
     left: 30%;
     max-height: 25px;
     overflow: hidden;
   }
   @media screen and (max-width: 768px) {
+    font-size: 13px;
     width: 350px;
     height: 150px;
     margin-top: 20px;
     gap: 3px 10px;
     padding-left: 10px;
     .sellInfo {
-      font-size: 17px;
-      font-weight: 700;
-      color: #b8c2c6;
+      font-size: 13px;
+      font-weight: 500;
+      color: black;
       position: absolute;
       left: 40%;
-      
     }
   }
 `;
@@ -245,7 +231,7 @@ export const MapTooltip = styled.div`
     border-color: #eef3fd transparent;
     border-style: solid;
     border-width: 0 6px 8px 6.5px;
-    content: "";
+    content: '';
     display: block;
     left: 5px;
     position: absolute;
@@ -258,7 +244,7 @@ export const MapTooltip = styled.div`
     border-color: #7689fd transparent;
     border-style: solid;
     border-width: 0 6px 8px 6.5px;
-    content: "";
+    content: '';
     display: block;
     left: 5px;
     position: absolute;
@@ -302,13 +288,14 @@ export const MapTooltip = styled.div`
 `;
 
 export const MapAddress = styled.div`
+
   width: 80vw;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   color: gray;
-  /* padding-bottom: 20px; */
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  position: absolute;
+  bottom: 60px;
 
   span:first-child {
     display: flex;
@@ -319,8 +306,10 @@ export const MapAddress = styled.div`
 
   @media screen and (max-width: 768px) {
     width: 90%;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     border-bottom: none;
+    position: absolute;
+    bottom: 10%;
   }
 `;
 export const MapMark = styled.img`

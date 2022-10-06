@@ -90,7 +90,7 @@ export const CardList = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 60px 86px;
-  justify-content: center;
+  justify-content: flex-start;
   @media screen and (max-width: 768px) {
     gap: 20px 40px;
   }

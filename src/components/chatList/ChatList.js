@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef,  } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+
 import { 
   MessageWrap,
   Message,
@@ -11,20 +11,17 @@ import {
   ChatListDate,
   Status
 } from "./ChatList.styled"
-import moment from "moment";
-import "moment/locale/ko";
 
 import {
   cleanUpMessage,
   getMessageListDB,
-  getRoomListDB,
 } from "../../redux/modules/chatSlice";
 
 
 // 채팅 > 채팅방 > 채팅 내역
-const ChatList = () => {
+const ChatList = ({id}) => {
   const dispatch = useDispatch();
-  const { roomNo } = useParams();
+  const  roomNo  = id;
   const scrollRef = useRef();
   const user = window.localStorage.getItem("nick");
 
@@ -58,17 +55,6 @@ const ChatList = () => {
     };
   }, []);
 
-  // 채팅방 나간 경우 이전 메시지 숨김 처리.
-  // (() => {
-  //   let slicedList = [];
-  //   messageList.forEach((message) => {
-  //     slicedList = [...slicedList, message];
-  //     if (message.type === "STATUS" && message.senderName === user) {
-  //       slicedList = [];
-  //     }
-  //   });
-  //   messageList = slicedList;
-  // })();
 
   return (
     <MessageWrap>

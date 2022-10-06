@@ -59,7 +59,7 @@ const Header = () => {
         ) : (
           <HeaderLoginText
             onClick={() => {
-              navigate("/Signin");
+              navigate("/signin");
             }}
           >
             로그인
@@ -67,7 +67,7 @@ const Header = () => {
         )}
         <HeaderMypageText
           onClick={() => {
-            navigate("/Mypage");
+            navigate("/mypage");
           }}
         >
           마이페이지

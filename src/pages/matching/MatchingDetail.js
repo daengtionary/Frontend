@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { chatApis } from '../../shared/api';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -26,11 +26,10 @@ import {
 //아이콘
 import heart from '../../static/image/heart.png';
 import commentIcon from '../../static/image/commentIcon.png';
-import dogIcon from '../../static/image/dogIcon.png';
 
 //스와이퍼
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { StyledSwiper, StyledMainBanner } from '../main/Main.js';
+import { StyledSwiper } from '../main/Main';
+import { SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
@@ -58,21 +57,24 @@ const TradeDetail = () => {
   // 매칭 룸 생성
   const onClickMatching = async () => {
     try {
-      if (item.count === 1){
-        const response = await chatApis.addMatching(friendNo);
-        console.log(response);
-        Navigate(`/chat`);
-      }else{
-        const response = await chatApis.intoMatching(friendNo);
-        console.log(response);
-        Navigate(`/chat`);
-      }
+      if(window.sessionStorage.length < 2)
+      {alert("로그인이 필요합니다.")}
+      // if (item.count === 0) {
+      //   const response = await chatApis.addMatching(friendNo);
+      //   console.log(response);
+      // } else {
+        else if(item.status === "마감 완료"){
+          alert("인원이 초과되었습니다.")
+        }
+       else{ const response = await chatApis.intoMatching(friendNo)
+        console.log(response)
+        alert("참여 완료! 채팅을 눌러 대화에 참여해보세요:)");}
+      // }
     } catch (error) {}
   };
 
   return (
     <TradeDetailAll>
-      {/* {item.length !== 0?( */}
       <TradeDetailFullBox>
         <ImgBox>
           <StyledSwiper
@@ -86,52 +88,48 @@ const TradeDetail = () => {
             centeredSlides={true}
             style={{ backgroundColor: 'white' }}
           >
-            <SwiperSlide>
-              <ItemDetailImg src={dogIcon} />
-            </SwiperSlide>
+            {item.images?.map((image, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <ItemDetailImg src={image.friendImg} />
+                </SwiperSlide>
+              );
+            })}
           </StyledSwiper>
         </ImgBox>
         <ItemContentBox>
           <ItemTitleBox>
             <ItemNameInfoText>
-              <span className="category">{item.category}</span>
-              <span className="title">{item.address}</span>
-              <span className="place">총 모집인원 : {item.maxCount}</span>
+              <span>
+                카테고리<span className="info">#{item.category}</span>
+              </span>
             </ItemNameInfoText>
             <ItemDetailInfoText>
-              {item.tradeImgUrl?.map((el, i) => {
-                return (
-                  <SwiperSlide key={i}>
-                    <ItemDetailImg src={el} />
-                  </SwiperSlide>
-                );
-              })}
               <span>
-                현재 인원 <span className="sellInfo">{item.count + 1}</span>
+                제목<span className="sellInfo">{item.title}</span>
               </span>
-              {console.log(item.member?.nick)}
               <span>
-                현재 멤버 <span className="sellInfo">{item.member?.nick}</span>
+                최대인원 <span className="sellInfo">{item.maxCount}</span>
               </span>
-              {/* <span>
-                현재 멤버 :
-                {item.member?.map((el,i)=> {
-                  return(
-                    <span className="sellInfo" key={i}>{el.nick}</span>    
-                )})}
-              </span> */}
-
+              <span>
+                모집현황 <span className="sellInfo">{item.status}</span>
+              </span>
+              <span>
+                닉네임 <span className="sellInfo">{item.member?.nick}</span>
+              </span>
+              <span>
+                상세 <span className="sellInfo">{item.content}</span>
+              </span>
+              
               <MapAddress>
                 <div style={{ display: 'flex' }}>
                   <span onClick={modalHandler}>
                     <MapMark alt="mapMark" src={`${process.env.PUBLIC_URL}/img/mapLocation.png`} />
-                    {/* <HiOutlineLocationMarker size={24} /> */}
                   </span>
                   <span>{item.address}</span>
                 </div>
                 <MapTooltip className="task-tooltip">여기를 클릭해 지도정보를 살펴보세요</MapTooltip>
               </MapAddress>
-              <span style={{ fontSize: '15px' }}>{item.content}</span>
             </ItemDetailInfoText>
             <ButtonWrap>
               <AddWishButton>

@@ -122,7 +122,7 @@ const Main = () => {
           <StyledMainBanner
             backgroundImg={banner_02}
             onClick={() => {
-              alert("준비 중 입니다 :)");
+              navigate("/matching");
             }}
           />
         </SwiperSlide>
@@ -142,12 +142,8 @@ const Main = () => {
               key={i}
               type={"button"}
               _onClick={() => {
-                if (mainButton.category === "matching") {
-                  alert("준비 중 입니다 :)");
-                } else {
                   navigate("/" + mainButton.category);
                   dispatch(reset());
-                }
               }}
               img={mainButton.img}
               style={{
@@ -226,15 +222,17 @@ const Main = () => {
       </StyledMainCardWrap>
 
       {guideOn && (
-        <Dim>
-          <StyleGuide>
+        <Dim onClick={() => {
+          setGuideOn(!guideOn);
+        }}>
+          <StyleGuide onClick={(e) => e.stopPropagation()}>
             <StyledSwiper
               className="swipe"
               spaceBetween={0}
               slidesPerView={1}
               navigation
               pagination={{ clickable: true }}
-              autoplay={{ delay: 3000, disableOnInteraction: false }}
+              autoplay={{ delay: 15000, disableOnInteraction: false }}
               loop={true}
               centeredSlides={true}
               style={{ backgroundColor: "white" }}

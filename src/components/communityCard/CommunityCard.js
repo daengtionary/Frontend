@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getCommunityDeleteThunk } from "../../redux/modules/communitySlice";
 
-
 import jwtDecode from "jwt-decode";
 import {
   CommunityCardWrap,
@@ -27,11 +26,9 @@ import {
 const CommunityCard = ({ data }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const token = window.sessionStorage.getItem("authorization");
   const decoded = token && jwtDecode(token);
   const userEmail = decoded?.sub;
-  console.log(userEmail)
 
   return (
     <CommunityCardWrap>
@@ -40,8 +37,8 @@ const CommunityCard = ({ data }) => {
           <>
             <IconBox
               onClick={() => {
-                alert("삭제되었습니다!")
-                dispatch(getCommunityDeleteThunk(data.communityNo))
+                alert("삭제되었습니다!");
+                dispatch(getCommunityDeleteThunk(data.communityNo));
                 window.location.reload();
               }}
               length={"24px"}
@@ -57,9 +54,11 @@ const CommunityCard = ({ data }) => {
         {data.reviewCount === 0 ? <NullCircle /> : <RepleCircle>{data.reviewCount}</RepleCircle>}
       </IconWrap>
 
-      <CardContents onClick={() => {
-              navigate(`/community/${data.communityNo}`);
-            }}>
+      <CardContents
+        onClick={() => {
+          navigate(`/community/${data.communityNo}`);
+        }}
+      >
         <StyledUserInfo>
           <ProfilePhoto url={data.image ? data?.image : "/img/dogIconGray.png"} />
           <Names>
@@ -67,15 +66,7 @@ const CommunityCard = ({ data }) => {
             <User>{data?.nick?.length > 4 ? data.nick.substring(0, 3) + "..." : data.nick}</User>
           </Names>
         </StyledUserInfo>
-        {data.communityImg ? (
-          <ContentImg
-            alt=""
-            src={data.communityImg}
-
-          />
-        ) : (
-          <DefaultImg/>
-        )}
+        {data.communityImg ? <ContentImg alt="" src={data.communityImg} /> : <DefaultImg />}
 
         <CategoryTitleWrap>
           <Category>{data.category ? data.category : "없음"}</Category>

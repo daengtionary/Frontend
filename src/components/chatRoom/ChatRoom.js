@@ -21,19 +21,15 @@ const ChatRoom = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const stompClient = useRef(null);
-  const { roomNo } = useParams();
-  console.log(roomNo);
+  const roomNo = location.state.roomNo;
 
-  const memberNo = window.localStorage.getItem("memberNo");
   const nick = window.localStorage.getItem("nick");
 
-  const roomKey = location.state.roomKey;
-  console.log(roomKey);
-  const targetNick = location.state.targetNick;
+
 
 
   const onClickBack = () => {
-    navigate("/chat");
+    navigate(-1);
   };
 
   // 웹소켓 연결 요청 & 구독 요청
@@ -130,7 +126,7 @@ const ChatRoom = () => {
           </Title>
           <ChatRoomFullBox>
             {/* {isLoading && <LoadingSpinner />} */}
-            <ChatList />
+            <ChatList id={roomNo} />
           </ChatRoomFullBox>
           <ChatInputWrap>
             <ChatInputForm onSubmit={sendMessage}>

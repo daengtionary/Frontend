@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CommunityDetailRipleCard from "../../components/communityDetialRipleCard/CommunityDetailRipleCard";
@@ -18,7 +18,6 @@ import {
   StyledBottomBtn,
 } from "./CommunityDetail.styled";
 import { getCommunityDetailThunk } from "../../redux/modules/communitySlice";
-import { groupBy, map } from "lodash";
 
 const CommunityDetail = () => {
   const navigate = useNavigate();
@@ -27,7 +26,7 @@ const CommunityDetail = () => {
   const data = useSelector((state) => state.community.communityDetail);
 
   let { id } = useParams();
- 
+
   useLayoutEffect(() => {
     dispatch(getCommunityDetailThunk(Number(id)));
   }, [dispatch]);
@@ -45,19 +44,22 @@ const CommunityDetail = () => {
   return (
     <StyledCommunityContainer id="super">
       <StyledPageTitle>
-        <div><IoIosArrowBack onClick={() => {
-          navigate("/community");
-        }}/></div>
         <div>
-          커뮤니티
+          <IoIosArrowBack
+            onClick={() => {
+              navigate("/community");
+            }}
+          />
         </div>
+        <div>커뮤니티</div>
       </StyledPageTitle>
       <StyledCommunityWrap>
         <StyledDetailWrap>
           <StyledPostContainer marginTop={"60px"}>
-
             <StyledTitle>
-              {data.communityDetatilResponseDto?.title > 30 ? data.communityDetatilResponseDto?.title.substring(0, 30) + "..." : data.communityDetatilResponseDto?.title}
+              {data.communityDetatilResponseDto?.title > 30
+                ? data.communityDetatilResponseDto?.title.substring(0, 30) + "..."
+                : data.communityDetatilResponseDto?.title}
             </StyledTitle>
             <StyledPostInfo>
               <div>분류 : {data.communityDetatilResponseDto?.category}</div>
@@ -68,25 +70,15 @@ const CommunityDetail = () => {
 
             <StyledContent>
               <StyledImgList>
-                {data?.imgResponseDtoList ? (
-                  data?.imgResponseDtoList?.map((el, i) => {
-                    return <img key={i} alt={`${data.communityDetatilResponseDto?.title}${i}`} src={el?.mapImgUrl} style={{ backgroundColor: "gray" }} />;
-                  })
-                ) : (
-                  // <div>이미지 없음</div>
-                  null
-                )}
-
+                {data?.imgResponseDtoList
+                  ? data?.imgResponseDtoList?.map((el, i) => {
+                      return <img key={i} alt={`${data.communityDetatilResponseDto?.title}${i}`} src={el?.mapImgUrl} style={{ backgroundColor: "gray" }} />;
+                    })
+                  : null}
               </StyledImgList>
               <p>{data.communityDetatilResponseDto?.content}</p>
             </StyledContent>
           </StyledPostContainer>
-
-          {/* <div>
-            <button>글 수정</button>
-            <button>글 삭제</button>
-          </div> */}
-
           <StyledRiple onSubmit={OnCommentSubmitHandler}>
             <StyledWriteRiple placeholder="000글자 이내로 작성해주세요" />
             <StyledRipleBtn type="submit">댓글달기</StyledRipleBtn>
@@ -95,7 +87,7 @@ const CommunityDetail = () => {
           <StyledShowRiples>
             <CommunityDetailRipleCard data={data.reviewList} />
           </StyledShowRiples>
-          
+
           <StyledBottomBtn>
             <button onClick={() => navigate("/community")}>목록으로</button>
           </StyledBottomBtn>

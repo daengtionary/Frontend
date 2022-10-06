@@ -47,7 +47,7 @@ chatApi.interceptors.request.use(function (config) {
 export const chatApis = {
   // 채팅
   getRoomList: () => chatApi.get("/chat/rooms"),
-  getMessageList: (roomId) => chatApi.get("/chat/messages/" + roomId),
+  getMessageList: (roomNo) => chatApi.get("/chat/messages/" + roomNo),
   addRoom: (memberNo) => chatApi.post("/chat/room/personal", { memberNo }),
   exitRoom: (roomId) => chatApi.get(`chat/room/exit/${roomId}`),
   addMatching: (friendNo) => chatApi.post(`/chat/room/into/${friendNo}`),
