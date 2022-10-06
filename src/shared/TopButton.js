@@ -5,7 +5,7 @@ import styled from "styled-components";
 import arrowIcon from "../static/image/arrowIcon.png";
 import commentIcon from "../static/image/commentIcon.png";
 
-const TopButton = ({modalOn, setModalOn}) => {
+const TopButton = ({ modalOn, setModalOn }) => {
   const [isTopButtonOn, setIsTopButtonOn] = useState(false);
 
   useEffect(
@@ -36,7 +36,17 @@ const TopButton = ({modalOn, setModalOn}) => {
         hvScale={"scale(1.3)"}
         rotate={"rotate(-90deg)"}
       />
-        <StyledTopBtnImg src={commentIcon} padding={"6px"} width={"28px"} height={"28px"} scale={"scaleX(-1)"} hvScale={"scaleX(-1.3) scaleY(1.3)"}  onClick={()=>{setModalOn(!modalOn)}}/>
+      <StyledTopBtnImg
+        src={commentIcon}
+        padding={"6px 6px 10px 6px"}
+        width={"28px"}
+        height={"28px"}
+        scale={"scaleX(-1)"}
+        hvScale={"scaleX(-1.3) scaleY(1.3)"}
+        onClick={() => {
+          setModalOn(!modalOn);
+        }}
+      />
     </StyledTopBtn>
   ) : (
     <StyledTopBtn height={"50px"}>
@@ -47,8 +57,18 @@ const TopButton = ({modalOn, setModalOn}) => {
         height={"40px"}
         hvScale={"scale(1.3)"}
         rotate={"rotate(-90deg)"}
-      />   
-        <StyledTopBtnImg src={commentIcon} padding={"6px"} width={"28px"} height={"28px"} scale={"scaleX(-1)"} hvScale={"scaleX(-1.3) scaleY(1.3)"} onClick={()=>{setModalOn(!modalOn)}}/>
+      />
+      <StyledTopBtnImg
+        src={commentIcon}
+        padding={"6px 6px 10px 6px"}
+        width={"28px"}
+        height={"28px"}
+        scale={"scaleX(-1)"}
+        hvScale={"scaleX(-1.3) scaleY(1.3)"}
+        onClick={() => {
+          setModalOn(!modalOn);
+        }}
+      />
     </StyledTopBtn>
   );
 };
