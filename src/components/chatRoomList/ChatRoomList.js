@@ -17,7 +17,7 @@ const ChatRoomList = () => {
           <Link to="/chat" style={{ textDecoration: 'none' }} state={{ background: location, roomNo: room.roomNo, index: index }} key={room.roomNo}>
             <List>
               <span>
-                {room.type === "group"? (<Nickname>{room.type}</Nickname>) : (nick === room.chatRoomMembers[0]?.nick ? (
+                {room.type === "group"? (<Nickname>{room.title}</Nickname>) : (nick === room.chatRoomMembers[0]?.nick ? (
                   <Nickname>{room.chatRoomMembers[1]?.nick}</Nickname>
                 ) : (
                   <Nickname>{room.chatRoomMembers[0]?.nick}</Nickname>

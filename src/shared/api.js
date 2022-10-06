@@ -50,7 +50,7 @@ export const chatApis = {
   getMessageList: (roomNo) => chatApi.get("/chat/messages/" + roomNo),
   addRoom: (memberNo) => chatApi.post("/chat/room/personal", { memberNo }),
   exitRoom: (roomId) => chatApi.get(`chat/room/exit/${roomId}`),
-  addMatching: (friendNo) => chatApi.post(`/chat/room/into/${friendNo}`),
-  intoMatching: (friendNo) => chatApi.post(`/friend/count/${friendNo}`)
+  addMatching: (roomNo) => chatApi.post("/chat/room/into", {roomNo}),
+  intoMatching: (friendNo) => chatApi.post(`/friend/count/${friendNo}`) 
 };
 

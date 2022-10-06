@@ -44,7 +44,7 @@ const TradeDetail = () => {
   const { id } = useParams();
   const item = useSelector((state) => state.matching.getMatchingDetail);
   console.log(item);
-  const friendNo = +id;
+  const roomNo = item.roomNo
 
   const modalHandler = () => {
     setMapModal(!mapModal);
@@ -66,7 +66,8 @@ const TradeDetail = () => {
         else if(item.status === "마감 완료"){
           alert("인원이 초과되었습니다.")
         }
-       else{ const response = await chatApis.intoMatching(friendNo)
+       else{ const response = await chatApis.addMatching(roomNo)
+            chatApis.intoMatching(id)
         console.log(response)
         alert("참여 완료! 채팅을 눌러 대화에 참여해보세요:)");}
       // }
