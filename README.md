@@ -175,6 +175,33 @@ redux 리듀서 함수를 사용해 스테이트 관리를 해주면 좀더 쉽�
 
 ---
 
+### 👀 Git Convention
+```
+- main
+- dev
+   └ minsuk
+   └ byungno 
+   └ jaejeong
+```
+
+>- **main** : 주가 되는 백업 브렌치, dev에서 작업이 끝나면 병합할 최종본<br>
+>- **dev** :  각자 작업 내용을 merge 하면서 관리하는 브렌치<br>
+>- **각자의 이름 brench** : 각자 작업을 로컬에서 관리하는 브렌치<br>
+>
+<br>
+
+>**커밋 메세지 양식**<br>
+>**feat** : 새로운 기능 추가<br>
+>**fix** : 버그 수정<br>
+>**improvement** :  최적화, 접근성, 성능?<br>
+>**docs** : 마크다운 문서 수정<br>
+>**style** : 코드 포맷팅, 세미콜론 누락, CSS 수정 등<br>
+>**refactor** : 기존 코드에 대한 리펙토링을 진행<br>
+
+<br><br>
+
+---
+
 ### 댕과사전 팀원들!
 
 |Role|Name|Github|
