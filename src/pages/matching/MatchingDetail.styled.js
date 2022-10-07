@@ -129,6 +129,17 @@ export const ItemDetailInfoText = styled.div`
     max-height: 25px;
     overflow: hidden;
   }
+  .delete{
+    width: 20px;
+    right: 40px;
+    top: 20px;
+    display: flex;
+    position: absolute;
+    z-index: 300;
+    :hover{
+      width: 30px;
+    }
+  }
   @media screen and (max-width: 768px) {
     font-size: 13px;
     width: 350px;
@@ -142,6 +153,10 @@ export const ItemDetailInfoText = styled.div`
       color: black;
       position: absolute;
       left: 40%;
+    }
+    .delete{
+      left: 6%;
+      top: 1%
     }
   }
 `;
