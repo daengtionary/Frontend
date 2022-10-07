@@ -24,11 +24,11 @@
 - 커뮤니티에 자유롭게 글쓰기!
 
 
-## 프로젝트 아키텍처
+## 🐩 프로젝트 아키텍처
 ![아키텍처](https://user-images.githubusercontent.com/90291796/194321105-fa5a54bf-6540-45ab-878f-53e34b8e86cb.png)
 
 
-### STACK
+### 🦮 STACK
 <div align=center>
 <div>
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"/>
@@ -50,7 +50,7 @@
 
 ---
 
-### DEV-Tool
+### 🐕 DEV-Tool
 <div align=center>
 <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white"/>
 <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/>
@@ -58,6 +58,116 @@
 <img src="https://img.shields.io/badge/Gether Town-6476df?style=for-the-badge&logoColor=white"/>
 </div>
 
+---
+
+### 💥 Trouble Shooting
+
+<details>
+<summary> 1. 최신글 리랜더링 문제 </summary>
+<div markdown="1">
+
+<br>
+
+💢 **문제 상황**  : 기술적인 문제로 response에 Post한 게시글 내용이 내려받지 못 할 때, 유저 편의성을 위해 새로고침(화면 깜빡임) 없이 글 리젠을 해야했다.
+
+<br><br>
+  
+1️⃣ **시도 방안 1** : <br>
+useEffect 의존성 배열에 postModal 이라는 state를 추가해서 submit 함수가 실행될 때 해당스테이트를 변경하여 리랜더링을 유도하는 방법
+```javascript
+const [postModal, setPostModal] = useState(false);
+useEffect(() => {
+	dispatch(getCommunityPostListThunk(pageNum));
+	}, [pageNum, postModal]);  // 이와같이 의존성 배열에 postModal을 수정
+```
+post 를 요청하는 form 은 현재 모달로 구현한 상태였고 그래서 모달이 닫힐 때<br>
+useState(false) 의 상태가 변경 되는 것을 사용해서 리랜더링을 해보려고 했지만 의도대로 되지 않았다
+<br>
+2️⃣ **시도 방안 2** : <br>
+Redux Toolkit 모듈에 resetPosted() 리듀서 함수를 추가하고,<br>
+페이지에서 postCheck 라는 state를 만들어주고 초기값으로 1을 준다. <br>
+이후 아래와 같이 해당 state 값을 submit를 담당하는 함수에 넣었다.
+
+```javascript
+// communitySlice.js
+// ... 은 생략된 코드를 나타낸 것
+
+const communitySlice = createSlice({
+  name: "community",
+  initialState,
+  reducers: {
+  ...
+  	/** 게시글을 최신화 하기위한 리듀서 함수 */
+    resetPosted(state) {
+      state.community = initialState.community // 페이지에서 state 를 initialState 덮어 씌운다
+    }
+  },
+  ...
+
+```
+
+```javascript
+// 
+// ...는 생략된 코드
+
+// POST가 되는 걸 감지할 state
+const [postCheck, setPostCheck] = useState(1)
+
+...
+
+// SUBMIT 함수
+const onSubmitHandler = async (e) => {
+
+...
+
+  if (response.state === 200 ) {
+    modalHandler();
+    const newPostCheck = postCheck + 1	// postCheck 초기값 1dp 
+    setPostCheck(newPostCheck)			// state 변경해준다
+    alert("게시글 등록 완료!")
+  }
+};
+```
+
+새로운 useEffect 를 만들어서 의존성 배열에 위에서 만든 postCheck 상태를 넣고
+아래와 같이 작성했다.
+
+```javascript
+useEffect(()=>{
+  dispatch(resetPosted()) // 게시글을 최신화 하기위한 리듀서
+  dispatch(getCommunityPostListThunk(0)) // 모든 게시물 get해오는 Thuck 함수 
+}, [postCheck])
+```
+<br><br>
+  
+⚖️ **자체 평가** : 프로젝트 마감이 코앞이다 보니 궁여지책으로 만들어낸 방법이긴 하지만<br>
+이 방법은 아무리 생각해도 좋은 방법은 아닌것 같다.<br>
+처음 내가 언급한 것처럼 post 요청을 할때 response에 다시 내려받은 후 <br>
+redux 리듀서 함수를 사용해 스테이트 관리를 해주면 좀더 쉽게 구현할 수 있었다고 생각한다.
+
+ <br>
+
+✅ **결과** : <br>
+![tbs0001](https://user-images.githubusercontent.com/90291796/194450555-f4f97c91-bfe8-4e62-82ea-835416a48cca.gif)
+</div>
+</details>
+
+<br><br>
+
+<details>
+<summary> 2. 트러블슈팅 주제 </summary>
+<div markdown="1">
+
+  <br>
+💢 **문제 상황**  :
+  <br>
+1. **시도 방안 1** :<br>
+2. **시도 방안 2** :<br>
+
+<br>
+✅ **결과** : <br>
+</div>
+</details>
 
 ---
 
