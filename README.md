@@ -82,7 +82,8 @@ useEffect(() => {
 ```
 post 를 요청하는 form 은 현재 모달로 구현한 상태였고 그래서 모달이 닫힐 때<br>
 useState(false) 의 상태가 변경 되는 것을 사용해서 리랜더링을 해보려고 했지만 의도대로 되지 않았다
-<br>
+<br><br>
+	
 2️⃣ **시도 방안 2** : <br>
 Redux Toolkit 모듈에 resetPosted() 리듀서 함수를 추가하고,<br>
 페이지에서 postCheck 라는 state를 만들어주고 초기값으로 1을 준다. <br>
