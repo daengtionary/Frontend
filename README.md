@@ -17,11 +17,36 @@
 
 
 ## 🐕‍🦺 댕과사전 주요 기능
- ** 카카오톡 소셜 회원가입 & 로그인**  
-- 댕매칭(산책, 애견카페) 으로 우리 아이 친구 찾아주기!
-- 댕플레이스(병원, 호텔 정보) 에서 꿀팁 얻어가기!
-- 장터에서 글 쓰고 댕톡(장터 유저 간 1대1 채팅)으로 중고물품 거래하기!
-- 커뮤니티에 자유롭게 글쓰기!
+<details>
+<summary> 카카오톡 소셜 회원가입 </summary>
+<div markdown="1">	
+<br>
+</div>
+</details>
+<details>
+<summary> 댕매칭(산책, 애견카페) 으로 우리 아이 친구 찾아주기! </summary>
+<div markdown="1">	
+<br>
+</div>
+</details>
+<details>
+<summary> 댕플레이스(병원, 호텔 정보) 에서 꿀팁 얻어가기! </summary>
+<div markdown="1">	
+<br>
+</div>
+</details>
+<details>
+<summary> 장터에서 글 쓰고 댕톡(장터 유저 간 1대1 채팅)으로 중고물품 거래하기! </summary>
+<div markdown="1">	
+<br>
+</div>
+</details>
+<details>
+<summary> 커뮤니티에 자유롭게 글쓰기! </summary>
+<div markdown="1">	
+<br>
+</div>
+</details>
 
 
 ## 🐩 프로젝트 아키텍처
