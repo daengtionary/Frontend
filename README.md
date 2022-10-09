@@ -22,12 +22,14 @@
 <div markdown="1">	
 <br>
 </div>
+<img src ="https://user-images.githubusercontent.com/107938837/194747242-d90b686d-754b-4c43-b210-d7bddc0eabc4.gif" width= "300" height="180"/>
 </details>
 <details>
 <summary> 댕매칭(산책, 애견카페) 으로 우리 아이 친구 찾아주기! </summary>
 <div markdown="1">	
 <br>
 </div>
+<img src ="https://user-images.githubusercontent.com/107938837/194747282-9bf25fb1-e7a0-48e3-9eaa-a3c160fc1615.gif" width= "300" height="180"/>
 </details>
 <details>
 <summary> 댕플레이스(병원, 호텔 정보) 에서 꿀팁 얻어가기! </summary>
