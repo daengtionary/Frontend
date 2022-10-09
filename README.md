@@ -29,25 +29,28 @@
 <div markdown="1">	
 <br>
 </div>
-<img src ="https://user-images.githubusercontent.com/107938837/194747282-9bf25fb1-e7a0-48e3-9eaa-a3c160fc1615.gif" width= "300" height="180"/>
+<img src ="https://user-images.githubusercontent.com/107938837/194747597-1f97eff7-5aa1-4c5e-80be-7e82a6d2d49f.gif" width= "300" height="180"/>
 </details>
 <details>
 <summary> 댕플레이스(병원, 호텔 정보) 에서 꿀팁 얻어가기! </summary>
 <div markdown="1">	
 <br>
 </div>
+<img src ="https://user-images.githubusercontent.com/107938837/194747282-9bf25fb1-e7a0-48e3-9eaa-a3c160fc1615.gif" width= "300" height="180"/>
 </details>
 <details>
 <summary> 장터에서 글 쓰고 댕톡(장터 유저 간 1대1 채팅)으로 중고물품 거래하기! </summary>
 <div markdown="1">	
 <br>
 </div>
+<img src ="https://user-images.githubusercontent.com/107938837/194747523-51f4acff-2b25-46c2-bc03-942d26d24bab.gif" width= "300" height="180"/>
 </details>
 <details>
 <summary> 커뮤니티에 자유롭게 글쓰기! </summary>
 <div markdown="1">	
 <br>
 </div>
+<img src ="https://user-images.githubusercontent.com/107938837/194747639-c67597d5-d3e7-42c1-83e1-3bfeb62956de.gif" width= "300" height="180"/>
 </details>
 
 
