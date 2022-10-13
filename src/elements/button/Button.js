@@ -15,7 +15,6 @@ const Button = ({ type, text, style, _onClick, checked, id, img }) => {
       height={style?.height}
       ft_size={style?.ft_size}
       ft_weight={style?.ft_weight}
-      // bg_img={style?.bg_img}
       bg_color={style?.bg_color}
       color={style?.color}
       mg_top={style?.mg_top}

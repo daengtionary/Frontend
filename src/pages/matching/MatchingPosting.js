@@ -36,7 +36,6 @@ const MatchingPosting = () => {
   const [category, setCategory] = useState("");
   const [detail, setDetail] = useState("");
   const [placeInfo, setPlaceInfo] = useState("");
-  // const [placeInfo, setPlaceInfo] = useState({ data: { title: "", category: "hospital", address: "", content: "" }, imgUrl: [] });
   const [maxCount, setMaxcount] = useState();
 
   const postingData = {
@@ -49,8 +48,6 @@ const MatchingPosting = () => {
     },
     imgUrl: fileImage,
   };
-  console.log(placeInfo);
-  console.log(postingData);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -77,8 +74,6 @@ const MatchingPosting = () => {
     [fileImage, showImages]
   );
 
-  console.log(showImages);
-  console.log(fileImage);
 
   // X버튼 클릭 시 이미지 삭제
   const handleDeleteImage = (id) => {
@@ -116,8 +111,6 @@ const MatchingPosting = () => {
           addr = data.jibunAddress;
         }
 
-        console.log(addr);
-        console.log(addrRef);
         addrRef.current.value = addr;
         setPlaceInfo(addr);
       },
@@ -134,7 +127,6 @@ const MatchingPosting = () => {
   };
 
   const onSubmitHandler = () => {
-    console.log(postingData);
     dispatch(postingMatching(postingData))
       .unwrap()
       .then((res) => {
@@ -152,9 +144,7 @@ const MatchingPosting = () => {
   // 토큰 만료시간
   let exp = token && Number(decoded.exp + "000");
   let expTime = new Date(exp);
-  console.log(expTime, "만료 시간");
   let now = new Date();
-  console.log(now, "현재 시간");
   const checkToken = () => {
     if (expTime <= now || token === null) {
       token && window.sessionStorage.removeItem("authorization");

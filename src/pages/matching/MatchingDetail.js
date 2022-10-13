@@ -1,10 +1,11 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { chatApis } from '../../shared/api';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Map from '../../components/map/Map';
+import cencel from '../../static/image/cencel.png';
 
-import { getMatchingDetail } from '../../redux/modules/matchingSlice';
+import { getMatchingDetail, deleteMatchingCard } from '../../redux/modules/matchingSlice';
 
 import {
   TradeDetailAll,
@@ -40,10 +41,11 @@ SwiperCore.use([Pagination, Autoplay, Navigation]);
 
 const TradeDetail = () => {
   const [mapModal, setMapModal] = useState(false);
-  const dispatch = useDispatch();
   const { id } = useParams();
   const item = useSelector((state) => state.matching.getMatchingDetail);
-  const roomNo = item.roomNo
+  const roomNo = item.roomNo;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const modalHandler = () => {
     setMapModal(!mapModal);
@@ -56,16 +58,23 @@ const TradeDetail = () => {
   // 매칭 룸 생성
   const onClickMatching = async () => {
     try {
-      if(window.sessionStorage.length < 2)
-      {alert("로그인이 필요합니다.")}
-        else if(item.status === "마감 완료"){
-          alert("인원이 초과되었습니다.")
-        }
-       else{ await chatApis.addMatching(roomNo)
-            chatApis.intoMatching(id)
-        alert("참여 완료! 채팅아이콘을 눌러 대화에 참여해보세요:)");}
+      if (window.sessionStorage.length < 2) {
+        alert('로그인이 필요합니다.');
+      } else if (item.status === '마감 완료') {
+        alert('인원이 초과되었습니다.');
+      } else {
+        await chatApis.addMatching(roomNo);
+        chatApis.intoMatching(id);
+        alert('참여 완료! 채팅아이콘을 눌러 대화에 참여해보세요:)');
+      }
       // }
     } catch (error) {}
+  };
+
+  const deleteCard = () => {
+    window.confirm('카드를 삭제하시겠어요?');
+    dispatch(deleteMatchingCard(id));
+    navigate('/matching')
   };
 
   return (
@@ -100,6 +109,7 @@ const TradeDetail = () => {
               </span>
             </ItemNameInfoText>
             <ItemDetailInfoText>
+              <img className="delete" src={cencel} onClick={deleteCard}></img>
               <span>
                 제목<span className="sellInfo">{item.title}</span>
               </span>
@@ -115,7 +125,7 @@ const TradeDetail = () => {
               <span>
                 상세 <span className="sellInfo">{item.content}</span>
               </span>
-              
+
               <MapAddress>
                 <div style={{ display: 'flex' }}>
                   <span onClick={modalHandler}>
