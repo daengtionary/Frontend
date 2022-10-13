@@ -5,7 +5,7 @@ export const getMatching = createAsyncThunk('matching/getmatching', async (paylo
   const resData = await api
 //전체조회
     .get(
-      `/friend/?category&address&content&title&pagenum=${payload.pagenum}&pagesize=${payload.size}`
+      `/friend/?category&address&content&title&pagenum=${payload.pagenum}&pagesize=6`
     )
     .then((res) => res)
     .catch((err) => console.log(err));
@@ -21,6 +21,7 @@ export const getMatchingDetail = createAsyncThunk('matching/getmatchingDetail', 
   return thunkAPI.fulfillWithValue(resData.data.data);
 });
 
+
 export const postingMatching = createAsyncThunk('matching/postMatching', async (payload, thunkAPI) => {
   const formData = new FormData();
   formData.append(
@@ -32,9 +33,16 @@ export const postingMatching = createAsyncThunk('matching/postMatching', async (
   formData.append('imgUrl', payload.imgUrl[0]);
   formData.append('imgUrl', payload.imgUrl[1]);
   formData.append('imgUrl', payload.imgUrl[2]);
-  console.log(payload);
   const resData = await api_auth
     .post('/friend/create', formData)
+    .then((res) => res)
+    .catch((err) => console.log(err));
+  return thunkAPI.fulfillWithValue(resData.data);
+});
+
+export const deleteMatchingCard = createAsyncThunk('matching/deleteMatchingCard', async (payload, thunkAPI) => {
+  const resData = await api_auth
+    .delete( `/friend/${payload}`)
     .then((res) => res)
     .catch((err) => console.log(err));
   return thunkAPI.fulfillWithValue(resData.data);
@@ -53,7 +61,6 @@ export const matchingSlice = createSlice({
   initialState: initialState,
   reducers: {
     pageUp(state, action) {
-      console.log(action.payload);
       if (state.isEnd === false) {
         state.pageNum = state.pageNum + action.payload;
       }
@@ -65,18 +72,20 @@ export const matchingSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(getMatching.fulfilled, (state, action) => {
-      state.getMatching = [...state.getMatching, ...action.payload];
+      state.getMatching = [...state.getMatching, ...action.payload];;
     });
     builder.addCase(postingMatching.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.posts = action.payload;
-      state.isLoaded = true
+      state.isLoaded =true;
     });
     builder.addCase(getMatchingDetail.fulfilled, (state, action) => {
       state.getMatchingDetail = action.payload;
     });
+    builder.addCase(deleteMatchingCard.fulfilled, (state, action) => {
+      console.log(action.payload)
+    });
   },
 });
 
-export const { clearMatchingItem, pageUp } = matchingSlice.actions;
+export const { clearMatchingItem, pageUp, loding } = matchingSlice.actions;
 export default matchingSlice.reducer;

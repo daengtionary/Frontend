@@ -43,7 +43,6 @@ const Matching = () => {
       await dispatch(
         getMatching({
           pagenum: pageNum,
-          size: '6',
         })
       );
     }

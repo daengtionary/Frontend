@@ -2,12 +2,10 @@ import styled from "styled-components";
 import nullImg from "../../static/image/로딩-이미지.jpg";
 
 export const StyledCardBox = styled.div`
-  /* width: 20em; */
   margin: 0 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* flex: 1 1 0; */
   position: relative;
   cursor: pointer;
   :hover {
@@ -37,22 +35,16 @@ export const StyledRankBadge = styled.div`
   background: ${(props) => `url(${props.rank}) center / cover no-repeat `};
   width: 3em;
   height: 3em;
-  /* border: 3px solid #666; */
-  /* border-radius: 50%; */
   z-index: 2;
 `;
 export const StyledCardImgBox = styled.div`
   width: 18em;
   height: 18em;
   flex: 3 3;
-  /* margin: 0 1.5em; */
   overflow: hidden;
   border-radius: 20px;
   transition: transform 0.2s, border-radius 0.2s;
 
-  :hover {
-    /* border-bottom: 1px solid #797979; */
-  }
   @media screen and (max-width: 768px) {
     width: 10.5em;
     height: 10em;
@@ -77,7 +69,6 @@ export const StyledCardImg = styled.div`
 export const StyledCardTextBox = styled.div`
   width: 100%;
   padding: 0.5em 0;
-  /* flex: 1 1; */
 `;
 export const StyledCardText = styled.div`
   max-width: 200px;
