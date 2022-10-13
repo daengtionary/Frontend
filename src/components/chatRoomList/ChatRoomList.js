@@ -8,7 +8,6 @@ const ChatRoomList = () => {
   const location = useLocation();
   const nick = window.localStorage.getItem('nick');
 
-  console.log(roomList);
 
   return (
     <>

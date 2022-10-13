@@ -41,7 +41,6 @@ const TradeDetail = () => {
   const navigate = useNavigate();
 
   const item = useSelector((state) => state.trade.getTradeDetail);
-  console.log(item);
   const memberNo = item.memberNo;
 
   useEffect(() => {
@@ -66,13 +65,10 @@ const TradeDetail = () => {
   let token = window.sessionStorage.getItem('authorization');
   // 토큰 decode 하는 부분
   let decoded = token && jwtDecode(token);
-  console.log(decoded);
   // 토큰 만료시간
   let exp = token && Number(decoded.exp + '000');
   let expTime = new Date(exp);
-  console.log(expTime, '만료 시간');
   let now = new Date();
-  console.log(now, '현재 시간');
   const checkToken = () => {
     if (expTime <= now || token === null) {
       token && window.sessionStorage.removeItem('authorization');
