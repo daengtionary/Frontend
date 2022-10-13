@@ -51,8 +51,6 @@ const Detail = () => {
     dispatch(getDetailThunk(id));
   }, [dispatch]);
 
-  console.log(data.mapDetailSubResponseDto?.category === "room");
-  console.log(data.mapDetailSubResponseDto?.category === "hospital");
 
   return (
     <DetailContainer>

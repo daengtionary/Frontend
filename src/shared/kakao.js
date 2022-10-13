@@ -14,7 +14,6 @@ const Kakao = () => {
   useEffect(() => {
     const fetchCode = (code) => {
       dispatch(kakaoAuthThunk({ code })).then((resData) => {
-        console.log(resData)
         if (resData.payload.state === 200) {
           navigate('/');
         } 

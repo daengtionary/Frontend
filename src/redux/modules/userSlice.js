@@ -81,7 +81,6 @@ export const kakaoAuthThunk = createAsyncThunk(
     const resData = await api
       .get(`/member/kakao?code=${payload.code}`)
       .then((res) => res);
-      console.log(resData)
     window.sessionStorage.setItem(
       "authorization",
       resData.headers["authorization"].split(" ")[1]
