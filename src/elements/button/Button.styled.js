@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 
 export const StyledButton = styled.button`
-  /* ${(props) => (props.checked ? css`` : css``)} */
   width: ${(props) => (props.width ? props.width : "160px")};
   height: ${(props) => (props.height ? props.height : "44px")};
   font-size: ${(props) => (props.ft_size ? props.ft_size : "13px")};

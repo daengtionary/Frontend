@@ -16,7 +16,6 @@ export const SearchBarWrap = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    /* border: 1px solid red; */
     width: 45%;
     input{
       width: 100%;

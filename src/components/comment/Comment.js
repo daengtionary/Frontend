@@ -28,7 +28,6 @@ const CommentBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* flex: 1 1 0; */
 `;
 
 const CommentTextBox = styled.div`
@@ -57,7 +56,6 @@ const CommentInfoImgBox = styled.div`
   width: 50px;
   height: 50px;
   flex: 1 1;
-  /* background: #000; */
   position: relative;
 `;
 const CommentInfoImg = styled.div`

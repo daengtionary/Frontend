@@ -26,7 +26,6 @@ const ChatList = ({id}) => {
   const user = window.localStorage.getItem("nick");
 
   const messageList = useSelector((state) => state.chat.messageList);
-  console.log(messageList)
 
 
   

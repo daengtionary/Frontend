@@ -18,9 +18,6 @@ const Wrap = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  /* max-width: 1360px;
-  max-height: 1160px; */
-  /* transform: translate(-50%, -50%); */
   background-color: #00000080;
   display: flex;
 

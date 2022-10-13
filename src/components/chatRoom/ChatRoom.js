@@ -35,8 +35,6 @@ const ChatRoom = () => {
     const webSocket = new SockJS(`https://${process.env.REACT_APP_REST_API_IP}/wss/chat`);
     stompClient.current = Stomp.over(webSocket);
 
-    // STOMPJS console log 지워주는 부분
-    // stompClient.current.debug = null;
 
     stompClient.current.connect(
       {
