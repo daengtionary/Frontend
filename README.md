@@ -239,7 +239,7 @@ redux 리듀서 함수를 사용해 스테이트 관리를 해주면 좀더 쉽�
 |팀장*BE|박진우|https://github.com/Jinu0729|
 |BE|안승현|https://github.com/zemiles|
 |BE|한동훈|https://github.com/hdonghun|
-|부팀장*FE|김민석|https://github.com/cordplace|
+|부팀장*FE|김민석|https://github.com/minseokMIK|
 |FE|하병노|https://github.com/hahbr88|
 |FE|박재정|https://github.com/PARK-JAE-JEONG|
 |UX/UI|오소영||
